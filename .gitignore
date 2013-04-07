@@ -4,3 +4,13 @@
 *.jar
 *.war
 *.ear
+
+# Eclipse files #
+bin
+.classpath
+.project
+.settings
+
+# Log #
+*.log
+
