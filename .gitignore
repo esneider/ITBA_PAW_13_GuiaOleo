@@ -14,3 +14,6 @@ bin
 # Log #
 *.log
 
+# Jetty #
+.settings
+
