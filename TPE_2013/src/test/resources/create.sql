@@ -1,6 +1,5 @@
-DROP TABLE IF EXISTS users, pictures, friendRequests, friends, notifications, statuses, likes;
-
-GRANT ALL PRIVILEGES ON DATABASE paw4 to paw;
+DROP TABLE IF EXISTS users, pictures, restaurants, ratings, foodtypes;
+GRANT ALL PRIVILEGES ON DATABASE paw to paw;
 
 
 
@@ -26,8 +25,7 @@ CREATE TABLE users
     id serial,
     name varchar(50),
     surname varchar(50),
-    email varchar(50),
-    birth date,
+    mail varchar(50),
     username varchar(50),
     password char(64),
     pictureId integer,
@@ -46,112 +44,60 @@ GRANT ALL PRIVILEGES ON TABLE users_id_seq to paw;
 
 
 
-CREATE TABLE friendRequests
+CREATE TABLE restaurants
 (
     id serial,
-    fromUserId integer,
-    toUserId integer,
-    time timestamp,
+    name varchar(50),
+    address varchar(50),
+    area varchar(50),
+    telephone varchar(50),
+    website varchar(100),
+    timerange varchar(100),
+    avgprice float,
 
-    PRIMARY KEY(id),
-    FOREIGN KEY(fromUserId) REFERENCES users(id),
-    FOREIGN KEY(toUserId) REFERENCES users(id)
+    PRIMARY KEY(id)
 );
 
-CREATE UNIQUE INDEX indexFriendRequestsId on friendRequests(id);
+CREATE UNIQUE INDEX indexRestaurantsId on restaurants(id);
 
-CREATE UNIQUE INDEX indexFriendRequestsFromUserId on friendRequests(fromUserId);
+GRANT ALL PRIVILEGES ON TABLE restaurants to paw;
 
-CREATE UNIQUE INDEX indexFriendRequestsToUserId on friendRequests(toUserId);
-
-GRANT ALL PRIVILEGES ON TABLE friendRequests to paw;
-
-GRANT ALL PRIVILEGES ON TABLE friendRequests_id_seq to paw;
+GRANT ALL PRIVILEGES ON TABLE restaurants_id_seq to paw;
 
 
 
-CREATE TABLE friends
+CREATE TABLE ratings
 (
     id serial,
+    score integer,
+    comment varchar(1000),
     userId integer,
-    withUserId integer,
-
-    PRIMARY KEY(id),
-    FOREIGN KEY(userId) REFERENCES users(id),
-    FOREIGN KEY(withUserId) REFERENCES users(id)
-);
-
-CREATE UNIQUE INDEX indexFriendsId on friends(id);
-
-CREATE UNIQUE INDEX indexFriendsUserId on friends(userId);
-
-GRANT ALL PRIVILEGES ON TABLE friends to paw;
-
-GRANT ALL PRIVILEGES ON TABLE friends_id_seq to paw;
-
-
-
-CREATE TABLE notifications
-(
-    id serial,
-    fromUserId integer,
-    toUserId integer,
-    time timestamp,
-    type smallint,
-
-    PRIMARY KEY(id),
-    FOREIGN KEY(fromUserId) REFERENCES users(id),
-    FOREIGN KEY(toUserId) REFERENCES users(id)
-);
-
-CREATE UNIQUE INDEX indexNotificationsId on notifications(id);
-
-CREATE UNIQUE INDEX indexNotificationsToUserId on notifications(toUserId);
-
-GRANT ALL PRIVILEGES ON TABLE notifications to paw;
-
-GRANT ALL PRIVILEGES ON TABLE notifications_id_seq to paw;
-
-
-
-CREATE TABLE statuses
-(
-    id serial,
-    userId integer,
-    text text,
-    time timestamp,
 
     PRIMARY KEY(id),
     FOREIGN KEY(userId) REFERENCES users(id)
 );
 
-CREATE UNIQUE INDEX indexStatusesId on statuses(id);
+CREATE UNIQUE INDEX ratingsId on ratings(id);
 
-CREATE UNIQUE INDEX indexStatusesUserId on statuses(userId);
+CREATE UNIQUE INDEX ratingsUserId on notifications(userId);
 
-GRANT ALL PRIVILEGES ON TABLE statuses to paw;
+GRANT ALL PRIVILEGES ON TABLE ratings to paw;
 
-GRANT ALL PRIVILEGES ON TABLE statuses_id_seq to paw;
+GRANT ALL PRIVILEGES ON TABLE ratings_id_seq to paw;
 
 
 
-CREATE TABLE likes
+CREATE TABLE foodTypes
 (
     id serial,
-    userId integer,
-    time timestamp,
-    statusId integer,
+    name varchar(100),
 
-    PRIMARY KEY(id),
-    FOREIGN KEY(userId) REFERENCES users(id),
-    FOREIGN KEY(statusId) REFERENCES statuses(id)
+    PRIMARY KEY(id)
 );
 
-CREATE UNIQUE INDEX indexLikesId on likes(id);
+CREATE UNIQUE INDEX foodTypesId on foodTypes(id);
 
-CREATE UNIQUE INDEX indexLikesStatusId on likes(statusId);
+GRANT ALL PRIVILEGES ON TABLE foodTypes to paw;
 
-GRANT ALL PRIVILEGES ON TABLE likes to paw;
-
-GRANT ALL PRIVILEGES ON TABLE likes_id_seq to paw;
+GRANT ALL PRIVILEGES ON TABLE foodTypes_id_seq to paw;
 
