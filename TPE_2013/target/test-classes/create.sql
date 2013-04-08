@@ -43,6 +43,20 @@ GRANT ALL PRIVILEGES ON TABLE users to paw;
 GRANT ALL PRIVILEGES ON TABLE users_id_seq to paw;
 
 
+CREATE TABLE foodTypes
+(
+    id serial,
+    name varchar(100),
+
+    PRIMARY KEY(id)
+);
+
+CREATE UNIQUE INDEX foodTypesId on foodTypes(id);
+
+GRANT ALL PRIVILEGES ON TABLE foodTypes to paw;
+
+GRANT ALL PRIVILEGES ON TABLE foodTypes_id_seq to paw;
+
 
 CREATE TABLE restaurants
 (
@@ -54,11 +68,15 @@ CREATE TABLE restaurants
     website varchar(100),
     timerange varchar(100),
     avgprice float,
+    foodTypeId integer,
 
-    PRIMARY KEY(id)
+    PRIMARY KEY(id),
+    FOREIGN KEY(foodTypeId) REFERENCES foodTypes(id)
 );
 
 CREATE UNIQUE INDEX indexRestaurantsId on restaurants(id);
+
+CREATE UNIQUE INDEX restaurantsFoodTypesId on restaurants(foodTypeId);
 
 GRANT ALL PRIVILEGES ON TABLE restaurants to paw;
 
@@ -79,25 +97,9 @@ CREATE TABLE ratings
 
 CREATE UNIQUE INDEX ratingsId on ratings(id);
 
-CREATE UNIQUE INDEX ratingsUserId on notifications(userId);
+CREATE UNIQUE INDEX ratingsUserId on ratings(userId);
 
 GRANT ALL PRIVILEGES ON TABLE ratings to paw;
 
 GRANT ALL PRIVILEGES ON TABLE ratings_id_seq to paw;
-
-
-
-CREATE TABLE foodTypes
-(
-    id serial,
-    name varchar(100),
-
-    PRIMARY KEY(id)
-);
-
-CREATE UNIQUE INDEX foodTypesId on foodTypes(id);
-
-GRANT ALL PRIVILEGES ON TABLE foodTypes to paw;
-
-GRANT ALL PRIVILEGES ON TABLE foodTypes_id_seq to paw;
 
