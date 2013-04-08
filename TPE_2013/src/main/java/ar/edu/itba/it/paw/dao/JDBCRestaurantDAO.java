@@ -36,4 +36,11 @@ public class JDBCRestaurantDAO extends AbstractDAO implements RestaurantDAO {
 		}
 		return null;
 	}
+
+	@Override
+	public List<Restaurant> getAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

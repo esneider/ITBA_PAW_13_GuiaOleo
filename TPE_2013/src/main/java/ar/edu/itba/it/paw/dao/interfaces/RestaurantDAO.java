@@ -8,4 +8,6 @@ public interface RestaurantDAO {
 
 	public List<Restaurant> getBestRatedRestaurants(int cant);
 	
+	public List<Restaurant> getAll();
+	
 }

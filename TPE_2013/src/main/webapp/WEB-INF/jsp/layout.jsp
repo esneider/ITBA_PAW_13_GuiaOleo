@@ -17,7 +17,9 @@
         </div>
 
         <hr/>
-
+		<ul>
+	
+</ul>
         <div>
 			<c:import url="${documentBodyFile}" />
         </div>
