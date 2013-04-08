@@ -7,12 +7,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @SuppressWarnings("serial")
-public class IndexServlet extends BaseServlet {
+public class RegisterServlet extends BaseServlet {
 
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-
-		render(req, resp, "index.jsp", "Guia Oleo Facha");
+		// TODO Auto-generated method stub
+		super.doPost(req, resp);
 	}
-	
 }
