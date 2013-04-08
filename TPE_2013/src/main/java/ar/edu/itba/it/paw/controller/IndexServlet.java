@@ -10,7 +10,6 @@ public class IndexServlet extends BaseServlet {
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		System.out.println("holis");
 		render(req, resp, "/WEB-INF/jsp/index.jsp", "Guia Oleo Facha");
 	}
 	
