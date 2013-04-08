@@ -8,11 +8,11 @@
     </head>
     <body>
         <div>
-            <h1>Guia Oleo Facha</h1>
+            <h1>Listado Restaurantes</h1>
             <ul>
-            	<li><a href='register'>Register</a></li>
-            	<li><a href='login'>Login</a></li>
-            	<li><a href='list'>See all restaurants</a></li>
+            	<li><a href='register'>Restaurant 1</a></li>
+            	<li><a href='login'>Restaurant 2</a></li>
+            	<li><a href='list'>Restaurant 3</a></li>
             </ul>
         </div>
 
