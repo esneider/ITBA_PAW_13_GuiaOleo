@@ -12,7 +12,7 @@ public class ListRestaurantServlet extends BaseServlet {
 			throws ServletException, IOException {
 		System.out.println("Listado Resutarantes");
 		render(req, resp, "/WEB-INF/jsp/index.jsp", "Guia Oleo Facha");
-		req.setAttribute("restaurants", manager.getAll());
+		//req.setAttribute("restaurants", manager.getAll());
 		req.getRequestDispatcher("/WEB-INF/jsp/list.jsp").forward(req, resp);
 	}
 }

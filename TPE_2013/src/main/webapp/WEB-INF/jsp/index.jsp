@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <ul>
 	<c:forEach var="foodtype" items="${foodTypesList}">
 		<li><a href="list?query='foodtypes'&id='${foodtype.id}'">${foodtype.name}(${foodtype.ammount})</a></li>

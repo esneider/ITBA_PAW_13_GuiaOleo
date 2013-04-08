@@ -69,6 +69,8 @@ CREATE TABLE restaurants
     timerange varchar(100),
     avgprice float,
     foodTypeId integer,
+    avgScore float,
+    cantRatings integer,
 
     PRIMARY KEY(id),
     FOREIGN KEY(foodTypeId) REFERENCES foodTypes(id)
@@ -90,14 +92,18 @@ CREATE TABLE ratings
     score integer,
     comment varchar(1000),
     userId integer,
+    restaurantId integer,
 
     PRIMARY KEY(id),
-    FOREIGN KEY(userId) REFERENCES users(id)
+    FOREIGN KEY(userId) REFERENCES users(id),
+    FOREIGN KEY(restaurantId) REFERENCES restaurants(id)
 );
 
 CREATE UNIQUE INDEX ratingsId on ratings(id);
 
 CREATE UNIQUE INDEX ratingsUserId on ratings(userId);
+
+CREATE UNIQUE INDEX ratingsRestaurantId on ratings(restaurantId);
 
 GRANT ALL PRIVILEGES ON TABLE ratings to paw;
 

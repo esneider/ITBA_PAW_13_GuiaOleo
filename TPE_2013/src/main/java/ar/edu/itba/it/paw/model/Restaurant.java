@@ -4,12 +4,13 @@ import java.util.List;
 
 public class Restaurant extends AbstractModel {
 
-	List<FoodType> foodtypes;
+	FoodType foodtype;
 	private String name, address, area, telephone, website, timerange;
-	private float avgprice;
+	private float avgprice, avgscore;
+	private int ratings;
 	
 	public Restaurant(int id, String name, String address, String area,
-			String telephone, String website, String timerange, float avgprice) {
+			String telephone, String website, String timerange, float avgprice, float avgscore, int ratings) {
 		super(id);
 		this.name = name;
 		this.address = address;
@@ -18,6 +19,8 @@ public class Restaurant extends AbstractModel {
 		this.website = website;
 		this.timerange = timerange;
 		this.avgprice = avgprice;
+		this.avgscore = avgscore;
+		this.ratings = ratings;
 	}
 	
 	
