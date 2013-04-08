@@ -9,9 +9,14 @@
     <body>
         <div>
             <h1>Guia Oleo Facha</h1>
+            <ul>
+            	<li><a href='register'>Register</a></li>
+            	<li><a href='login'>Login</a></li>
+            	<li><a href='list'>See all restaurants</a></li>
+            </ul>
         </div>
 
-        <hr />
+        <hr/>
 
         <div>
 <c:import url="${documentBodyFile}" />
