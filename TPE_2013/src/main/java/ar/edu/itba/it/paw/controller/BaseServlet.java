@@ -28,7 +28,7 @@ public abstract class BaseServlet extends HttpServlet {
 		req.setAttribute("documentBodyFile", file);
 		req.setAttribute("basePath", req.getContextPath());
 
-		req.getRequestDispatcher("layout.jsp").forward(req, resp);
+		req.getRequestDispatcher("/WEB-INF/jsp/layout.jsp").forward(req, resp);
 	}
 
 	protected void setLoggedInUser(HttpServletRequest req, User user) {

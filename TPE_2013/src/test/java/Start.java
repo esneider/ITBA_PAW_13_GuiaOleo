@@ -14,7 +14,7 @@ public class Start {
 		server.setConnectors(new Connector[] { connector });
 		WebAppContext bb = new WebAppContext();
 		bb.setServer(server);
-		bb.setContextPath("/HotelApp");
+		bb.setContextPath("/paw");
 		bb.setWar("src/main/webapp");
 		server.addHandler(bb);
 		try {
