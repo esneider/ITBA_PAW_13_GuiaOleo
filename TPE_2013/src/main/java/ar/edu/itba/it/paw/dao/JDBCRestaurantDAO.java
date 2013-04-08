@@ -24,11 +24,7 @@ public class JDBCRestaurantDAO extends AbstractDAO implements RestaurantDAO {
 		List<Restaurant> ls = new ArrayList<Restaurant>();
 		try {
 			while (rs.next()) {
-				ls.add(new Restaurant(rs.getInt("id"), rs.getString("name"), rs
-						.getString("address"), rs.getString("area"), rs
-						.getString("telephone"), rs.getString("website"), rs
-						.getString("timerange"), rs.getFloat("avgprice"), rs
-						.getFloat("avgscore"), rs.getInt("ratings")));
+				ls.add(getRestaurant(rs));
 			}
 			return ls;
 		} catch (SQLException e) {
@@ -37,10 +33,21 @@ public class JDBCRestaurantDAO extends AbstractDAO implements RestaurantDAO {
 		return null;
 	}
 
-	@Override
 	public List<Restaurant> getAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	private Restaurant getRestaurant(ResultSet rs) {
+		try {
+			return new Restaurant(rs.getInt("id"), rs.getString("name"),
+					rs.getString("address"), rs.getString("area"),
+					rs.getString("telephone"), rs.getString("website"),
+					rs.getString("timerange"), rs.getFloat("avgprice"),
+					rs.getFloat("avgscore"), rs.getInt("ratings"));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }
