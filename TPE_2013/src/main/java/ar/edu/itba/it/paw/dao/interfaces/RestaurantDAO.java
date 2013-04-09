@@ -10,4 +10,6 @@ public interface RestaurantDAO {
 	
 	public List<Restaurant> getAll();
 	
+	public Restaurant getSingleRestaurant(int id);
+	
 }

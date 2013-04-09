@@ -26,7 +26,7 @@ public class ListRestaurantServlet extends BaseServlet {
 				"webssdsite", "timerandsge", 32500, 10, 200));
 		// req.setAttribute("restaurantList", r.getAll());
 		req.setAttribute("restaurantList", lr);
-		render(req, resp, "/WEB-INF/jsp/list.jsp", "Lista de Restaurantes");
+		render(req, resp, "list.jsp", "Lista de Restaurantes");
 
 	}
 

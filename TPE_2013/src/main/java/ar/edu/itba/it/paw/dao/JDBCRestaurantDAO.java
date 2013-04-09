@@ -35,7 +35,17 @@ public class JDBCRestaurantDAO extends AbstractDAO implements RestaurantDAO {
 	}
 
 	public List<Restaurant> getAll() {
-		// TODO Auto-generated method stub
+		
+		ResultSet rs = executeQuery("SELECT * FROM restaurants");
+		List<Restaurant> ls = new ArrayList<Restaurant>();
+		try {
+			while (rs.next()) {
+				ls.add(getRestaurant(rs));
+			}
+			return ls;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 
@@ -50,5 +60,17 @@ public class JDBCRestaurantDAO extends AbstractDAO implements RestaurantDAO {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	@Override
+	public Restaurant getSingleRestaurant(int id) {
+		ResultSet rs = executeQuery("SELECT * FROM restaurants WHERE id = ?",id);
+		try {
+			rs.next();
+			return getRestaurant(rs);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	  return null;
 	}
 }

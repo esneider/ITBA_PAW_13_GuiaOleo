@@ -2,8 +2,8 @@
 <div class=restlist>
 <ul>
 	<c:forEach var="restaurant" items="${restaurantList}">
-		<li> Restaurante:  <a href="view?query=restaurant&id='${restaurant.id}'">${restaurant.name}</a></li>
-	   </br> ${restaurant.area}
+		<li> Restaurante:  <a href="view?id=${restaurant.id}">${restaurant.name}</a></li>
+	   </br> 
 	</c:forEach>
 </ul>
 <hr/>
