@@ -14,7 +14,6 @@ public class RestaurantDetailServlet extends BaseServlet {
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		System.out.println("Restaurant List");
 		RestaurantDAO r = JDBCRestaurantDAO.getInstance();
 		int id = Integer.valueOf(req.getParameter("id"));
 		req.setAttribute("restaurant", r.getSingleRestaurant(id));
