@@ -47,6 +47,7 @@ CREATE TABLE foodTypes
 (
     id serial,
     name varchar(100),
+    ammount integer,
 
     PRIMARY KEY(id)
 );
@@ -78,8 +79,6 @@ CREATE TABLE restaurants
 
 CREATE UNIQUE INDEX indexRestaurantsId on restaurants(id);
 
-CREATE UNIQUE INDEX restaurantsFoodTypesId on restaurants(foodTypeId);
-
 GRANT ALL PRIVILEGES ON TABLE restaurants to paw;
 
 GRANT ALL PRIVILEGES ON TABLE restaurants_id_seq to paw;
@@ -100,10 +99,6 @@ CREATE TABLE ratings
 );
 
 CREATE UNIQUE INDEX ratingsId on ratings(id);
-
-CREATE UNIQUE INDEX ratingsUserId on ratings(userId);
-
-CREATE UNIQUE INDEX ratingsRestaurantId on ratings(restaurantId);
 
 GRANT ALL PRIVILEGES ON TABLE ratings to paw;
 

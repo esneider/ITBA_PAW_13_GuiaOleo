@@ -21,10 +21,10 @@ System.out.println("Restaurant List");
 RestaurantDAO r = JDBCRestaurantDAO.getInstance();
 int id = Integer.valueOf(req.getParameter("id"));
 System.out.println(id);
-// req.setAttribute("restaurant", r.getRestaurant(id));
+req.setAttribute("restaurant", r.getSingleRestaurant(id));
 
-Restaurant deleteme = new Restaurant(id, "Prueba", "address", "area", "telephone", "website", "timerange", 1, 2, 3);
-req.setAttribute("restaurant", deleteme);
+//Restaurant deleteme = new Restaurant(id, "Prueba", "address", "area", "telephone", "website", "timerange", 1, 2, 3);
+//req.setAttribute("restaurant", deleteme);
 render(req, resp, "view.jsp", "SimpleRestaurant");
 
 }

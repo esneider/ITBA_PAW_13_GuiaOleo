@@ -8,7 +8,7 @@
     </head>
     <body>
         <div>
-            <h1>Guia Oleo Facha</h1>
+            <h1><a href='index'>Guia Oleo Facha</a></h1>
             <ul>
             	<li><a href='register'>Register</a></li>
             	<li><a href='login'>Login</a></li>
@@ -17,9 +17,6 @@
         </div>
 
         <hr/>
-		<ul>
-	
-</ul>
         <div>
 			<c:import url="${documentBodyFile}" />
         </div>

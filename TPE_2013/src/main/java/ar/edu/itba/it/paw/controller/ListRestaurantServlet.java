@@ -19,13 +19,12 @@ public class ListRestaurantServlet extends BaseServlet {
 			throws ServletException, IOException {
 		System.out.println("Restaurant List");
 		RestaurantDAO r = JDBCRestaurantDAO.getInstance();
-		List<Restaurant> lr = new ArrayList<Restaurant>();
-		lr.add(new Restaurant(0, "Test1", "Address", "area", "telephone",
+		//List<Restaurant> lr = new ArrayList<Restaurant>();
+		/*lr.add(new Restaurant(0, "Test1", "Address", "area", "telephone",
 				"website", "timerange", 320, 10, 100));
 		lr.add(new Restaurant(1, "Test2", "Addrdss", "areas", "telepsahone",
-				"webssdsite", "timerandsge", 32500, 10, 200));
-		// req.setAttribute("restaurantList", r.getAll());
-		req.setAttribute("restaurantList", lr);
+				"webssdsite", "timerandsge", 32500, 10, 200));*/
+		req.setAttribute("restaurantList", r.getAll());
 		render(req, resp, "list.jsp", "Lista de Restaurantes");
 
 	}
