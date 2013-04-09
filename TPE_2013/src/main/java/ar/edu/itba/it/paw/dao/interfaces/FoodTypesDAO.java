@@ -8,4 +8,6 @@ public interface FoodTypesDAO {
 
 	public List<FoodType> getAll();
 	
+	public FoodType getSingleFoodType(int id);
+	
 }

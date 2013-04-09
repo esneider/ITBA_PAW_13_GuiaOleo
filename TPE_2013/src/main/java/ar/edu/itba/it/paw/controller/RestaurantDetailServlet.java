@@ -1,8 +1,6 @@
 package ar.edu.itba.it.paw.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -10,7 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import ar.edu.itba.it.paw.dao.JDBCRestaurantDAO;
 import ar.edu.itba.it.paw.dao.interfaces.RestaurantDAO;
-import ar.edu.itba.it.paw.model.Restaurant;
 
 @SuppressWarnings("serial")
 public class RestaurantDetailServlet extends BaseServlet {
