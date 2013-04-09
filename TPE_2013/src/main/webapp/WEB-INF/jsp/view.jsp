@@ -15,9 +15,18 @@
 		<li><strong>Cantidad de puntuaciones:</strong> ${restaurant.ratings}</li>
 	</ul>
 	<hr/>
-	Comment this restaurant:
+	<h4>Comment this restaurant:</h4>
 		<form action='view' method='post'>
-			<input type='textarea' name='comment'/>
+			Rating:<br>
+			1<input type="radio" name="restaurant_rating" value="1"/>
+			2<input type="radio" name="restaurant_rating" value="2"/>
+			3<input type="radio" name="restaurant_rating" value="3"/>
+			4<input type="radio" name="restaurant_rating" value="4"/>
+			5<input type="radio" name="restaurant_rating" value="5"/>
+			<br><br>
+			Comment:<br>
+			<textarea rows="3" cols="50" name="comment"></textarea>
+			<br><br>
 			<input type='hidden' name='id' value='${restaurant.id}'/>
 			<input type='submit' value='Send'/>
 		</form>
