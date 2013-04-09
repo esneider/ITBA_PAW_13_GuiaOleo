@@ -13,24 +13,20 @@ import ar.edu.itba.it.paw.dao.interfaces.RestaurantDAO;
 import ar.edu.itba.it.paw.model.Restaurant;
 
 @SuppressWarnings("serial")
-public class RestaurantDetailServlet extends BaseServlet{
+public class RestaurantDetailServlet extends BaseServlet {
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-	throws ServletException, IOException {
-System.out.println("Restaurant List");
-RestaurantDAO r = JDBCRestaurantDAO.getInstance();
-int id = Integer.valueOf(req.getParameter("id"));
-System.out.println(id);
-req.setAttribute("restaurant", r.getSingleRestaurant(id));
+			throws ServletException, IOException {
+		System.out.println("Restaurant List");
+		RestaurantDAO r = JDBCRestaurantDAO.getInstance();
+		int id = Integer.valueOf(req.getParameter("id"));
+		req.setAttribute("restaurant", r.getSingleRestaurant(id));
+		render(req, resp, "view.jsp", "SimpleRestaurant");
 
-//Restaurant deleteme = new Restaurant(id, "Prueba", "address", "area", "telephone", "website", "timerange", 1, 2, 3);
-//req.setAttribute("restaurant", deleteme);
-render(req, resp, "view.jsp", "SimpleRestaurant");
+	}
 
-}
-
-protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-	throws ServletException, IOException {
-doGet(req, resp);
-}
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		doGet(req, resp);
+	}
 }

@@ -1,6 +1,5 @@
 package ar.edu.itba.it.paw.model;
 
-import java.util.List;
 
 public class Restaurant extends AbstractModel {
 

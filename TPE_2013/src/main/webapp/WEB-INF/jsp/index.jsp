@@ -8,7 +8,7 @@
 <hr/>
 <ul>
 	<c:forEach var="restaurant" items="${bestRestaurants}">
-		<li><a href="view?&id=${restaurant.id}">${restaurant.name}(${restaurant.avgScore})</a></li>
+		<li><a href="view?&id=${restaurant.id}">${restaurant.name} (${restaurant.avgScore})</a></li>
 	</c:forEach>
 </ul>
 <div>
