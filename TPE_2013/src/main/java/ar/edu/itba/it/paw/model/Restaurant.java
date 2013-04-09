@@ -26,9 +26,13 @@ public class Restaurant extends AbstractModel {
 	public String getName() {
 		return name;
 	}
-
-	public void setName(String name) {
-		this.name = name;
+	
+	public float getAvgScore(){
+		return avgscore;
+	}
+	
+	public int getRatings() {
+		return ratings;
 	}
 	
 	

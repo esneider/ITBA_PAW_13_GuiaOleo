@@ -20,7 +20,7 @@ public class JDBCRestaurantDAO extends AbstractDAO implements RestaurantDAO {
 
 	public List<Restaurant> getBestRatedRestaurants(int cant) {
 		ResultSet rs = executeQuery("SELECT * FROM restaurants "
-				+ "ORDER BY avgscore dec " + "LIMIT ?", cant);
+				+ "ORDER BY avgscore desc " + "LIMIT ?", cant);
 		List<Restaurant> ls = new ArrayList<Restaurant>();
 		try {
 			while (rs.next()) {
@@ -28,6 +28,7 @@ public class JDBCRestaurantDAO extends AbstractDAO implements RestaurantDAO {
 			}
 			return ls;
 		} catch (SQLException e) {
+			System.out.println("Holis");
 			e.printStackTrace();
 		}
 		return null;
@@ -44,7 +45,7 @@ public class JDBCRestaurantDAO extends AbstractDAO implements RestaurantDAO {
 					rs.getString("address"), rs.getString("area"),
 					rs.getString("telephone"), rs.getString("website"),
 					rs.getString("timerange"), rs.getFloat("avgprice"),
-					rs.getFloat("avgscore"), rs.getInt("ratings"));
+					rs.getFloat("avgscore"), rs.getInt("cantratings"));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

@@ -22,16 +22,16 @@ public abstract class AbstractDAO {
 			for(i = 0; i < parameters.length; i++) {
 				Object param = parameters[i];
 				if (param instanceof String) 
-					sql.setString(i, (String)param);
+					sql.setString(i+1, (String)param);
 				if (param instanceof Integer) 
-					sql.setInt(i, (Integer)param);
+					sql.setInt(i+1, (Integer)param);
 				if (param instanceof Float) 
-					sql.setFloat(i, (Float)param);
+					sql.setFloat(i+1, (Float)param);
 				if (param instanceof Boolean) 
-					sql.setBoolean(i, (Boolean)param);
+					sql.setBoolean(i+1, (Boolean)param);
+			}
 				ResultSet rs = sql.executeQuery();
 				return rs;
-			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
