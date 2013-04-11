@@ -1,11 +1,47 @@
 package ar.edu.itba.it.paw.manager;
 
-public interface UserManager {
-		
-	public boolean existsUser();
+import ar.edu.itba.it.paw.dao.interfaces.UserDAO;
+import ar.edu.itba.it.paw.model.User;
+
+public class UserManager {
+
+	private static UserManager self = null;
+	private UserDAO userDAO;
 	
-	public void resetUser(int id);
+	private UserManager(UserDAO userDAO) {
+		
+		this.userDAO = userDAO;
+	}
 
-	public void setUser(int id);
+	public synchronized static UserManager getInstance() {
+		
+		if (self == null) {
+			self = new UserManager(null);
+		}
+		
+		return self;
+	}
 
+	public boolean existsUser() {
+
+		return false;
+	}
+
+	public void resetUser(int id) {
+
+		
+	}
+
+	public void setUser(int id) {
+
+		
+	}
+
+	public User login(String username, String password) {
+
+		
+		return null;
+	}
+
+	
 }
