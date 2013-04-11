@@ -1,5 +1,6 @@
 package ar.edu.itba.it.paw.model;
 
+import java.util.List;
 
 public class Restaurant extends AbstractModel {
 
@@ -7,10 +8,9 @@ public class Restaurant extends AbstractModel {
 	private String name, address, area, telephone, website, timerange;
 	private float avgprice, avgscore;
 	private int ratings;
-
+	
 	public Restaurant(int id, String name, String address, String area,
-			String telephone, String website, String timerange, float avgprice,
-			float avgscore, int ratings, FoodType foodtype) {
+			String telephone, String website, String timerange, float avgprice, float avgscore, int ratings, FoodType foodtype) {
 		super(id);
 		this.name = name;
 		this.address = address;
@@ -23,15 +23,6 @@ public class Restaurant extends AbstractModel {
 		this.ratings = ratings;
 		this.foodtype = foodtype;
 	}
-
-	public String getName() {
-		return name;
-	}
-	
-	public float getAvgScore(){
-		return avgscore;
-	}
-	
 
 	public FoodType getFoodtype() {
 		return foodtype;
@@ -65,8 +56,17 @@ public class Restaurant extends AbstractModel {
 		return avgscore;
 	}
 
+	public String getName() {
+		return name;
+	}
+	
+	public float getAvgScore(){
+		return avgscore;
+	}
+	
 	public int getRatings() {
 		return ratings;
 	}
-
+	
+	
 }
