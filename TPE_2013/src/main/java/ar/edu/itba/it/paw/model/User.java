@@ -13,5 +13,4 @@ public class User extends AbstractModel {
 		this.username = username;
 		this.password = password;
 	}
-
 }

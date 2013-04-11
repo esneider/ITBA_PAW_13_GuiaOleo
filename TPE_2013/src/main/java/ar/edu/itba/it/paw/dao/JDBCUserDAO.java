@@ -1,6 +1,7 @@
 package ar.edu.itba.it.paw.dao;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import ar.edu.itba.it.paw.dao.interfaces.UserDAO;
 import ar.edu.itba.it.paw.model.User;
@@ -8,11 +9,11 @@ import ar.edu.itba.it.paw.model.User;
 public class JDBCUserDAO extends AbstractDAO implements UserDAO {
 
 	private static UserDAO self = null;
-	
+
 	public synchronized static UserDAO getInstance() {
-	
+
 		if (self == null) {
-			
+
 			self = new JDBCUserDAO();
 		}
 
@@ -21,16 +22,31 @@ public class JDBCUserDAO extends AbstractDAO implements UserDAO {
 
 	public User login(String username, String password) {
 
-		ResultSet rs = executeQuery("SELECT * FROM users WHERE username = ? AND password = ?", username, password);
+		ResultSet rs = executeQuery(
+				"SELECT * FROM users WHERE username = ? AND password = ?",
+				username, password);
 
 		try {
 			if (!rs.next()) {
 				return null;
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
+			return null;
 		}
-		
-		return null;
+
+		return newUser(rs);
+	}
+
+	private User newUser(ResultSet rs) {
+
+		try {
+			return new User(rs.getInt("id"), rs.getString("name"),
+					rs.getString("surname"), rs.getString("mail"),
+					rs.getString("username"), rs.getString("password"));
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 }

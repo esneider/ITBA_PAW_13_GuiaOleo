@@ -1,5 +1,6 @@
 package ar.edu.itba.it.paw.manager;
 
+import ar.edu.itba.it.paw.dao.JDBCUserDAO;
 import ar.edu.itba.it.paw.dao.interfaces.UserDAO;
 import ar.edu.itba.it.paw.model.User;
 
@@ -16,7 +17,7 @@ public class UserManager {
 	public synchronized static UserManager getInstance() {
 		
 		if (self == null) {
-			self = new UserManager(null);
+			self = new UserManager(JDBCUserDAO.getInstance());
 		}
 		
 		return self;
@@ -39,8 +40,7 @@ public class UserManager {
 
 	public User login(String username, String password) {
 
-		
-		return null;
+		return userDAO.login(username, password);
 	}
 
 	

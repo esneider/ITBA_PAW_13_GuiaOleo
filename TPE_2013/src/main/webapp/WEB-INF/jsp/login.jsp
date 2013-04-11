@@ -1,14 +1,30 @@
 <div class="login-container">
 	<div class="login">
+		<c:if test="${not empty invalidUser}">
+			<p class="error">Incorrect user or password.</p>
+		</c:if>
 		<form class="login-form" action="login" method="POST">
 			<div class="username">
 				<label>User:</label>
 				<input type="text" name="username">
+				<c:if test="${usernameEmpty}">
+					<p class="error">You have to provide a username.</p>
+				</c:if>
+				<c:if test="${usernameBadLength}">
+					<p class="error">The username is too long.</p>
+				</c:if>
 			</div>
 			<div class="password">
 				<label>Password:</label>
 				<input type="text" name="password">
+				<c:if test="${passwordEmpty}">
+					<p class="error">You have to provide a password.</p>
+				</c:if>
+				<c:if test="${passwordBadLength}">
+					<p class="error">The password is too long.</p>
+				</c:if>
 			</div>
+			<input type="submit" value="Login">
 		</form>
 	</div>
 	
@@ -32,10 +48,11 @@
 				<label>Full name:</label>
 				<input type="text" name="name">
 			</div>
-			<div class="email">
+			<div class="mail">
 				<label>Email:</label>
-				<input type="text" name="email">
+				<input type="text" name="mail">
 			</div>
+			<input type="submit" value="Register">
 		</form>
 	</div>
 </div>
