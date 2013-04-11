@@ -86,4 +86,26 @@ public class JDBCRestaurantDAO extends AbstractDAO implements RestaurantDAO {
 		return null;
 	}
 
+	@Override
+	public List<Restaurant> getRestaurantsByFoodtype(int id) {
+		
+		ResultSet rs = executeQuery("SELECT restaurants.*, "
+				+ "foodtypes.id AS fid, foodtypes.name AS fname, foodtypes.ammount AS fammount "
+				+ "FROM restaurants JOIN foodtypes "
+				+ "ON restaurants.foodTypeId = foodtypes.id "
+				+ "WHERE foodtypes.id = ?",id);
+		
+			
+		List<Restaurant> ls = new ArrayList<Restaurant>();
+		try {
+			while (rs.next()) {
+				ls.add(getRestaurant(rs));
+			}
+			return ls;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 }
