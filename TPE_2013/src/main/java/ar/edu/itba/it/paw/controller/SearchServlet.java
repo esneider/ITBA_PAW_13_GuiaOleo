@@ -1,37 +1,27 @@
 package ar.edu.itba.it.paw.controller;
 
 import java.io.IOException;
+//import java.util.Calendar;
+//import java.util.GregorianCalendar;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import ar.edu.itba.it.paw.dao.JDBCRestaurantDAO;
 import ar.edu.itba.it.paw.dao.interfaces.RestaurantDAO;
+import ar.edu.itba.it.paw.model.User;
 
 @SuppressWarnings("serial")
-public class ListRestaurantServlet extends BaseServlet {
+public class SearchServlet extends BaseServlet {
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-
-		String query = req.getParameter("query");
-
-		if (query == null) {
-			render(req, resp, "error.jsp", "404 NOT FOUND");
-			return;
-		}
 		RestaurantDAO r = JDBCRestaurantDAO.getInstance();
-
-		if (query.compareTo("all") == 0) {
-			req.setAttribute("restaurantList", r.getAll());
-
-		} else if (query.compareTo("foodtypes") == 0) {
-			int foodtypeid = Integer.valueOf(req.getParameter("id"));
-			req.setAttribute("restaurantList",
-					r.getRestaurantsByFoodtype(foodtypeid));
-		}
-		render(req, resp, "list.jsp", "Lista de Restaurantes");
+		String query = req.getParameter("query");
+		req.setAttribute("restaurantList", r.getRestaurantsByQuery(query));
+		render(req, resp, "list.jsp", "Resultado de la busqueda");
 
 	}
 

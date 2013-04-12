@@ -13,5 +13,7 @@ public interface RestaurantDAO {
 	public Restaurant getSingleRestaurant(int id);
 
 	public List<Restaurant> getRestaurantsByFoodtype(int id);
+
+	public List<Restaurant> getRestaurantsByQuery(String query);
 	
 }
