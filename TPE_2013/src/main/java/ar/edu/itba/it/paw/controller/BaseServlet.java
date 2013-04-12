@@ -28,6 +28,10 @@ public abstract class BaseServlet extends HttpServlet {
 		req.setAttribute("documentBodyFile", "/WEB-INF/jsp/" + file);
 		req.setAttribute("basePath", req.getContextPath());
 
+		if (isLoggedIn(req)) {
+			req.setAttribute("user", getLoggedInUser(req));
+		}
+		
 		req.getRequestDispatcher("/WEB-INF/jsp/layout.jsp").forward(req, resp);
 	}
 
@@ -39,8 +43,8 @@ public abstract class BaseServlet extends HttpServlet {
 		return req.getSession().getAttribute("userId") != null;
 	}
 
-	protected User getLoggedInUser(HttpServletRequest req) {
-		return (User) req.getAttribute("user");
+	protected int getLoggedInUser(HttpServletRequest req) {
+		return (Integer)req.getSession().getAttribute("userId");
 	}
 
 	protected void logout(HttpServletRequest req, HttpServletResponse resp) {

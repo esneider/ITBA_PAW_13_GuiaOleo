@@ -39,7 +39,6 @@ public class UserManager {
 	}
 
 	public User login(String username, String password) {
-
 		return userDAO.login(username, password);
 	}
 

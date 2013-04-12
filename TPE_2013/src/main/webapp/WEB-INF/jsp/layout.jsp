@@ -12,8 +12,13 @@
             <ul>
             	<li><a href='register'>Register</a></li>
             	<li><a href='login'>Login</a></li>
-            	<li><a href='list'>See all restaurants</a></li>
+            	<li><a href='list?query=all'>See all restaurants</a></li>
             </ul>
+            <hr/>
+            <form action='search' method='get'>
+            	<input type='text' name='query'/>
+            	<input type='submit' value='Send'/>
+            </form>
         </div>
 
         <hr/>
