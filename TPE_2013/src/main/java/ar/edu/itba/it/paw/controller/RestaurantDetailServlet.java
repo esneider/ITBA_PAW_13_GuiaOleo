@@ -32,11 +32,15 @@ public class RestaurantDetailServlet extends BaseServlet {
 		if (rid != null) {
 			rest = JDBCRestaurantDAO.getInstance().getSingleRestaurant(Integer.valueOf(rid));
 			if (rest != null) {
+				
+				JDBCRatingsDAO.getInstance();
+				
 				Rating rate = new Rating(Integer.valueOf((String)req.getParameter("restaurant_rating")), 
 						(String)req.getParameter("comment"), new User(getLoggedInUser(req), "", "", "", "", ""), rest);
 				JDBCRatingsDAO.getInstance().insertSingleRating(rate);
 				req.setAttribute("restaurant", rest);
 				render(req, resp, "view.jsp", "SimpleRestaurant");
+			
 			}
 		}
 	}

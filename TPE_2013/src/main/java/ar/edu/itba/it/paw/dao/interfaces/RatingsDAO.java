@@ -6,4 +6,6 @@ public interface RatingsDAO {
 
 	public boolean insertSingleRating(Rating r);
 	
+	
+	
 }

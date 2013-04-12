@@ -4,7 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import ar.edu.itba.it.paw.manager.ConnectionManager;
+import ar.edu.itba.it.paw.database.ConnectionManager;
 
 public abstract class AbstractDAO {
 	
