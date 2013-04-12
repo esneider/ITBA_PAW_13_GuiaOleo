@@ -23,20 +23,23 @@ public class LoginServlet extends BaseServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 
-		boolean check = checkParameter(req, "username", 0, 50) &&
-				        checkParameter(req, "password", 0, 64);
+		boolean check = true;
+		check &= checkParameter(req, "loginUsername", 0, 50);
+		check &= checkParameter(req, "loginPassword", 0, 64);
+
+		String username = req.getParameter("loginUsername");
+		String password = req.getParameter("loginPassword");
+
+		req.setAttribute("loginUsername", username);
 
 		if (check) {
 			
-			String username = req.getParameter("username");
-			String password = req.getParameter("password");
-	
 			User user = UserManager.getInstance().login(username, password);
 	
 			if (user != null) {
 	
 				setLoggedInUser(req, user);
-				resp.sendRedirect("");
+				resp.sendRedirect("index");
 	
 			} else {
 	
