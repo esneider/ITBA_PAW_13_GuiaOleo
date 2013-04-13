@@ -7,4 +7,8 @@ public interface UserDAO {
 	public User login(String username, String password);
 	
 	public User getSingleUser(int id);
+
+	public User register(User user);
+
+	public boolean usernameExists(String username);
 }

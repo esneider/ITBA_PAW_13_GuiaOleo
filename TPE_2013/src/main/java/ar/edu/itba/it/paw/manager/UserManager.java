@@ -39,11 +39,21 @@ public class UserManager {
 	}
 
 	public User login(String username, String password) {
+		
 		return userDAO.login(username, password);
 	}
 	
 	public User getSingleUser (int id) {
 		return userDAO.getSingleUser(id);
+	}
+
+	public User register(String name, String surname, String mail, String username, String password) {
+
+		if (userDAO.usernameExists(username)) {
+			return null;
+		}
+
+		return userDAO.register(new User(name, surname, mail, username, password));
 	}
 
 	

@@ -38,6 +38,32 @@ public class JDBCUserDAO extends AbstractDAO implements UserDAO {
 		return newUser(rs);
 	}
 
+	@Override
+	public User register(User user) {
+
+		execute("INSERT INTO users (name, surname, mail, username, password) VALUES (?, ?, ?, ?, ?)",
+				user.getName(), user.getSurname(), user.getMail(), user.getUsername(), user.getPassword());
+
+		return login(user.getUsername(), user.getPassword());
+	}
+	
+	@Override
+	public boolean usernameExists(String username) {
+
+		ResultSet rs = executeQuery("SELECT id FROM users WHERE username = ?", username);
+
+		try {
+			if (!rs.next()) {
+				return false;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+
+		return true;
+	}
+	
 	private User newUser(ResultSet rs) {
 
 		try {
