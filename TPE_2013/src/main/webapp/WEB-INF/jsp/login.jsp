@@ -42,10 +42,13 @@
 				<input type="text" name="registerUsername" value="${fn:escapeXml(registerUsername)}">
 
 				<c:if test="${registerUsernameEmpty}">
-					<p class="error">You have to provide a username.</p>
+					<p class="error">You have to provide a user name.</p>
 				</c:if>
 				<c:if test="${registerUsernameBadLength}">
-					<p class="error">The username is too long.</p>
+					<p class="error">The user name is too long.</p>
+				</c:if>
+				<c:if test="${usernameExists}">
+					<p class="error">The user name is already taken, please choose another one.</p>
 				</c:if>
 			</div>
 			<div class="registerPassword">

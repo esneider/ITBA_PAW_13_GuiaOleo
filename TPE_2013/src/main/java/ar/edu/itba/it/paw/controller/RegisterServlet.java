@@ -36,15 +36,15 @@ public class RegisterServlet extends BaseServlet {
 		req.setAttribute("registerSurname", surname);
 		req.setAttribute("registerMail", mail);
 
-		if (password != rePassword) {
-			
+		if (check && !password.equals(rePassword)) {
+
 			check = false;
 			req.setAttribute("registerPasswordsDontMatch", true);
 		}
 
 		if (check) {
-			
-			User user = UserManager.getInstance().register(username, password, name, surname, mail);
+
+			User user = UserManager.getInstance().register(name, surname, mail, username, password);
 	
 			if (user != null) {
 	
@@ -53,7 +53,7 @@ public class RegisterServlet extends BaseServlet {
 
 			} else {
 	
-				req.setAttribute("invalidUser", true);
+				req.setAttribute("usernameExists", true);
 			}
 		}
 

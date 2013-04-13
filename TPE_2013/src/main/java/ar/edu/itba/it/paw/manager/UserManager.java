@@ -39,13 +39,17 @@ public class UserManager {
 	}
 
 	public User login(String username, String password) {
+		
 		return userDAO.login(username, password);
 	}
 
-	public User register(String username, String password, String name,
-			String surname, String mail) {
+	public User register(String name, String surname, String mail, String username, String password) {
 
-		return userDAO.register(username, password, name, surname, mail);
+		if (userDAO.usernameExists(username)) {
+			return null;
+		}
+
+		return userDAO.register(new User(name, surname, mail, username, password));
 	}
 
 	
