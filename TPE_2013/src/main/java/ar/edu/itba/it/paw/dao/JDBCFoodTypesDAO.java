@@ -25,6 +25,7 @@ public class JDBCFoodTypesDAO extends AbstractDAO implements FoodTypesDAO {
 			while (rs.next()) {
 				ls.add(getFoodType(rs));
 			}
+			rs.close();
 			return ls;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -37,7 +38,9 @@ public class JDBCFoodTypesDAO extends AbstractDAO implements FoodTypesDAO {
 		ResultSet rs = executeQuery("SELECT * FROM foodtypes WHERE id = ?", id);
 		try {
 			rs.next();
-			return getFoodType(rs);
+			FoodType ft = getFoodType(rs);
+			rs.close();
+			return ft;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

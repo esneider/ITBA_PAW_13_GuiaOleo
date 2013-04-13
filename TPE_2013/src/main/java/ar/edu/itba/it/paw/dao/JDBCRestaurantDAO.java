@@ -32,6 +32,7 @@ public class JDBCRestaurantDAO extends AbstractDAO implements RestaurantDAO {
 			while (rs.next()) {
 				ls.add(getRestaurant(rs));
 			}
+			rs.close();
 			return ls;
 		} catch (SQLException e) {
 			System.out.println("Holis");
@@ -49,7 +50,9 @@ public class JDBCRestaurantDAO extends AbstractDAO implements RestaurantDAO {
 						+ "WHERE restaurants.id = ?", id);
 		try {
 			rs.next();
-			return getRestaurant(rs);
+			Restaurant r = getRestaurant(rs);
+			rs.close();
+			return r;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -80,6 +83,7 @@ public class JDBCRestaurantDAO extends AbstractDAO implements RestaurantDAO {
 			while (rs.next()) {
 				ls.add(getRestaurant(rs));
 			}
+			rs.close();
 			return ls;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -117,6 +121,7 @@ public class JDBCRestaurantDAO extends AbstractDAO implements RestaurantDAO {
 			while (rs.next()) {
 				ls.add(getRestaurant(rs));
 			}
+			rs.close();
 			return ls;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -137,9 +142,9 @@ public class JDBCRestaurantDAO extends AbstractDAO implements RestaurantDAO {
 		List<Restaurant> ls = new ArrayList<Restaurant>();
 		try {
 			while (rs.next()) {
-
 				ls.add(getRestaurant(rs));
 			}
+			rs.close();
 			return ls;
 		} catch (SQLException e) {
 			e.printStackTrace();
