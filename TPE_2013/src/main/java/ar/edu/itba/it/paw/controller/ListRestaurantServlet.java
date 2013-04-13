@@ -6,8 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import ar.edu.itba.it.paw.dao.JDBCRestaurantDAO;
-import ar.edu.itba.it.paw.dao.interfaces.RestaurantDAO;
+import ar.edu.itba.it.paw.manager.RestaurantManager;
 
 @SuppressWarnings("serial")
 public class ListRestaurantServlet extends BaseServlet {
@@ -21,7 +20,7 @@ public class ListRestaurantServlet extends BaseServlet {
 			render(req, resp, "error.jsp", "404 NOT FOUND");
 			return;
 		}
-		RestaurantDAO r = JDBCRestaurantDAO.getInstance();
+		RestaurantManager r = RestaurantManager.getInstance();
 
 		if (query.compareTo("all") == 0) {
 			req.setAttribute("restaurantList", r.getAll());
@@ -29,7 +28,7 @@ public class ListRestaurantServlet extends BaseServlet {
 		} else if (query.compareTo("foodtypes") == 0) {
 			int foodtypeid = Integer.valueOf(req.getParameter("id"));
 			req.setAttribute("restaurantList",
-					r.getRestaurantsByFoodtype(foodtypeid));
+					r.getRestaurantsByFoodType(foodtypeid));
 		}
 		render(req, resp, "list.jsp", "Lista de Restaurantes");
 

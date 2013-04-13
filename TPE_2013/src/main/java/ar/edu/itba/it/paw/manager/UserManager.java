@@ -41,6 +41,10 @@ public class UserManager {
 	public User login(String username, String password) {
 		return userDAO.login(username, password);
 	}
+	
+	public User getSingleUser (int id) {
+		return userDAO.getSingleUser(id);
+	}
 
 	
 }

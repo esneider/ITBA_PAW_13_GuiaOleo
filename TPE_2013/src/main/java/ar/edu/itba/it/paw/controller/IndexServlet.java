@@ -10,20 +10,21 @@ import ar.edu.itba.it.paw.dao.JDBCFoodTypesDAO;
 import ar.edu.itba.it.paw.dao.JDBCRestaurantDAO;
 import ar.edu.itba.it.paw.dao.interfaces.FoodTypesDAO;
 import ar.edu.itba.it.paw.dao.interfaces.RestaurantDAO;
+import ar.edu.itba.it.paw.manager.FoodTypeManager;
+import ar.edu.itba.it.paw.manager.RestaurantManager;
 
 @SuppressWarnings("serial")
 public class IndexServlet extends BaseServlet {
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		
-		RestaurantDAO rsDAO = JDBCRestaurantDAO.getInstance();
-		FoodTypesDAO ftDAO = JDBCFoodTypesDAO.getInstance();
-		
-		req.setAttribute("bestRestaurants", rsDAO.getBestRatedRestaurants(10));
-		req.setAttribute("foodTypesList", ftDAO.getAll());
-		
+
+		req.setAttribute("bestRestaurants", RestaurantManager.getInstance()
+				.getBestRatedRestaurants(10));
+		req.setAttribute("foodTypesList", FoodTypeManager.getInstance()
+				.getAll());
+
 		render(req, resp, "index.jsp", "Guia Oleo Facha");
 	}
-	
+
 }

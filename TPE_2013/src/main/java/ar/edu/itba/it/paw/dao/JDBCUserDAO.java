@@ -49,4 +49,16 @@ public class JDBCUserDAO extends AbstractDAO implements UserDAO {
 			return null;
 		}
 	}
+
+	@Override
+	public User getSingleUser(int id) {
+		ResultSet rs = executeQuery("SELECT * FROM users WHERE id = ?", id);
+		try {
+			rs.next();
+			return newUser(rs);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }

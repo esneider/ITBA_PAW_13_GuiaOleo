@@ -5,4 +5,6 @@ import ar.edu.itba.it.paw.model.User;
 public interface UserDAO {
 
 	public User login(String username, String password);
+	
+	public User getSingleUser(int id);
 }
