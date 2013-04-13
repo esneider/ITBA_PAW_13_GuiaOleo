@@ -40,6 +40,7 @@ public class LoginServlet extends BaseServlet {
 	
 				setLoggedInUser(req, user);
 				resp.sendRedirect("index");
+				return;
 	
 			} else {
 	
