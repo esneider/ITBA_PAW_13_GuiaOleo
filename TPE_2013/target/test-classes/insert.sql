@@ -26,4 +26,28 @@ INSERT INTO restaurants (id, name, address, area, telephone, website, timerange,
 INSERT INTO restaurants (id, name, address, area, telephone, website, timerange, avgprice, foodtypeid, avgscore, cantratings) VALUES (12, 'Los platitos', 'Costanera 203', 'Costanera', '4553-1540', 'www.lp.com', '08 a 24', 130, 1, 9.3000000000000007, 40);
 INSERT INTO restaurants (id, name, address, area, telephone, website, timerange, avgprice, foodtypeid, avgscore, cantratings) VALUES (11, 'Cocina China', 'San Martin 2990', 'Agronomia', '4667-1255', 'www.cc.com', '08 a 23', 40, 3, 2.1000000000000001, 32);
 
+INSERT INTO users (id, name, surname, mail, username, password, pictureid) VALUES (1, 'paw', 'paw', 'paw@paw.paw', 'paw', 'paw                                                             ', NULL);
+INSERT INTO users (id, name, surname, mail, username, password, pictureid) VALUES (2, 'alan', 'alan', 'alan@alan.alan', 'alan', 'alan                                                            ', NULL);
+INSERT INTO users (id, name, surname, mail, username, password, pictureid) VALUES (3, 'dario', 'dario', 'dario@dario.dario', 'dario', 'dario                                                           ', NULL);
+INSERT INTO users (id, name, surname, mail, username, password, pictureid) VALUES (4, 'lucas', 'lucas', 'lucas@lucas.lucas', 'lucas', 'lucas                                                           ', NULL);
+
+INSERT INTO ratings (id, score, comment, userid, restaurantid) VALUES (7, 3, 'Muy bueno', 1, 8);
+INSERT INTO ratings (id, score, comment, userid, restaurantid) VALUES (11, 1, 'Malisimo', 1, 2);
+INSERT INTO ratings (id, score, comment, userid, restaurantid) VALUES (13, 4, 'Bueno', 1, 6);
+INSERT INTO ratings (id, score, comment, userid, restaurantid) VALUES (15, 3, 'Medio feo', 1, 7);
+INSERT INTO ratings (id, score, comment, userid, restaurantid) VALUES (17, 3, 'Muy rico', 1, 10);
+INSERT INTO ratings (id, score, comment, userid, restaurantid) VALUES (19, 1, 'Malisimo, muy insano', 1, 5);
+INSERT INTO ratings (id, score, comment, userid, restaurantid) VALUES (20, 3, 'No me gusto tanto', 4, 6);
+INSERT INTO ratings (id, score, comment, userid, restaurantid) VALUES (21, 5, 'Geniaal', 4, 3);
+INSERT INTO ratings (id, score, comment, userid, restaurantid) VALUES (22, 2, 'Muy chino', 4, 11);
+INSERT INTO ratings (id, score, comment, userid, restaurantid) VALUES (23, 1, 'No me gusto para nada', 2, 6);
+INSERT INTO ratings (id, score, comment, userid, restaurantid) VALUES (24, 5, 'Mooi bueno', 2, 8);
+INSERT INTO ratings (id, score, comment, userid, restaurantid) VALUES (25, 3, 'Maso', 3, 11);
+INSERT INTO ratings (id, score, comment, userid, restaurantid) VALUES (26, 2, 'Burguer no me gusta', 3, 3);
+INSERT INTO ratings (id, score, comment, userid, restaurantid) VALUES (27, 1, 'Malisimo', 3, 6);
+INSERT INTO ratings (id, score, comment, userid, restaurantid) VALUES (28, 5, 'Excelente', 3, 12);
+INSERT INTO ratings (id, score, comment, userid, restaurantid) VALUES (29, 3, 'Me guseto un poco', 3, 5);
+INSERT INTO ratings (id, score, comment, userid, restaurantid) VALUES (30, 4, 'Like', 3, 1);
+INSERT INTO ratings (id, score, comment, userid, restaurantid) VALUES (31, 2, 'No me gusta mucho el sushi', 3, 9);
+
 

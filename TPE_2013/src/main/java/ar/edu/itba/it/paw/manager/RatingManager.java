@@ -28,8 +28,9 @@ public class RatingManager {
 		Rating rate = new Rating(value, comment, UserManager.getInstance()
 				.getSingleUser(userId), RestaurantManager.getInstance()
 				.getSingleRestaurant(restId));
+		boolean ans = DAO.insertSingleRating(rate);
 		RestaurantManager.getInstance().updateRestaurantRatings(rate);
-		return DAO.insertSingleRating(rate);
+		return ans;
 	}
 	
 	public List<Rating> getRatingsByRestaurant (int id) {

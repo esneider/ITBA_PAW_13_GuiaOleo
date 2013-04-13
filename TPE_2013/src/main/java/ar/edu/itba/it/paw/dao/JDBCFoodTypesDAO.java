@@ -28,7 +28,6 @@ public class JDBCFoodTypesDAO extends AbstractDAO implements FoodTypesDAO {
 			rs.close();
 			return ls;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;

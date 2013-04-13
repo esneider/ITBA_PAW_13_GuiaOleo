@@ -62,7 +62,6 @@ public class JDBCRestaurantDAO extends AbstractDAO implements RestaurantDAO {
 	}
 
 	public void updateRestaurantRatings(Rating rate) {
-		System.out.println(rate.getRestaurant().getId());
 		executeUpdate("UPDATE restaurants SET avgScore = "
 				+ "(SELECT COALESCE(AVG(score), 0) FROM ratings "
 				+ "WHERE ratings.restaurantId = restaurants.id) "

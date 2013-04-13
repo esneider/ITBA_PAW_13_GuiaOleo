@@ -9,7 +9,8 @@ import java.util.Properties;
 public class ConnectionManager {
 
 	private static ConnectionManager self;
-	private Properties config = new Properties();
+	private static Properties config = new Properties();
+	private Connection conn;
 
 	public synchronized static ConnectionManager getInstance() {
 		if (self == null)
@@ -18,21 +19,17 @@ public class ConnectionManager {
 	}
 
 	private ConnectionManager() {
+		Connection conn = null;
 		try {
 			config.load(getClass().getResourceAsStream("/config.properties"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
-
-	public Connection getConnection() {
-		Connection conn;
 		try {
 			Class.forName(config.getProperty("db.class"));
 			conn = DriverManager.getConnection(config.getProperty("db.url"),
 					config.getProperty("db.user"),
 					config.getProperty("db.pass"));
-			return conn;
 		} catch (SQLException e) {
 			System.out.println("Connection error");
 			e.printStackTrace();
@@ -40,7 +37,11 @@ public class ConnectionManager {
 			System.out.println("Class not found");
 			e.printStackTrace();
 		}
-		return null;
+		this.conn = conn;
+	}
+
+	public Connection getConnection() {
+		return conn;
 	}
 
 }
