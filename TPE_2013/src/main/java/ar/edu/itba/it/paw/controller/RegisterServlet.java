@@ -16,29 +16,45 @@ public class RegisterServlet extends BaseServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 
-		String username = req.getParameter("username");
-		String password = req.getParameter("password");
-		String rePassword = req.getParameter("repeat-password");
-		String name = req.getParameter("name");
-		String mail = req.getParameter("mail");
+		boolean check = true;
+		check &= checkParameter(req, "registerUsername", 0, 50);
+		check &= checkParameter(req, "registerPassword", 0, 64);
+		check &= checkParameter(req, "registerRePassword", 0, 64);
+		check &= checkParameter(req, "registerName", 0, 50);
+		check &= checkParameter(req, "registerSurname", 0, 50);
+		check &= checkParameter(req, "registerMail", 0, 50);
 
-		if (username != null && password != null && !username.isEmpty() && !password.isEmpty()) {
+		String username = req.getParameter("registerUsername");
+		String password = req.getParameter("registerPassword");
+		String rePassword = req.getParameter("registerRePassword");
+		String name = req.getParameter("registerName");
+		String surname = req.getParameter("registerSurname");
+		String mail = req.getParameter("registerMail");
 
-			User user = UserManager.getInstance().login(username, password);
+		req.setAttribute("registerUsername", username);
+		req.setAttribute("registerName", name);
+		req.setAttribute("registerSurname", surname);
+		req.setAttribute("registerMail", mail);
 
+		if (password != rePassword) {
+			
+			check = false;
+			req.setAttribute("registerPasswordsDontMatch", true);
+		}
+
+		if (check) {
+			
+			User user = UserManager.getInstance().register(username, password, name, surname, mail);
+	
 			if (user != null) {
-
+	
 				setLoggedInUser(req, user);
-				resp.sendRedirect("");
+				resp.sendRedirect("index");
 
 			} else {
-
-				req.setAttribute("loginError", "Incorrect user or password.");
+	
+				req.setAttribute("invalidUser", true);
 			}
-
-		} else {
-
-			req.setAttribute("loginError", "Provide a user and a password please.");
 		}
 
 		render(req, resp, "login.jsp", "Login or Register");

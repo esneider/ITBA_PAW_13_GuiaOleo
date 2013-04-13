@@ -43,5 +43,11 @@ public class UserManager {
 		return userDAO.login(username, password);
 	}
 
+	public User register(String username, String password, String name,
+			String surname, String mail) {
+
+		return userDAO.register(username, password, name, surname, mail);
+	}
+
 	
 }

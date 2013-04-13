@@ -38,6 +38,18 @@ public class JDBCUserDAO extends AbstractDAO implements UserDAO {
 		return newUser(rs);
 	}
 
+	@Override
+	public User register(String username, String password, String name,
+			String surname, String mail) {
+
+		ResultSet rs = executeQuery(
+				"SELECT * FROM users WHERE username = ? AND password = ?",
+				username, password);
+
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	private User newUser(ResultSet rs) {
 
 		try {
