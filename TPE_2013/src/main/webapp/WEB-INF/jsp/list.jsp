@@ -2,9 +2,16 @@
 <div class=restlist>
 <ul>
 	<c:forEach var="restaurant" items="${restaurantList}">
-		<li> Restaurante:  <a href="view?id=${restaurant.id}">${restaurant.name}</a></li>
-	   </br> 
+		<li> Restaurant:  <a href="view?id=${restaurant.id}">${restaurant.name}</a> 
+		<br>
+		Address: ${restaurant.address} <br>
+		Area: ${restaurant.area} <br>
+		Average Score: ${restaurant.avgScore} (Scored by ${restaurant.ratings} people) </li>
+		</br> 
 	</c:forEach>
+	
+
+</ul
 </ul>
 <hr/>
 <div>
