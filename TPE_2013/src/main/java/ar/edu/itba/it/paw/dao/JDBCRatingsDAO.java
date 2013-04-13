@@ -1,5 +1,6 @@
 package ar.edu.itba.it.paw.dao;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -23,10 +24,13 @@ public class JDBCRatingsDAO extends AbstractDAO implements RatingsDAO {
 
 	@Override
 	public boolean insertSingleRating(Rating r) {
+		java.util.Date d = new java.util.Date();
+		Date date = new Date(d.getTime());
 		return execute(
-				"INSERT INTO ratings (score, comment, userId, restaurantId) "
-						+ "VALUES (?, ?, ?, ?)", r.getScore(), r.getComment(),
-				r.getUser().getId(), r.getRestaurant().getId());
+				"INSERT INTO ratings (score, comment, userId, restaurantId, ratingDate) "
+						+ "VALUES (?, ?, ?, ?, ?)", r.getScore(),
+				r.getComment(), r.getUser().getId(), r.getRestaurant().getId(),
+				date);
 	}
 
 	@Override
@@ -35,7 +39,8 @@ public class JDBCRatingsDAO extends AbstractDAO implements RatingsDAO {
 				"SELECT ratings.*, "
 						+ "users.id AS uid, users.name AS uname, users.surname, users.mail, users.username, users.password "
 						+ "FROM ratings JOIN users ON ratings.userId = users.id "
-						+ "WHERE ratings.restaurantId = ?", r.getId());
+						+ "WHERE ratings.restaurantId = ? "
+						+ "ORDER BY ratings.ratingDate desc", r.getId());
 		List<Rating> ls = new ArrayList<Rating>();
 		try {
 			while (rs.next()) {
@@ -49,14 +54,13 @@ public class JDBCRatingsDAO extends AbstractDAO implements RatingsDAO {
 		return null;
 	}
 
-	
 	public Rating getSingleRating(User u, Restaurant r) {
 		ResultSet rs = executeQuery("SELECT * FROM ratings "
 				+ "WHERE ratings.restaurantId = ? AND ratings.userId = ?",
 				r.getId(), u.getId());
 		try {
 			if (rs.next()) {
-				Rating rate = getRating(rs, r, u); 
+				Rating rate = getRating(rs, r, u);
 				rs.close();
 				return rate;
 			}

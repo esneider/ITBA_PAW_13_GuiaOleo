@@ -1,5 +1,6 @@
 package ar.edu.itba.it.paw.dao;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -62,6 +63,8 @@ public abstract class AbstractDAO {
 					sql.setFloat(i+1, (Float)param);
 				if (param instanceof Boolean) 
 					sql.setBoolean(i+1, (Boolean)param);
+				if (param instanceof Date)	
+					sql.setDate(i+1, (Date)param);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

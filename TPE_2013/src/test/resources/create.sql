@@ -92,6 +92,7 @@ CREATE TABLE ratings
     comment varchar(1000),
     userId integer,
     restaurantId integer,
+    ratingDate date,
 
     PRIMARY KEY(id),
     FOREIGN KEY(userId) REFERENCES users(id),

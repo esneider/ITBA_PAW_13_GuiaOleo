@@ -17,16 +17,18 @@ public class RestaurantDetailServlet extends BaseServlet {
 			throws ServletException, IOException {
 		int id = Integer.valueOf(req.getParameter("id"));
 
-		req.setAttribute("restaurant", RestaurantManager.getInstance().getSingleRestaurant(id));
+		req.setAttribute("restaurant", RestaurantManager.getInstance()
+				.getSingleRestaurant(id));
 		req.setAttribute("commentList", RatingManager.getInstance()
 				.getRatingsByRestaurant(id));
-		
+
 		if (isLoggedIn(req)) {
-			Rating r = RatingManager.getInstance().getSingleRating(getLoggedInUser(req), id);
+			Rating r = RatingManager.getInstance().getSingleRating(
+					getLoggedInUser(req), id);
 			if (r != null)
 				req.setAttribute("userComment", r);
 		}
-
+		
 		render(req, resp, "view.jsp", "SimpleRestaurant");
 	}
 
@@ -35,11 +37,11 @@ public class RestaurantDetailServlet extends BaseServlet {
 		String rid = (String) req.getParameter("id");
 		if (rid != null) {
 			int id = Integer.valueOf(rid);
-			RatingManager.getInstance().insertRating(
-					Integer.valueOf((String) req
-							.getParameter("restaurant_rating")),
-					(String) req.getParameter("comment"), getLoggedInUser(req),
-					id);
+			int rating = Integer.valueOf((String) req
+					.getParameter("restaurant_rating"));
+			String comment = (String) req.getParameter("comment");
+			RatingManager.getInstance().insertRating(rating, comment,
+					getLoggedInUser(req), id);
 			doGet(req, resp);
 		} else {
 			render(req, resp, "error.jsp", "404 NOT FOUND");

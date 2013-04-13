@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import ar.edu.itba.it.paw.dao.JDBCRestaurantDAO;
 import ar.edu.itba.it.paw.dao.interfaces.RestaurantDAO;
+import ar.edu.itba.it.paw.manager.RestaurantManager;
 import ar.edu.itba.it.paw.model.User;
 
 @SuppressWarnings("serial")
@@ -18,9 +19,8 @@ public class SearchServlet extends BaseServlet {
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		RestaurantDAO r = JDBCRestaurantDAO.getInstance();
 		String query = req.getParameter("query");
-		req.setAttribute("restaurantList", r.getRestaurantsByQuery(query));
+		req.setAttribute("restaurantList", RestaurantManager.getInstance().getRestaurantsByQuery(query));
 		render(req, resp, "list.jsp", "Resultado de la busqueda");
 
 	}

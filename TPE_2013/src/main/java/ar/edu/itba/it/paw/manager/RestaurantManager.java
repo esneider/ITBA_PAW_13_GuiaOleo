@@ -46,5 +46,9 @@ public class RestaurantManager {
 	public void updateRestaurantRatings (Rating rate) {
 		DAO.updateRestaurantRatings(rate);
 	}
+	
+	public List<Restaurant> getRestaurantsByQuery(String query) {
+		return DAO.getRestaurantsByQuery(query);
+	}
 
 }
