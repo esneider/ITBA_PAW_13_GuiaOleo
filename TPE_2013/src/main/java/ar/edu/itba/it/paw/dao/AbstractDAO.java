@@ -37,6 +37,17 @@ public abstract class AbstractDAO {
 		}
 		return false;
 	}
+	
+	protected void executeUpdate(String query, Object... parameters) {
+		try {	
+			PreparedStatement sql = conn.getConnection().prepareStatement(query);
+				setSQLParameters(sql, parameters);
+				sql.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 
 	private void setSQLParameters(PreparedStatement sql, Object[] parameters){
 		int i;

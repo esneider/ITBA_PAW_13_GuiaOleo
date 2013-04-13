@@ -5,6 +5,7 @@ import java.util.List;
 import ar.edu.itba.it.paw.dao.JDBCRestaurantDAO;
 import ar.edu.itba.it.paw.dao.interfaces.RestaurantDAO;
 import ar.edu.itba.it.paw.model.FoodType;
+import ar.edu.itba.it.paw.model.Rating;
 import ar.edu.itba.it.paw.model.Restaurant;
 
 
@@ -40,6 +41,10 @@ public class RestaurantManager {
 	
 	public Restaurant getSingleRestaurant(int id) {
 		return DAO.getSingleRestaurant(id);
+	}
+	
+	public void updateRestaurantRatings (Rating rate) {
+		DAO.updateRestaurantRatings(rate);
 	}
 
 }

@@ -7,6 +7,7 @@ import java.util.List;
 
 import ar.edu.itba.it.paw.dao.interfaces.RestaurantDAO;
 import ar.edu.itba.it.paw.model.FoodType;
+import ar.edu.itba.it.paw.model.Rating;
 import ar.edu.itba.it.paw.model.Restaurant;
 
 public class JDBCRestaurantDAO extends AbstractDAO implements RestaurantDAO {
@@ -20,11 +21,12 @@ public class JDBCRestaurantDAO extends AbstractDAO implements RestaurantDAO {
 	}
 
 	public List<Restaurant> getBestRatedRestaurants(int cant) {
-		ResultSet rs = executeQuery("SELECT restaurants.*, "
-				+ "foodtypes.id AS fid, foodtypes.name AS fname, foodtypes.ammount AS fammount "
-				+ "FROM restaurants JOIN foodtypes "
-				+ "ON restaurants.foodTypeId = foodtypes.id "
-				+ "ORDER BY avgscore desc " + "LIMIT ?", cant);
+		ResultSet rs = executeQuery(
+				"SELECT restaurants.*, "
+						+ "foodtypes.id AS fid, foodtypes.name AS fname, foodtypes.ammount AS fammount "
+						+ "FROM restaurants JOIN foodtypes "
+						+ "ON restaurants.foodTypeId = foodtypes.id "
+						+ "ORDER BY avgscore desc " + "LIMIT ?", cant);
 		List<Restaurant> ls = new ArrayList<Restaurant>();
 		try {
 			while (rs.next()) {
@@ -39,11 +41,12 @@ public class JDBCRestaurantDAO extends AbstractDAO implements RestaurantDAO {
 	}
 
 	public Restaurant getSingleRestaurant(int id) {
-		ResultSet rs = executeQuery("SELECT restaurants.*, "
-				+ "foodtypes.id AS fid, foodtypes.name AS fname, foodtypes.ammount AS fammount "
-				+ "FROM restaurants JOIN foodtypes "
-				+ "ON restaurants.foodTypeId = foodtypes.id "
-				+ "WHERE restaurants.id = ?", id);
+		ResultSet rs = executeQuery(
+				"SELECT restaurants.*, "
+						+ "foodtypes.id AS fid, foodtypes.name AS fname, foodtypes.ammount AS fammount "
+						+ "FROM restaurants JOIN foodtypes "
+						+ "ON restaurants.foodTypeId = foodtypes.id "
+						+ "WHERE restaurants.id = ?", id);
 		try {
 			rs.next();
 			return getRestaurant(rs);
@@ -51,6 +54,19 @@ public class JDBCRestaurantDAO extends AbstractDAO implements RestaurantDAO {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	public void updateRestaurantRatings(Rating rate) {
+		System.out.println(rate.getRestaurant().getId());
+		executeUpdate("UPDATE restaurants SET avgScore = "
+				+ "(SELECT COALESCE(AVG(score), 0) FROM ratings "
+				+ "WHERE ratings.restaurantId = restaurants.id) "
+				+ "WHERE id = ?", rate.getRestaurant().getId());
+		executeUpdate("UPDATE restaurants SET cantRatings = "
+				+ "(SELECT COUNT(*) FROM ratings "
+				+ "WHERE ratings.restaurantId = restaurants.id) "
+				+ "WHERE id = ?", rate.getRestaurant().getId());
+
 	}
 
 	public List<Restaurant> getAll() {
@@ -88,14 +104,14 @@ public class JDBCRestaurantDAO extends AbstractDAO implements RestaurantDAO {
 
 	@Override
 	public List<Restaurant> getRestaurantsByFoodtype(FoodType ft) {
-		
-		ResultSet rs = executeQuery("SELECT restaurants.*, "
-				+ "foodtypes.id AS fid, foodtypes.name AS fname, foodtypes.ammount AS fammount "
-				+ "FROM restaurants JOIN foodtypes "
-				+ "ON restaurants.foodTypeId = foodtypes.id "
-				+ "WHERE foodtypes.id = ?",ft.getId());
-		
-			
+
+		ResultSet rs = executeQuery(
+				"SELECT restaurants.*, "
+						+ "foodtypes.id AS fid, foodtypes.name AS fname, foodtypes.ammount AS fammount "
+						+ "FROM restaurants JOIN foodtypes "
+						+ "ON restaurants.foodTypeId = foodtypes.id "
+						+ "WHERE foodtypes.id = ?", ft.getId());
+
 		List<Restaurant> ls = new ArrayList<Restaurant>();
 		try {
 			while (rs.next()) {
@@ -110,14 +126,15 @@ public class JDBCRestaurantDAO extends AbstractDAO implements RestaurantDAO {
 
 	@Override
 	public List<Restaurant> getRestaurantsByQuery(String query) {
-		
-		query = "%" + query + "%"; 
-        ResultSet rs = executeQuery("SELECT restaurants.*, "
-				+ "foodtypes.id AS fid, foodtypes.name AS fname, foodtypes.ammount AS fammount "
-				+ "FROM restaurants JOIN foodtypes "
-				+ "ON restaurants.foodTypeId = foodtypes.id "
-				+ "WHERE restaurants.name ILIKE ?", query);
-        List<Restaurant> ls = new ArrayList<Restaurant>();
+
+		query = "%" + query + "%";
+		ResultSet rs = executeQuery(
+				"SELECT restaurants.*, "
+						+ "foodtypes.id AS fid, foodtypes.name AS fname, foodtypes.ammount AS fammount "
+						+ "FROM restaurants JOIN foodtypes "
+						+ "ON restaurants.foodTypeId = foodtypes.id "
+						+ "WHERE restaurants.name ILIKE ?", query);
+		List<Restaurant> ls = new ArrayList<Restaurant>();
 		try {
 			while (rs.next()) {
 
