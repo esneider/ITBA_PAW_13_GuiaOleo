@@ -27,11 +27,15 @@
 		<servlet-name>Register</servlet-name>
 		<servlet-class>ar.edu.itba.it.paw.controller.RegisterServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>ModifyUser</servlet-name>
+		<servlet-class>ar.edu.itba.it.paw.controller.ModifyUserServlet</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>Index</servlet-name>
 		<url-pattern>/index</url-pattern>
 	</servlet-mapping>
-		<servlet-mapping>
+	<servlet-mapping>
 		<servlet-name>Search</servlet-name>
 		<url-pattern>/search</url-pattern>
 	</servlet-mapping>
@@ -50,5 +54,9 @@
 	<servlet-mapping>
 		<servlet-name>Register</servlet-name>
 		<url-pattern>/register</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ModifyUser</servlet-name>
+		<url-pattern>/modify_user</url-pattern>
 	</servlet-mapping>
 </web-app>
