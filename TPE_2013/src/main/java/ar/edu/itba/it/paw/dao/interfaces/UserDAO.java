@@ -11,4 +11,6 @@ public interface UserDAO {
 	public User register(User user);
 
 	public boolean usernameExists(String username);
+
+	public void update(User user);
 }

@@ -23,11 +23,12 @@ public class RatingManager {
 		this.DAO = ftDAO;
 	}
 
-	public boolean insertRating(int value, String comment, int userId,
+	public boolean insertRating(int value, String comment, User user,
 			int restId) {
-		Rating rate = new Rating(value, comment, UserManager.getInstance()
-				.getSingleUser(userId), RestaurantManager.getInstance()
-				.getSingleRestaurant(restId));
+	
+		Rating rate = new Rating(value, comment, user,
+				RestaurantManager.getInstance().getSingleRestaurant(restId));
+		
 		boolean ans = DAO.insertSingleRating(rate);
 		RestaurantManager.getInstance().updateRestaurantRatings(rate);
 		return ans;
@@ -40,10 +41,10 @@ public class RatingManager {
 		return null;
 	}
 	
-	public Rating getSingleRating (int userId, int restaurantId) {
-		User u = UserManager.getInstance().getSingleUser(userId);
+	public Rating getSingleRating (User user, int restaurantId) {
+		
 		Restaurant r = RestaurantManager.getInstance().getSingleRestaurant(restaurantId);
-		return DAO.getSingleRating(u, r);
+		return DAO.getSingleRating(user, r);
 	}
 
 }

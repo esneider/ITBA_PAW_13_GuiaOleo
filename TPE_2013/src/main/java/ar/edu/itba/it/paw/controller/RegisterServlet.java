@@ -17,6 +17,7 @@ public class RegisterServlet extends BaseServlet {
 			throws ServletException, IOException {
 
 		boolean check = true;
+
 		check &= checkParameter(req, "registerUsername", 0, 50);
 		check &= checkParameter(req, "registerPassword", 0, 64);
 		check &= checkParameter(req, "registerRePassword", 0, 64);

@@ -56,5 +56,10 @@ public class UserManager {
 		return userDAO.register(new User(name, surname, mail, username, password));
 	}
 
+	public void update(User user) {
+
+		userDAO.update(user);
+	}
+
 	
 }

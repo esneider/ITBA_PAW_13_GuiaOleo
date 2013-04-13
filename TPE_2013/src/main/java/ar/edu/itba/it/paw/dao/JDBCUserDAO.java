@@ -66,7 +66,7 @@ public class JDBCUserDAO extends AbstractDAO implements UserDAO {
 
 		return true;
 	}
-	
+
 	private User newUser(ResultSet rs) {
 
 		try {
@@ -91,5 +91,13 @@ public class JDBCUserDAO extends AbstractDAO implements UserDAO {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	@Override
+	public void update(User user) {
+
+		executeUpdate("UPDATE users SET name = ?, surname = ?, mail = ?, username = ?, password = ?"
+				+ "WHERE id = ?", user.getName(), user.getSurname(), user.getMail(), user.getUsername(),
+				user.getPassword(), user.getId());
 	}
 }

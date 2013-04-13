@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import ar.edu.itba.it.paw.manager.UserManager;
 import ar.edu.itba.it.paw.model.User;
 
 
@@ -43,8 +44,9 @@ public abstract class BaseServlet extends HttpServlet {
 		return req.getSession().getAttribute("userId") != null;
 	}
 
-	protected int getLoggedInUser(HttpServletRequest req) {
-		return (Integer)req.getSession().getAttribute("userId");
+	protected User getLoggedInUser(HttpServletRequest req) {
+
+		return UserManager.getInstance().getSingleUser((Integer)req.getSession().getAttribute("userId"));
 	}
 
 	protected void logout(HttpServletRequest req, HttpServletResponse resp) {

@@ -1,5 +1,7 @@
 package ar.edu.itba.it.paw.model;
 
+import ar.edu.itba.it.paw.manager.UserManager;
+
 public class User extends AbstractModel {
 
 	private String name, surname, mail, username, password;
@@ -42,6 +44,18 @@ public class User extends AbstractModel {
 
 	public String getPassword() {
 		return password;
+	}
+
+	public void update(String name, String surname, String mail,
+			String username, String password) {
+
+		this.name = name;
+		this.surname = surname;
+		this.mail = mail;
+		this.username = username;
+		this.password = password;
+
+		UserManager.getInstance().update(this);
 	}
 	
 }
