@@ -15,6 +15,8 @@
 		<li><strong>Cantidad de puntuaciones:</strong> ${restaurant.ratings}</li>
 	</ul>
 	<hr/>
+		<div id="map-canvas" class="map-canvas"></div>
+	<hr/>
 	<c:choose>
 		<c:when test="${not empty userId and empty userComment}">
 			<h4>Comment this restaurant:</h4>
