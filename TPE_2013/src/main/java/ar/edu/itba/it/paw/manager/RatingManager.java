@@ -1,5 +1,6 @@
 package ar.edu.itba.it.paw.manager;
 
+import java.util.Date;
 import java.util.List;
 
 import ar.edu.itba.it.paw.dao.JDBCRatingsDAO;
@@ -27,7 +28,7 @@ public class RatingManager {
 			int restId) {
 	
 		Rating rate = new Rating(value, comment, user,
-				RestaurantManager.getInstance().getSingleRestaurant(restId));
+				RestaurantManager.getInstance().getSingleRestaurant(restId), new Date());
 		
 		boolean ans = DAO.insertSingleRating(rate);
 		RestaurantManager.getInstance().updateRestaurantRatings(rate);

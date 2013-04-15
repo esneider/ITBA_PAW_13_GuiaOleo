@@ -20,6 +20,7 @@
 			<h4>Comment this restaurant:</h4>
 				<form action='view' method='post'>
 					Rating:<br>
+					0<input type="radio" name="restaurant_rating" value="0"/>
 					1<input type="radio" name="restaurant_rating" value="1"/>
 					2<input type="radio" name="restaurant_rating" value="2"/>
 					3<input type="radio" name="restaurant_rating" value="3"/>
@@ -46,7 +47,7 @@
 	<br>
 	<ul>
 		<c:forEach var="comment" items="${commentList}">
-			<li><em>Puntaje: </em>${comment.score}<br>
+			<li>${comment.date}: <em>Puntaje: </em>${comment.score}<br>
 			<strong>${comment.user.name}: </strong>${comment.comment}</li>
 		</c:forEach>
 	</ul>

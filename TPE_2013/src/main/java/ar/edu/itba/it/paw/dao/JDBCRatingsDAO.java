@@ -1,6 +1,5 @@
 package ar.edu.itba.it.paw.dao;
 
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -24,13 +23,11 @@ public class JDBCRatingsDAO extends AbstractDAO implements RatingsDAO {
 
 	@Override
 	public boolean insertSingleRating(Rating r) {
-		java.util.Date d = new java.util.Date();
-		Date date = new Date(d.getTime());
 		return execute(
 				"INSERT INTO ratings (score, comment, userId, restaurantId, ratingDate) "
 						+ "VALUES (?, ?, ?, ?, ?)", r.getScore(),
 				r.getComment(), r.getUser().getId(), r.getRestaurant().getId(),
-				date);
+				r.getSQLDate());
 	}
 
 	@Override
@@ -74,14 +71,11 @@ public class JDBCRatingsDAO extends AbstractDAO implements RatingsDAO {
 
 	private Rating getRating(ResultSet rs) {
 		try {
-			return new Rating(rs.getInt("rid"), rs.getInt("score"),
-					rs.getString("comment"), new User(rs.getInt("uid"),
-							rs.getString("uname"), rs.getString("surname"),
-							rs.getString("mail"), rs.getString("username"),
-							rs.getString("password")), new Restaurant(
-							rs.getInt("id"), rs.getString("name"),
-							rs.getString("address"), rs.getString("area"),
-							rs.getString("telephone"), rs.getString("website"),
+			return getRating(
+					rs,
+					new Restaurant(rs.getInt("id"), rs.getString("name"), rs
+							.getString("address"), rs.getString("area"), rs
+							.getString("telephone"), rs.getString("website"),
 							rs.getString("timerange"), rs.getFloat("avgprice"),
 							rs.getFloat("avgscore"), rs.getInt("Ratings"),
 							new FoodType(rs.getInt("foodTypeId"), rs
@@ -95,11 +89,12 @@ public class JDBCRatingsDAO extends AbstractDAO implements RatingsDAO {
 
 	private Rating getRating(ResultSet rs, Restaurant r) {
 		try {
-			return new Rating(rs.getInt("id"), rs.getInt("score"),
-					rs.getString("comment"), new User(rs.getInt("uid"),
-							rs.getString("uname"), rs.getString("surname"),
-							rs.getString("mail"), rs.getString("username"),
-							rs.getString("password")), r);
+			return getRating(
+					rs,
+					r,
+					new User(rs.getInt("uid"), rs.getString("uname"), rs
+							.getString("surname"), rs.getString("mail"), rs
+							.getString("username"), rs.getString("password")));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -109,7 +104,7 @@ public class JDBCRatingsDAO extends AbstractDAO implements RatingsDAO {
 	private Rating getRating(ResultSet rs, Restaurant r, User u) {
 		try {
 			return new Rating(rs.getInt("id"), rs.getInt("score"),
-					rs.getString("comment"), u, r);
+					rs.getString("comment"), u, r, rs.getDate("ratingDate"));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
