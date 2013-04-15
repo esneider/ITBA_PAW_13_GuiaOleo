@@ -22,7 +22,7 @@
                 <input class="btn btn-primary" type="submit" value="Search"/>
             </form>
             <ul id="user-menu" class="nav pull-right">
-                <li><a href="/login">Login or Register</a></li>
+                <li><a href="${ basePath }/login">Login or Register</a></li>
             </ul>
         </div>
     </div>
