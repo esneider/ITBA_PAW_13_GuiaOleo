@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF8" pageEncoding="UTF8" isELIgnored="false"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -12,6 +14,8 @@
 	<script type="text/javascript" src="${ basePath }/assets/js/maps.js"></script>
     <script type="text/javascript" src="${ basePath }/assets/js/jquery.js"></script>
     <script type="text/javascript" src="${ basePath }/assets/js/bootstrap-modal.js"></script>
+    <script type="text/javascript" src="${ basePath }/assets/js/maps.js"></script>
+    <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script>
 
     <title>${documentTitle}</title>
 </head>
@@ -24,7 +28,18 @@
                 <input class="btn btn-primary" type="submit" value="Search"/>
             </form>
             <ul id="user-menu" class="nav pull-right">
-                <li><a href="${ basePath }/login">Login or Register</a></li>
+                <c:choose>
+                    <c:when test="${not empty user}">
+                        <li><a href="${ basePath }/modify_user">
+                            ${fn:escapeXml(user.username)}
+                            <img class="avatar" src="" />
+                        </a></li>
+                    </c:when>
+
+                    <c:otherwise>
+                        <li><a href="${ basePath }/login">Login or Register</a></li>
+                    </c:otherwise>
+                </c:choose>
             </ul>
         </div>
     </div>
