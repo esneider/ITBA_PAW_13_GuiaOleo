@@ -50,6 +50,7 @@
                 <a href="index"><img src="${ basePath }/assets/img/logo.PNG" /></a>
                 <h1>Guia Oleo Facha</h1>
             </div>
+            <!--
             <div class="user span3 offset3">
                 <div class="mybutton">
                     <a class="btn-large btn-success" href="register">Register</a>
@@ -69,6 +70,9 @@
                 </form>
             </div>
         </div>
+        -->
+
+        <hr />
 
         <div>
             <c:import url="${documentBodyFile}" />
