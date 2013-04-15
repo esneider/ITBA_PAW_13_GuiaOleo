@@ -11,11 +11,9 @@
     <link href="${ basePath }/assets/css/style.css" rel="stylesheet" type="text/css"/>
 
 	<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script>
-	<script type="text/javascript" src="${ basePath }/assets/js/maps.js"></script>
     <script type="text/javascript" src="${ basePath }/assets/js/jquery.js"></script>
     <script type="text/javascript" src="${ basePath }/assets/js/bootstrap-modal.js"></script>
     <script type="text/javascript" src="${ basePath }/assets/js/maps.js"></script>
-    <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script>
 
     <title>${documentTitle}</title>
 </head>

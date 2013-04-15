@@ -20,6 +20,10 @@ body > .navbar > .navbar-inner {
     margin: 0 4px;
 }
 
+#map-canvas {
+	height: 300px;
+}
+
 .header {
 }
 
