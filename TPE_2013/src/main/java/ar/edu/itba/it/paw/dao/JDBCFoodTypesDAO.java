@@ -22,9 +22,8 @@ public class JDBCFoodTypesDAO extends AbstractDAO implements FoodTypesDAO {
 		ResultSet rs = executeQuery("SELECT * FROM foodTypes");
 		List<FoodType> ls = new ArrayList<FoodType>();
 		try {
-			while (rs.next()) {
+			while (rs.next()) 
 				ls.add(getFoodType(rs));
-			}
 			rs.close();
 			return ls;
 		} catch (SQLException e) {
@@ -36,8 +35,9 @@ public class JDBCFoodTypesDAO extends AbstractDAO implements FoodTypesDAO {
 	public FoodType getSingleFoodType(int id) {
 		ResultSet rs = executeQuery("SELECT * FROM foodtypes WHERE id = ?", id);
 		try {
-			rs.next();
-			FoodType ft = getFoodType(rs);
+			FoodType ft = null;
+			if (rs.next())
+				ft = getFoodType(rs);
 			rs.close();
 			return ft;
 		} catch (SQLException e) {

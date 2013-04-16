@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import ar.edu.itba.it.paw.manager.RatingManager;
 import ar.edu.itba.it.paw.manager.RestaurantManager;
 import ar.edu.itba.it.paw.model.Rating;
+import ar.edu.itba.it.paw.model.Restaurant;
 
 @SuppressWarnings("serial")
 public class RestaurantDetailServlet extends BaseServlet {
@@ -16,20 +17,26 @@ public class RestaurantDetailServlet extends BaseServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		int id = Integer.valueOf(req.getParameter("id"));
-
-		req.setAttribute("restaurant", RestaurantManager.getInstance()
-				.getSingleRestaurant(id));
-		req.setAttribute("commentList", RatingManager.getInstance()
-				.getRatingsByRestaurant(id));
-
-		if (isLoggedIn(req)) {
-			Rating r = RatingManager.getInstance().getSingleRating(
-					getLoggedInUser(req), id);
-			if (r != null)
-				req.setAttribute("userComment", r);
-		}
 		
-		render(req, resp, "view.jsp", "SimpleRestaurant");
+		Restaurant rest = RestaurantManager.getInstance()
+				.getSingleRestaurant(id);
+		
+		if (rest != null) {
+			req.setAttribute("restaurant", rest);
+			req.setAttribute("commentList", RatingManager.getInstance()
+					.getRatingsByRestaurant(id));
+
+			if (isLoggedIn(req)) {
+				Rating r = RatingManager.getInstance().getSingleRating(
+						getLoggedInUser(req), id);
+				if (r != null)
+					req.setAttribute("userComment", r);
+			}
+		
+			render(req, resp, "view.jsp", "SimpleRestaurant");
+		} else {
+			render(req, resp, "error.jsp", "404 NOT FOUND");
+		}
 	}
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)

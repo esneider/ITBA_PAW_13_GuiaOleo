@@ -40,9 +40,8 @@ public class JDBCRatingsDAO extends AbstractDAO implements RatingsDAO {
 						+ "ORDER BY ratings.ratingDate desc", r.getId());
 		List<Rating> ls = new ArrayList<Rating>();
 		try {
-			while (rs.next()) {
+			while (rs.next()) 
 				ls.add(getRating(rs, r));
-			}
 			rs.close();
 			return ls;
 		} catch (SQLException e) {
@@ -56,13 +55,11 @@ public class JDBCRatingsDAO extends AbstractDAO implements RatingsDAO {
 				+ "WHERE ratings.restaurantId = ? AND ratings.userId = ?",
 				r.getId(), u.getId());
 		try {
-			if (rs.next()) {
-				Rating rate = getRating(rs, r, u);
-				rs.close();
-				return rate;
-			}
+			Rating rate = null;
+			if (rs.next()) 
+				rate = getRating(rs, r, u);
 			rs.close();
-			return null;
+			return rate;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

@@ -31,9 +31,8 @@ public class JDBCRestaurantDAO extends AbstractDAO implements RestaurantDAO {
 						+ "ORDER BY avgscore desc " + "LIMIT ?", cant);
 		List<Restaurant> ls = new ArrayList<Restaurant>();
 		try {
-			while (rs.next()) {
+			while (rs.next()) 
 				ls.add(getRestaurant(rs));
-			}
 			rs.close();
 			return ls;
 		} catch (SQLException e) {
@@ -51,8 +50,9 @@ public class JDBCRestaurantDAO extends AbstractDAO implements RestaurantDAO {
 						+ "ON restaurants.foodTypeId = foodtypes.id "
 						+ "WHERE restaurants.id = ?", id);
 		try {
-			rs.next();
-			Restaurant r = getRestaurant(rs);
+			Restaurant r = null;
+			if (rs.next())
+				r = getRestaurant(rs);
 			rs.close();
 			return r;
 		} catch (SQLException e) {
@@ -81,9 +81,8 @@ public class JDBCRestaurantDAO extends AbstractDAO implements RestaurantDAO {
 				+ "ON restaurants.foodTypeId = foodtypes.id");
 		List<Restaurant> ls = new ArrayList<Restaurant>();
 		try {
-			while (rs.next()) {
+			while (rs.next()) 
 				ls.add(getRestaurant(rs));
-			}
 			rs.close();
 			return ls;
 		} catch (SQLException e) {
@@ -104,9 +103,8 @@ public class JDBCRestaurantDAO extends AbstractDAO implements RestaurantDAO {
 
 		List<Restaurant> ls = new ArrayList<Restaurant>();
 		try {
-			while (rs.next()) {
+			while (rs.next()) 
 				ls.add(getRestaurant(rs));
-			}
 			rs.close();
 			return ls;
 		} catch (SQLException e) {
@@ -125,10 +123,9 @@ public class JDBCRestaurantDAO extends AbstractDAO implements RestaurantDAO {
         List<Restaurant> ls = new ArrayList<Restaurant>();
        
 		try {
-			while (rs.next()) {
-
+			while (rs.next()) 
 				ls.add(getRestaurant(rs));
-			}
+			rs.close();
 			return ls;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -145,7 +142,6 @@ public class JDBCRestaurantDAO extends AbstractDAO implements RestaurantDAO {
 						+ "FROM restaurants JOIN foodtypes "
 						+ "ON restaurants.foodTypeId = foodtypes.id "
 						+ "WHERE restaurants.name ILIKE ?", query);
-		List<Restaurant> ls = new ArrayList<Restaurant>();
 
 		
 		Set<Restaurant> auxSet = new HashSet<Restaurant>();
@@ -175,10 +171,9 @@ public class JDBCRestaurantDAO extends AbstractDAO implements RestaurantDAO {
         List<Restaurant> ls = new ArrayList<Restaurant>();
        
 		try {
-			while (rs.next()) {
-
+			while (rs.next()) 
 				ls.add(getRestaurant(rs));
-			}
+			rs.close();
 			return ls;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -197,9 +192,8 @@ public class JDBCRestaurantDAO extends AbstractDAO implements RestaurantDAO {
        
 
 		try {
-			while (rs.next()) {
+			while (rs.next()) 
 				ls.add(getRestaurant(rs));
-			}
 			rs.close();
 			return ls;
 		} catch (SQLException e) {

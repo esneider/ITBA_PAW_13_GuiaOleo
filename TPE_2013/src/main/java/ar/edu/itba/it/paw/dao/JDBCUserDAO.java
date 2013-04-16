@@ -27,11 +27,9 @@ public class JDBCUserDAO extends AbstractDAO implements UserDAO {
 				username, password);
 
 		try {
-			if (!rs.next()) {
-				rs.close();
-				return null;
-			}
-			User u = newUser(rs);
+			User u = null;
+			if (rs.next()) 
+				u = newUser(rs);
 			rs.close();
 			return u;
 		} catch (Exception e) {
@@ -83,8 +81,9 @@ public class JDBCUserDAO extends AbstractDAO implements UserDAO {
 	public User getSingleUser(int id) {
 		ResultSet rs = executeQuery("SELECT * FROM users WHERE id = ?", id);
 		try {
-			rs.next();
-			User u = newUser(rs);
+			User u = null;
+			if (rs.next())
+				u = newUser(rs);
 			rs.close();
 			return u;
 		} catch (SQLException e) {
