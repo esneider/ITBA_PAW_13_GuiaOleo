@@ -66,6 +66,26 @@
 
         <hr />
 
+
+        <c:if test="${registerAction}">
+            <div class="actionSuccess xialert alert-success">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                You have been successfully registered. Congratulations!
+            </div>
+        </c:if>
+        <c:if test="${modifyAction}">
+            <div class="actionSuccess alert alert-success">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                Your data has been successfully updated.
+            </div>
+        </c:if>
+        <c:if test="${loginAction}">
+            <div class="actionSuccess alert alert-success">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                Welcome ${user.name}!
+            </div>
+        </c:if>
+
         <div id="main">
             <c:import url="${documentBodyFile}" />
         </div>

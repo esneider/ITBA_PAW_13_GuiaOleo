@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import ar.edu.itba.it.paw.manager.UserManager;
 import ar.edu.itba.it.paw.model.User;
+import ar.edu.itba.it.paw.utils.Utils;
 
 @SuppressWarnings("serial")
 public class LoginServlet extends BaseServlet {
@@ -55,7 +56,7 @@ public class LoginServlet extends BaseServlet {
 			if (user != null) {
 	
 				setLoggedInUser(req, user);
-				resp.sendRedirect(destination);
+				resp.sendRedirect(Utils.addParameterToURI(destination, "loginAction", "successful"));
 				return;
 			}
 	
