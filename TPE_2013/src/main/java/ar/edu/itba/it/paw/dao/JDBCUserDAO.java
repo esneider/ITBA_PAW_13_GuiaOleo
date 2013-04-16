@@ -47,8 +47,8 @@ public class JDBCUserDAO extends AbstractDAO implements UserDAO {
 	@Override
 	public User register(User user) {
 
-		execute("INSERT INTO users (name, surname, mail, username, password) VALUES (?, ?, ?, ?, ?)",
-				user.getName(), user.getSurname(), user.getEmail(), user.getUsername(), user.getPassword());
+		execute("INSERT INTO users (name, surname, mail, username, password, avatar) VALUES (?, ?, ?, ?, ?, ?)",
+				user.getName(), user.getSurname(), user.getEmail(), user.getUsername(), user.getPassword(), user.getAvatar());
 
 		return login(user.getUsername(), user.getPassword());
 	}

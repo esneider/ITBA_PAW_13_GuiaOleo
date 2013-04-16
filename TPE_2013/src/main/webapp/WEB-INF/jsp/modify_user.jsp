@@ -7,7 +7,7 @@
     </div>
 
 	<div>
-		<form class="modifyUserForm form-horizontal" action="modify_user" method="POST">
+		<form class="modifyUserForm form-horizontal" action="modify_user" enctype="multipart/form-data" method="POST">
 
 			<c:import url="user_data_fields.jsp" />
 

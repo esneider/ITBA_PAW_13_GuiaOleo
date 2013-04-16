@@ -1,5 +1,7 @@
 package ar.edu.itba.it.paw.manager;
 
+import java.io.InputStream;
+
 import ar.edu.itba.it.paw.dao.JDBCUserDAO;
 import ar.edu.itba.it.paw.dao.interfaces.UserDAO;
 import ar.edu.itba.it.paw.model.User;
@@ -45,7 +47,12 @@ public class UserManager {
 
 	public User register(String name, String surname, String email, String username, String password) {
 
-		return userDAO.register(new User(name, surname, email, username, password));
+		return register(name, surname, email, username, password, null);
+	}
+	
+	public User register(String name, String surname, String email, String username, String password, InputStream is) {
+
+		return userDAO.register(new User(name, surname, email, username, password, is));
 	}
 
 	public void update(User user) {

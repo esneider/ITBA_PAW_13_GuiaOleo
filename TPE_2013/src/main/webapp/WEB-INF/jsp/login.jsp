@@ -65,7 +65,7 @@
             <h2>Register</h2>
         </div>
 
-		<form class="registerForm form-horizontal" action="register" method="POST">
+		<form class="registerForm form-horizontal" action="register" enctype="multipart/form-data" method="POST">
 
 			<input type="hidden" name="from" value="${fn:escapeXml(from)}"/>
 

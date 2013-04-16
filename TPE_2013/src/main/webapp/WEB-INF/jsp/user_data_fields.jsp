@@ -55,6 +55,15 @@
     </div>
 </div>
 
+<div class="registerAvatar control-group ${registerAvatarClass}">
+	<label class="control-label">Insert your avatar:</label>
+    <div class="controls">
+        <p>
+            <input type="file" name="registerAvatar"">
+        </p>
+    </div>
+</div>
+
 <div class="registerSurname control-group ${registerSurnameClass}">
 	<label class="control-label">Surname:</label>
     <div class="controls">
