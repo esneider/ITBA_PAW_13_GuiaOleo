@@ -10,6 +10,11 @@ body > .navbar form.navbar-form > div {
     margin-bottom: auto;
 }
 
+dt {
+    margin-left: 120px;
+    margin-right: 20px;
+}
+
 .absolute {
     position: absolute;
 }
