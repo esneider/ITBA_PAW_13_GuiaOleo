@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import ar.edu.itba.it.paw.manager.UserManager;
 import ar.edu.itba.it.paw.model.User;
-import ar.edu.itba.it.paw.utils.Validation;
+import ar.edu.itba.it.paw.utils.Utils;
 
 
 @SuppressWarnings("serial")
@@ -32,7 +32,11 @@ public abstract class BaseServlet extends HttpServlet {
 		req.setAttribute("basePath", req.getContextPath());
 
 		if (isLoggedIn(req)) {
+
 			req.setAttribute("user", getLoggedInUser(req));
+			req.setAttribute("loginAction",    "successful".equals(req.getParameter("loginAction")));
+			req.setAttribute("registerAction", "successful".equals(req.getParameter("registerAction")));
+			req.setAttribute("modifyAction",   "successful".equals(req.getParameter("modifyAction")));
 		}
 		
 		req.getRequestDispatcher("/WEB-INF/jsp/layout.jsp").forward(req, resp);
@@ -190,7 +194,7 @@ public abstract class BaseServlet extends HttpServlet {
 			return false;
 		}
 
-		if (!Validation.isEmail(req.getParameter(param))) {
+		if (!Utils.isEmail(req.getParameter(param))) {
 			req.setAttribute(param + "InvalidFormat", true);
 			req.setAttribute(param + "Error", true);
 			return false;

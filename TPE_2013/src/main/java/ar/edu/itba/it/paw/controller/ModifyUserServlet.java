@@ -53,7 +53,7 @@ public class ModifyUserServlet extends BaseServlet {
 			}
 
 			getLoggedInUser(req).update(name, surname, mail, password);
-			resp.sendRedirect("index");
+			resp.sendRedirect("index?modifyAction=successful");
 			return;
 		}
 
