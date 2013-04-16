@@ -23,19 +23,14 @@ public class UserManager {
 		return self;
 	}
 
-	public boolean existsUser() {
+	public boolean usernameExists(String username) {
 
-		return false;
+		return userDAO.usernameExists(username);
 	}
 
-	public void resetUser(int id) {
+	public boolean emailExists(String email) {
 
-		
-	}
-
-	public void setUser(int id) {
-
-		
+		return userDAO.emailExists(email);
 	}
 
 	public User login(String username, String password) {
@@ -44,16 +39,13 @@ public class UserManager {
 	}
 	
 	public User getSingleUser (int id) {
+
 		return userDAO.getSingleUser(id);
 	}
 
-	public User register(String name, String surname, String mail, String username, String password) {
+	public User register(String name, String surname, String email, String username, String password) {
 
-		if (userDAO.usernameExists(username)) {
-			return null;
-		}
-
-		return userDAO.register(new User(name, surname, mail, username, password));
+		return userDAO.register(new User(name, surname, email, username, password));
 	}
 
 	public void update(User user) {

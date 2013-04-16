@@ -27,12 +27,18 @@ public class JDBCUserDAO extends AbstractDAO implements UserDAO {
 				username, password);
 
 		try {
+
 			User u = null;
-			if (rs.next()) 
+
+            if (rs.next()) {
 				u = newUser(rs);
+            }
 			rs.close();
+
 			return u;
+
 		} catch (Exception e) {
+
 			e.printStackTrace();
 			return null;
 		}
@@ -42,22 +48,50 @@ public class JDBCUserDAO extends AbstractDAO implements UserDAO {
 	public User register(User user) {
 
 		execute("INSERT INTO users (name, surname, mail, username, password) VALUES (?, ?, ?, ?, ?)",
-				user.getName(), user.getSurname(), user.getMail(), user.getUsername(), user.getPassword());
+				user.getName(), user.getSurname(), user.getEmail(), user.getUsername(), user.getPassword());
 
 		return login(user.getUsername(), user.getPassword());
 	}
-	
+
 	@Override
 	public boolean usernameExists(String username) {
 
 		ResultSet rs = executeQuery("SELECT id FROM users WHERE username = ?", username);
 
 		try {
+
 			if (!rs.next()) {
 				rs.close();
 				return false;
 			}
+
+			rs.close();
+
 		} catch (Exception e) {
+
+			e.printStackTrace();
+			return false;
+		}
+
+		return true;
+	}
+
+	@Override
+	public boolean emailExists(String email) {
+
+		ResultSet rs = executeQuery("SELECT id FROM users WHERE mail = ?", email);
+
+		try {
+
+			if (!rs.next()) {
+				rs.close();
+				return false;
+			}
+
+			rs.close();
+
+		} catch (Exception e) {
+
 			e.printStackTrace();
 			return false;
 		}
@@ -68,35 +102,46 @@ public class JDBCUserDAO extends AbstractDAO implements UserDAO {
 	private User newUser(ResultSet rs) {
 
 		try {
+
 			return new User(rs.getInt("id"), rs.getString("name"),
 					rs.getString("surname"), rs.getString("mail"),
 					rs.getString("username"), rs.getString("password"));
+
 		} catch (SQLException e) {
-			e.printStackTrace();
+
 			return null;
 		}
 	}
 
 	@Override
 	public User getSingleUser(int id) {
+
 		ResultSet rs = executeQuery("SELECT * FROM users WHERE id = ?", id);
+
 		try {
+
 			User u = null;
-			if (rs.next())
+
+			if (rs.next()) {
 				u = newUser(rs);
-			rs.close();
+            }
+            rs.close();
+
 			return u;
+
 		} catch (SQLException e) {
+
 			e.printStackTrace();
 		}
+
 		return null;
 	}
-	
+
 	@Override
 	public void update(User user) {
 
 		executeUpdate("UPDATE users SET name = ?, surname = ?, mail = ?, username = ?, password = ?"
-				+ "WHERE id = ?", user.getName(), user.getSurname(), user.getMail(), user.getUsername(),
+				+ "WHERE id = ?", user.getName(), user.getSurname(), user.getEmail(), user.getUsername(),
 				user.getPassword(), user.getId());
 	}
 }

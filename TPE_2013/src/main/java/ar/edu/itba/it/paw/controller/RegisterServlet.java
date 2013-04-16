@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import ar.edu.itba.it.paw.manager.UserManager;
 import ar.edu.itba.it.paw.model.User;
 import ar.edu.itba.it.paw.utils.Utils;
+import ar.edu.itba.it.paw.utils.ValidationHelpers;
 
 @SuppressWarnings("serial")
 public class RegisterServlet extends BaseServlet {
@@ -40,28 +41,28 @@ public class RegisterServlet extends BaseServlet {
 
 		boolean check = true;
 
-		check &= checkParameter(req, "registerUsername", 0, 50);
-		check &= checkParameter(req, "registerPassword", 0, 64);
-		check &= checkParameter(req, "registerRePassword", 0, 64);
-		check &= checkParameter(req, "registerName", 0, 50);
-		check &= checkParameter(req, "registerSurname", 0, 50);
-		check &= checkEmail(req, "registerMail", 0, 50);
-		check &= check && checkParamsEqual(req, "registerPassword", "registerRePassword");
+		check &= ValidationHelpers.checkUsername(req, "registerUsername", 0, 50);
+		check &= ValidationHelpers.checkParameter(req, "registerPassword", 0, 64);
+		check &= ValidationHelpers.checkParameter(req, "registerRePassword", 0, 64);
+		check &= ValidationHelpers.checkParameter(req, "registerName", 0, 50);
+		check &= ValidationHelpers.checkParameter(req, "registerSurname", 0, 50);
+		check &= ValidationHelpers.checkEmail(req, "registerEmail", 0, 50);
+		check &= check && ValidationHelpers.checkParamsEqual(req, "registerPassword", "registerRePassword");
 
 		String username = req.getParameter("registerUsername");
 		String password = req.getParameter("registerPassword");
 		String name = req.getParameter("registerName");
 		String surname = req.getParameter("registerSurname");
-		String mail = req.getParameter("registerMail");
+		String email = req.getParameter("registerEmail");
 
 		req.setAttribute("registerUsername", username);
 		req.setAttribute("registerName", name);
 		req.setAttribute("registerSurname", surname);
-		req.setAttribute("registerMail", mail);
+		req.setAttribute("registerEmail", email);
 
 		if (check) {
 
-			User user = UserManager.getInstance().register(name, surname, mail, username, password);
+			User user = UserManager.getInstance().register(name, surname, email, username, password);
 	
 			if (user != null) {
 	
@@ -69,9 +70,6 @@ public class RegisterServlet extends BaseServlet {
 				resp.sendRedirect(Utils.addParameterToURI(destination, "registerAction", "successful"));
 				return;
 			}
-
-			req.setAttribute("registerUsernameError", true);
-			req.setAttribute("usernameExists", true);
 		}
 
 		render(req, resp, "login.jsp", "Login or Register");

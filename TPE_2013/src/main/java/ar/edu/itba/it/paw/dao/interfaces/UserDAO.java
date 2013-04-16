@@ -12,5 +12,7 @@ public interface UserDAO {
 
 	public boolean usernameExists(String username);
 
+	public boolean emailExists(String email);
+
 	public void update(User user);
 }

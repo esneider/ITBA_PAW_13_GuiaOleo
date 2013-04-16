@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import ar.edu.itba.it.paw.manager.UserManager;
 import ar.edu.itba.it.paw.model.User;
 import ar.edu.itba.it.paw.utils.Utils;
+import ar.edu.itba.it.paw.utils.ValidationHelpers;
 
 @SuppressWarnings("serial")
 public class LoginServlet extends BaseServlet {
@@ -41,8 +42,8 @@ public class LoginServlet extends BaseServlet {
 
 		boolean check = true;
 
-		check &= checkParameter(req, "loginUsername", 0, 50);
-		check &= checkParameter(req, "loginPassword", 0, 64);
+		check &= ValidationHelpers.checkParameter(req, "loginUsername", 0, 50);
+		check &= ValidationHelpers.checkParameter(req, "loginPassword", 0, 64);
 
 		String username = req.getParameter("loginUsername");
 		String password = req.getParameter("loginPassword");

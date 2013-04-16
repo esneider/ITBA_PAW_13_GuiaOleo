@@ -4,24 +4,26 @@ import ar.edu.itba.it.paw.manager.UserManager;
 
 public class User extends AbstractModel {
 
-	private String name, surname, mail, username, password;
+	private String name, surname, email, username, password;
 
-	public User(int id, String name, String surname, String mail,
+	public User(int id, String name, String surname, String email,
 			String username, String password) {
+		
 		super(id);
 		this.name = name;
 		this.surname = surname;
-		this.mail = mail;
+		this.email = email;
 		this.username = username;
 		this.password = password;
 	}
 	
-	public User(String name, String surname, String mail,
+	public User(String name, String surname, String email,
 			String username, String password) {
+		
 		super(-1);
 		this.name = name;
 		this.surname = surname;
-		this.mail = mail;
+		this.email = email;
 		this.username = username;
 		this.password = password;
 	}
@@ -34,8 +36,8 @@ public class User extends AbstractModel {
 		return surname;
 	}
 
-	public String getMail() {
-		return mail;
+	public String getEmail() {
+		return email;
 	}
 
 	public String getUsername() {
@@ -46,11 +48,11 @@ public class User extends AbstractModel {
 		return password;
 	}
 
-	public void update(String name, String surname, String mail, String password) {
+	public void update(String name, String surname, String email, String password) {
 
 		this.name = name;
 		this.surname = surname;
-		this.mail = mail;
+		this.email = email;
 		this.password = password;
 
 		UserManager.getInstance().update(this);

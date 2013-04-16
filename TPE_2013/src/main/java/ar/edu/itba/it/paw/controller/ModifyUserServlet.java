@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import ar.edu.itba.it.paw.model.User;
+import ar.edu.itba.it.paw.utils.ValidationHelpers;
 
 @SuppressWarnings("serial")
 public class ModifyUserServlet extends BaseServlet {
@@ -19,7 +20,7 @@ public class ModifyUserServlet extends BaseServlet {
 
 		req.setAttribute("registerName", user.getName());
 		req.setAttribute("registerSurname", user.getSurname());
-		req.setAttribute("registerMail", user.getMail());
+		req.setAttribute("registerEmail", user.getEmail());
 
 		render(req, resp, "modify_user.jsp", "Modify your data");
 	}
@@ -30,12 +31,12 @@ public class ModifyUserServlet extends BaseServlet {
 
 		boolean check = true;
 
-		check &= checkParameter(req, "registerPassword", 0, 64, true);
-		check &= checkParameter(req, "registerRePassword", 0, 64, true);
-		check &= checkParameter(req, "registerName", 0, 50);
-		check &= checkParameter(req, "registerSurname", 0, 50);
-		check &= checkEmail(req, "registerMail", 0, 50);
-		check &= check && checkParamsEqual(req, "registerPassword", "registerRePassword");
+		check &= ValidationHelpers.checkParameter(req, "registerPassword", 0, 64, true);
+		check &= ValidationHelpers.checkParameter(req, "registerRePassword", 0, 64, true);
+		check &= ValidationHelpers.checkParameter(req, "registerName", 0, 50);
+		check &= ValidationHelpers.checkParameter(req, "registerSurname", 0, 50);
+		check &= ValidationHelpers.checkEmail(req, "registerMail", 0, 50);
+		check &= check && ValidationHelpers.checkParamsEqual(req, "registerPassword", "registerRePassword");
 
 		String password = req.getParameter("registerPassword");
 		String name = req.getParameter("registerName");

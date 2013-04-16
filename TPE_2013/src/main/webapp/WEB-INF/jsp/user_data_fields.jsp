@@ -5,7 +5,7 @@
 <c:if test="${registerRePasswordError}"><c:set var="registerRePasswordClass" value="error" /></c:if>
 <c:if test="${registerNameError}"><c:set var="registerNameClass" value="error" /></c:if>
 <c:if test="${registerSurnameError}"><c:set var="registerSurnameClass" value="error" /></c:if>
-<c:if test="${registerMailError}"><c:set var="registerMailClass" value="error" /></c:if>
+<c:if test="${registerEmailError}"><c:set var="registerEmailClass" value="error" /></c:if>
 
 <div class="registerPassword control-group ${registerPasswordClass}">
 	<label class="control-label">Password:</label>
@@ -71,21 +71,24 @@
     </div>
 </div>
 
-<div class="registerMail control-group ${registerMailClass}">
+<div class="registerEmail control-group ${registerEmailClass}">
 	<label class="control-label">Email:</label>
     <div class="controls">
         <p>
-            <input type="text" name="registerMail" value="${fn:escapeXml(registerMail)}">
+            <input type="text" name="registerEmail" value="${fn:escapeXml(registerEmail)}">
         </p>
 
-        <c:if test="${registerMailEmpty}">
+        <c:if test="${registerEmailEmpty}">
             <p class="text-error">You have to provide an email.</p>
         </c:if>
-        <c:if test="${registerMailBadLength}">
+        <c:if test="${registerEmailBadLength}">
             <p class="text-error">The email is too long.</p>
         </c:if>
-        <c:if test="${registerMailInvalidFormat}">
+        <c:if test="${registerEmailInvalidFormat}">
             <p class="text-error">The email is not valid.</p>
+        </c:if>
+        <c:if test="${registerEmailNotAvailable}">
+            <p class="text-error">The email is already in use with another account.</p>
         </c:if>
     </div>
 </div>
