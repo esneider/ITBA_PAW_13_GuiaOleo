@@ -60,13 +60,11 @@
         <div id="main-logo">
             <div>
                 <a href="index"><img src="${ basePath }/assets/img/logo.PNG" /></a>
-                <h1>Guia Oleo Facha</h1><br><br>
-                <a href='list?query=all'>See all restaurants</a>
+                <h1>Guia Oleo Facha</h1>
             </div>
         </div>
 
         <hr />
-
 
         <c:if test="${registerAction}">
             <div class="actionSuccess xialert alert-success">
@@ -88,8 +86,49 @@
         </c:if>
 
         <div id="main">
-            <c:import url="${documentBodyFile}" />
+            <c:choose>
+                <c:when test="${not sidebar}">
+                    <c:import url="${documentBodyFile}" />
+                </c:when>
+                <c:otherwise>
+                    <div class="tabbable tabs-left">
+                        <ul class="nav nav-tabs">
+
+                            <li class="${tab_all}"><a href="${ basePath }/list?query=all">
+                                <strong class="name text-warning">All restaurants</strong>
+                                <br>
+                                <c:if test="${numberOfRestaurants > 1}"><c:set var="s" value="s" /></c:if>
+                                <span class="number muted">${numberOfRestaurants} restaurant${s}</span>
+                            </a></li>
+
+                            <c:forEach var="foodtype" items="${foodTypesList}">
+                                <c:if test="${foodtype.ammount > 0}">
+                                    <c:set var="class" value="" />
+                                    <c:if test="${tab_active == foodtype.id}">
+                                        <c:set var="class" value="active" />
+                                    </c:if>
+                                    <li class="${class}">
+                                        <a href="${ basePath }/list?query=foodtypes&id=${foodtype.id}">
+                                            <strong class="name">${fn:escapeXml(foodtype.name)}</strong>
+                                            <br>
+                                            <c:if test="${foodtype.ammount > 1}"><c:set var="s" value="s" /></c:if>
+                                            <span class="number muted">${foodtype.ammount} restaurant${s}</span>
+                                        </a>
+                                    </li>
+                                </c:if>
+                            </c:forEach>
+
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active">
+                                <c:import url="${documentBodyFile}" />
+                            </div>
+                        </div>
+                    </div>
+                </c:otherwise>
+            </c:choose>
         </div>
     </div>
 </body>
 </html>
+

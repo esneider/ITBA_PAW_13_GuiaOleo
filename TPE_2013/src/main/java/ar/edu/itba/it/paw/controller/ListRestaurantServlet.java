@@ -17,7 +17,7 @@ public class ListRestaurantServlet extends BaseServlet {
 		String query = req.getParameter("query");
 
 		if (query == null) {
-			render(req, resp, "error.jsp", "404 NOT FOUND");
+			render(req, resp, "error.jsp", "404 NOT FOUND", false);
 			return;
 		}
 		RestaurantManager r = RestaurantManager.getInstance();
@@ -30,7 +30,7 @@ public class ListRestaurantServlet extends BaseServlet {
 			req.setAttribute("restaurantList",
 					r.getRestaurantsByFoodType(foodtypeid));
 		}
-		render(req, resp, "list.jsp", "Lista de Restaurantes");
+		render(req, resp, "list.jsp", "Lista de Restaurantes", true);
 
 	}
 

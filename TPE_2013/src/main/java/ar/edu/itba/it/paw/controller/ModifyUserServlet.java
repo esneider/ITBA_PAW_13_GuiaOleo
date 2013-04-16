@@ -22,7 +22,7 @@ public class ModifyUserServlet extends BaseServlet {
 		req.setAttribute("registerSurname", user.getSurname());
 		req.setAttribute("registerEmail", user.getEmail());
 
-		render(req, resp, "modify_user.jsp", "Modify your data");
+		render(req, resp, "modify_user.jsp", "Modify your data", false);
 	}
 	
 	@Override
@@ -58,7 +58,7 @@ public class ModifyUserServlet extends BaseServlet {
 			return;
 		}
 
-		render(req, resp, "modify_user.jsp", "Modify your data");
+		render(req, resp, "modify_user.jsp", "Modify your data", false);
 	}
 
 }

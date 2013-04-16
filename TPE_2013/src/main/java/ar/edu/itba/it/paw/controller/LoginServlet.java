@@ -26,7 +26,7 @@ public class LoginServlet extends BaseServlet {
 			return;
 		}
 
-		render(req, resp, "login.jsp", "Login or Register");
+		render(req, resp, "login.jsp", "Login or Register", false);
 	}
 
 	@Override
@@ -64,6 +64,6 @@ public class LoginServlet extends BaseServlet {
 			req.setAttribute("invalidUser", true);
 		}
 
-		render(req, resp, "login.jsp", "Login or Register");
+		render(req, resp, "login.jsp", "Login or Register", false);
 	}
 }

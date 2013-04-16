@@ -4,13 +4,17 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.util.Collections;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import ar.edu.itba.it.paw.manager.FoodTypeManager;
 import ar.edu.itba.it.paw.manager.UserManager;
+import ar.edu.itba.it.paw.model.FoodType;
 import ar.edu.itba.it.paw.model.User;
 
 
@@ -21,7 +25,7 @@ public abstract class BaseServlet extends HttpServlet {
 		super();
 	}
 
-	protected void render(HttpServletRequest req, HttpServletResponse resp, String file, String title)
+	protected void render(HttpServletRequest req, HttpServletResponse resp, String file, String title, boolean sidebar)
 			throws ServletException, IOException {
 
 		req.setAttribute("documentTitle", title);
@@ -36,6 +40,32 @@ public abstract class BaseServlet extends HttpServlet {
 			req.setAttribute("modifyAction",   "successful".equals(req.getParameter("modifyAction")));
 		}
 		
+		if (sidebar) {
+
+			List<FoodType> all = FoodTypeManager.getInstance().getAll();
+			int total = 0;
+			
+			for (FoodType foodType : all) {
+				total += foodType.getAmmount();
+			}
+	
+			Collections.sort(all);
+	
+			req.setAttribute("sidebar", true);
+			req.setAttribute("foodTypesList", all);
+			req.setAttribute("numberOfRestaurants", total);
+
+
+			if ("foodtypes".equals(req.getParameter("query"))) {
+
+				req.setAttribute("tab_active", req.getParameter("id"));
+
+			} else if ("all".equals(req.getParameter("query"))) {
+
+				req.setAttribute("tab_all", "active");
+			}
+		}
+
 		req.getRequestDispatcher("/WEB-INF/jsp/layout.jsp").forward(req, resp);
 	}
 

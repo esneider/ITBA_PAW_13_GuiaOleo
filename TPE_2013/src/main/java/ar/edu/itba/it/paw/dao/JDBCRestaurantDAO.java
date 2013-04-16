@@ -132,6 +132,7 @@ public class JDBCRestaurantDAO extends AbstractDAO implements RestaurantDAO {
 		}
 		return null;
 	}
+
 	@Override
 	public List<Restaurant> getRestaurantsByQuery(String query) {
 

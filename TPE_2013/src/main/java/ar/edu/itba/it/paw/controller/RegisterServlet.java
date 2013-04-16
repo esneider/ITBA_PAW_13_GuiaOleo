@@ -37,7 +37,7 @@ public class RegisterServlet extends BaseServlet {
 			return;
 		}
 
-		render(req, resp, "login.jsp", "Login or Register");
+		render(req, resp, "login.jsp", "Login or Register", false);
 	}
 
 	@Override
@@ -107,7 +107,7 @@ public class RegisterServlet extends BaseServlet {
 			}
 		}
 
-		render(req, resp, "login.jsp", "Login or Register");
+		render(req, resp, "login.jsp", "Login or Register", false);
 	}
 
 	public void stringToFile(String archivo, File dir) {

@@ -33,9 +33,9 @@ public class RestaurantDetailServlet extends BaseServlet {
 					req.setAttribute("userComment", r);
 			}
 		
-			render(req, resp, "view.jsp", "SimpleRestaurant");
+			render(req, resp, "view.jsp", "SimpleRestaurant", true);
 		} else {
-			render(req, resp, "error.jsp", "404 NOT FOUND");
+			render(req, resp, "error.jsp", "404 NOT FOUND", false);
 		}
 	}
 
@@ -51,7 +51,7 @@ public class RestaurantDetailServlet extends BaseServlet {
 					getLoggedInUser(req), id);
 			doGet(req, resp);
 		} else {
-			render(req, resp, "error.jsp", "404 NOT FOUND");
+			render(req, resp, "error.jsp", "404 NOT FOUND", false);
 			return;
 		}
 	}

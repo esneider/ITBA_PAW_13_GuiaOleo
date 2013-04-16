@@ -1,6 +1,6 @@
 package ar.edu.itba.it.paw.model;
 
-public class FoodType extends AbstractModel {
+public class FoodType extends AbstractModel implements Comparable<FoodType> {
 
 	private String name;
 	private int ammount;
@@ -19,4 +19,9 @@ public class FoodType extends AbstractModel {
 		return ammount;
 	}
 	
+	@Override
+	public int compareTo(FoodType other) {
+
+		return name.compareTo(other.name);
+	}
 }
