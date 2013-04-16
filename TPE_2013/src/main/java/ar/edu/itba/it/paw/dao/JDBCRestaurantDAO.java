@@ -92,21 +92,6 @@ public class JDBCRestaurantDAO extends AbstractDAO implements RestaurantDAO {
 		return null;
 	}
 
-	private Restaurant getRestaurant(ResultSet rs) {
-		try {
-			return new Restaurant(rs.getInt("id"), rs.getString("name"),
-					rs.getString("address"), rs.getString("area"),
-					rs.getString("telephone"), rs.getString("website"),
-					rs.getString("timerange"), rs.getFloat("avgprice"),
-					rs.getFloat("avgscore"), rs.getInt("cantratings"),
-					new FoodType(rs.getInt("fid"), rs.getString("fname"), rs
-							.getInt("fammount")));
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-
 	@Override
 	public List<Restaurant> getRestaurantsByFoodtype(FoodType ft) {
 
@@ -222,5 +207,26 @@ public class JDBCRestaurantDAO extends AbstractDAO implements RestaurantDAO {
 		}
 		return null;
 	}
+	
+	private Restaurant getRestaurant(ResultSet rs) {
+		try {			
+			return new Restaurant(rs.getInt("id"), rs.getString("name"),
+					rs.getString("address"), rs.getString("area"),
+					rs.getString("telephone"), rs.getString("website"),
+					rs.getString("timerange"), roundToDigits(rs.getFloat("avgprice"),2),
+					roundToDigits(rs.getFloat("avgscore"),2), rs.getInt("cantratings"),
+					new FoodType(rs.getInt("fid"), rs.getString("fname"), rs
+							.getInt("fammount")));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
+	private float roundToDigits(float number, int cant) {
+		double decimals = Math.pow(10, cant);
+		return (float) (Math.round(number * decimals) / decimals);
+	}
+	
 }
+
