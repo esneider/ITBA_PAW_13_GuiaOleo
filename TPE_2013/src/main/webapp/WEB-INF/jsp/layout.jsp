@@ -22,8 +22,10 @@
     <div class="navbar navbar-fixed-top">
         <div class="navbar-inner">
             <form class="navbar-form" action="search" method="get">
-                <input type="text" class="span5" placeholder="Search Restaurant" name="query"/>
-                <input class="btn btn-primary" type="submit" value="Search"/>
+                <div class="input-append">
+                    <input type="text" class="span5" placeholder="Search Restaurant" name="query"/>
+                    <input class="btn btn-primary" type="submit" value="Search"/>
+                </div>
             </form>
             <ul id="user-menu" class="nav pull-right">
                 <c:choose>
@@ -35,14 +37,12 @@
                             </a>
                             <ul class="dropdown-menu" role="menu" aria-labelledby="user-dd">
                                 <li role="presentation">
-                                    <a role="menuitem" href="#">Modify data</a>
+                                    <a role="menuitem" href="${ basePath }/modify_user">Modify data</a>
                                 </li>
                                 <li role="presentation">
-                                    <a role="menuitem" href="#">Logout</a>
+                                    <a role="menuitem" href="${ basePath }/logout">Logout</a>
                                 </li>
                             </ul>
-
-                            <!-- ${ basePath }/modify_user -->
                         </li>
                     </c:when>
 
@@ -67,11 +67,7 @@
         <hr />
 
         <div id="main">
-            <div id="sidebar">
-            </div>
-            <div>
-                <c:import url="${documentBodyFile}" />
-            </div>
+            <c:import url="${documentBodyFile}" />
         </div>
     </div>
 </body>

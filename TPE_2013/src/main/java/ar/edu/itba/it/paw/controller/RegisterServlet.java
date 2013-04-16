@@ -13,8 +13,29 @@ import ar.edu.itba.it.paw.model.User;
 public class RegisterServlet extends BaseServlet {
 
 	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+
+		String destination = getDestination(req);
+
+		if (isLoggedIn(req)) {
+			resp.sendRedirect(destination);
+			return;
+		}
+
+		render(req, resp, "login.jsp", "Login or Register");
+	}
+
+	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
+
+		String destination = getDestination(req);
+
+		if (isLoggedIn(req)) {
+			resp.sendRedirect(destination);
+			return;
+		}
 
 		boolean check = true;
 
@@ -23,11 +44,11 @@ public class RegisterServlet extends BaseServlet {
 		check &= checkParameter(req, "registerRePassword", 0, 64);
 		check &= checkParameter(req, "registerName", 0, 50);
 		check &= checkParameter(req, "registerSurname", 0, 50);
-		check &= checkParameter(req, "registerMail", 0, 50);
+		check &= checkEmail(req, "registerMail", 0, 50);
+		check &= check && checkParamsEqual(req, "registerPassword", "registerRePassword");
 
 		String username = req.getParameter("registerUsername");
 		String password = req.getParameter("registerPassword");
-		String rePassword = req.getParameter("registerRePassword");
 		String name = req.getParameter("registerName");
 		String surname = req.getParameter("registerSurname");
 		String mail = req.getParameter("registerMail");
@@ -37,12 +58,6 @@ public class RegisterServlet extends BaseServlet {
 		req.setAttribute("registerSurname", surname);
 		req.setAttribute("registerMail", mail);
 
-		if (check && !password.equals(rePassword)) {
-
-			check = false;
-			req.setAttribute("registerPasswordsDontMatch", true);
-		}
-
 		if (check) {
 
 			User user = UserManager.getInstance().register(name, surname, mail, username, password);
@@ -50,12 +65,12 @@ public class RegisterServlet extends BaseServlet {
 			if (user != null) {
 	
 				setLoggedInUser(req, user);
-				resp.sendRedirect("index");
-
-			} else {
-	
-				req.setAttribute("usernameExists", true);
+				resp.sendRedirect(destination);
+				return;
 			}
+
+			req.setAttribute("registerUsernameError", true);
+			req.setAttribute("usernameExists", true);
 		}
 
 		render(req, resp, "login.jsp", "Login or Register");

@@ -1,6 +1,9 @@
 package ar.edu.itba.it.paw.controller;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 //import java.util.Calendar;
 //import java.util.GregorianCalendar;
 
@@ -11,12 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import ar.edu.itba.it.paw.manager.UserManager;
 import ar.edu.itba.it.paw.model.User;
+import ar.edu.itba.it.paw.utils.Validation;
 
 
 @SuppressWarnings("serial")
 public abstract class BaseServlet extends HttpServlet {
-
-	//UserDao userDao;
 
 	public BaseServlet() {
 		super();
@@ -37,20 +39,57 @@ public abstract class BaseServlet extends HttpServlet {
 	}
 
 	protected void setLoggedInUser(HttpServletRequest req, User user) {
-		req.getSession().setAttribute("userId", user.getId());
+		
+		req.getSession(true).setAttribute("userId", user.getId());
 	}
 
 	protected boolean isLoggedIn(HttpServletRequest req) {
-		return req.getSession().getAttribute("userId") != null;
+		
+		return req.getSession(true).getAttribute("userId") != null;
 	}
 
 	protected User getLoggedInUser(HttpServletRequest req) {
 
-		return UserManager.getInstance().getSingleUser((Integer)req.getSession().getAttribute("userId"));
+		return UserManager.getInstance().getSingleUser((Integer)req.getSession(true).getAttribute("userId"));
 	}
 
-	protected void logout(HttpServletRequest req, HttpServletResponse resp) {
-		req.getSession().invalidate();
+	protected void logout(HttpServletRequest req) {
+
+		req.getSession(true).invalidate();
+	}
+
+	protected String getDestination(HttpServletRequest req) throws UnsupportedEncodingException {
+		
+		String destination = req.getParameter("from");
+
+
+		if (destination == null || destination.isEmpty()) {
+
+			destination = req.getContextPath();
+
+		} else if (!req.getMethod().toUpperCase().equals("GET")) {
+			
+			destination = URLDecoder.decode(destination, "UTF-8");
+		}
+
+		req.setAttribute("from", URLEncoder.encode(destination, "UTF-8"));
+
+		System.out.println("Get destination: " + destination);
+
+		return destination;
+	}
+
+	protected String setDestination(HttpServletRequest req) throws UnsupportedEncodingException {
+		
+		String from = req.getRequestURI();
+
+		if (req.getQueryString() != null) {
+			from += "?" + req.getQueryString();
+		}
+
+		System.out.println("Set destination: " + URLEncoder.encode(from, "UTF-8"));
+
+		return "from=" + URLEncoder.encode(from, "UTF-8");
 	}
 
 	protected boolean checkParameter(HttpServletRequest req, String param, int min, int max) {
@@ -64,11 +103,13 @@ public abstract class BaseServlet extends HttpServlet {
 
 		if ((value == null || value.length() == 0) && !optional) {
 			req.setAttribute(param + "Empty", true);
+			req.setAttribute(param + "Error", true);
 			return false;
 		}
 
 		if (value.length() < min || value.length() > max) {
 			req.setAttribute(param + "BadLength", true);
+			req.setAttribute(param + "Error", true);
 			return false;
 		}
 
@@ -81,6 +122,7 @@ public abstract class BaseServlet extends HttpServlet {
 
 		if (value == null || value.length() == 0) {
 			req.setAttribute(param + "Empty", true);
+			req.setAttribute(param + "Error", true);
 			return false;
 		}
 
@@ -88,6 +130,7 @@ public abstract class BaseServlet extends HttpServlet {
 			Integer.parseInt(value);
 		} catch (Exception e) {
 			req.setAttribute(param + "InvalidFormat", true);
+			req.setAttribute(param + "Error", true);
 			return false;
 		}
 
@@ -98,6 +141,7 @@ public abstract class BaseServlet extends HttpServlet {
 
 
 		if (!checkIntegerParameter(req, param)) {
+			req.setAttribute(param + "Error", true);
 			return false;
 		}
 
@@ -105,6 +149,7 @@ public abstract class BaseServlet extends HttpServlet {
 
 		if (num < min || num > max) {
 			req.setAttribute(param + "OutOfRange", true);
+			req.setAttribute(param + "Error", true);
 			return false;
 		}
 
@@ -118,6 +163,7 @@ public abstract class BaseServlet extends HttpServlet {
 
 		if (value == null || value.length() == 0) {
 			req.setAttribute(param + "Empty", true);
+			req.setAttribute(param + "Error", true);
 			return false;
 		}
 
@@ -125,30 +171,52 @@ public abstract class BaseServlet extends HttpServlet {
 			num = Double.parseDouble(value);
 		} catch (Exception e) {
 			req.setAttribute(param + "InvalidFormat", true);
+			req.setAttribute(param + "Error", true);
 			return false;
 		}
 
 		if (num <= min || num >= max) {
 			req.setAttribute(param + "OutOfRange", true);
+			req.setAttribute(param + "Error", true);
 			return false;
 		}
 
 		return true;
 	}
 
-//	protected boolean checkEmail(HttpServletRequest req, String param, int min,	int max) {
-//
-//		if (!checkParameter(req, param, min, max)) {
-//			return false;
-//		}
-//
-//		if (!ValidationUtils.isEmail(req.getParameter(param))) {
-//			req.setAttribute(param + "InvalidFormat", true);
-//			return false;
-//		}
-//
-//		return true;
-//	}
+	protected boolean checkEmail(HttpServletRequest req, String param, int min,	int max) {
+
+		if (!checkParameter(req, param, min, max)) {
+			req.setAttribute(param + "Error", true);
+			return false;
+		}
+
+		if (!Validation.isEmail(req.getParameter(param))) {
+			req.setAttribute(param + "InvalidFormat", true);
+			req.setAttribute(param + "Error", true);
+			return false;
+		}
+
+		return true;
+	}
+
+	protected boolean checkParamsEqual(HttpServletRequest req, String param1, String param2) {
+
+		String value1 = req.getParameter(param1);
+		String value2 = req.getParameter(param2);
+
+		if (value1 == null || value2 == null) {
+			return false;
+		}
+		
+		if (!value1.equals(value2)) {
+			req.setAttribute(param2 + "DoesntMatch", true);
+			req.setAttribute(param2 + "Error", true);
+			return false;
+		}
+
+		return true;
+	}
 
 //	protected boolean checkUsername(HttpServletRequest req, String param, int min, int max) {
 //
@@ -194,23 +262,6 @@ public abstract class BaseServlet extends HttpServlet {
 //			date.get(0);
 //		} catch (Exception e) {
 //			req.setAttribute("dateInvalidFormat", true);
-//			return false;
-//		}
-//
-//		return true;
-//	}
-//
-//	protected boolean checkParamsEqual(HttpServletRequest req, String param1, String param2) {
-//
-//		String value1 = req.getParameter(param1);
-//		String value2 = req.getParameter(param2);
-//
-//		if (value1 == null || value2 == null) {
-//			return false;
-//		}
-//		
-//		if (!value1.equals(value2)) {
-//			req.setAttribute(param2 + "DoesntMatch", true);
 //			return false;
 //		}
 //

@@ -6,10 +6,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import ar.edu.itba.it.paw.dao.JDBCFoodTypesDAO;
-import ar.edu.itba.it.paw.dao.JDBCRestaurantDAO;
-import ar.edu.itba.it.paw.dao.interfaces.FoodTypesDAO;
-import ar.edu.itba.it.paw.dao.interfaces.RestaurantDAO;
 import ar.edu.itba.it.paw.manager.FoodTypeManager;
 import ar.edu.itba.it.paw.manager.RestaurantManager;
 

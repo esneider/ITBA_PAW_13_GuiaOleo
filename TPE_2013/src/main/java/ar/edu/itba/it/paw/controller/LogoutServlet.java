@@ -1,29 +1,27 @@
 package ar.edu.itba.it.paw.controller;
 
 import java.io.IOException;
-//import java.util.Calendar;
-//import java.util.GregorianCalendar;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import ar.edu.itba.it.paw.manager.RestaurantManager;
-
 @SuppressWarnings("serial")
-public class SearchServlet extends BaseServlet {
+public class LogoutServlet extends BaseServlet {
 
+	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		String query = req.getParameter("query");
-		req.setAttribute("restaurantList", RestaurantManager.getInstance().getRestaurantsByQuery(query));
-		render(req, resp, "list.jsp", "Resultado de la busqueda");
 
+		logout(req);
+		resp.sendRedirect(getDestination(req));
 	}
-
+	
+	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		doGet(req, resp);
-	}
 
+		logout(req);
+		resp.sendRedirect(getDestination(req));
+	}
 }

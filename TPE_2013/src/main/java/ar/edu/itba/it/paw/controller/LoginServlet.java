@@ -16,6 +16,14 @@ public class LoginServlet extends BaseServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 
+		String destination = getDestination(req);
+
+		if (isLoggedIn(req)) {
+
+			resp.sendRedirect(destination);
+			return;
+		}
+
 		render(req, resp, "login.jsp", "Login or Register");
 	}
 
@@ -23,7 +31,15 @@ public class LoginServlet extends BaseServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 
+		String destination = getDestination(req);
+
+		if (isLoggedIn(req)) {
+			resp.sendRedirect(destination);
+			return;
+		}
+
 		boolean check = true;
+
 		check &= checkParameter(req, "loginUsername", 0, 50);
 		check &= checkParameter(req, "loginPassword", 0, 64);
 
@@ -39,13 +55,11 @@ public class LoginServlet extends BaseServlet {
 			if (user != null) {
 	
 				setLoggedInUser(req, user);
-				resp.sendRedirect("index");
+				resp.sendRedirect(destination);
 				return;
-	
-			} else {
-	
-				req.setAttribute("invalidUser", true);
 			}
+	
+			req.setAttribute("invalidUser", true);
 		}
 
 		render(req, resp, "login.jsp", "Login or Register");

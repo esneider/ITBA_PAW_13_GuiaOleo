@@ -46,13 +46,11 @@ public class User extends AbstractModel {
 		return password;
 	}
 
-	public void update(String name, String surname, String mail,
-			String username, String password) {
+	public void update(String name, String surname, String mail, String password) {
 
 		this.name = name;
 		this.surname = surname;
 		this.mail = mail;
-		this.username = username;
 		this.password = password;
 
 		UserManager.getInstance().update(this);
