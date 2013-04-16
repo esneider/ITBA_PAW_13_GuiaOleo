@@ -12,7 +12,7 @@
 
 	<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script>
     <script type="text/javascript" src="${ basePath }/assets/js/jquery.js"></script>
-    <script type="text/javascript" src="${ basePath }/assets/js/bootstrap-modal.js"></script>
+    <script type="text/javascript" src="${ basePath }/assets/js/bootstrap.js"></script>
     <script type="text/javascript" src="${ basePath }/assets/js/maps.js"></script>
 
     <title>${documentTitle}</title>
@@ -28,14 +28,28 @@
             <ul id="user-menu" class="nav pull-right">
                 <c:choose>
                     <c:when test="${not empty user}">
-                        <li><a href="${ basePath }/modify_user">
-                            ${fn:escapeXml(user.username)}
-                            <img class="avatar" src="" />
-                        </a></li>
+                        <li class="dropdown">
+                            <a href="#" id="user-dd" role="button" class="dropdown-toggle menu-text" data-toggle="dropdown">
+                                ${fn:escapeXml(user.username)}
+                                <img class="avatar" src="" />
+                            </a>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="user-dd">
+                                <li role="presentation">
+                                    <a role="menuitem" href="#">Modify data</a>
+                                </li>
+                                <li role="presentation">
+                                    <a role="menuitem" href="#">Logout</a>
+                                </li>
+                            </ul>
+
+                            <!-- ${ basePath }/modify_user -->
+                        </li>
                     </c:when>
 
                     <c:otherwise>
-                        <li><a href="${ basePath }/login">Login or Register</a></li>
+                        <li class="login-text">
+                            <a class="menu-text" href="${ basePath }/login">Login or Register</a>
+                        </li>
                     </c:otherwise>
                 </c:choose>
             </ul>
@@ -43,37 +57,21 @@
     </div>
 
     <div class="container">
-        <div class="header row">
-            <div class="logo">
+        <div id="main-logo">
+            <div>
                 <a href="index"><img src="${ basePath }/assets/img/logo.PNG" /></a>
                 <h1>Guia Oleo Facha</h1>
             </div>
-            <!--
-            <div class="user span3 offset3">
-                <div class="mybutton">
-                    <a class="btn-large btn-success" href="register">Register</a>
-                </div>
-                <div class="mybutton">
-                    <a class="btn-large btn-primary" href="login">Login</a>
-                </div>
-                <div class="mybutton">
-                    <a class="btn-large btn-primary" href="list?query=all">See all restaurants</a>
-                </div>
-            </div>
-
-            <div class="search span3 offset6 input-append">
-                <form action="search" method="get">
-                    <input type="text" placeholder="Search Restaurant" name="query"/>
-                    <input class="btn-large btn-primary" type="submit" value="Send"/>
-                </form>
-            </div>
         </div>
-        -->
 
         <hr />
 
-        <div>
-            <c:import url="${documentBodyFile}" />
+        <div id="main">
+            <div id="sidebar">
+            </div>
+            <div>
+                <c:import url="${documentBodyFile}" />
+            </div>
         </div>
     </div>
 </body>

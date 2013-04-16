@@ -1,5 +1,5 @@
 body {
-    margin-top: 90px;
+    margin-top: 60px;
 }
 
 body > .navbar > .navbar-inner {
@@ -13,6 +13,19 @@ body > .navbar > .navbar-inner {
     left: auto;
 }
 
+#user-menu li.login-text {
+    position: relative;
+    top: 3px;
+}
+
+#user-menu a.menu-text {
+    padding-bottom: 5px;
+}
+
+#user-menu a.menu-text:hover {
+    color: #52A8EC;
+}
+
 #user-menu img.avatar {
     height: 25px;
     width: 25px;
@@ -20,26 +33,34 @@ body > .navbar > .navbar-inner {
     margin: 0 4px;
 }
 
+#user-menu .dropdown-menu {
+    min-width: 0;
+    padding: 5px 0;
+    text-align: left;
+}
+
+#user-menu .dropdown-menu li a {
+    margin: 5px 0;
+    padding: 6px 20px;
+}
+
+#main-logo {
+    text-align: left;
+}
+
+#main-logo > div {
+    vertical-align: middle;
+}
+
+#main-logo > div > * {
+    display: inline-block;
+}
+
+#main-logo img {
+    height: 100px;
+}
+
 #map-canvas {
 	height: 300px;
-}
-
-.header {
-}
-
-.logo {
-}
-
-.user {
-}
-
-.mybutton {
-    float: left;
-}
-
-.container {
-}
-
-.page {
 }
 
