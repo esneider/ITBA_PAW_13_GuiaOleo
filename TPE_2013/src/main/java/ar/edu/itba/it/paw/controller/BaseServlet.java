@@ -39,7 +39,7 @@ public abstract class BaseServlet extends HttpServlet {
 	}
 
 	protected void setLoggedInUser(HttpServletRequest req, User user) {
-		
+
 		req.getSession(true).setAttribute("userId", user.getId());
 	}
 
@@ -61,7 +61,6 @@ public abstract class BaseServlet extends HttpServlet {
 	protected String getDestination(HttpServletRequest req) throws UnsupportedEncodingException {
 		
 		String destination = req.getParameter("from");
-
 
 		if (destination == null || destination.isEmpty()) {
 

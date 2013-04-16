@@ -50,6 +50,10 @@
 		<servlet-name>ModifyUser</servlet-name>
 		<servlet-class>ar.edu.itba.it.paw.controller.ModifyUserServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>Logout</servlet-name>
+		<servlet-class>ar.edu.itba.it.paw.controller.LogoutServlet</servlet-class>
+	</servlet>
 
 	<!-- SERVLET MAPPINGS -->
 
@@ -84,6 +88,10 @@
 	<servlet-mapping>
 		<servlet-name>ModifyUser</servlet-name>
 		<url-pattern>/modify_user</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Logout</servlet-name>
+		<url-pattern>/logout</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>Index</servlet-name>
