@@ -22,7 +22,7 @@
 			</c:forEach>
 		</c:when>
 		<c:otherwise>
-            <p>No restaurants found</p>
+            <p id="no_results" class="lead text-center">No restaurants found</p>
 		</c:otherwise>
 	</c:choose>
 <div>
