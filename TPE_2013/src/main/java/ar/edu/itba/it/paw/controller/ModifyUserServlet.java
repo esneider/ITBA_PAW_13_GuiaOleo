@@ -35,17 +35,17 @@ public class ModifyUserServlet extends BaseServlet {
 		check &= ValidationHelpers.checkParameter(req, "registerRePassword", 0, 64, true);
 		check &= ValidationHelpers.checkParameter(req, "registerName", 0, 50);
 		check &= ValidationHelpers.checkParameter(req, "registerSurname", 0, 50);
-		check &= ValidationHelpers.checkEmail(req, "registerMail", 0, 50);
+		check &= ValidationHelpers.checkEmail(req, "registerEmail", 0, 50);
 		check &= check && ValidationHelpers.checkParamsEqual(req, "registerPassword", "registerRePassword");
 
 		String password = req.getParameter("registerPassword");
 		String name = req.getParameter("registerName");
 		String surname = req.getParameter("registerSurname");
-		String mail = req.getParameter("registerMail");
+		String email = req.getParameter("registerEmail");
 
 		req.setAttribute("registerName", name);
 		req.setAttribute("registerSurname", surname);
-		req.setAttribute("registerMail", mail);
+		req.setAttribute("registerEmail", email);
 
 		if (check) {
 
@@ -53,7 +53,7 @@ public class ModifyUserServlet extends BaseServlet {
 				password = getLoggedInUser(req).getPassword();
 			}
 
-			getLoggedInUser(req).update(name, surname, mail, password);
+			getLoggedInUser(req).update(name, surname, email, password);
 			resp.sendRedirect("index?modifyAction=successful");
 			return;
 		}
