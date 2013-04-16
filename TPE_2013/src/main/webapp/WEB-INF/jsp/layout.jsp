@@ -60,7 +60,8 @@
         <div id="main-logo">
             <div>
                 <a href="index"><img src="${ basePath }/assets/img/logo.PNG" /></a>
-                <h1>Guia Oleo Facha</h1>
+                <h1>Guia Oleo Facha</h1><br><br>
+                <a href='list?query=all'>See all restaurants</a>
             </div>
         </div>
 
