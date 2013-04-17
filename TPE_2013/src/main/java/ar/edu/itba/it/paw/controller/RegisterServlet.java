@@ -105,7 +105,9 @@ public class RegisterServlet extends BaseServlet {
 			User user = UserManager.getInstance().register("asd", "asd", "asd", "asd", "asd", fs, (int)f.length());
 			
 			System.out.println(user);
-
+			
+			f.delete();
+			
 			if (user != null) {
 
 				setLoggedInUser(req, user);
