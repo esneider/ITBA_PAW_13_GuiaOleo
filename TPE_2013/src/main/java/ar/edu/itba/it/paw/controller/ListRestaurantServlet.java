@@ -17,25 +17,35 @@ public class ListRestaurantServlet extends BaseServlet {
 		String query = req.getParameter("query");
 
 		if (query == null) {
+
 			render(req, resp, "error.jsp", "404 NOT FOUND", false);
 			return;
 		}
+
 		RestaurantManager r = RestaurantManager.getInstance();
 
-		if (query.compareTo("all") == 0) {
+		if (query.equals("all")) {
+
 			req.setAttribute("restaurantList", r.getAll());
 
-		} else if (query.compareTo("foodtypes") == 0) {
+		} else if (query.equals("foodtypes")) {
+
 			int foodtypeid = Integer.valueOf(req.getParameter("id"));
-			req.setAttribute("restaurantList",
-					r.getRestaurantsByFoodType(foodtypeid));
+			req.setAttribute("restaurantList", r.getRestaurantsByFoodType(foodtypeid));
+
+		} else if (query.equals("bestrated")) {
+			
+			int how_many = Integer.valueOf(req.getParameter("num"));
+			req.setAttribute("restaurantList", r.getBestRatedRestaurants(how_many));
 		}
+
 		render(req, resp, "list.jsp", "Lista de Restaurantes", true);
 
 	}
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
+
 		doGet(req, resp);
 	}
 
