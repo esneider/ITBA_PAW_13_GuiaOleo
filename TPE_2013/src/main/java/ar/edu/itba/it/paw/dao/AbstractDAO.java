@@ -1,5 +1,7 @@
 package ar.edu.itba.it.paw.dao;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -66,8 +68,10 @@ public abstract class AbstractDAO {
 					sql.setBoolean(i+1, (Boolean)param);
 				if (param instanceof Date)	
 					sql.setDate(i+1, (Date)param);
-				if (param instanceof InputStream)
-					sql.setBinaryStream(i+1, (InputStream)param);
+				if (param instanceof InputStream) {
+					sql.setBinaryStream(i+1, (FileInputStream)param, (int)parameters[i+1]);
+					i++;
+				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

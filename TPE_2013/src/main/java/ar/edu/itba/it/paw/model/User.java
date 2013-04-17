@@ -8,14 +8,15 @@ public class User extends AbstractModel {
 
 	private String name, surname, email, username, password;
 	private InputStream avatar;
+	private int avatarLength;
 
 	public User(int id, String name, String surname, String email,
 			String username, String password) {
-		this(id, name, surname, email, username, password, null);
+		this(id, name, surname, email, username, password, null, 0);
 	}
 	
 	public User(int id, String name, String surname, String email,
-			String username, String password, InputStream avatar) {	
+			String username, String password, InputStream avatar, int avatarLength) {	
 		super(id);
 		this.name = name;
 		this.surname = surname;
@@ -23,16 +24,17 @@ public class User extends AbstractModel {
 		this.username = username;
 		this.password = password;
 		this.avatar = avatar;
+		this.avatarLength = avatarLength;
 	}
 	
 	public User(String name, String surname, String email,
 			String username, String password) {
-		this(-1, name, surname, email, username, password, null);
+		this(-1, name, surname, email, username, password, null, 0);
 	}
 	
 	public User(String name, String surname, String email,
-			String username, String password, InputStream is) {
-		this(-1, name, surname, email, username, password, is);
+			String username, String password, InputStream is, int avatarLength) {
+		this(-1, name, surname, email, username, password, is, avatarLength);
 	}
 
 	public String getName() {
@@ -57,6 +59,10 @@ public class User extends AbstractModel {
 	
 	public InputStream getAvatar() {
 		return avatar;
+	}
+	
+	public int getAvatarLength() {
+		return avatarLength;
 	}
 
 	public void update(String name, String surname, String email, String password) {

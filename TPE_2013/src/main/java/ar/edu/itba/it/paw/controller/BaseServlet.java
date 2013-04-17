@@ -27,7 +27,7 @@ public abstract class BaseServlet extends HttpServlet {
 
 	protected void render(HttpServletRequest req, HttpServletResponse resp, String file, String title, boolean sidebar)
 			throws ServletException, IOException {
-
+		
 		req.setAttribute("documentTitle", title);
 		req.setAttribute("documentBodyFile", "/WEB-INF/jsp/" + file);
 		req.setAttribute("basePath", req.getContextPath());
@@ -70,7 +70,6 @@ public abstract class BaseServlet extends HttpServlet {
 	}
 
 	protected void setLoggedInUser(HttpServletRequest req, User user) {
-
 		req.getSession(true).setAttribute("userId", user.getId());
 	}
 

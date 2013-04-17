@@ -1,12 +1,9 @@
 package ar.edu.itba.it.paw.controller;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.StringWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -24,7 +21,7 @@ import com.oreilly.servlet.multipart.Part;
 @SuppressWarnings("serial")
 public class RegisterServlet extends BaseServlet {
 
-	private static final String tmp = "/assets/tmp/";
+	private static final String tmp = "./src/main/webapp/assets/tmp/";
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -50,7 +47,7 @@ public class RegisterServlet extends BaseServlet {
 			resp.sendRedirect(destination);
 			return;
 		}
-
+		
 		boolean check = true;
 
 		check &= ValidationHelpers
@@ -73,28 +70,39 @@ public class RegisterServlet extends BaseServlet {
 		String surname = req.getParameter("registerSurname");
 		String email = req.getParameter("registerEmail");
 
-		InputStream is = null;
+
 		
 		MultipartParser mp = new MultipartParser(req, 10 * 1024 * 1024);
 		Part part;
-
+		File f = null;
+		
 		while ((part = mp.readNextPart()) != null) {
 			if (part.isFile()) {
 				FilePart filepart = (FilePart) part;
-				is = filepart.getInputStream();
+				f = new File(tmp + filepart.getFileName());
+				if (!f.exists())
+					f.createNewFile();
+				filepart.writeTo(f);
+			} else if (part.isParam()) {
+				
 			}
 		}
 
-		req.setAttribute("registerAvatar", is);
 		req.setAttribute("registerUsername", username);
 		req.setAttribute("registerName", name);
 		req.setAttribute("registerSurname", surname);
 		req.setAttribute("registerEmail", email);
+		req.setAttribute("registerAvatar", f);
 		
-		if (check) {
-
-			User user = UserManager.getInstance().register(name, surname,
-					email, username, password, is);
+		if (true) {
+			
+			FileInputStream fs = new FileInputStream(f);
+			
+			/*User user = UserManager.getInstance().register(name, surname,
+					email, username, password, fs, (int)f.length());
+			*/
+			
+			User user = UserManager.getInstance().register("asd", "asd", "asd", "asd", "asd", fs, (int)f.length());
 			
 			System.out.println(user);
 
@@ -110,7 +118,7 @@ public class RegisterServlet extends BaseServlet {
 		render(req, resp, "login.jsp", "Login or Register", false);
 	}
 
-	public void stringToFile(String archivo, File dir) {
+	/*public void stringToFile(String archivo, File dir) {
 		FileWriter fwriter = null;
 		BufferedWriter bwriter = null;
 		try {
@@ -124,5 +132,5 @@ public class RegisterServlet extends BaseServlet {
 			e.printStackTrace();
 		}
 		
-	}
+	}*/
 }
