@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS users, pictures, restaurants, ratings, foodtypes;
+﻿DROP TABLE IF EXISTS users, pictures, restaurants, ratings, foodtypes;
 GRANT ALL PRIVILEGES ON DATABASE paw to paw;
 
 
@@ -28,10 +28,10 @@ CREATE TABLE users
     mail varchar(50),
     username varchar(50),
     password char(64),
-    pictureId integer,
+    avatar integer,
 
     PRIMARY KEY(id),
-    FOREIGN KEY(pictureId) REFERENCES pictures(id)
+    FOREIGN KEY(avatar) REFERENCES pictures(id)
 );
 
 CREATE UNIQUE INDEX indexUsersId on users(id);
