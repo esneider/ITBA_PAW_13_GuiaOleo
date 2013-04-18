@@ -54,6 +54,10 @@
 		<servlet-name>Logout</servlet-name>
 		<servlet-class>ar.edu.itba.it.paw.controller.LogoutServlet</servlet-class>
 	</servlet>
+		<servlet>
+		<servlet-name>Image</servlet-name>
+		<servlet-class>ar.edu.itba.it.paw.controller.ImageServlet</servlet-class>
+	</servlet>
 
 	<!-- SERVLET MAPPINGS -->
 
@@ -72,6 +76,10 @@
 	<servlet-mapping>
 		<servlet-name>RestaurantDetail</servlet-name>
 		<url-pattern>/view</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Image</servlet-name>
+		<url-pattern>/getImage</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>Login</servlet-name>

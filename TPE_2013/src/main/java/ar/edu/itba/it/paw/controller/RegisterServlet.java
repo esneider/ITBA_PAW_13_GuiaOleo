@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Enumeration;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +18,7 @@ import ar.edu.itba.it.paw.utils.ValidationHelpers;
 import com.oreilly.servlet.multipart.FilePart;
 import com.oreilly.servlet.multipart.MultipartParser;
 import com.oreilly.servlet.multipart.Part;
+import com.oreilly.servlet.MultipartRequest;
 
 @SuppressWarnings("serial")
 public class RegisterServlet extends BaseServlet {
@@ -47,7 +49,7 @@ public class RegisterServlet extends BaseServlet {
 			resp.sendRedirect(destination);
 			return;
 		}
-		
+
 		boolean check = true;
 
 		check &= ValidationHelpers
@@ -64,18 +66,39 @@ public class RegisterServlet extends BaseServlet {
 				&& ValidationHelpers.checkParamsEqual(req, "registerPassword",
 						"registerRePassword");
 
-		String username = req.getParameter("registerUsername");
-		String password = req.getParameter("registerPassword");
-		String name = req.getParameter("registerName");
-		String surname = req.getParameter("registerSurname");
-		String email = req.getParameter("registerEmail");
+		 String username = req.getParameter("registerUsername");
+		 String password = req.getParameter("registerPassword");
+		 String name = req.getParameter("registerName");
+		 String surname = req.getParameter("registerSurname");
+		 String email = req.getParameter("registerEmail");
 
+		/*MultipartRequest formHandler = new MultipartRequest(req, tmp);
+		Enumeration paramList = formHandler.getParameterNames();
+		for (; paramList.hasMoreElements();) {
+			String paramName = (String) paramList.nextElement();
+			System.out.println("Ahi va esto:" + paramName
+					+ (String) formHandler.getParameter(paramName));
+			req.setAttribute(paramName,
+					(String) formHandler.getParameter(paramName));
+		}*/
+		// Ok, and then , the we store the uploaded files
+		/*paramList = formHandler.getFileNames();
+		for (; paramList.hasMoreElements();) {
+			String paramName = (String) paramList.nextElement();
+			String fileName = null;
+			fileName = formHandler.getFilesystemName(paramName);
+			f = new File(tmp + filepart.getFileName());
+			f = formHandler.getFile(fileName);
+			if (fileName != null) {
+				System.out.println("Ahi va esto:" + paramName
+						+ (String) fileName);
+			}
+		}*/
 
-		
 		MultipartParser mp = new MultipartParser(req, 10 * 1024 * 1024);
 		Part part;
 		File f = null;
-		
+
 		while ((part = mp.readNextPart()) != null) {
 			if (part.isFile()) {
 				FilePart filepart = (FilePart) part;
@@ -84,7 +107,7 @@ public class RegisterServlet extends BaseServlet {
 					f.createNewFile();
 				filepart.writeTo(f);
 			} else if (part.isParam()) {
-				
+
 			}
 		}
 
@@ -93,21 +116,22 @@ public class RegisterServlet extends BaseServlet {
 		req.setAttribute("registerSurname", surname);
 		req.setAttribute("registerEmail", email);
 		req.setAttribute("registerAvatar", f);
-		
+
 		if (true) {
-			
+
 			FileInputStream fs = new FileInputStream(f);
-			
-			/*User user = UserManager.getInstance().register(name, surname,
-					email, username, password, fs, (int)f.length());
-			*/
-			
-			User user = UserManager.getInstance().register("asd", "asd", "asd", "asd", "asd", fs, (int)f.length());
-			
+			/*
+			 * User user = UserManager.getInstance().register(name, surname,
+			 * email, username, password, fs, (int)f.length());
+			 */
+
+			User user = UserManager.getInstance().register("asd", "asd", "asd",
+					"asd", "asd", fs, (int) f.length(), f.getName());
+
 			System.out.println(user);
-			
+
 			f.delete();
-			
+
 			if (user != null) {
 
 				setLoggedInUser(req, user);
@@ -120,19 +144,13 @@ public class RegisterServlet extends BaseServlet {
 		render(req, resp, "login.jsp", "Login or Register", false);
 	}
 
-	/*public void stringToFile(String archivo, File dir) {
-		FileWriter fwriter = null;
-		BufferedWriter bwriter = null;
-		try {
-			fwriter = new FileWriter(dir);
-			bwriter = new BufferedWriter(fwriter);
-			bwriter.write(archivo);
-			bwriter.close();
-			fwriter.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}*/
+	/*
+	 * public void stringToFile(String archivo, File dir) { FileWriter fwriter =
+	 * null; BufferedWriter bwriter = null; try { fwriter = new FileWriter(dir);
+	 * bwriter = new BufferedWriter(fwriter); bwriter.write(archivo);
+	 * bwriter.close(); fwriter.close(); } catch (IOException e) { // TODO
+	 * Auto-generated catch block e.printStackTrace(); }
+	 * 
+	 * }
+	 */
 }

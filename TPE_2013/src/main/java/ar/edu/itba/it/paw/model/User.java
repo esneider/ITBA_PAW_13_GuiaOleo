@@ -1,22 +1,19 @@
 package ar.edu.itba.it.paw.model;
 
-import java.io.InputStream;
-
 import ar.edu.itba.it.paw.manager.UserManager;
 
 public class User extends AbstractModel {
 
 	private String name, surname, email, username, password;
-	private InputStream avatar;
-	private int avatarLength;
+	private Avatar avatar;
 
 	public User(int id, String name, String surname, String email,
 			String username, String password) {
-		this(id, name, surname, email, username, password, null, 0);
+		this(id, name, surname, email, username, password, null);
 	}
 	
 	public User(int id, String name, String surname, String email,
-			String username, String password, InputStream avatar, int avatarLength) {	
+			String username, String password, Avatar avatar) {	
 		super(id);
 		this.name = name;
 		this.surname = surname;
@@ -24,17 +21,16 @@ public class User extends AbstractModel {
 		this.username = username;
 		this.password = password;
 		this.avatar = avatar;
-		this.avatarLength = avatarLength;
 	}
 	
 	public User(String name, String surname, String email,
 			String username, String password) {
-		this(-1, name, surname, email, username, password, null, 0);
+		this(-1, name, surname, email, username, password, null);
 	}
 	
 	public User(String name, String surname, String email,
-			String username, String password, InputStream is, int avatarLength) {
-		this(-1, name, surname, email, username, password, is, avatarLength);
+			String username, String password, Avatar avatar) {
+		this(-1, name, surname, email, username, password, avatar);
 	}
 
 	public String getName() {
@@ -57,12 +53,8 @@ public class User extends AbstractModel {
 		return password;
 	}
 	
-	public InputStream getAvatar() {
+	public Avatar getAvatar() {
 		return avatar;
-	}
-	
-	public int getAvatarLength() {
-		return avatarLength;
 	}
 
 	public void update(String name, String surname, String email, String password) {
