@@ -21,11 +21,16 @@ public class ImageServlet extends BaseServlet {
 		resp.setContentType("image/jpeg");
 
 		OutputStream os = resp.getOutputStream();  
-		byte[] buffer = new byte[4096];  
+		/*byte[] buffer = new byte[4096];  
 		int bytesRead;  
-		while ((bytesRead = is.read(buffer)) != -1) {  
+		while ((bytesRead = is.read(buffer)) != -1) { 
 		  os.write(buffer, 0, bytesRead);  
+		}*/
+		int a;
+		while((a = is.read()) > -1) {
+			os.write(a);
 		}
+		os.flush();
 
 		is.close();  
 		os.close();

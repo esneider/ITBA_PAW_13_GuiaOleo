@@ -28,10 +28,10 @@ CREATE TABLE users
     mail varchar(50),
     username varchar(50),
     password char(64),
-    avatar integer,
+    pictureId integer,
 
     PRIMARY KEY(id),
-    FOREIGN KEY(avatar) REFERENCES pictures(id)
+    FOREIGN KEY(pictureId) REFERENCES pictures(id)
 );
 
 CREATE UNIQUE INDEX indexUsersId on users(id);
