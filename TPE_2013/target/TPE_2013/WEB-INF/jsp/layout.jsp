@@ -103,11 +103,11 @@
 
                             <c:forEach var="foodtype" items="${foodTypesList}">
                                 <c:if test="${foodtype.ammount > 0}">
-                                    <c:set var="mclass" value="" />
+                                    <c:set var="class" value="" />
                                     <c:if test="${tab_active == foodtype.id}">
-                                        <c:set var="mclass" value="active" />
+                                        <c:set var="class" value="active" />
                                     </c:if>
-                                    <li class="${mclass}">
+                                    <li class="${class}">
                                         <a href="${ basePath }/list?query=foodtypes&id=${foodtype.id}">
                                             <strong class="name">${fn:escapeXml(foodtype.name)}</strong>
                                             <br>
