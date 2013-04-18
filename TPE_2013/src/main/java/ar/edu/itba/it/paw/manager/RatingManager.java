@@ -24,15 +24,15 @@ public class RatingManager {
 		this.DAO = ftDAO;
 	}
 
-	public boolean insertRating(int value, String comment, User user,
+	public void insertRating(int value, String comment, User user,
 			int restId) {
 	
 		Rating rate = new Rating(value, comment, user,
 				RestaurantManager.getInstance().getSingleRestaurant(restId), new Date());
 		
-		boolean ans = DAO.insertSingleRating(rate);
+		DAO.insertSingleRating(rate);
+
 		RestaurantManager.getInstance().updateRestaurantRatings(rate);
-		return ans;
 	}
 	
 	public List<Rating> getRatingsByRestaurant (int id) {

@@ -6,6 +6,7 @@
 <c:if test="${registerNameError}"><c:set var="registerNameClass" value="error" /></c:if>
 <c:if test="${registerSurnameError}"><c:set var="registerSurnameClass" value="error" /></c:if>
 <c:if test="${registerEmailError}"><c:set var="registerEmailClass" value="error" /></c:if>
+<c:if test="${registerAvatarError}"><c:set var="registerAvatarClass" value="error" /></c:if>
 
 <div class="registerPassword control-group ${registerPasswordClass}">
 	<label class="control-label">Password:</label>
@@ -55,15 +56,6 @@
     </div>
 </div>
 
-<div class="registerAvatar control-group ${registerAvatarClass}">
-	<label class="control-label">Insert your avatar:</label>
-    <div class="controls">
-        <p>
-            <input type="file" name="registerAvatar"">
-        </p>
-    </div>
-</div>
-
 <div class="registerSurname control-group ${registerSurnameClass}">
 	<label class="control-label">Surname:</label>
     <div class="controls">
@@ -98,6 +90,19 @@
         </c:if>
         <c:if test="${registerEmailNotAvailable}">
             <p class="text-error">The email is already in use with another account.</p>
+        </c:if>
+    </div>
+</div>
+
+<div class="registerAvatar control-group ${registerAvatarClass}">
+	<label class="control-label">Avatar image:</label>
+    <div class="controls">
+        <p>
+            <input type="file" name="registerAvatar">
+        </p>
+
+        <c:if test="${registerAvatarEmpty}">
+            <p class="text-error">You have to provide an avatar image.</p>
         </c:if>
     </div>
 </div>

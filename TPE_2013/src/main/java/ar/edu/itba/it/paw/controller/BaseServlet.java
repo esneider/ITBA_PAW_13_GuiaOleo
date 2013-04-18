@@ -1,16 +1,26 @@
 package ar.edu.itba.it.paw.controller;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.fileupload.FileItemIterator;
+import org.apache.commons.fileupload.FileItemStream;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.fileupload.util.Streams;
+import org.apache.struts.upload.MultipartRequestWrapper;
 
 import ar.edu.itba.it.paw.manager.FoodTypeManager;
 import ar.edu.itba.it.paw.manager.UserManager;
@@ -27,7 +37,7 @@ public abstract class BaseServlet extends HttpServlet {
 
 	protected void render(HttpServletRequest req, HttpServletResponse resp, String file, String title, boolean sidebar)
 			throws ServletException, IOException {
-		
+
 		req.setAttribute("documentTitle", title);
 		req.setAttribute("documentBodyFile", "/WEB-INF/jsp/" + file);
 		req.setAttribute("basePath", req.getContextPath());
@@ -39,22 +49,21 @@ public abstract class BaseServlet extends HttpServlet {
 			req.setAttribute("registerAction", "successful".equals(req.getParameter("registerAction")));
 			req.setAttribute("modifyAction",   "successful".equals(req.getParameter("modifyAction")));
 		}
-		
+
 		if (sidebar) {
 
 			List<FoodType> all = FoodTypeManager.getInstance().getAll();
 			int total = 0;
-			
+
 			for (FoodType foodType : all) {
 				total += foodType.getAmmount();
 			}
-	
+
 			Collections.sort(all);
-	
+
 			req.setAttribute("sidebar", true);
 			req.setAttribute("foodTypesList", all);
 			req.setAttribute("numberOfRestaurants", total);
-
 
 			if ("foodtypes".equals(req.getParameter("query"))) {
 
@@ -70,11 +79,12 @@ public abstract class BaseServlet extends HttpServlet {
 	}
 
 	protected void setLoggedInUser(HttpServletRequest req, User user) {
+
 		req.getSession(true).setAttribute("userId", user.getId());
 	}
 
 	protected boolean isLoggedIn(HttpServletRequest req) {
-		
+
 		return req.getSession(true).getAttribute("userId") != null;
 	}
 
@@ -89,7 +99,7 @@ public abstract class BaseServlet extends HttpServlet {
 	}
 
 	protected String getDestination(HttpServletRequest req) throws UnsupportedEncodingException {
-		
+
 		String destination = req.getParameter("from");
 
 		if (destination == null || destination.isEmpty()) {
@@ -97,7 +107,7 @@ public abstract class BaseServlet extends HttpServlet {
 			destination = req.getContextPath();
 
 		} else if (!req.getMethod().toUpperCase().equals("GET")) {
-			
+
 			destination = URLDecoder.decode(destination, "UTF-8");
 		}
 
@@ -109,7 +119,7 @@ public abstract class BaseServlet extends HttpServlet {
 	}
 
 	protected String setDestination(HttpServletRequest req) throws UnsupportedEncodingException {
-		
+
 		String from = req.getRequestURI();
 
 		if (req.getQueryString() != null) {
@@ -121,4 +131,39 @@ public abstract class BaseServlet extends HttpServlet {
 		return "from=" + URLEncoder.encode(from, "UTF-8");
 	}
 
+	protected List<FileItemStream> multipartRequest(HttpServletRequest req) {
+
+		List<FileItemStream> list = new LinkedList<FileItemStream>();
+
+		MultipartRequestWrapper mpReq = new MultipartRequestWrapper(req);
+
+		try {
+
+			ServletFileUpload upload = new ServletFileUpload(new DiskFileItemFactory());
+			FileItemIterator iter = upload.getItemIterator(req);
+
+			while (iter.hasNext()) {
+
+			    FileItemStream item = iter.next();
+			    String name = item.getFieldName();
+			    InputStream stream = item.openStream();
+
+			    if (item.isFormField()) {
+			    	mpReq.setParameter(name, Streams.asString(stream));
+			    } else {
+			    	mpReq.setParameter(name, "true");
+			    	list.add(item);
+			    }
+			}
+
+		} catch (FileUploadException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();			
+		}
+
+        req = mpReq;
+
+        return list;
+	}
 }

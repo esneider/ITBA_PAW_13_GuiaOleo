@@ -8,7 +8,7 @@ public interface UserDAO {
 	
 	public User getSingleUser(int id);
 
-	public User register(User user);
+	public void register(User user);
 
 	public boolean usernameExists(String username);
 

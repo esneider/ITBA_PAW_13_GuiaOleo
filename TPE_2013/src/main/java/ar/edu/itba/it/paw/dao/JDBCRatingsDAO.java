@@ -1,5 +1,6 @@
 package ar.edu.itba.it.paw.dao;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -22,12 +23,26 @@ public class JDBCRatingsDAO extends AbstractDAO implements RatingsDAO {
 	}
 
 	@Override
-	public boolean insertSingleRating(Rating r) {
-		return execute(
+	public void insertSingleRating(Rating r) {
+
+		PreparedStatement ps = execute(
 				"INSERT INTO ratings (score, comment, userId, restaurantId, ratingDate) "
 						+ "VALUES (?, ?, ?, ?, ?)", r.getScore(),
 				r.getComment(), r.getUser().getId(), r.getRestaurant().getId(),
 				r.getSQLDate());
+		
+		try {
+			
+			ResultSet rs = ps.getGeneratedKeys();
+
+			if (rs.next()) {
+				r.setId(rs.getInt("id"));
+			}
+			rs.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override

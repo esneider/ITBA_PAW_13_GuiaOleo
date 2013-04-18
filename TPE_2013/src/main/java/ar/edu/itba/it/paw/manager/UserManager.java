@@ -1,10 +1,8 @@
 package ar.edu.itba.it.paw.manager;
 
-import java.io.FileInputStream;
-
 import ar.edu.itba.it.paw.dao.JDBCUserDAO;
 import ar.edu.itba.it.paw.dao.interfaces.UserDAO;
-import ar.edu.itba.it.paw.model.Avatar;
+import ar.edu.itba.it.paw.model.Picture;
 import ar.edu.itba.it.paw.model.User;
 
 public class UserManager {
@@ -51,10 +49,11 @@ public class UserManager {
 		return register(name, surname, email, username, password);
 	}
 	
-	public User register(String name, String surname, String email, String username, String password, FileInputStream fs, int imgLength, String imageName) {
-		AvatarManager.getInstance().insert(imageName, fs, imgLength);
-		Avatar av = AvatarManager.getInstance().getAvatarByName(imageName);
-		return userDAO.register(new User(name, surname, email, username, password, av));
+	public User register(String name, String surname, String email, String username, String password, Picture avatar) {
+
+		User user = new User(name, surname, email, username, password, avatar);
+		userDAO.register(user);
+		return user;
 	}
 
 	public void update(User user) {

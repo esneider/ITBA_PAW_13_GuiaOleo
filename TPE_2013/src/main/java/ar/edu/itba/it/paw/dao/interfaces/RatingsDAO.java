@@ -8,7 +8,7 @@ import ar.edu.itba.it.paw.model.User;
 
 public interface RatingsDAO {
 
-	public boolean insertSingleRating(Rating r);
+	public void insertSingleRating(Rating r);
 	
 	public List<Rating> getRatingsByRestaurant (Restaurant r);
 	

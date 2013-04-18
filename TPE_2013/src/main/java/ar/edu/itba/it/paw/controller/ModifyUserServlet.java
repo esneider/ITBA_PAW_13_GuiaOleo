@@ -1,11 +1,16 @@
 package ar.edu.itba.it.paw.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.fileupload.FileItemStream;
+
+import ar.edu.itba.it.paw.manager.PictureManager;
+import ar.edu.itba.it.paw.model.Picture;
 import ar.edu.itba.it.paw.model.User;
 import ar.edu.itba.it.paw.utils.ValidationHelpers;
 
@@ -24,10 +29,12 @@ public class ModifyUserServlet extends BaseServlet {
 
 		render(req, resp, "modify_user.jsp", "Modify your data", false);
 	}
-	
+
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
+
+		List<FileItemStream> files = multipartRequest(req);
 
 		boolean check = true;
 
@@ -53,12 +60,21 @@ public class ModifyUserServlet extends BaseServlet {
 				password = getLoggedInUser(req).getPassword();
 			}
 
-			getLoggedInUser(req).update(name, surname, email, password);
+			Picture avatar = null;
+
+			if (files.size() > 0) {
+
+				FileItemStream f = files.get(0);
+
+				avatar = PictureManager.getInstance().insert(f.openStream(), f.getContentType());
+			}
+
+			getLoggedInUser(req).update(name, surname, email, password, avatar);
+
 			resp.sendRedirect("index?modifyAction=successful");
 			return;
 		}
 
 		render(req, resp, "modify_user.jsp", "Modify your data", false);
 	}
-
 }

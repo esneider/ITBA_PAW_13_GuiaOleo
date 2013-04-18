@@ -1,10 +1,11 @@
 package ar.edu.itba.it.paw.dao;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import ar.edu.itba.it.paw.dao.interfaces.UserDAO;
-import ar.edu.itba.it.paw.model.Avatar;
+import ar.edu.itba.it.paw.manager.PictureManager;
 import ar.edu.itba.it.paw.model.User;
 
 public class JDBCUserDAO extends AbstractDAO implements UserDAO {
@@ -23,12 +24,7 @@ public class JDBCUserDAO extends AbstractDAO implements UserDAO {
 
 	public User login(String username, String password) {
 
-		ResultSet rs = executeQuery(
-				"SELECT users.*, pictures.id AS pid, pictures.mime, pictures.data "
-						+ "FROM users "
-						+ "JOIN pictures ON users.avatar = pictures.id "
-						+ "WHERE username = ? AND password = ?", username,
-				password);
+		ResultSet rs = executeQuery( "SELECT * FROM users WHERE username = ? AND password = ?", username, password);
 
 		try {
 
@@ -49,14 +45,25 @@ public class JDBCUserDAO extends AbstractDAO implements UserDAO {
 	}
 
 	@Override
-	public User register(User user) {
+	public void register(User user) {
 
-		execute("INSERT INTO users (name, surname, mail, username, password, avatar) VALUES (?, ?, ?, ?, ?, ?)",
-				user.getName(), user.getSurname(), user.getEmail(), user
-						.getUsername(), user.getPassword(), user.getAvatar()
-						.getId());
+		PreparedStatement ps = execute(
+				"INSERT INTO users (name, surname, mail, username, password, pictureId) VALUES (?, ?, ?, ?, ?, ?)",
+				user.getName(), user.getSurname(), user.getEmail(), user.getUsername(),
+				user.getPassword(), user.getAvatar().getId());
 
-		return login(user.getUsername(), user.getPassword());
+		try {
+			
+			ResultSet rs = ps.getGeneratedKeys();
+			
+			if (rs.next()) {
+				user.setId(rs.getInt("id"));
+			}
+			rs.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -114,23 +121,19 @@ public class JDBCUserDAO extends AbstractDAO implements UserDAO {
 			return new User(rs.getInt("id"), rs.getString("name"),
 					rs.getString("surname"), rs.getString("mail"),
 					rs.getString("username"), rs.getString("password"),
-					new Avatar(rs.getInt("pid"), rs.getBytes("data"), rs
-							.getString("mime")));
+					PictureManager.getInstance().getPictureById(rs.getInt("pictureId")));
 
 		} catch (SQLException e) {
-			System.out.println("holis");
-			return null;
+			e.printStackTrace();
 		}
+
+		return null;
 	}
 
 	@Override
 	public User getSingleUser(int id) {
 
-		ResultSet rs = executeQuery(
-				"SELECT users.*, pictures.id AS pid, pictures.mime, pictures.data "
-						+ "FROM users "
-						+ "JOIN pictures ON users.avatar = pictures.id FROM users WHERE id = ?",
-				id);
+		ResultSet rs = executeQuery("SELECT * FROM users WHERE id = ?", id);
 
 		try {
 
@@ -154,9 +157,8 @@ public class JDBCUserDAO extends AbstractDAO implements UserDAO {
 	public void update(User user) {
 
 		executeUpdate(
-				"UPDATE users SET name = ?, surname = ?, mail = ?, username = ?, password = ?"
-						+ "WHERE id = ?", user.getName(), user.getSurname(),
-				user.getEmail(), user.getUsername(), user.getPassword(),
-				user.getId());
+				"UPDATE users SET name = ?, surname = ?, mail = ?, username = ?, password = ?, pictureId = ? WHERE id = ?",
+				user.getName(), user.getSurname(), user.getEmail(), user.getUsername(),
+				user.getPassword(), user.getAvatar().getId(), user.getId());
 	}
 }

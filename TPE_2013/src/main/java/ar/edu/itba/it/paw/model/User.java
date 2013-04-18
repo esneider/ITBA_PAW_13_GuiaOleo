@@ -5,7 +5,7 @@ import ar.edu.itba.it.paw.manager.UserManager;
 public class User extends AbstractModel {
 
 	private String name, surname, email, username, password;
-	private Avatar avatar;
+	private Picture avatar;
 
 	public User(int id, String name, String surname, String email,
 			String username, String password) {
@@ -13,7 +13,7 @@ public class User extends AbstractModel {
 	}
 	
 	public User(int id, String name, String surname, String email,
-			String username, String password, Avatar avatar) {	
+			String username, String password, Picture avatar) {	
 		super(id);
 		this.name = name;
 		this.surname = surname;
@@ -25,12 +25,12 @@ public class User extends AbstractModel {
 	
 	public User(String name, String surname, String email,
 			String username, String password) {
-		this(-1, name, surname, email, username, password, null);
+		this(NO_ID, name, surname, email, username, password, null);
 	}
 	
 	public User(String name, String surname, String email,
-			String username, String password, Avatar avatar) {
-		this(-1, name, surname, email, username, password, avatar);
+			String username, String password, Picture avatar) {
+		this(NO_ID, name, surname, email, username, password, avatar);
 	}
 
 	public String getName() {
@@ -53,16 +53,20 @@ public class User extends AbstractModel {
 		return password;
 	}
 	
-	public Avatar getAvatar() {
+	public Picture getAvatar() {
 		return avatar;
 	}
 
-	public void update(String name, String surname, String email, String password) {
+	public void update(String name, String surname, String email, String password, Picture avatar) {
 
 		this.name = name;
 		this.surname = surname;
 		this.email = email;
 		this.password = password;
+
+		if (avatar != null) {
+			this.avatar = avatar;
+		}
 
 		UserManager.getInstance().update(this);
 	}

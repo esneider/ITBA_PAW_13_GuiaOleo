@@ -2,6 +2,22 @@ package ar.edu.itba.it.paw.model;
 
 public abstract class AbstractModel {
 
+	protected final static int NO_ID = -1;
+
+	private int id;
+	
+	protected AbstractModel (int id) {
+		this.id = id;
+	}
+	
+	public int getId() {
+		return id;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -23,15 +39,4 @@ public abstract class AbstractModel {
 			return false;
 		return true;
 	}
-
-	private int id;
-	
-	protected AbstractModel (int id) {
-		this.id = id;
-	}
-	
-	public int getId() {
-		return id;
-	}
-	
 }
