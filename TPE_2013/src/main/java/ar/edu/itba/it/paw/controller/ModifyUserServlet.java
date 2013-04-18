@@ -34,7 +34,8 @@ public class ModifyUserServlet extends BaseServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 
-		List<FileItemStream> files = multipartRequest(req);
+		MultipartPictures multipart = multipartPictures(req);
+		req = multipart.req;
 
 		boolean check = true;
 
@@ -60,16 +61,7 @@ public class ModifyUserServlet extends BaseServlet {
 				password = getLoggedInUser(req).getPassword();
 			}
 
-			Picture avatar = null;
-
-			if (files.size() > 0) {
-
-				FileItemStream f = files.get(0);
-
-				avatar = PictureManager.getInstance().insert(f.openStream(), f.getContentType());
-			}
-
-			getLoggedInUser(req).update(name, surname, email, password, avatar);
+			getLoggedInUser(req).update(name, surname, email, password, multipart.pictures.get(0));
 
 			resp.sendRedirect("index?modifyAction=successful");
 			return;

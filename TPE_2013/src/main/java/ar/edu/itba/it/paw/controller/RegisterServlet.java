@@ -37,7 +37,8 @@ public class RegisterServlet extends BaseServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 
-		List<FileItemStream> files = multipartRequest(req);
+		MultipartPictures multipart = multipartPictures(req);
+		req = multipart.req;
 
 		String destination = getDestination(req);
 
@@ -70,11 +71,7 @@ public class RegisterServlet extends BaseServlet {
 
 		if (check) {
 
-			FileItemStream f = files.get(0);
-
-			Picture avatar = PictureManager.getInstance().insert(f.openStream(), f.getContentType());
-
-			User user = UserManager.getInstance().register(name, surname, email, username, password, avatar);
+			User user = UserManager.getInstance().register(name, surname, email, username, password, multipart.pictures.get(0));
 
 			if (user != null) {
 

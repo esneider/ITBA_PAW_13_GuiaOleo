@@ -23,8 +23,10 @@ import org.apache.commons.fileupload.util.Streams;
 import org.apache.struts.upload.MultipartRequestWrapper;
 
 import ar.edu.itba.it.paw.manager.FoodTypeManager;
+import ar.edu.itba.it.paw.manager.PictureManager;
 import ar.edu.itba.it.paw.manager.UserManager;
 import ar.edu.itba.it.paw.model.FoodType;
+import ar.edu.itba.it.paw.model.Picture;
 import ar.edu.itba.it.paw.model.User;
 
 
@@ -131,9 +133,15 @@ public abstract class BaseServlet extends HttpServlet {
 		return "from=" + URLEncoder.encode(from, "UTF-8");
 	}
 
-	protected List<FileItemStream> multipartRequest(HttpServletRequest req) {
+	
+	protected class MultipartPictures {
+		List<Picture> pictures = new LinkedList<Picture>();
+		HttpServletRequest req;
+	};
 
-		List<FileItemStream> list = new LinkedList<FileItemStream>();
+	protected MultipartPictures multipartPictures(HttpServletRequest req) {
+
+		MultipartPictures multipart = new MultipartPictures();
 
 		MultipartRequestWrapper mpReq = new MultipartRequestWrapper(req);
 
@@ -143,7 +151,7 @@ public abstract class BaseServlet extends HttpServlet {
 			FileItemIterator iter = upload.getItemIterator(req);
 
 			while (iter.hasNext()) {
-
+				
 			    FileItemStream item = iter.next();
 			    String name = item.getFieldName();
 			    InputStream stream = item.openStream();
@@ -152,7 +160,7 @@ public abstract class BaseServlet extends HttpServlet {
 			    	mpReq.setParameter(name, Streams.asString(stream));
 			    } else {
 			    	mpReq.setParameter(name, "true");
-			    	list.add(item);
+			    	multipart.pictures.add(PictureManager.getInstance().insert(stream, item.getContentType()));
 			    }
 			}
 
@@ -162,8 +170,8 @@ public abstract class BaseServlet extends HttpServlet {
 			e.printStackTrace();			
 		}
 
-        req = mpReq;
-
-        return list;
+        multipart.req = mpReq;
+ 
+        return multipart;
 	}
 }
