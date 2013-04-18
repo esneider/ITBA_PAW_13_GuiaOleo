@@ -60,7 +60,7 @@
         <div id="main-logo">
             <div>
                 <a href="index"><img src="${ basePath }/assets/img/logo.PNG" /></a>
-                <h1>Guia Oleo Facha</h1>
+                <h1>Oleo's guide</h1>
             </div>
         </div>
 
@@ -128,6 +128,8 @@
                 </c:otherwise>
             </c:choose>
         </div>
+    </div>
+    <div class='footer'>
     </div>
 </body>
 </html>

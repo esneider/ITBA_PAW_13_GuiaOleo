@@ -2,17 +2,16 @@
 <div class=restdetail>
 		<h2>${restaurant.name}</h2>
 	<ul>
-		<li><strong>Direccion:</strong> ${restaurant.address}</li>
+		<li><strong>Address:</strong> ${restaurant.address}</li>
 		<li><strong>Area:</strong> ${restaurant.area}</li>
-		<li><strong>Telefono:</strong> ${restaurant.telephone}</li>
+		<li><strong>Telephone:</strong> ${restaurant.telephone}</li>
 		<br>
-		<li><strong>Precio promedio:</strong> ${restaurant.avgprice}</li>
-		<li><strong>Tipo de comida:</strong> ${restaurant.foodtype.name}</li>
-		<li><strong>Rango de horarios:</strong> ${restaurant.timerange}</li>
-		<li><strong>Pagina web:</strong> ${restaurant.website}</li>
+		<li><strong>Average Price:</strong> ${restaurant.avgprice}</li>
+		<li><strong>Food Type:</strong> ${restaurant.foodtype.name}</li>
+		<li><strong>Time range:</strong> ${restaurant.timerange}</li>
+		<li><strong>Website:</strong> ${restaurant.website}</li>
 		<br>
-		<li><strong>Puntaje Promedio:</strong> ${restaurant.avgscore}</li>
-		<li><strong>Cantidad de puntuaciones:</strong> ${restaurant.ratings}</li>
+		<li><strong>Average Score:</strong> ${restaurant.avgscore} (Scored by: ${restaurant.ratings} people)</li>
 	</ul>
 	<hr/>
 		<div id="map-canvas" class="map-canvas" data-address='${restaurant.address}' data-description='${restaurant.name}'></div>
