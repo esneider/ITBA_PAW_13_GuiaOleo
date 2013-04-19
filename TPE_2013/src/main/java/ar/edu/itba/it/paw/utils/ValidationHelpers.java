@@ -104,7 +104,7 @@ public class ValidationHelpers {
 		return true;
 	}
 
-	public static boolean checkEmail(HttpServletRequest req, String param, int min,	int max) {
+	public static boolean checkEmail(HttpServletRequest req, String param, int min,	int max, boolean canRepeat, int id) {
 
 		if (!checkParameter(req, param, min, max)) {
 			return false;
@@ -118,7 +118,7 @@ public class ValidationHelpers {
 			return false;
 		}
 
-		if (UserManager.getInstance().emailExists(value)) {
+		if (UserManager.getInstance().emailExists(value, canRepeat, id)) {
 			req.setAttribute(param + "NotAvailable", true);
 			req.setAttribute(param + "Error", true);
 			return false;

@@ -113,6 +113,29 @@ public class JDBCUserDAO extends AbstractDAO implements UserDAO {
 
 		return true;
 	}
+	
+	public boolean emailExists(String email, int id) {
+
+		ResultSet rs = executeQuery("SELECT id FROM users WHERE mail = ? AND id <> ",
+				email, id);
+
+		try {
+
+			if (!rs.next()) {
+				rs.close();
+				return false;
+			}
+
+			rs.close();
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+			return false;
+		}
+
+		return true;
+	}
 
 	private User newUser(ResultSet rs) {
 

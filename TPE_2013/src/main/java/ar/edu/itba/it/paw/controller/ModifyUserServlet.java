@@ -1,16 +1,11 @@
 package ar.edu.itba.it.paw.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.fileupload.FileItemStream;
-
-import ar.edu.itba.it.paw.manager.PictureManager;
-import ar.edu.itba.it.paw.model.Picture;
 import ar.edu.itba.it.paw.model.User;
 import ar.edu.itba.it.paw.utils.ValidationHelpers;
 
@@ -43,7 +38,7 @@ public class ModifyUserServlet extends BaseServlet {
 		check &= ValidationHelpers.checkParameter(req, "registerRePassword", 0, 64, true);
 		check &= ValidationHelpers.checkParameter(req, "registerName", 0, 50);
 		check &= ValidationHelpers.checkParameter(req, "registerSurname", 0, 50);
-		check &= ValidationHelpers.checkEmail(req, "registerEmail", 0, 50);
+		check &= ValidationHelpers.checkEmail(req, "registerEmail", 0, 50, true, getLoggedInUser(req).getId());
 		check &= check && ValidationHelpers.checkParamsEqual(req, "registerPassword", "registerRePassword");
 
 		String password = req.getParameter("registerPassword");
@@ -61,7 +56,12 @@ public class ModifyUserServlet extends BaseServlet {
 				password = getLoggedInUser(req).getPassword();
 			}
 
-			getLoggedInUser(req).update(name, surname, email, password, multipart.pictures.get(0));
+			User updateUser = getLoggedInUser(req);
+			
+			if (multipart.pictures != null)
+				updateUser.update(name, surname, email, password, multipart.pictures.get(0));
+			else
+				updateUser.update(name, surname, email, password, updateUser.getAvatar());
 
 			resp.sendRedirect("index?modifyAction=successful");
 			return;

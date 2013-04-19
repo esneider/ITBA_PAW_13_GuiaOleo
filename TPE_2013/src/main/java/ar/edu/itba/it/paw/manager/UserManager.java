@@ -29,9 +29,11 @@ public class UserManager {
 		return userDAO.usernameExists(username);
 	}
 
-	public boolean emailExists(String email) {
-
-		return userDAO.emailExists(email);
+	public boolean emailExists(String email, boolean canRepeat, int id) {
+		if (!canRepeat)
+			return userDAO.emailExists(email);
+		else 
+			return userDAO.emailExists(email, id);
 	}
 
 	public User login(String username, String password) {

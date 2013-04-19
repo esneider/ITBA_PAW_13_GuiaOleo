@@ -155,12 +155,14 @@ public abstract class BaseServlet extends HttpServlet {
 			    FileItemStream item = iter.next();
 			    String name = item.getFieldName();
 			    InputStream stream = item.openStream();
-
 			    if (item.isFormField()) {
 			    	mpReq.setParameter(name, Streams.asString(stream));
 			    } else {
 			    	mpReq.setParameter(name, "true");
-			    	multipart.pictures.add(PictureManager.getInstance().insert(stream, item.getContentType()));
+			    	if (item.getContentType().equals("image/jpeg"))
+			    		multipart.pictures.add(PictureManager.getInstance().insert(stream, item.getContentType()));
+			    	else
+			    		multipart.pictures = null;
 			    }
 			}
 
