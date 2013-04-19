@@ -48,7 +48,7 @@
 	<br>
 	<ul>
 		<c:forEach var="comment" items="${commentList}">
-			<li><img src="/${ basePath }/getImage.doGet?imageId=${comment.user.avatar.image}"/>
+			<li><img src="${ basePath }/getImage?imageId=7"/>
 			${comment.date}: <em>Puntaje: </em>${comment.score}<br>
 			<strong>${comment.user.name}: </strong>${comment.comment}</li>
 		</c:forEach>
