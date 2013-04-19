@@ -9,9 +9,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import org.apache.log4j.Logger;
+
 import ar.edu.itba.it.paw.database.ConnectionManager;
 
 public abstract class AbstractDAO {
+	
+	private static Logger logger = Logger.getLogger(AbstractDAO.class);
 	
 	protected ConnectionManager conn;
 	
@@ -26,7 +30,7 @@ public abstract class AbstractDAO {
 				ResultSet rs = sql.executeQuery();
 				return rs;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error("SQL Error");
 		}
 		return null;
 		
@@ -40,7 +44,7 @@ public abstract class AbstractDAO {
 				sql.execute();
 				return sql;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error("SQL Error");
 		}
 		return null;
 	}
@@ -51,7 +55,7 @@ public abstract class AbstractDAO {
 				setSQLParameters(sql, parameters);
 				sql.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error("SQL Error");
 		}
 	}
 	
@@ -84,9 +88,9 @@ public abstract class AbstractDAO {
 				}
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error("SQL Error");
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error("IO Error");
 		}
 	}
 }

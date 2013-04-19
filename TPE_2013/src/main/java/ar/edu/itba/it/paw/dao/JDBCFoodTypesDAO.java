@@ -5,12 +5,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import ar.edu.itba.it.paw.dao.interfaces.FoodTypesDAO;
 import ar.edu.itba.it.paw.model.FoodType;
 
 public class JDBCFoodTypesDAO extends AbstractDAO implements FoodTypesDAO {
 
 	private static JDBCFoodTypesDAO self;
+	private static Logger logger = Logger.getLogger(JDBCFoodTypesDAO.class);
 
 	public synchronized static FoodTypesDAO getInstance() {
 		if (self == null)
@@ -27,7 +30,7 @@ public class JDBCFoodTypesDAO extends AbstractDAO implements FoodTypesDAO {
 			rs.close();
 			return ls;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error("SQL Error");
 		}
 		return null;
 	}
@@ -41,7 +44,7 @@ public class JDBCFoodTypesDAO extends AbstractDAO implements FoodTypesDAO {
 			rs.close();
 			return ft;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error("SQL Error");
 		}
 		return null;
 	}

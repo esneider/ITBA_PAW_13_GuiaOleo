@@ -7,6 +7,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
+
 import ar.edu.itba.it.paw.dao.interfaces.RestaurantDAO;
 import ar.edu.itba.it.paw.model.FoodType;
 import ar.edu.itba.it.paw.model.Rating;
@@ -15,6 +17,7 @@ import ar.edu.itba.it.paw.model.Restaurant;
 public class JDBCRestaurantDAO extends AbstractDAO implements RestaurantDAO {
 
 	private static JDBCRestaurantDAO self;
+	private static Logger logger = Logger.getLogger(JDBCRestaurantDAO.class);
 
 	public synchronized static RestaurantDAO getInstance() {
 		if (self == null)
@@ -36,8 +39,7 @@ public class JDBCRestaurantDAO extends AbstractDAO implements RestaurantDAO {
 			rs.close();
 			return ls;
 		} catch (SQLException e) {
-			System.out.println("Holis");
-			e.printStackTrace();
+			logger.error("SQL Error");
 		}
 		return null;
 	}
@@ -56,7 +58,7 @@ public class JDBCRestaurantDAO extends AbstractDAO implements RestaurantDAO {
 			rs.close();
 			return r;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error("SQL Error");
 		}
 		return null;
 	}
@@ -86,7 +88,7 @@ public class JDBCRestaurantDAO extends AbstractDAO implements RestaurantDAO {
 			rs.close();
 			return ls;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error("SQL Error");
 		}
 		return null;
 	}
@@ -108,7 +110,7 @@ public class JDBCRestaurantDAO extends AbstractDAO implements RestaurantDAO {
 			rs.close();
 			return ls;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error("SQL Error");
 		}
 		return null;
 	}
@@ -128,7 +130,7 @@ public class JDBCRestaurantDAO extends AbstractDAO implements RestaurantDAO {
 			rs.close();
 			return ls;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error("SQL Error");
 		}
 		return null;
 	}
@@ -137,14 +139,6 @@ public class JDBCRestaurantDAO extends AbstractDAO implements RestaurantDAO {
 	public List<Restaurant> getRestaurantsByQuery(String query) {
 
 		query = "%" + query + "%";
-		ResultSet rs = executeQuery(
-				"SELECT restaurants.*, "
-						+ "foodtypes.id AS fid, foodtypes.name AS fname, foodtypes.ammount AS fammount "
-						+ "FROM restaurants JOIN foodtypes "
-						+ "ON restaurants.foodTypeId = foodtypes.id "
-						+ "WHERE restaurants.name ILIKE ?", query);
-
-		
 		Set<Restaurant> auxSet = new HashSet<Restaurant>();
         List<Restaurant> result = getRestaurantsByName(query);
         for (Restaurant r : result) {
@@ -177,7 +171,7 @@ public class JDBCRestaurantDAO extends AbstractDAO implements RestaurantDAO {
 			rs.close();
 			return ls;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error("SQL Error");
 		}
 		return null;
 	}
@@ -198,7 +192,7 @@ public class JDBCRestaurantDAO extends AbstractDAO implements RestaurantDAO {
 			rs.close();
 			return ls;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error("SQL Error");
 		}
 		return null;
 	}
@@ -213,7 +207,7 @@ public class JDBCRestaurantDAO extends AbstractDAO implements RestaurantDAO {
 					new FoodType(rs.getInt("fid"), rs.getString("fname"), rs
 							.getInt("fammount")));
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error("SQL Error");
 		}
 		return null;
 	}

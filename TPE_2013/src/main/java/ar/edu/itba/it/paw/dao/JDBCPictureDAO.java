@@ -4,12 +4,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.apache.log4j.Logger;
+
 import ar.edu.itba.it.paw.dao.interfaces.PictureDAO;
 import ar.edu.itba.it.paw.model.Picture;
 
 public class JDBCPictureDAO extends AbstractDAO implements PictureDAO {
 
 	private static JDBCPictureDAO self;
+	private static Logger logger = Logger.getLogger(JDBCPictureDAO.class);
 
 	public synchronized static PictureDAO getInstance() {
 
@@ -35,7 +38,7 @@ public class JDBCPictureDAO extends AbstractDAO implements PictureDAO {
 			rs.close();
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error("SQL Error");
 		}
 	}
 
@@ -55,7 +58,7 @@ public class JDBCPictureDAO extends AbstractDAO implements PictureDAO {
 			return pic;
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error("SQL Error");
 		}
 
 		return null;
@@ -68,7 +71,7 @@ public class JDBCPictureDAO extends AbstractDAO implements PictureDAO {
 			return new Picture(rs.getInt("id"), rs.getBytes("data"), rs.getString("mime"));
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error("SQL Error");
 		}
 
 		return null;

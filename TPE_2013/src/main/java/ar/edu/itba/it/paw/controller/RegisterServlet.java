@@ -1,22 +1,17 @@
 package ar.edu.itba.it.paw.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.fileupload.FileItemStream;
-
-import ar.edu.itba.it.paw.model.Picture;
 import ar.edu.itba.it.paw.model.User;
-import ar.edu.itba.it.paw.service.PictureService;
 import ar.edu.itba.it.paw.service.UserService;
 import ar.edu.itba.it.paw.utils.Utils;
 import ar.edu.itba.it.paw.utils.ValidationHelpers;
 
-@SuppressWarnings("serial")
+
 public class RegisterServlet extends BaseServlet {
 
 	@Override

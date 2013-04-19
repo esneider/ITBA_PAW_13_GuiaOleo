@@ -14,8 +14,12 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 public class PermissionFilter implements Filter {
 
+	private static Logger logger = Logger.getLogger(PermissionFilter.class);
+	
 	private class Resource implements Comparable<Resource> {
 		
 		String path, method;
@@ -75,22 +79,24 @@ public class PermissionFilter implements Filter {
 
 			HttpServletRequest  req  = (HttpServletRequest)  request;
 			HttpServletResponse resp = (HttpServletResponse) response;
-
-			System.out.print("{");
+			
+			String s = "{";
 			for (Resource r : restrictedActions) {
-				System.out.print("["+r.path+","+r.method+"],");
+				s += ("["+r.path+","+r.method+"],");
 			}
-			System.out.println("} => ["+req.getServletPath()+","+req.getMethod().toUpperCase()+"]");
+			s += ("} => ["+req.getServletPath()+","+req.getMethod().toUpperCase()+"]");
+			
+			logger.warn(s);
 
 			if (restrictedActions.contains(new Resource(req.getServletPath(), req.getMethod().toUpperCase()))) {
 
-				System.out.print("RESTRICTED");
+				logger.warn("RESTRICTED");
 
 				Integer id = (Integer)req.getSession().getAttribute("userId");
 
 				if (id == null) {
 
-					System.out.println("- You shall not pass!!!");
+					logger.warn("- You shall not pass!!!");
 
 					String from = req.getRequestURI();
 
@@ -98,13 +104,11 @@ public class PermissionFilter implements Filter {
 						from += "?" + req.getQueryString();
 					}
 
-					System.out.println("Set destination: " + URLEncoder.encode(from, "UTF-8"));
+					logger.warn("Set destination: " + URLEncoder.encode(from, "UTF-8"));
 
 					resp.sendRedirect(req.getContextPath() + "/login?from=" + URLEncoder.encode(from, "UTF-8"));
 					return;
 				}
-
-				System.out.println();
 			}
 		}
 

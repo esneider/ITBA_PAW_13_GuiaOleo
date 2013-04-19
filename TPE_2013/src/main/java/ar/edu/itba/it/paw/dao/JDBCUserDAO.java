@@ -4,6 +4,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.apache.log4j.Logger;
+
 import ar.edu.itba.it.paw.dao.interfaces.UserDAO;
 import ar.edu.itba.it.paw.model.User;
 import ar.edu.itba.it.paw.service.PictureService;
@@ -11,6 +13,7 @@ import ar.edu.itba.it.paw.service.PictureService;
 public class JDBCUserDAO extends AbstractDAO implements UserDAO {
 
 	private static UserDAO self = null;
+	private static Logger logger = Logger.getLogger(JDBCUserDAO.class);
 
 	public synchronized static UserDAO getInstance() {
 
@@ -39,7 +42,7 @@ public class JDBCUserDAO extends AbstractDAO implements UserDAO {
 
 		} catch (Exception e) {
 
-			e.printStackTrace();
+			logger.error("SQL Error");
 			return null;
 		}
 	}
@@ -62,7 +65,7 @@ public class JDBCUserDAO extends AbstractDAO implements UserDAO {
 			rs.close();
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error("SQL Error");
 		}
 	}
 
@@ -83,7 +86,7 @@ public class JDBCUserDAO extends AbstractDAO implements UserDAO {
 
 		} catch (Exception e) {
 
-			e.printStackTrace();
+			logger.error("SQL Error");
 			return false;
 		}
 
@@ -107,7 +110,7 @@ public class JDBCUserDAO extends AbstractDAO implements UserDAO {
 
 		} catch (Exception e) {
 
-			e.printStackTrace();
+			logger.error("SQL Error");
 			return false;
 		}
 
@@ -130,7 +133,7 @@ public class JDBCUserDAO extends AbstractDAO implements UserDAO {
 
 		} catch (Exception e) {
 
-			e.printStackTrace();
+			logger.error("SQL Error");
 			return false;
 		}
 
@@ -147,7 +150,7 @@ public class JDBCUserDAO extends AbstractDAO implements UserDAO {
 					PictureService.getInstance().getPictureById(rs.getInt("pictureId")));
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error("SQL Error");
 		}
 
 		return null;
@@ -171,7 +174,7 @@ public class JDBCUserDAO extends AbstractDAO implements UserDAO {
 
 		} catch (SQLException e) {
 
-			e.printStackTrace();
+			logger.error("SQL Error");
 		}
 
 		return null;

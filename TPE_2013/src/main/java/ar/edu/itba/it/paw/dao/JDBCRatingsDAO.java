@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import ar.edu.itba.it.paw.dao.interfaces.RatingsDAO;
 import ar.edu.itba.it.paw.model.FoodType;
 import ar.edu.itba.it.paw.model.Rating;
@@ -16,6 +18,7 @@ import ar.edu.itba.it.paw.service.UserService;
 public class JDBCRatingsDAO extends AbstractDAO implements RatingsDAO {
 
 	private static JDBCRatingsDAO self;
+	private static Logger logger = Logger.getLogger(JDBCRatingsDAO.class);
 
 	public synchronized static RatingsDAO getInstance() {
 		if (self == null)
@@ -42,7 +45,7 @@ public class JDBCRatingsDAO extends AbstractDAO implements RatingsDAO {
 			rs.close();
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error("SQL Error");
 		}
 	}
 
@@ -61,7 +64,7 @@ public class JDBCRatingsDAO extends AbstractDAO implements RatingsDAO {
 			rs.close();
 			return ls;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error("SQL Error");
 		}
 		return null;
 	}
@@ -77,11 +80,12 @@ public class JDBCRatingsDAO extends AbstractDAO implements RatingsDAO {
 			rs.close();
 			return rate;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error("SQL Error");
 		}
 		return null;
 	}
 
+	@SuppressWarnings("unused")
 	private Rating getRating(ResultSet rs) {
 		try {
 			return getRating(
@@ -95,7 +99,7 @@ public class JDBCRatingsDAO extends AbstractDAO implements RatingsDAO {
 									.getString("foodtypename"), rs
 									.getInt("ammount"))));
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error("SQL Error");
 		}
 		return null;
 	}
@@ -107,7 +111,7 @@ public class JDBCRatingsDAO extends AbstractDAO implements RatingsDAO {
 					r,
 					UserService.getInstance().getSingleUser(rs.getInt("uid")));
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error("SQL Error");
 		}
 		return null;
 	}
@@ -117,7 +121,7 @@ public class JDBCRatingsDAO extends AbstractDAO implements RatingsDAO {
 			return new Rating(rs.getInt("id"), rs.getInt("score"),
 					rs.getString("comment"), u, r, rs.getDate("ratingDate"));
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error("SQL Error");
 		}
 		return null;
 	}

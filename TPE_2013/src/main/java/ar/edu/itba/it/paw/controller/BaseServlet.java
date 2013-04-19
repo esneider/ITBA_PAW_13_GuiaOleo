@@ -131,7 +131,7 @@ public abstract class BaseServlet extends HttpServlet {
 			from += "?" + req.getQueryString();
 		}
 
-		System.out.println("Set destination: " + URLEncoder.encode(from, "UTF-8"));
+		logger.warn(("Set destination: " + URLEncoder.encode(from, "UTF-8")));
 
 		return "from=" + URLEncoder.encode(from, "UTF-8");
 	}
@@ -170,9 +170,9 @@ public abstract class BaseServlet extends HttpServlet {
 			}
 
 		} catch (FileUploadException e) {
-			e.printStackTrace();
+			logger.error("Error uploading file");
 		} catch (IOException e) {
-			e.printStackTrace();			
+			logger.error("IO Error");			
 		}
 
         multipart.req = mpReq;

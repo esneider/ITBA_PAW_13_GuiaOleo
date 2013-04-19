@@ -6,10 +6,14 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
+import org.apache.log4j.Logger;
+
 public class ConnectionManager {
 
 	private static ConnectionManager self;
 	private static Properties config = new Properties();
+	private static Logger logger = Logger.getLogger(ConnectionManager.class);
+	
 	private Connection conn;
 
 	public synchronized static ConnectionManager getInstance() {
@@ -23,7 +27,7 @@ public class ConnectionManager {
 		try {
 			config.load(getClass().getResourceAsStream("/config.properties"));
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error("IO Error");
 		}
 		try {
 			Class.forName(config.getProperty("db.class"));
@@ -31,11 +35,9 @@ public class ConnectionManager {
 					config.getProperty("db.user"),
 					config.getProperty("db.pass"));
 		} catch (SQLException e) {
-			System.out.println("Connection error");
-			e.printStackTrace();
+			logger.error("Connection Error");
 		} catch (ClassNotFoundException e) {
-			System.out.println("Class not found");
-			e.printStackTrace();
+			logger.error("Class Not Found");
 		}
 		this.conn = conn;
 	}
