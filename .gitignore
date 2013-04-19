@@ -17,4 +17,5 @@ bin
 # Jetty #
 .settings
 
-target/
+TPE_2013/target
+TPE_2013/bin
