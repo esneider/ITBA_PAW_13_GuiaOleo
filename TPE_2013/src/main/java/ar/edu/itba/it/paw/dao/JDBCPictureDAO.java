@@ -65,7 +65,7 @@ public class JDBCPictureDAO extends AbstractDAO implements PictureDAO {
 
 		try {
 
-			return new Picture(rs.getInt("id"), rs.getBinaryStream("data"), rs.getString("mime"));
+			return new Picture(rs.getInt("id"), rs.getBytes("data"), rs.getString("mime"));
 
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -80,7 +80,6 @@ public abstract class AbstractDAO {
 					while ((bytesRead = ((InputStream)param).read(buffer)) != -1) {  
 					  os.write(buffer, 0, bytesRead);  
 					}
-
 					sql.setBytes(i+1, os.toByteArray());
 				}
 			}

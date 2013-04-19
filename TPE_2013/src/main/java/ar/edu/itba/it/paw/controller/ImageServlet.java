@@ -1,7 +1,6 @@
 package ar.edu.itba.it.paw.controller;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 
 import javax.servlet.ServletException;
@@ -9,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import ar.edu.itba.it.paw.manager.PictureManager;
+import ar.edu.itba.it.paw.model.Picture;
 
 @SuppressWarnings("serial")
 public class ImageServlet extends BaseServlet {
@@ -17,18 +17,14 @@ public class ImageServlet extends BaseServlet {
 			throws ServletException, IOException {
 
 		String imageId = req.getParameter("imageId");
-		InputStream is = PictureManager.getInstance().getPictureById(Integer.valueOf(imageId)).getInputStream();
+		Picture pic = PictureManager.getInstance().getPictureById(Integer.valueOf(imageId));
 		resp.setContentType("image/jpeg");
 
 		OutputStream os = resp.getOutputStream();  
-		byte[] buffer = new byte[4096];  
-		int bytesRead;  
-		while ((bytesRead = is.read(buffer)) != -1) { 
-		  os.write(buffer, 0, bytesRead);  
-		}
+		
+		os.write(pic.getBytes());
 		os.flush();
-
-		is.close();  
+ 
 		os.close();
 	}
 }
