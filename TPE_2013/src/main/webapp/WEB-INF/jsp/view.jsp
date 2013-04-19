@@ -58,9 +58,10 @@
         </p>
     </c:forEach>
 
+    <br />
+
     <c:choose>
         <c:when test="${not empty userId and empty userComment}">
-            <br />
             <p class="lead">Rate this restaurant:</p>
                 <form action='view' method='post' class="form-inline">
                     <input type='hidden' name='id' value='${restaurant.id}'/>
@@ -87,10 +88,10 @@
                 </form>
             </c:when>
             <c:when test="${empty userComment}">
-                <a href="login">Log in to comment this restaurant</a>
+                <p class="lead"><a href="login">Log in to comment this restaurant</a></p>
             </c:when>
             <c:otherwise>
-                Restaurant already commented
+                <p class="lead">Restaurant already commented</p>
             </c:otherwise>
     </c:choose>
 <div>
