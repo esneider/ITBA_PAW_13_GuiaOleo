@@ -41,6 +41,7 @@ public class ModifyUserServlet extends BaseServlet {
 		check &= ValidationHelpers.checkEmail(req, "registerEmail", 0, 50, true, getLoggedInUser(req).getId());
 		check &= check && ValidationHelpers.checkParamsEqual(req, "registerPassword", "registerRePassword");
 
+		String oldPassword = req.getParameter("registerOldPassword");
 		String password = req.getParameter("registerPassword");
 		String name = req.getParameter("registerName");
 		String surname = req.getParameter("registerSurname");
@@ -50,12 +51,18 @@ public class ModifyUserServlet extends BaseServlet {
 		req.setAttribute("registerSurname", surname);
 		req.setAttribute("registerEmail", email);
 
-		if (check) {
-
-			if (password == null || password.isEmpty()) {
-				password = getLoggedInUser(req).getPassword();
+		if (password == null || password.isEmpty()) {
+			password = getLoggedInUser(req).getPassword();
+		} else {
+			check &= ValidationHelpers.checkParameter(req, "registerOldPassword", 0, 64);
+			if (check && !getLoggedInUser(req).getPassword().trim().equals(oldPassword)) {
+				check = false;
+				req.setAttribute("registerOldPasswordError", true);
+				req.setAttribute("registerOldPasswordInvalid", true);
 			}
-
+		}
+		
+		if (check) {
 			User updateUser = getLoggedInUser(req);
 			
 			if (multipart.pictures != null)
