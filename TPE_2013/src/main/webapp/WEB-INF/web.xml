@@ -58,6 +58,10 @@
 		<servlet-name>Image</servlet-name>
 		<servlet-class>ar.edu.itba.it.paw.controller.ImageServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>NoServlet</servlet-name>
+		<servlet-class>ar.edu.itba.it.paw.controller.NoServlet</servlet-class>
+	</servlet>
 
 	<!-- SERVLET MAPPINGS -->
 
@@ -105,5 +109,14 @@
 		<servlet-name>Index</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>NoServlet</servlet-name>
+		<url-pattern>/pageNotFound</url-pattern>
+	</servlet-mapping>
+	
+	<error-page>
+		<error-code>404</error-code>
+		<location>/pageNotFound</location>
+	</error-page>
 
 </web-app>

@@ -17,26 +17,26 @@ public class ListRestaurantServlet extends BaseServlet {
 		String query = req.getParameter("query");
 
 		if (query == null) {
-
 			render(req, resp, "error.jsp", "404 NOT FOUND", false);
 			return;
 		}
 
 		RestaurantManager r = RestaurantManager.getInstance();
 
-		if (query.equals("all")) {
-
-			req.setAttribute("restaurantList", r.getAll());
-
-		} else if (query.equals("foodtypes")) {
-
-			int foodtypeid = Integer.valueOf(req.getParameter("id"));
-			req.setAttribute("restaurantList", r.getRestaurantsByFoodType(foodtypeid));
-
-		} else if (query.equals("bestrated")) {
-			
-			int how_many = Integer.valueOf(req.getParameter("num"));
-			req.setAttribute("restaurantList", r.getBestRatedRestaurants(how_many));
+		try {
+			if (query.equals("all")) {
+				req.setAttribute("restaurantList", r.getAll());
+			} else if (query.equals("foodtypes")) {
+				int foodtypeid = Integer.valueOf(req.getParameter("id"));
+				req.setAttribute("restaurantList", r.getRestaurantsByFoodType(foodtypeid));
+			} else if (query.equals("bestrated")) {
+				
+				int how_many = Integer.valueOf(req.getParameter("num"));
+				req.setAttribute("restaurantList", r.getBestRatedRestaurants(how_many));
+			} 
+		} catch (Exception e) {
+			render(req, resp, "error.jsp", "404 NOT FOUND", false);
+			return;
 		}
 
 		render(req, resp, "list.jsp", "Lista de Restaurantes", true);

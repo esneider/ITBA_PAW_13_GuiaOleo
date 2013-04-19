@@ -50,7 +50,7 @@
 		<c:forEach var="comment" items="${commentList}">
 			<li><div class="avatarPic"><img class="avatarPic" src="${ basePath }/getImage?imageId=${ comment.user.avatar.id }"/></div>
 			${comment.date}: <em>Puntaje: </em>${comment.score}<br>
-			<strong>${comment.user.name}: </strong>${comment.comment}</li>
+			<strong>${comment.user.name}: </strong>${comment.comment}</li>		
 		</c:forEach>
 	</ul>
 <div>

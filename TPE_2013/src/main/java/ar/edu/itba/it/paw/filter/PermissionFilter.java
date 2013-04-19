@@ -108,7 +108,11 @@ public class PermissionFilter implements Filter {
 			}
 		}
 
-		chain.doFilter(request, response);
+		try {
+			chain.doFilter(request, response);
+		} catch (Exception e) {
+			request.getRequestDispatcher("/WEB-INF/jsp/error.jsp").forward(request, response);
+		}
 	}
 
 	@Override
