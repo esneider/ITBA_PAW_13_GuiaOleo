@@ -33,7 +33,7 @@
                         <li class="dropdown">
                             <a href="#" id="user-dd" role="button" class="dropdown-toggle menu-text" data-toggle="dropdown">
                                 ${fn:escapeXml(user.username)}
-                                <img class="avatar" src="" />
+                                <img class="avatar" src="${ basePath }/getImage?imageId=${ user.avatar.id }"/>
                             </a>
                             <ul class="dropdown-menu" role="menu" aria-labelledby="user-dd">
                                 <li role="presentation">

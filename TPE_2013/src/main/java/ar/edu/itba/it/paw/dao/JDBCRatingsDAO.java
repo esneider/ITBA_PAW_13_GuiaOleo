@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ar.edu.itba.it.paw.dao.interfaces.RatingsDAO;
-import ar.edu.itba.it.paw.manager.RestaurantManager;
 import ar.edu.itba.it.paw.manager.UserManager;
 import ar.edu.itba.it.paw.model.FoodType;
 import ar.edu.itba.it.paw.model.Rating;
@@ -108,7 +107,6 @@ public class JDBCRatingsDAO extends AbstractDAO implements RatingsDAO {
 					r,
 					UserManager.getInstance().getSingleUser(rs.getInt("uid")));
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
