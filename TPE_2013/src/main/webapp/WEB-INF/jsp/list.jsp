@@ -2,7 +2,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <div class="restlist">
-	<c:choose>
+     <c:choose>
 		<c:when test="${fn:length(restaurantList) gt 0}">
 			<c:forEach var="restaurant" items="${restaurantList}">
 			    <dl class="dl-horizontal">
@@ -10,6 +10,8 @@
                         <dd><strong><a href="view?id=${restaurant.id}">${restaurant.name}</a></strong></dd>
                     <dt>Address</dt>
                         <dd>${restaurant.address}</dd>
+					<dt>Food type</dt>
+                        <dd>${restaurant.foodtype.name}</dd>
                     <dt>Area</dt>
                         <dd>${restaurant.area}</dd>
                     <dt>Average Score</dt>
@@ -22,7 +24,7 @@
 			</c:forEach>
 		</c:when>
 		<c:otherwise>
-            <p id="no_results" class="lead text-center">No restaurants found</p>
+            <p id="no_results" class="lead text-center">No results found for "${squery}" </p>
 		</c:otherwise>
 	</c:choose>
 <div>
