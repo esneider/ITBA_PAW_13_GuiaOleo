@@ -7,6 +7,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import ar.edu.itba.it.paw.database.ConnectionManager;
 
@@ -33,8 +34,10 @@ public abstract class AbstractDAO {
 	
 	protected PreparedStatement execute(String query, Object... parameters) {
 		try {	
-			PreparedStatement sql = conn.getConnection().prepareStatement(query);
+			PreparedStatement sql = conn.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 				setSQLParameters(sql, parameters);
+				
+				sql.execute();
 				return sql;
 		} catch (SQLException e) {
 			e.printStackTrace();

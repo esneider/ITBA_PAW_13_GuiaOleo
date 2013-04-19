@@ -23,12 +23,13 @@ public class JDBCPictureDAO extends AbstractDAO implements PictureDAO {
 	public void insert(Picture picture) {
 
 		PreparedStatement ps = execute("INSERT INTO pictures (mime, data) VALUES (?, ?)",
-				"", picture.getInputStream());
+				picture.getMime(), picture.getInputStream());
 		
 		try {
 			ResultSet rs = ps.getGeneratedKeys();
 			
 			if (rs.next()) {
+				System.out.println("NEW ID  " + rs.getInt("id"));
 				picture.setId(rs.getInt("id"));
 			}
 			rs.close();
