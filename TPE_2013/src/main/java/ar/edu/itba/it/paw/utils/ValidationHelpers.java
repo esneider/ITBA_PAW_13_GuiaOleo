@@ -5,7 +5,7 @@ import java.util.GregorianCalendar;
 
 import javax.servlet.http.HttpServletRequest;
 
-import ar.edu.itba.it.paw.manager.UserManager;
+import ar.edu.itba.it.paw.service.UserService;
 
 public class ValidationHelpers {
 
@@ -118,7 +118,7 @@ public class ValidationHelpers {
 			return false;
 		}
 
-		if (UserManager.getInstance().emailExists(value, canRepeat, id)) {
+		if (UserService.getInstance().emailExists(value, canRepeat, id)) {
 			req.setAttribute(param + "NotAvailable", true);
 			req.setAttribute(param + "Error", true);
 			return false;
@@ -151,7 +151,7 @@ public class ValidationHelpers {
 			return false;
 		}
 
-		if (UserManager.getInstance().usernameExists(req.getParameter(param))) {
+		if (UserService.getInstance().usernameExists(req.getParameter(param))) {
 			req.setAttribute(param + "NotAvailable", true);
 			req.setAttribute(param + "Error", true);
 			return false;

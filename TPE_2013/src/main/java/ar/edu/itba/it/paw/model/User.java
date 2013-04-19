@@ -1,6 +1,6 @@
 package ar.edu.itba.it.paw.model;
 
-import ar.edu.itba.it.paw.manager.UserManager;
+import ar.edu.itba.it.paw.service.UserService;
 
 public class User extends AbstractModel {
 
@@ -68,7 +68,7 @@ public class User extends AbstractModel {
 			this.avatar = avatar;
 		}
 
-		UserManager.getInstance().update(this);
+		UserService.getInstance().update(this);
 	}
 	
 }

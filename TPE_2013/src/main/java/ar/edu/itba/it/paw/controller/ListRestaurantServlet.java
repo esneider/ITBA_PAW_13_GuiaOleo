@@ -6,7 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import ar.edu.itba.it.paw.manager.RestaurantManager;
+import ar.edu.itba.it.paw.service.RestaurantService;
 
 @SuppressWarnings("serial")
 public class ListRestaurantServlet extends BaseServlet {
@@ -21,7 +21,7 @@ public class ListRestaurantServlet extends BaseServlet {
 			return;
 		}
 
-		RestaurantManager r = RestaurantManager.getInstance();
+		RestaurantService r = RestaurantService.getInstance();
 
 		try {
 			if (query.equals("all")) {

@@ -7,8 +7,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import ar.edu.itba.it.paw.manager.PictureManager;
 import ar.edu.itba.it.paw.model.Picture;
+import ar.edu.itba.it.paw.service.PictureService;
 
 @SuppressWarnings("serial")
 public class ImageServlet extends BaseServlet {
@@ -17,7 +17,7 @@ public class ImageServlet extends BaseServlet {
 			throws ServletException, IOException {
 
 		String imageId = req.getParameter("imageId");
-		Picture pic = PictureManager.getInstance().getPictureById(Integer.valueOf(imageId));
+		Picture pic = PictureService.getInstance().getPictureById(Integer.valueOf(imageId));
 		resp.setContentType("image/jpeg");
 
 		OutputStream os = resp.getOutputStream();  

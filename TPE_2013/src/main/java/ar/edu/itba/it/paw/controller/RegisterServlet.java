@@ -9,10 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.fileupload.FileItemStream;
 
-import ar.edu.itba.it.paw.manager.PictureManager;
-import ar.edu.itba.it.paw.manager.UserManager;
 import ar.edu.itba.it.paw.model.Picture;
 import ar.edu.itba.it.paw.model.User;
+import ar.edu.itba.it.paw.service.PictureService;
+import ar.edu.itba.it.paw.service.UserService;
 import ar.edu.itba.it.paw.utils.Utils;
 import ar.edu.itba.it.paw.utils.ValidationHelpers;
 
@@ -71,7 +71,7 @@ public class RegisterServlet extends BaseServlet {
 
 		if (check) {
 
-			User user = UserManager.getInstance().register(name, surname, email, username, password, multipart.pictures.get(0));
+			User user = UserService.getInstance().register(name, surname, email, username, password, multipart.pictures.get(0));
 
 			if (user != null) {
 

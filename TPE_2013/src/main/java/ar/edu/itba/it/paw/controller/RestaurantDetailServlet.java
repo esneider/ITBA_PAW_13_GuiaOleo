@@ -7,10 +7,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import ar.edu.itba.it.paw.manager.RatingManager;
-import ar.edu.itba.it.paw.manager.RestaurantManager;
 import ar.edu.itba.it.paw.model.Rating;
 import ar.edu.itba.it.paw.model.Restaurant;
+import ar.edu.itba.it.paw.service.RatingService;
+import ar.edu.itba.it.paw.service.RestaurantService;
 
 @SuppressWarnings("serial")
 public class RestaurantDetailServlet extends BaseServlet {
@@ -20,18 +20,18 @@ public class RestaurantDetailServlet extends BaseServlet {
 		try {
 			int id = Integer.valueOf(req.getParameter("id"));
 	
-			Restaurant rest = RestaurantManager.getInstance().getSingleRestaurant(
+			Restaurant rest = RestaurantService.getInstance().getSingleRestaurant(
 					id);
 	
 			if (rest != null) {
 				
 				req.setAttribute("restaurant", rest);
 			
-			    req.setAttribute("commentList", RatingManager.getInstance()
+			    req.setAttribute("commentList", RatingService.getInstance()
 						.getRatingsByRestaurant(id));
 	
 				if (isLoggedIn(req)) {
-					Rating r = RatingManager.getInstance().getSingleRating(
+					Rating r = RatingService.getInstance().getSingleRating(
 							getLoggedInUser(req), id);
 					if (r != null)
 						req.setAttribute("userComment", r);
@@ -56,7 +56,7 @@ public class RestaurantDetailServlet extends BaseServlet {
 				int rating = Integer.valueOf((String) req
 						.getParameter("restaurant_rating"));
 				String comment = (String) req.getParameter("comment");
-				RatingManager.getInstance().insertRating(rating, comment,
+				RatingService.getInstance().insertRating(rating, comment,
 						getLoggedInUser(req), id);
 				doGet(req, resp);
 			} catch (Exception e) {

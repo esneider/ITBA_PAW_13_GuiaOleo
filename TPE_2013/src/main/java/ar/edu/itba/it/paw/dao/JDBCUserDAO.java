@@ -5,8 +5,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import ar.edu.itba.it.paw.dao.interfaces.UserDAO;
-import ar.edu.itba.it.paw.manager.PictureManager;
 import ar.edu.itba.it.paw.model.User;
+import ar.edu.itba.it.paw.service.PictureService;
 
 public class JDBCUserDAO extends AbstractDAO implements UserDAO {
 
@@ -144,7 +144,7 @@ public class JDBCUserDAO extends AbstractDAO implements UserDAO {
 			return new User(rs.getInt("id"), rs.getString("name"),
 					rs.getString("surname"), rs.getString("mail"),
 					rs.getString("username"), rs.getString("password"),
-					PictureManager.getInstance().getPictureById(rs.getInt("pictureId")));
+					PictureService.getInstance().getPictureById(rs.getInt("pictureId")));
 
 		} catch (SQLException e) {
 			e.printStackTrace();

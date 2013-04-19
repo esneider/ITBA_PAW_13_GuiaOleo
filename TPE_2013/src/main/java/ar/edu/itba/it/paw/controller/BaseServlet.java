@@ -22,12 +22,12 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.fileupload.util.Streams;
 import org.apache.struts.upload.MultipartRequestWrapper;
 
-import ar.edu.itba.it.paw.manager.FoodTypeManager;
-import ar.edu.itba.it.paw.manager.PictureManager;
-import ar.edu.itba.it.paw.manager.UserManager;
 import ar.edu.itba.it.paw.model.FoodType;
 import ar.edu.itba.it.paw.model.Picture;
 import ar.edu.itba.it.paw.model.User;
+import ar.edu.itba.it.paw.service.FoodTypeService;
+import ar.edu.itba.it.paw.service.PictureService;
+import ar.edu.itba.it.paw.service.UserService;
 
 
 @SuppressWarnings("serial")
@@ -54,7 +54,7 @@ public abstract class BaseServlet extends HttpServlet {
 
 		if (sidebar) {
 
-			List<FoodType> all = FoodTypeManager.getInstance().getAll();
+			List<FoodType> all = FoodTypeService.getInstance().getAll();
 			int total = 0;
 
 			for (FoodType foodType : all) {
@@ -92,7 +92,7 @@ public abstract class BaseServlet extends HttpServlet {
 
 	protected User getLoggedInUser(HttpServletRequest req) {
 
-		return UserManager.getInstance().getSingleUser((Integer)req.getSession(true).getAttribute("userId"));
+		return UserService.getInstance().getSingleUser((Integer)req.getSession(true).getAttribute("userId"));
 	}
 
 	protected void logout(HttpServletRequest req) {
@@ -160,7 +160,7 @@ public abstract class BaseServlet extends HttpServlet {
 			    } else {
 			    	mpReq.setParameter(name, "true");
 			    	if (item.getContentType().equals("image/jpeg"))
-			    		multipart.pictures.add(PictureManager.getInstance().insert(stream, item.getContentType()));
+			    		multipart.pictures.add(PictureService.getInstance().insert(stream, item.getContentType()));
 			    	else
 			    		multipart.pictures = null;
 			    }

@@ -6,8 +6,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import ar.edu.itba.it.paw.manager.UserManager;
 import ar.edu.itba.it.paw.model.User;
+import ar.edu.itba.it.paw.service.UserService;
 import ar.edu.itba.it.paw.utils.Utils;
 import ar.edu.itba.it.paw.utils.ValidationHelpers;
 
@@ -52,7 +52,7 @@ public class LoginServlet extends BaseServlet {
 
 		if (check) {
 			
-			User user = UserManager.getInstance().login(username, password);
+			User user = UserService.getInstance().login(username, password);
 	
 			if (user != null) {
 	
