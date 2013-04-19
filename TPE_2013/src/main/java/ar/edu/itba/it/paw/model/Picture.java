@@ -37,4 +37,6 @@ public class Picture extends AbstractModel {
 	public byte[] getBytes() {
 		return this.img;
 	}
+	
+
 }

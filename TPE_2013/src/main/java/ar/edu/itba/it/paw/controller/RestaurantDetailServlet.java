@@ -1,6 +1,7 @@
 package ar.edu.itba.it.paw.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -17,13 +18,13 @@ public class RestaurantDetailServlet extends BaseServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		int id = Integer.valueOf(req.getParameter("id"));
-		
-		Restaurant rest = RestaurantManager.getInstance()
-				.getSingleRestaurant(id);
-		
+
+		Restaurant rest = RestaurantManager.getInstance().getSingleRestaurant(
+				id);
+
 		if (rest != null) {
 			req.setAttribute("restaurant", rest);
-			req.setAttribute("commentList", RatingManager.getInstance()
+		    req.setAttribute("commentList", RatingManager.getInstance()
 					.getRatingsByRestaurant(id));
 
 			if (isLoggedIn(req)) {
@@ -32,7 +33,7 @@ public class RestaurantDetailServlet extends BaseServlet {
 				if (r != null)
 					req.setAttribute("userComment", r);
 			}
-		
+
 			render(req, resp, "view.jsp", "SimpleRestaurant", true);
 		} else {
 			render(req, resp, "error.jsp", "404 NOT FOUND", false);
