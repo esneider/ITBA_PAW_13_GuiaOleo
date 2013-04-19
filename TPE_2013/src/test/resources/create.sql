@@ -1,5 +1,5 @@
-﻿DROP TABLE IF EXISTS users, pictures, restaurants, ratings, foodtypes;
-GRANT ALL PRIVILEGES ON DATABASE paw to paw;
+DROP TABLE IF EXISTS users, pictures, restaurants, ratings, foodtypes;
+GRANT ALL PRIVILEGES ON DATABASE paw2 to paw;
 
 
 
@@ -105,5 +105,5 @@ GRANT ALL PRIVILEGES ON TABLE ratings to paw;
 
 GRANT ALL PRIVILEGES ON TABLE ratings_id_seq to paw;
 
-ALTER DATABASE paw SET bytea_output = 'escape';
+ALTER DATABASE paw2 SET bytea_output = 'escape';
 
