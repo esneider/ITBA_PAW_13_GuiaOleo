@@ -5,7 +5,7 @@
      <c:choose>
 		<c:when test="${fn:length(restaurantList) gt 0}">
 			<c:forEach var="restaurant" items="${restaurantList}">
-			    <dl class="dl-horizontal">
+			    <dl class="dl-horizontal mainList">
                     <dt>Restaurant</dt>
                         <dd><strong><a href="view?id=${restaurant.id}">${restaurant.name}</a></strong></dd>
                     <dt>Address</dt>

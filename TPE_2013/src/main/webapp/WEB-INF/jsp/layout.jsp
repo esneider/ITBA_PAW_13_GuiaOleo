@@ -67,7 +67,7 @@
         <hr />
 
         <c:if test="${registerAction}">
-            <div class="actionSuccess xialert alert-success">
+            <div class="actionSuccess alert alert-success">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
                 You have been successfully registered. Congratulations!
             </div>
