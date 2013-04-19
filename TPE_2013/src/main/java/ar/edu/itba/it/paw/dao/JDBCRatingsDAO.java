@@ -36,9 +36,9 @@ public class JDBCRatingsDAO extends AbstractDAO implements RatingsDAO {
 			
 			ResultSet rs = ps.getGeneratedKeys();
 
-			if (rs.next()) {
+			if (rs.next()) 
 				r.setId(rs.getInt("id"));
-			}
+			
 			rs.close();
 
 		} catch (SQLException e) {

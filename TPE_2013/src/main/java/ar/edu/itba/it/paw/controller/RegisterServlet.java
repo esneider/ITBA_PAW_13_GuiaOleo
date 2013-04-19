@@ -55,7 +55,7 @@ public class RegisterServlet extends BaseServlet {
 		check &= ValidationHelpers.checkParameter(req, "registerName", 0, 50);
 		check &= ValidationHelpers.checkParameter(req, "registerSurname", 0, 50);
 		check &= ValidationHelpers.checkEmail(req, "registerEmail", 0, 50, false, -1);
-		check &= ValidationHelpers.checkHasParameter(req, "registerAvatar");
+		check &= ValidationHelpers.checkIsNotNull(req, multipart.pictures, "registerAvatar");
 		check &= check && ValidationHelpers.checkParamsEqual(req, "registerPassword", "registerRePassword");
 
 		String username = req.getParameter("registerUsername");

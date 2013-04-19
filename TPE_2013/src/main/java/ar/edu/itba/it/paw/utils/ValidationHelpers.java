@@ -21,6 +21,15 @@ public class ValidationHelpers {
 
 		return true;
 	}
+	
+	public static boolean checkIsNotNull(HttpServletRequest req, Object o, String param) {
+		if (o == null) {
+			req.setAttribute(param + "Empty", true);
+			req.setAttribute(param + "Error", true);
+			return false;
+		}
+		return true;
+	}
 
 	public static boolean checkParameter(HttpServletRequest req, String param, int min, int max) {
 

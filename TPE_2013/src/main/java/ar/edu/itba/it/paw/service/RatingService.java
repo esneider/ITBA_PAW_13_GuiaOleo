@@ -26,13 +26,14 @@ public class RatingService {
 
 	public void insertRating(int value, String comment, User user,
 			int restId) {
+		if (getSingleRating(user, restId) == null) {
+			Rating rate = new Rating(value, comment, user,
+					RestaurantService.getInstance().getSingleRestaurant(restId), new Date());
+			
+			DAO.insertSingleRating(rate);
 	
-		Rating rate = new Rating(value, comment, user,
-				RestaurantService.getInstance().getSingleRestaurant(restId), new Date());
-		
-		DAO.insertSingleRating(rate);
-
-		RestaurantService.getInstance().updateRestaurantRatings(rate);
+			RestaurantService.getInstance().updateRestaurantRatings(rate); 
+		}
 	}
 	
 	public List<Rating> getRatingsByRestaurant (int id) {
