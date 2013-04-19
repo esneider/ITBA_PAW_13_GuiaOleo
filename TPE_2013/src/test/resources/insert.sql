@@ -57,3 +57,7 @@ INSERT INTO ratings (score, comment, userid, restaurantid, ratingdate) VALUES (3
 INSERT INTO ratings (score, comment, userid, restaurantid, ratingdate) VALUES (4, 'No me gusto mucho', 1, 4, '2013-04-15');
 INSERT INTO ratings (score, comment, userid, restaurantid, ratingdate) VALUES (1, 'Horrible', 4, 12, '2013-04-15');
 INSERT INTO ratings (score, comment, userid, restaurantid, ratingdate) VALUES (2, 'Gabo', 4, 5, '2013-04-16');
+
+UPDATE foodtypes SET ammount = (SELECT COUNT(*) FROM restaurants WHERE restaurants.foodTypeId = foodtypes.id);
+UPDATE restaurants SET avgscore = (SELECT COALESCE(AVG(score), 0) FROM ratings WHERE ratings.restaurantId = restaurants.id);
+UPDATE restaurants SET cantRatings = (SELECT COUNT(*) FROM ratings WHERE ratings.restaurantId = restaurants.id);

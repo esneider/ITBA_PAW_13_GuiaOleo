@@ -116,7 +116,7 @@ public class JDBCUserDAO extends AbstractDAO implements UserDAO {
 	
 	public boolean emailExists(String email, int id) {
 
-		ResultSet rs = executeQuery("SELECT id FROM users WHERE mail = ? AND id <> ",
+		ResultSet rs = executeQuery("SELECT id FROM users WHERE mail = ? AND id != ?",
 				email, id);
 
 		try {

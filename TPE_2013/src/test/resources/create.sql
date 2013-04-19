@@ -105,3 +105,5 @@ GRANT ALL PRIVILEGES ON TABLE ratings to paw;
 
 GRANT ALL PRIVILEGES ON TABLE ratings_id_seq to paw;
 
+ALTER DATABASE paw SET bytea_output = 'escape';
+
