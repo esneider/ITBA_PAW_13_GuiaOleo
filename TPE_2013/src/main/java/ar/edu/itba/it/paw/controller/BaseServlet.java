@@ -20,6 +20,7 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.fileupload.util.Streams;
+import org.apache.log4j.Logger;
 import org.apache.struts.upload.MultipartRequestWrapper;
 
 import ar.edu.itba.it.paw.model.FoodType;
@@ -32,6 +33,8 @@ import ar.edu.itba.it.paw.service.UserService;
 
 @SuppressWarnings("serial")
 public abstract class BaseServlet extends HttpServlet {
+
+	static private Logger logger = Logger.getLogger(BaseServlet.class);
 
 	public BaseServlet() {
 		super();
@@ -115,7 +118,7 @@ public abstract class BaseServlet extends HttpServlet {
 
 		req.setAttribute("from", URLEncoder.encode(destination, "UTF-8"));
 
-		System.out.println("Get destination: " + destination);
+		logger.warn("Get destination: " + destination);
 
 		return destination;
 	}
