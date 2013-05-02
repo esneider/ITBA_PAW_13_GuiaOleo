@@ -1,5 +1,5 @@
-TPE PAW (Sprint 1)
-========
+TPE PAW (Sprint 2)
+==================
 
 Restaurant guide web application.
 
