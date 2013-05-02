@@ -17,5 +17,6 @@ bin
 # Jetty #
 .settings
 
-TPE_2013/target
-TPE_2013/bin
+# Java files #
+target
+bin
