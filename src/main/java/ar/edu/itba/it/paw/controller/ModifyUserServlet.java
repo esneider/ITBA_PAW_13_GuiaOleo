@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import ar.edu.itba.it.paw.model.User;
+import ar.edu.itba.it.paw.service.UserService;
 import ar.edu.itba.it.paw.utils.ValidationHelpers;
 
 @SuppressWarnings("serial")
@@ -52,23 +53,35 @@ public class ModifyUserServlet extends BaseServlet {
 		req.setAttribute("registerEmail", email);
 
 		if (password == null || password.isEmpty()) {
+
 			password = getLoggedInUser(req).getPassword();
+
 		} else {
+
 			check &= ValidationHelpers.checkParameter(req, "registerOldPassword", 0, 64);
+
 			if (check && !getLoggedInUser(req).getPassword().trim().equals(oldPassword)) {
+
 				check = false;
 				req.setAttribute("registerOldPasswordError", true);
 				req.setAttribute("registerOldPasswordInvalid", true);
 			}
 		}
-		
+
 		if (check) {
+
 			User updateUser = getLoggedInUser(req);
-			
-			if (multipart.pictures != null)
-				updateUser.update(name, surname, email, password, multipart.pictures.get(0));
-			else
-				updateUser.update(name, surname, email, password, updateUser.getAvatar());
+
+			updateUser.setName(name);
+			updateUser.setSurname(surname);
+			updateUser.setEmail(email);
+			updateUser.setPassword(password);
+
+			if (multipart.pictures != null) {
+				updateUser.setAvatar(multipart.pictures.get(0));
+			}
+
+			UserService.getInstance().update(updateUser);
 
 			resp.sendRedirect("index?modifyAction=successful");
 			return;
