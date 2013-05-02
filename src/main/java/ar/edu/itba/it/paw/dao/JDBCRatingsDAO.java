@@ -109,7 +109,7 @@ public class JDBCRatingsDAO extends AbstractDAO implements RatingsDAO {
 			return getRating(
 					rs,
 					r,
-					UserService.getInstance().getSingleUser(rs.getInt("uid")));
+					JDBCUserDAO.getInstance().getSingleUser(rs.getInt("uid")));
 		} catch (SQLException e) {
 			logger.error("SQL Error");
 		}

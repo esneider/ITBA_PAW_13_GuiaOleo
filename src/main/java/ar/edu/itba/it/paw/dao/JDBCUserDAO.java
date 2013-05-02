@@ -47,7 +47,6 @@ public class JDBCUserDAO extends AbstractDAO implements UserDAO {
 		}
 	}
 
-	@Override
 	public void register(User user) {
 
 		PreparedStatement ps = execute(
@@ -147,7 +146,7 @@ public class JDBCUserDAO extends AbstractDAO implements UserDAO {
 			return new User(rs.getInt("id"), rs.getString("name"),
 					rs.getString("surname"), rs.getString("mail"),
 					rs.getString("username"), rs.getString("password"),
-					PictureService.getInstance().getPictureById(rs.getInt("pictureId")));
+					JDBCPictureDAO.getInstance().getPictureById(rs.getInt("pictureId")));
 
 		} catch (SQLException e) {
 			logger.error("SQL Error");
