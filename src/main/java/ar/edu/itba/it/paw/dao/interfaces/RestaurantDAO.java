@@ -2,13 +2,14 @@ package ar.edu.itba.it.paw.dao.interfaces;
 
 import java.util.List;
 
+import ar.edu.itba.it.paw.exceptions.SQLNoConnectionException;
 import ar.edu.itba.it.paw.model.FoodType;
 import ar.edu.itba.it.paw.model.Rating;
 import ar.edu.itba.it.paw.model.Restaurant;
 
 public interface RestaurantDAO {
 
-	public List<Restaurant> getBestRatedRestaurants(int cant);
+	public List<Restaurant> getBestRatedRestaurants(int cant) throws SQLNoConnectionException;
 	
 	public List<Restaurant> getAll();
 	

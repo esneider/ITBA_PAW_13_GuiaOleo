@@ -6,6 +6,7 @@ import java.util.Set;
 
 import ar.edu.itba.it.paw.dao.JDBCRestaurantDAO;
 import ar.edu.itba.it.paw.dao.interfaces.RestaurantDAO;
+import ar.edu.itba.it.paw.exceptions.SQLNoConnectionException;
 import ar.edu.itba.it.paw.model.FoodType;
 import ar.edu.itba.it.paw.model.Rating;
 import ar.edu.itba.it.paw.model.Restaurant;
@@ -27,6 +28,7 @@ public class RestaurantService {
 	}
 	
 	public List<Restaurant> getBestRatedRestaurants(int cant) {
+
 		return DAO.getBestRatedRestaurants(cant);
 	}
 	

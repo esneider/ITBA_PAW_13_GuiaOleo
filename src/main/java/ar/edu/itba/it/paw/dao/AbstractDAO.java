@@ -12,6 +12,7 @@ import java.sql.Statement;
 import org.apache.log4j.Logger;
 
 import ar.edu.itba.it.paw.database.ConnectionManager;
+import ar.edu.itba.it.paw.exceptions.SQLNoConnectionException;
 
 public abstract class AbstractDAO {
 	
@@ -30,9 +31,11 @@ public abstract class AbstractDAO {
 				ResultSet rs = sql.executeQuery();
 				return rs;
 		} catch (SQLException e) {
-			logger.error("SQL Error");
+			logger.error("SQL Error Executing query" + query );
+			throw new SQLNoConnectionException();
+
 		}
-		return null;
+		
 		
 	}
 	
@@ -44,9 +47,10 @@ public abstract class AbstractDAO {
 				sql.execute();
 				return sql;
 		} catch (SQLException e) {
-			logger.error("SQL Error");
+			logger.error("SQL Error in execute");
+			throw new SQLNoConnectionException();
+
 		}
-		return null;
 	}
 	
 	protected void executeUpdate(String query, Object... parameters) {
@@ -55,7 +59,9 @@ public abstract class AbstractDAO {
 				setSQLParameters(sql, parameters);
 				sql.executeUpdate();
 		} catch (SQLException e) {
-			logger.error("SQL Error");
+			logger.error("SQL Error in Update Query" + query);
+			throw new SQLNoConnectionException();
+			
 		}
 	}
 	
@@ -88,7 +94,9 @@ public abstract class AbstractDAO {
 				}
 			}
 		} catch (SQLException e) {
-			logger.error("SQL Error");
+			logger.error("SQL Error setting parameters");
+			throw new SQLNoConnectionException();
+
 		} catch (IOException e) {
 			logger.error("IO Error");
 		}

@@ -10,6 +10,7 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 
 import ar.edu.itba.it.paw.dao.interfaces.RestaurantDAO;
+import ar.edu.itba.it.paw.exceptions.SQLNoConnectionException;
 import ar.edu.itba.it.paw.model.FoodType;
 import ar.edu.itba.it.paw.model.Rating;
 import ar.edu.itba.it.paw.model.Restaurant;
@@ -26,13 +27,15 @@ public class JDBCRestaurantDAO extends AbstractDAO implements RestaurantDAO {
 	}
 
 	public List<Restaurant> getBestRatedRestaurants(int cant) {
+
+		List<Restaurant> ls = new ArrayList<Restaurant>();
 		ResultSet rs = executeQuery(
 				"SELECT restaurants.*, "
 						+ "foodtypes.id AS fid, foodtypes.name AS fname, foodtypes.ammount AS fammount "
 						+ "FROM restaurants JOIN foodtypes "
 						+ "ON restaurants.foodTypeId = foodtypes.id "
 						+ "ORDER BY avgscore desc " + "LIMIT ?", cant);
-		List<Restaurant> ls = new ArrayList<Restaurant>();
+
 		try {
 			while (rs.next())
 				ls.add(getRestaurant(rs));
@@ -40,8 +43,10 @@ public class JDBCRestaurantDAO extends AbstractDAO implements RestaurantDAO {
 			return ls;
 		} catch (SQLException e) {
 			logger.error("SQL Error");
+			throw new SQLNoConnectionException();
+
 		}
-		return null;
+
 	}
 
 	public Restaurant getSingleRestaurant(int id) {
@@ -58,9 +63,10 @@ public class JDBCRestaurantDAO extends AbstractDAO implements RestaurantDAO {
 			rs.close();
 			return r;
 		} catch (SQLException e) {
-			logger.error("SQL Error");
+			logger.error("SQL Error Getting Single Restaurant");
+
+			throw new SQLNoConnectionException();
 		}
-		return null;
 	}
 
 	public void save(Restaurant r) {
@@ -69,8 +75,10 @@ public class JDBCRestaurantDAO extends AbstractDAO implements RestaurantDAO {
 				+ "website = , timerange = ?, avgprice = ?, avgscore = ?, "
 				+ "ratings = ?, foodtype = ?" + "WHERE id = ?;", r.getName(),
 				r.getAddress(), r.getArea(), r.getTelephone(), r.getWebsite(),
-				r.getTimerange(), r.getAvgprice(), r.getAvgScore(), r.getRatings(), r.getFoodtype(), r.getId());
+				r.getTimerange(), r.getAvgprice(), r.getAvgScore(),
+				r.getRatings(), r.getFoodtype(), r.getId());
 	}
+
 	public List<Restaurant> getAll() {
 
 		ResultSet rs = executeQuery("SELECT restaurants.*, "
@@ -85,8 +93,9 @@ public class JDBCRestaurantDAO extends AbstractDAO implements RestaurantDAO {
 			return ls;
 		} catch (SQLException e) {
 			logger.error("SQL Error");
+
+			throw new SQLNoConnectionException();
 		}
-		return null;
 	}
 
 	@Override
@@ -107,11 +116,13 @@ public class JDBCRestaurantDAO extends AbstractDAO implements RestaurantDAO {
 			return ls;
 		} catch (SQLException e) {
 			logger.error("SQL Error");
+
+			throw new SQLNoConnectionException();
 		}
-		return null;
 	}
 
 	public List<Restaurant> getRestaurantsByName(String query) {
+
 		query = "%" + query + "%";
 		ResultSet rs = executeQuery(
 				"SELECT restaurants.*, "
@@ -128,8 +139,9 @@ public class JDBCRestaurantDAO extends AbstractDAO implements RestaurantDAO {
 			return ls;
 		} catch (SQLException e) {
 			logger.error("SQL Error");
+
+			throw new SQLNoConnectionException();
 		}
-		return null;
 	}
 
 	public List<Restaurant> getRestaurantsByFoodType(String query) {
@@ -141,7 +153,6 @@ public class JDBCRestaurantDAO extends AbstractDAO implements RestaurantDAO {
 						+ "ON restaurants.foodTypeId = foodtypes.id "
 						+ "WHERE foodtypes.name ILIKE ?", query);
 		List<Restaurant> ls = new ArrayList<Restaurant>();
-
 		try {
 			while (rs.next())
 				ls.add(getRestaurant(rs));
@@ -149,8 +160,30 @@ public class JDBCRestaurantDAO extends AbstractDAO implements RestaurantDAO {
 			return ls;
 		} catch (SQLException e) {
 			logger.error("SQL Error");
+
+			throw new SQLNoConnectionException();
 		}
-		return null;
+	}
+
+	private List<Restaurant> getRestaurantsByFoodtype(String query) {
+		query = "%" + query + "%";
+		ResultSet rs = executeQuery(
+				"SELECT restaurants.*, "
+						+ "foodtypes.id AS fid, foodtypes.name AS fname, foodtypes.ammount AS fammount "
+						+ "FROM restaurants JOIN foodtypes "
+						+ "ON restaurants.foodTypeId = foodtypes.id "
+						+ "WHERE foodtypes.name ILIKE ?", query);
+		List<Restaurant> ls = new ArrayList<Restaurant>();
+		try {
+			while (rs.next())
+				ls.add(getRestaurant(rs));
+			rs.close();
+			return ls;
+		} catch (SQLException e) {
+			logger.error("SQL Error");
+
+			throw new SQLNoConnectionException();
+		}
 	}
 
 	public List<Restaurant> getRestaurantsByArea(String query) {
@@ -170,13 +203,16 @@ public class JDBCRestaurantDAO extends AbstractDAO implements RestaurantDAO {
 			return ls;
 		} catch (SQLException e) {
 			logger.error("SQL Error");
+
+			throw new SQLNoConnectionException();
 		}
-		return null;
+
 	}
 
 	private Restaurant getRestaurant(ResultSet rs) {
 		try {
-			FoodType ft = new FoodType(rs.getString("fname"), rs.getInt("fammount"));
+			FoodType ft = new FoodType(rs.getString("fname"),
+					rs.getInt("fammount"));
 			ft.setId(rs.getInt("fid"));
 			Restaurant r = new Restaurant(rs.getString("name"),
 					rs.getString("address"), rs.getString("area"),
@@ -189,8 +225,9 @@ public class JDBCRestaurantDAO extends AbstractDAO implements RestaurantDAO {
 			return r;
 		} catch (SQLException e) {
 			logger.error("SQL Error");
+
+			throw new SQLNoConnectionException();
 		}
-		return null;
 	}
 
 	private float roundToDigits(float number, int cant) {

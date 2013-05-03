@@ -19,11 +19,11 @@ import org.apache.log4j.Logger;
 public class PermissionFilter implements Filter {
 
 	private static Logger logger = Logger.getLogger(PermissionFilter.class);
-	
+
 	private class Resource implements Comparable<Resource> {
-		
+
 		String path, method;
-		
+
 		public Resource(String path, String method) {
 			this.path = path;
 			this.method = method;
@@ -36,11 +36,11 @@ public class PermissionFilter implements Filter {
 
 			return ret != 0 ? ret : method.compareTo(other.method);
 		}
-		
+
 		@Override
 		public boolean equals(Object obj) {
 
-			Resource other = (Resource)obj;
+			Resource other = (Resource) obj;
 			return path == other.path || method == other.method;
 		}
 	}
@@ -50,15 +50,16 @@ public class PermissionFilter implements Filter {
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
 
-		String actionsString = filterConfig.getInitParameter("restricted-actions");
-		
+		String actionsString = filterConfig
+				.getInitParameter("restricted-actions");
+
 		if (actionsString == null) {
-			
+
 			return;
 		}
-		
+
 		String[] actions = actionsString.split(",");
-		
+
 		for (String action : actions) {
 
 			String[] parts = action.split(":");
@@ -66,8 +67,9 @@ public class PermissionFilter implements Filter {
 			if (parts.length != 2) {
 				break;
 			}
-			
-			restrictedActions.add(new Resource(parts[0], parts[1].toUpperCase()));
+
+			restrictedActions
+					.add(new Resource(parts[0], parts[1].toUpperCase()));
 		}
 	}
 
@@ -75,24 +77,27 @@ public class PermissionFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
 
-		if (request instanceof HttpServletRequest && response instanceof HttpServletResponse) {
+		if (request instanceof HttpServletRequest
+				&& response instanceof HttpServletResponse) {
 
-			HttpServletRequest  req  = (HttpServletRequest)  request;
+			HttpServletRequest req = (HttpServletRequest) request;
 			HttpServletResponse resp = (HttpServletResponse) response;
-			
+
 			String s = "{";
 			for (Resource r : restrictedActions) {
-				s += ("["+r.path+","+r.method+"],");
+				s += ("[" + r.path + "," + r.method + "],");
 			}
-			s += ("} => ["+req.getServletPath()+","+req.getMethod().toUpperCase()+"]");
-			
+			s += ("} => [" + req.getServletPath() + ","
+					+ req.getMethod().toUpperCase() + "]");
+
 			logger.warn(s);
 
-			if (restrictedActions.contains(new Resource(req.getServletPath(), req.getMethod().toUpperCase()))) {
+			if (restrictedActions.contains(new Resource(req.getServletPath(),
+					req.getMethod().toUpperCase()))) {
 
 				logger.warn("RESTRICTED");
 
-				Integer id = (Integer)req.getSession().getAttribute("userId");
+				Integer id = (Integer) req.getSession().getAttribute("userId");
 
 				if (id == null) {
 
@@ -104,19 +109,18 @@ public class PermissionFilter implements Filter {
 						from += "?" + req.getQueryString();
 					}
 
-					logger.warn("Set destination: " + URLEncoder.encode(from, "UTF-8"));
+					logger.warn("Set destination: "
+							+ URLEncoder.encode(from, "UTF-8"));
 
-					resp.sendRedirect(req.getContextPath() + "/login?from=" + URLEncoder.encode(from, "UTF-8"));
+					resp.sendRedirect(req.getContextPath() + "/login?from="
+							+ URLEncoder.encode(from, "UTF-8"));
 					return;
 				}
 			}
 		}
 
-		try {
-			chain.doFilter(request, response);
-		} catch (Exception e) {
-			request.getRequestDispatcher("/WEB-INF/jsp/error.jsp").forward(request, response);
-		}
+		chain.doFilter(request, response);
+
 	}
 
 	@Override
