@@ -25,31 +25,24 @@ public class RatingService {
 	}
 
 	public void insertRating(int value, String comment, User user,
-			int restId) {
-		if (getSingleRating(user, restId) == null) {
-			Rating rate = new Rating(value, comment, user,
-					RestaurantService.getInstance().getSingleRestaurant(restId), new Date());
-			
+			Restaurant rest) {
+		if (getSingleRating(user, rest) == null) {
+			Rating rate = new Rating(value, comment, user, rest, new Date());
+
 			DAO.insertSingleRating(rate);
-			
-			Restaurant r = RestaurantService.getInstance().getSingleRestaurant(restId);
-			r.setAvgScore(DAO.getRestaurantAvgRating(r));
-			r.setRatings(DAO.getRestaurantRatingAmmount(r));
-			RestaurantService.getInstance().save(r);
+
+			rest.setAvgScore(DAO.getRestaurantAvgRating(rest));
+			rest.setRatings(DAO.getRestaurantRatingAmmount(rest));
+			RestaurantService.getInstance().save(rest);
 		}
 	}
-	
-	public List<Rating> getRatingsByRestaurant (int id) {
-		Restaurant r = RestaurantService.getInstance().getSingleRestaurant(id);
-		if (r != null)
-			return DAO.getRatingsByRestaurant(r);
-		return null;
+
+	public List<Rating> getRatingsByRestaurant(Restaurant rest) {
+		return DAO.getRatingsByRestaurant(rest);
 	}
-	
-	public Rating getSingleRating (User user, int restaurantId) {
-		
-		Restaurant r = RestaurantService.getInstance().getSingleRestaurant(restaurantId);
-		return DAO.getSingleRating(user, r);
+
+	public Rating getSingleRating(User user, Restaurant rest) {
+		return DAO.getSingleRating(user, rest);
 	}
 
 }

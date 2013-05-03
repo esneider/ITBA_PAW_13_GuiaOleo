@@ -34,11 +34,8 @@ public class RestaurantService {
 		return DAO.getAll();
 	}
 	
-	public List<Restaurant> getRestaurantsByFoodType(int foodTypeId) {
-		FoodType ft = FoodTypeService.getInstance().getSingleFoodType(foodTypeId);
-		if (ft != null)
-			return DAO.getRestaurantsByFoodtype(ft);
-		return null;
+	public List<Restaurant> getRestaurantsByFoodType(FoodType ft) {
+		return DAO.getRestaurantsByFoodtype(ft);
 	}
 	
 	public Restaurant getSingleRestaurant(int id) {

@@ -27,11 +27,11 @@ public class RestaurantDetailServlet extends BaseServlet {
 				req.setAttribute("restaurant", rest);
 			
 			    req.setAttribute("commentList", RatingService.getInstance()
-						.getRatingsByRestaurant(id));
+						.getRatingsByRestaurant(RestaurantService.getInstance().getSingleRestaurant(id)));
 	
 				if (isLoggedIn(req)) {
 					Rating r = RatingService.getInstance().getSingleRating(
-							getLoggedInUser(req), id);
+							getLoggedInUser(req), RestaurantService.getInstance().getSingleRestaurant(id));
 					if (r != null)
 						req.setAttribute("userComment", r);
 				}
@@ -56,7 +56,7 @@ public class RestaurantDetailServlet extends BaseServlet {
 						.getParameter("restaurant_rating"));
 				String comment = (String) req.getParameter("comment");
 				RatingService.getInstance().insertRating(rating, comment,
-						getLoggedInUser(req), id);
+						getLoggedInUser(req), RestaurantService.getInstance().getSingleRestaurant(id));
 				doGet(req, resp);
 			} catch (Exception e) {
 				render(req, resp, "error.jsp", "404 NOT FOUND", false);

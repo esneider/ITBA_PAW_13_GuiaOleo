@@ -6,6 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import ar.edu.itba.it.paw.service.FoodTypeService;
 import ar.edu.itba.it.paw.service.RestaurantService;
 
 @SuppressWarnings("serial")
@@ -28,12 +29,15 @@ public class ListRestaurantServlet extends BaseServlet {
 				req.setAttribute("restaurantList", r.getAll());
 			} else if (query.equals("foodtypes")) {
 				int foodtypeid = Integer.valueOf(req.getParameter("id"));
-				req.setAttribute("restaurantList", r.getRestaurantsByFoodType(foodtypeid));
+				req.setAttribute("restaurantList", r
+						.getRestaurantsByFoodType(FoodTypeService.getInstance()
+								.getSingleFoodType(foodtypeid)));
 			} else if (query.equals("bestrated")) {
-				
+
 				int how_many = Integer.valueOf(req.getParameter("num"));
-				req.setAttribute("restaurantList", r.getBestRatedRestaurants(how_many));
-			} 
+				req.setAttribute("restaurantList",
+						r.getBestRatedRestaurants(how_many));
+			}
 		} catch (Exception e) {
 			render(req, resp, "error.jsp", "404 NOT FOUND", false);
 			return;
