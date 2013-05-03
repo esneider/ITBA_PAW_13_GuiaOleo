@@ -31,8 +31,11 @@ public class RatingService {
 					RestaurantService.getInstance().getSingleRestaurant(restId), new Date());
 			
 			DAO.insertSingleRating(rate);
-	
-			RestaurantService.getInstance().updateRestaurantRatings(rate); 
+			
+			Restaurant r = RestaurantService.getInstance().getSingleRestaurant(restId);
+			r.setAvgScore(DAO.getRestaurantAvgRating(r));
+			r.setRatings(DAO.getRestaurantRatingAmmount(r));
+			RestaurantService.getInstance().save(r);
 		}
 	}
 	

@@ -26,6 +26,37 @@ public class JDBCRatingsDAO extends AbstractDAO implements RatingsDAO {
 		return self;
 	}
 
+	public float getRestaurantAvgRating(Restaurant r) {
+		ResultSet rs = executeQuery(
+				"SELECT COALESCE(AVG(score), 0) AS score FROM ratings "
+						+ "WHERE restaurantId = ?;", r.getId());
+		try {
+			if (rs.next()) {
+				return rs.getFloat("score");
+			} else {
+				return 0;
+			}
+		} catch (SQLException e) {
+			logger.error("SQL Error");
+		}
+		return 0;
+	}
+
+	public int getRestaurantRatingAmmount(Restaurant r) {
+		ResultSet rs = executeQuery("SELECT COUNT(*) FROM ratings "
+				+ "WHERE restaurantId = ?;", r.getId());
+		try {
+			if (rs.next()) {
+				return rs.getInt("ammount");
+			} else {
+				return 0;
+			}
+		} catch (SQLException e) {
+			logger.error("SQL Error");
+		}
+		return 0;
+	}
+
 	@Override
 	public void insertSingleRating(Rating r) {
 
@@ -34,14 +65,14 @@ public class JDBCRatingsDAO extends AbstractDAO implements RatingsDAO {
 						+ "VALUES (?, ?, ?, ?, ?)", r.getScore(),
 				r.getComment(), r.getUser().getId(), r.getRestaurant().getId(),
 				r.getSQLDate());
-		
+
 		try {
-			
+
 			ResultSet rs = ps.getGeneratedKeys();
 
-			if (rs.next()) 
+			if (rs.next())
 				r.setId(rs.getInt("id"));
-			
+
 			rs.close();
 
 		} catch (SQLException e) {
@@ -59,7 +90,7 @@ public class JDBCRatingsDAO extends AbstractDAO implements RatingsDAO {
 						+ "ORDER BY ratings.ratingDate desc", r.getId());
 		List<Rating> ls = new ArrayList<Rating>();
 		try {
-			while (rs.next()) 
+			while (rs.next())
 				ls.add(getRating(rs, r));
 			rs.close();
 			return ls;
@@ -75,7 +106,7 @@ public class JDBCRatingsDAO extends AbstractDAO implements RatingsDAO {
 				r.getId(), u.getId());
 		try {
 			Rating rate = null;
-			if (rs.next()) 
+			if (rs.next())
 				rate = getRating(rs, r, u);
 			rs.close();
 			return rate;
@@ -106,9 +137,7 @@ public class JDBCRatingsDAO extends AbstractDAO implements RatingsDAO {
 
 	private Rating getRating(ResultSet rs, Restaurant r) {
 		try {
-			return getRating(
-					rs,
-					r,
+			return getRating(rs, r,
 					JDBCUserDAO.getInstance().getSingleUser(rs.getInt("uid")));
 		} catch (SQLException e) {
 			logger.error("SQL Error");

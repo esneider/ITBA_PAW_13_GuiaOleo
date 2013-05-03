@@ -51,7 +51,7 @@ public class Restaurant extends AbstractModel {
 		return avgprice;
 	}
 
-	public float getAvgscore() {
+	public float getAvgScore() {
 		return avgscore;
 	}
 
@@ -59,12 +59,16 @@ public class Restaurant extends AbstractModel {
 		return name;
 	}
 	
-	public float getAvgScore(){
-		return avgscore;
-	}
-	
 	public int getRatings() {
 		return ratings;
+	}
+	
+	public void setAvgScore(float val) {
+		this.avgscore = val;
+	}
+	
+	public void setRatings (int val) {
+		this.ratings = val;
 	}
 	
 	

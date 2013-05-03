@@ -14,4 +14,7 @@ public interface RatingsDAO {
 	
 	public Rating getSingleRating (User u, Restaurant r);
 	
+	public float getRestaurantAvgRating(Restaurant r);
+	
+	public int getRestaurantRatingAmmount(Restaurant r);
 }

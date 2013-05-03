@@ -34,7 +34,7 @@ public class JDBCRestaurantDAO extends AbstractDAO implements RestaurantDAO {
 						+ "ORDER BY avgscore desc " + "LIMIT ?", cant);
 		List<Restaurant> ls = new ArrayList<Restaurant>();
 		try {
-			while (rs.next()) 
+			while (rs.next())
 				ls.add(getRestaurant(rs));
 			rs.close();
 			return ls;
@@ -63,18 +63,14 @@ public class JDBCRestaurantDAO extends AbstractDAO implements RestaurantDAO {
 		return null;
 	}
 
-	public void updateRestaurantRatings(Rating rate) {
-		executeUpdate("UPDATE restaurants SET avgScore = "
-				+ "(SELECT COALESCE(AVG(score), 0) FROM ratings "
-				+ "WHERE ratings.restaurantId = restaurants.id) "
-				+ "WHERE id = ?", rate.getRestaurant().getId());
-		executeUpdate("UPDATE restaurants SET cantRatings = "
-				+ "(SELECT COUNT(*) FROM ratings "
-				+ "WHERE ratings.restaurantId = restaurants.id) "
-				+ "WHERE id = ?", rate.getRestaurant().getId());
-
+	public void save(Restaurant r) {
+		executeUpdate("UPDATE restaurants SET "
+				+ "name = ?,  address = ?, area = ?, telephone = ?, "
+				+ "website = , timerange = ?, avgprice = ?, avgscore = ?, "
+				+ "ratings = ?, foodtype = ?" + "WHERE id = ?;", r.getName(),
+				r.getAddress(), r.getArea(), r.getTelephone(), r.getWebsite(),
+				r.getTimerange(), r.getAvgprice(), r.getAvgScore(), r.getRatings(), r.getFoodtype(), r.getId());
 	}
-
 	public List<Restaurant> getAll() {
 
 		ResultSet rs = executeQuery("SELECT restaurants.*, "
@@ -83,7 +79,7 @@ public class JDBCRestaurantDAO extends AbstractDAO implements RestaurantDAO {
 				+ "ON restaurants.foodTypeId = foodtypes.id");
 		List<Restaurant> ls = new ArrayList<Restaurant>();
 		try {
-			while (rs.next()) 
+			while (rs.next())
 				ls.add(getRestaurant(rs));
 			rs.close();
 			return ls;
@@ -105,7 +101,7 @@ public class JDBCRestaurantDAO extends AbstractDAO implements RestaurantDAO {
 
 		List<Restaurant> ls = new ArrayList<Restaurant>();
 		try {
-			while (rs.next()) 
+			while (rs.next())
 				ls.add(getRestaurant(rs));
 			rs.close();
 			return ls;
@@ -115,58 +111,18 @@ public class JDBCRestaurantDAO extends AbstractDAO implements RestaurantDAO {
 		return null;
 	}
 
-	protected List<Restaurant> getRestaurantsByName(String query) {
-		query = "%" + query + "%"; 
-        ResultSet rs = executeQuery("SELECT restaurants.*, "
-				+ "foodtypes.id AS fid, foodtypes.name AS fname, foodtypes.ammount AS fammount "
-				+ "FROM restaurants JOIN foodtypes "
-				+ "ON restaurants.foodTypeId = foodtypes.id "
-				+ "WHERE restaurants.name ILIKE ?", query);
-        List<Restaurant> ls = new ArrayList<Restaurant>();
-       
-		try {
-			while (rs.next()) 
-				ls.add(getRestaurant(rs));
-			rs.close();
-			return ls;
-		} catch (SQLException e) {
-			logger.error("SQL Error");
-		}
-		return null;
-	}
-
-	@Override
-	public List<Restaurant> getRestaurantsByQuery(String query) {
-
+	public List<Restaurant> getRestaurantsByName(String query) {
 		query = "%" + query + "%";
-		Set<Restaurant> auxSet = new HashSet<Restaurant>();
-        List<Restaurant> result = getRestaurantsByName(query);
-        for (Restaurant r : result) {
-			auxSet.add(r);
-		}
-        List<Restaurant> restByArea = getRestaurantsByArea(query);
-        for (Restaurant r : restByArea)
-        if (auxSet.add(r))
-        	result.add(r);
-        List<Restaurant> restByFoodtype = getRestaurantsByFoodtype(query);
-        for (Restaurant r : restByFoodtype)
-            if (auxSet.add(r))
-            	result.add(r);
-        return result;
+		ResultSet rs = executeQuery(
+				"SELECT restaurants.*, "
+						+ "foodtypes.id AS fid, foodtypes.name AS fname, foodtypes.ammount AS fammount "
+						+ "FROM restaurants JOIN foodtypes "
+						+ "ON restaurants.foodTypeId = foodtypes.id "
+						+ "WHERE restaurants.name ILIKE ?", query);
+		List<Restaurant> ls = new ArrayList<Restaurant>();
 
-	}
-
-	private List<Restaurant> getRestaurantsByFoodtype(String query) {
-		query = "%" + query + "%"; 
-        ResultSet rs = executeQuery("SELECT restaurants.*, "
-				+ "foodtypes.id AS fid, foodtypes.name AS fname, foodtypes.ammount AS fammount "
-				+ "FROM restaurants JOIN foodtypes "
-				+ "ON restaurants.foodTypeId = foodtypes.id "
-				+ "WHERE foodtypes.name ILIKE ?", query);
-        List<Restaurant> ls = new ArrayList<Restaurant>();
-       
 		try {
-			while (rs.next()) 
+			while (rs.next())
 				ls.add(getRestaurant(rs));
 			rs.close();
 			return ls;
@@ -176,18 +132,18 @@ public class JDBCRestaurantDAO extends AbstractDAO implements RestaurantDAO {
 		return null;
 	}
 
-	private List<Restaurant> getRestaurantsByArea(String query) {
-		query = "%" + query + "%"; 
-        ResultSet rs = executeQuery("SELECT restaurants.*, "
-				+ "foodtypes.id AS fid, foodtypes.name AS fname, foodtypes.ammount AS fammount "
-				+ "FROM restaurants JOIN foodtypes "
-				+ "ON restaurants.foodTypeId = foodtypes.id "
-				+ "WHERE restaurants.area ILIKE ?", query);
-        List<Restaurant> ls = new ArrayList<Restaurant>();
-       
+	public List<Restaurant> getRestaurantsByFoodType(String query) {
+		query = "%" + query + "%";
+		ResultSet rs = executeQuery(
+				"SELECT restaurants.*, "
+						+ "foodtypes.id AS fid, foodtypes.name AS fname, foodtypes.ammount AS fammount "
+						+ "FROM restaurants JOIN foodtypes "
+						+ "ON restaurants.foodTypeId = foodtypes.id "
+						+ "WHERE foodtypes.name ILIKE ?", query);
+		List<Restaurant> ls = new ArrayList<Restaurant>();
 
 		try {
-			while (rs.next()) 
+			while (rs.next())
 				ls.add(getRestaurant(rs));
 			rs.close();
 			return ls;
@@ -196,16 +152,38 @@ public class JDBCRestaurantDAO extends AbstractDAO implements RestaurantDAO {
 		}
 		return null;
 	}
-	
+
+	public List<Restaurant> getRestaurantsByArea(String query) {
+		query = "%" + query + "%";
+		ResultSet rs = executeQuery(
+				"SELECT restaurants.*, "
+						+ "foodtypes.id AS fid, foodtypes.name AS fname, foodtypes.ammount AS fammount "
+						+ "FROM restaurants JOIN foodtypes "
+						+ "ON restaurants.foodTypeId = foodtypes.id "
+						+ "WHERE restaurants.area ILIKE ?", query);
+		List<Restaurant> ls = new ArrayList<Restaurant>();
+
+		try {
+			while (rs.next())
+				ls.add(getRestaurant(rs));
+			rs.close();
+			return ls;
+		} catch (SQLException e) {
+			logger.error("SQL Error");
+		}
+		return null;
+	}
+
 	private Restaurant getRestaurant(ResultSet rs) {
-		try {			
+		try {
 			return new Restaurant(rs.getInt("id"), rs.getString("name"),
 					rs.getString("address"), rs.getString("area"),
 					rs.getString("telephone"), rs.getString("website"),
-					rs.getString("timerange"), roundToDigits(rs.getFloat("avgprice"),2),
-					roundToDigits(rs.getFloat("avgscore"),2), rs.getInt("cantratings"),
-					new FoodType(rs.getInt("fid"), rs.getString("fname"), rs
-							.getInt("fammount")));
+					rs.getString("timerange"), roundToDigits(
+							rs.getFloat("avgprice"), 2), roundToDigits(
+							rs.getFloat("avgscore"), 2),
+					rs.getInt("cantratings"), new FoodType(rs.getInt("fid"),
+							rs.getString("fname"), rs.getInt("fammount")));
 		} catch (SQLException e) {
 			logger.error("SQL Error");
 		}
@@ -216,6 +194,5 @@ public class JDBCRestaurantDAO extends AbstractDAO implements RestaurantDAO {
 		double decimals = Math.pow(10, cant);
 		return (float) (Math.round(number * decimals) / decimals);
 	}
-	
-}
 
+}

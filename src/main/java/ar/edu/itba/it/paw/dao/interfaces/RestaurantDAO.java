@@ -16,8 +16,12 @@ public interface RestaurantDAO {
 
 	public List<Restaurant> getRestaurantsByFoodtype(FoodType ft);
 
-	public List<Restaurant> getRestaurantsByQuery(String query);
+	public List<Restaurant> getRestaurantsByName(String query);
 	
-	public void updateRestaurantRatings(Rating rate);
+	public List<Restaurant> getRestaurantsByArea(String query);
+	
+	public List<Restaurant> getRestaurantsByFoodType(String query);
+	
+	public void save(Restaurant r);
 	
 }
