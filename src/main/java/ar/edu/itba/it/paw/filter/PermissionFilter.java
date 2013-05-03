@@ -115,7 +115,6 @@ public class PermissionFilter implements Filter {
 		try {
 			chain.doFilter(request, response);
 		} catch (Exception e) {
-			e.printStackTrace();
 			request.getRequestDispatcher("/WEB-INF/jsp/error.jsp").forward(request, response);
 		}
 	}
