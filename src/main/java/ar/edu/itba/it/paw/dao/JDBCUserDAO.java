@@ -143,11 +143,12 @@ public class JDBCUserDAO extends AbstractDAO implements UserDAO {
 
 		try {
 
-			return new User(rs.getInt("id"), rs.getString("name"),
+			User u = new User(rs.getString("name"),
 					rs.getString("surname"), rs.getString("mail"),
 					rs.getString("username"), rs.getString("password"),
 					JDBCPictureDAO.getInstance().getPictureById(rs.getInt("pictureId")));
-
+			u.setId(rs.getInt("id"));
+			return u;
 		} catch (SQLException e) {
 			logger.error("SQL Error");
 		}

@@ -8,24 +8,18 @@ public class Picture extends AbstractModel {
 	private InputStream is;
 	private byte[] img;
 	
-	public Picture(int id, InputStream is, String mime) {
-		
-		super(id);
+	public Picture(InputStream is, String mime) {
+		super();
 		this.is = is;
 		this.mime = mime;
 	}
 	
-	public Picture(int id, byte[] img, String mime) {
-		super(id);
+	public Picture(byte[] img, String mime) {
+		super();
 		this.img = img;
 		this.mime = mime;
 	}
-
-	public Picture(InputStream is, String mime) {
-
-		this(NO_ID, is, mime);
-	}
-
+	
 	public String getMime() {
 		return mime;
 	}

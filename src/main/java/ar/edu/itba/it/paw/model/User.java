@@ -5,10 +5,9 @@ public class User extends AbstractModel {
 	private String name, surname, email, username, password;
 	private Picture avatar;
 
-	public User(int id, String name, String surname, String email,
+	public User(String name, String surname, String email,
 			String username, String password, Picture avatar) {
-
-		super(id);
+		super();
 		this.name = name;
 		this.surname = surname;
 		this.email = email;
@@ -17,22 +16,10 @@ public class User extends AbstractModel {
 		this.avatar = avatar;
 	}
 	
-	public User(int id, String name, String surname, String email,
-			String username, String password) {
-
-		this(id, name, surname, email, username, password, null);
-	}
-	
 	public User(String name, String surname, String email,
 			String username, String password) {
 
-		this(NO_ID, name, surname, email, username, password, null);
-	}
-	
-	public User(String name, String surname, String email,
-			String username, String password, Picture avatar) {
-
-		this(NO_ID, name, surname, email, username, password, avatar);
+		this(name, surname, email, username, password, null);
 	}
 
 	public String getName() {

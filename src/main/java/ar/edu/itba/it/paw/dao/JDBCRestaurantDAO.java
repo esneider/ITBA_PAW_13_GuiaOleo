@@ -176,14 +176,17 @@ public class JDBCRestaurantDAO extends AbstractDAO implements RestaurantDAO {
 
 	private Restaurant getRestaurant(ResultSet rs) {
 		try {
-			return new Restaurant(rs.getInt("id"), rs.getString("name"),
+			FoodType ft = new FoodType(rs.getString("fname"), rs.getInt("fammount"));
+			ft.setId(rs.getInt("fid"));
+			Restaurant r = new Restaurant(rs.getString("name"),
 					rs.getString("address"), rs.getString("area"),
 					rs.getString("telephone"), rs.getString("website"),
 					rs.getString("timerange"), roundToDigits(
 							rs.getFloat("avgprice"), 2), roundToDigits(
 							rs.getFloat("avgscore"), 2),
-					rs.getInt("cantratings"), new FoodType(rs.getInt("fid"),
-							rs.getString("fname"), rs.getInt("fammount")));
+					rs.getInt("cantratings"), ft);
+			r.setId(rs.getInt("id"));
+			return r;
 		} catch (SQLException e) {
 			logger.error("SQL Error");
 		}

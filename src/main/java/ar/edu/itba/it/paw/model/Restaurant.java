@@ -8,9 +8,9 @@ public class Restaurant extends AbstractModel {
 	private float avgprice, avgscore;
 	private int ratings;
 	
-	public Restaurant(int id, String name, String address, String area,
+	public Restaurant(String name, String address, String area,
 			String telephone, String website, String timerange, float avgprice, float avgscore, int ratings, FoodType foodtype) {
-		super(id);
+		super();
 		this.name = name;
 		this.address = address;
 		this.area = area;

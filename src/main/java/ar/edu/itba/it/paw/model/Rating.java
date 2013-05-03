@@ -11,8 +11,8 @@ public class Rating extends AbstractModel {
 	private Date date;
 	private java.sql.Date SQLdate;
 
-	public Rating(int id, int score, String comment, User user, Restaurant restaurant, Date date) {
-		super(id);
+	public Rating(int score, String comment, User user, Restaurant restaurant, Date date) {
+		super();
 		this.score = score;
 		this.comment = comment;
 		this.user = user;
@@ -43,9 +43,5 @@ public class Rating extends AbstractModel {
 	
 	public java.sql.Date getSQLDate() {
 		return SQLdate;
-	}
-
-	public Rating(int score, String comment, User user, Restaurant restaurant, Date date) {
-		this(NO_ID, score, comment, user, restaurant, date);
 	}
 }

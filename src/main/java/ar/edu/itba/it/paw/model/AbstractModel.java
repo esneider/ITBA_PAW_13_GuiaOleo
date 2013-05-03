@@ -6,8 +6,8 @@ public abstract class AbstractModel {
 
 	private int id;
 	
-	protected AbstractModel (int id) {
-		this.id = id;
+	protected AbstractModel () {
+		this.id = NO_ID;
 	}
 	
 	public int getId() {

@@ -5,8 +5,8 @@ public class FoodType extends AbstractModel implements Comparable<FoodType> {
 	private String name;
 	private int ammount;
 
-	public FoodType(int id, String name, int ammount) {
-		super(id);
+	public FoodType(String name, int ammount) {
+		super();
 		this.name = name;
 		this.ammount = ammount;
 	}

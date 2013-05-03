@@ -119,16 +119,15 @@ public class JDBCRatingsDAO extends AbstractDAO implements RatingsDAO {
 	@SuppressWarnings("unused")
 	private Rating getRating(ResultSet rs) {
 		try {
-			return getRating(
-					rs,
-					new Restaurant(rs.getInt("id"), rs.getString("name"), rs
-							.getString("address"), rs.getString("area"), rs
-							.getString("telephone"), rs.getString("website"),
-							rs.getString("timerange"), rs.getFloat("avgprice"),
-							rs.getFloat("avgscore"), rs.getInt("Ratings"),
-							new FoodType(rs.getInt("foodTypeId"), rs
-									.getString("foodtypename"), rs
-									.getInt("ammount"))));
+			FoodType ft = new FoodType(rs.getString("foodtypename"),
+					rs.getInt("ammount"));
+			ft.setId(rs.getInt("foodTypeId"));
+			Restaurant r = new Restaurant(rs.getString("name"),
+					rs.getString("address"), rs.getString("area"),
+					rs.getString("telephone"), rs.getString("website"),
+					rs.getString("timerange"), rs.getFloat("avgprice"),
+					rs.getFloat("avgscore"), rs.getInt("Ratings"), ft);
+			return getRating(rs, r);
 		} catch (SQLException e) {
 			logger.error("SQL Error");
 		}
@@ -147,8 +146,10 @@ public class JDBCRatingsDAO extends AbstractDAO implements RatingsDAO {
 
 	private Rating getRating(ResultSet rs, Restaurant r, User u) {
 		try {
-			return new Rating(rs.getInt("id"), rs.getInt("score"),
+			Rating rate = new Rating(rs.getInt("score"),
 					rs.getString("comment"), u, r, rs.getDate("ratingDate"));
+			rate.setId(rs.getInt("id"));
+			return rate;
 		} catch (SQLException e) {
 			logger.error("SQL Error");
 		}
