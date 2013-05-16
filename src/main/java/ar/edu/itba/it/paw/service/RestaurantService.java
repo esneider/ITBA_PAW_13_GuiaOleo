@@ -1,11 +1,7 @@
 package ar.edu.itba.it.paw.service;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
-import ar.edu.itba.it.paw.dao.JDBCRestaurantDAO;
-import ar.edu.itba.it.paw.dao.interfaces.RestaurantDAO;
 import ar.edu.itba.it.paw.model.FoodType;
 import ar.edu.itba.it.paw.model.Restaurant;
 
