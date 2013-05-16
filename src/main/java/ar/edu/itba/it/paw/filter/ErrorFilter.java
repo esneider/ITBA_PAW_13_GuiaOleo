@@ -33,9 +33,9 @@ public class ErrorFilter implements Filter {
 			request.getRequestDispatcher("/WEB-INF/jsp/dberror.jsp")
 					.forward(request, r);
 		} catch (Exception e) {
-			
-			request.getRequestDispatcher("/WEB-INF/jsp/error.jsp").forward(
-					request, response);
+			e.printStackTrace();
+			//request.getRequestDispatcher("/WEB-INF/jsp/error.jsp").forward(
+				//	request, response);
 		}
 
 	}

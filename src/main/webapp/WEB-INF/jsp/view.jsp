@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script>
 <div class="restdetail">
 
     <h2 class="restaurantTitle">${restaurant.name}</h2>

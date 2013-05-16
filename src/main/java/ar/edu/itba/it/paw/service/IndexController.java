@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import ar.edu.itba.it.paw.utils.EnhancedModelAndView;
+
 @Controller
 public class IndexController {
 
@@ -19,15 +21,15 @@ public class IndexController {
 	}
 	
 	@RequestMapping
-	public ModelAndView list(@RequestParam(value="query", required=false) String query, @RequestParam(value="id", required=false) Integer id, @RequestParam(value="num", required=false) Integer num) {
+	public EnhancedModelAndView list(@RequestParam(value="query", required=false) String query, @RequestParam(value="id", required=false) Integer id, @RequestParam(value="num", required=false) Integer num) {
 		
 		if (query == null) {
 			//render(req, resp, "error.jsp", "404 NOT FOUND", false);
-			error();
+			error();	
 			return null;
 		}
 
-		ModelAndView mav = new ModelAndView();
+		EnhancedModelAndView mav = new EnhancedModelAndView("Guia Oleo Facha");
 		
 		try {
 			if (query.equals("all")) {

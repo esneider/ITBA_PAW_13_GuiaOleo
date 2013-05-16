@@ -1,6 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-
+<c:import url="../header.jsp" />
 <div class="restlist">
      <c:choose>
 		<c:when test="${fn:length(restaurantList) gt 0}">
@@ -28,4 +28,5 @@
 		</c:otherwise>
 	</c:choose>
 <div>
+<c:import url="../footer.jsp" />
 
