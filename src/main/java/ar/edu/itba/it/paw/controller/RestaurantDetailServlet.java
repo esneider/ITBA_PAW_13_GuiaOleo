@@ -14,7 +14,7 @@ import ar.edu.itba.it.paw.service.RestaurantService;
 @SuppressWarnings("serial")
 public class RestaurantDetailServlet extends BaseServlet {
 
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+	/*protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		try {
 			int id = Integer.valueOf(req.getParameter("id"));
@@ -66,5 +66,5 @@ public class RestaurantDetailServlet extends BaseServlet {
 			render(req, resp, "error.jsp", "404 NOT FOUND", false);
 			return;
 		}
-	}
+	}*/
 }

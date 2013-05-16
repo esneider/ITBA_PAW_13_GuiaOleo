@@ -6,10 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Repository;
 
 import ar.edu.itba.it.paw.dao.interfaces.FoodTypesDAO;
 import ar.edu.itba.it.paw.model.FoodType;
 
+@Repository
 public class JDBCFoodTypesDAO extends AbstractDAO implements FoodTypesDAO {
 
 	private static JDBCFoodTypesDAO self;

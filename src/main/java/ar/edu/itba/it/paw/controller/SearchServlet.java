@@ -17,7 +17,7 @@ public class SearchServlet extends BaseServlet {
 			throws ServletException, IOException {
 		String query = req.getParameter("query");
 		req.setAttribute("squery", query);
-		req.setAttribute("restaurantList", RestaurantService.getInstance().getRestaurantsByQuery(query));
+		//req.setAttribute("restaurantList", RestaurantService.getInstance().getRestaurantsByQuery(query));
 		render(req, resp, "list.jsp", "Results for: " + query, true);
 
 	}

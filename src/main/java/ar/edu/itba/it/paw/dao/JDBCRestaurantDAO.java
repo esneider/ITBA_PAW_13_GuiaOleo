@@ -3,18 +3,17 @@ package ar.edu.itba.it.paw.dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Repository;
 
 import ar.edu.itba.it.paw.dao.interfaces.RestaurantDAO;
 import ar.edu.itba.it.paw.exceptions.SQLNoConnectionException;
 import ar.edu.itba.it.paw.model.FoodType;
-import ar.edu.itba.it.paw.model.Rating;
 import ar.edu.itba.it.paw.model.Restaurant;
 
+@Repository
 public class JDBCRestaurantDAO extends AbstractDAO implements RestaurantDAO {
 
 	private static JDBCRestaurantDAO self;

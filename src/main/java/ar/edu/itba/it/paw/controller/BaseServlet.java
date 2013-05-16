@@ -26,7 +26,7 @@ import org.apache.struts.upload.MultipartRequestWrapper;
 import ar.edu.itba.it.paw.model.FoodType;
 import ar.edu.itba.it.paw.model.Picture;
 import ar.edu.itba.it.paw.model.User;
-import ar.edu.itba.it.paw.service.FoodTypeService;
+import ar.edu.itba.it.paw.service.FoodTypeServiceImpl;
 import ar.edu.itba.it.paw.service.PictureService;
 import ar.edu.itba.it.paw.service.UserService;
 
@@ -57,7 +57,7 @@ public abstract class BaseServlet extends HttpServlet {
 
 		if (sidebar) {
 
-			List<FoodType> all = FoodTypeService.getInstance().getAll();
+			/*List<FoodType> all = FoodTypeServiceImpl.getInstance().getAll();
 			int total = 0;
 
 			for (FoodType foodType : all) {
@@ -77,7 +77,7 @@ public abstract class BaseServlet extends HttpServlet {
 			} else if ("all".equals(req.getParameter("query"))) {
 
 				req.setAttribute("tab_all", "active");
-			}
+			}*/
 		}
 
 		req.getRequestDispatcher("/WEB-INF/jsp/layout.jsp").forward(req, resp);

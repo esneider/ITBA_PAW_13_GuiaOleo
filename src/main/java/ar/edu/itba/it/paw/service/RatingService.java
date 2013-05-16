@@ -33,7 +33,7 @@ public class RatingService {
 
 			rest.setAvgScore(DAO.getRestaurantAvgRating(rest));
 			rest.setRatings(DAO.getRestaurantRatingAmmount(rest));
-			RestaurantService.getInstance().save(rest);
+		//	RestaurantService.getInstance().save(rest);
 		}
 	}
 

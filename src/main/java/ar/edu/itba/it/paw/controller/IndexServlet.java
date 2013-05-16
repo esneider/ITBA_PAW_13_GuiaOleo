@@ -16,7 +16,7 @@ public class IndexServlet extends BaseServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		
-		req.setAttribute("restaurantList", RestaurantService.getInstance().getBestRatedRestaurants(10));
+		//req.setAttribute("restaurantList", RestaurantService.getInstance().getBestRatedRestaurants(10));
 		render(req, resp, "list.jsp", "Guia Oleo Facha - Welcome!", true);
 	}
 }
