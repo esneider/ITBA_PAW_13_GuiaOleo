@@ -7,14 +7,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Repository;
 
 import ar.edu.itba.it.paw.dao.interfaces.RatingsDAO;
 import ar.edu.itba.it.paw.model.FoodType;
 import ar.edu.itba.it.paw.model.Rating;
 import ar.edu.itba.it.paw.model.Restaurant;
 import ar.edu.itba.it.paw.model.User;
-import ar.edu.itba.it.paw.service.UserService;
 
+@Repository
 public class JDBCRatingsDAO extends AbstractDAO implements RatingsDAO {
 
 	private static JDBCRatingsDAO self;

@@ -66,14 +66,14 @@ public class RegisterServlet extends BaseServlet {
 
 		if (check) {
 
-			User user = UserService.getInstance().register(name, surname, email, username, password, multipart.pictures.get(0));
+			/*User user = UserService.getInstance().register(name, surname, email, username, password, multipart.pictures.get(0));
 
 			if (user != null) {
 
 				setLoggedInUser(req, user);
 				resp.sendRedirect(Utils.addParameterToURI(destination, "registerAction", "successful"));
 				return;
-			}
+			}*/
 		}
 
 		render(req, resp, "login.jsp", "Login or Register", false);

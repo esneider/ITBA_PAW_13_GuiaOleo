@@ -81,7 +81,7 @@ public class ModifyUserServlet extends BaseServlet {
 				updateUser.setAvatar(multipart.pictures.get(0));
 			}
 
-			UserService.getInstance().update(updateUser);
+			//UserService.getInstance().update(updateUser);
 
 			resp.sendRedirect("index?modifyAction=successful");
 			return;

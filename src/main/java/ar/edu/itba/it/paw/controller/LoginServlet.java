@@ -52,14 +52,14 @@ public class LoginServlet extends BaseServlet {
 
 		if (check) {
 			
-			User user = UserService.getInstance().login(username, password);
+			/*User user = UserService.getInstance().login(username, password);
 	
 			if (user != null) {
 	
 				setLoggedInUser(req, user);
 				resp.sendRedirect(Utils.addParameterToURI(destination, "loginAction", "successful"));
 				return;
-			}
+			}*/
 	
 			req.setAttribute("invalidUser", true);
 		}

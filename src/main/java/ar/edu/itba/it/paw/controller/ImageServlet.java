@@ -17,12 +17,12 @@ public class ImageServlet extends BaseServlet {
 			throws ServletException, IOException {
 
 		String imageId = req.getParameter("imageId");
-		Picture pic = PictureService.getInstance().getPictureById(Integer.valueOf(imageId));
+		//Picture pic = PictureService.getInstance().getPictureById(Integer.valueOf(imageId));
 		resp.setContentType("image/jpeg");
 
 		OutputStream os = resp.getOutputStream();  
 		
-		os.write(pic.getBytes());
+		//os.write(pic.getBytes());
 		os.flush();
  
 		os.close();

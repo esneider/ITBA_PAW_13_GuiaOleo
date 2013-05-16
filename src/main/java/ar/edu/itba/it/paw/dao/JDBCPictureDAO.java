@@ -5,10 +5,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Repository;
 
 import ar.edu.itba.it.paw.dao.interfaces.PictureDAO;
 import ar.edu.itba.it.paw.model.Picture;
 
+@Repository
 public class JDBCPictureDAO extends AbstractDAO implements PictureDAO {
 
 	private static JDBCPictureDAO self;

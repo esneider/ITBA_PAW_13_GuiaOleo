@@ -126,13 +126,13 @@ public class ValidationHelpers {
 			req.setAttribute(param + "Error", true);
 			return false;
 		}
-
+/*
 		if (UserService.getInstance().emailExists(value, canRepeat, id)) {
 			req.setAttribute(param + "NotAvailable", true);
 			req.setAttribute(param + "Error", true);
 			return false;
 		}
-
+*/
 		return true;
 	}
 
@@ -159,13 +159,13 @@ public class ValidationHelpers {
 		if (!checkParameter(req, param, min, max)) {
 			return false;
 		}
-
+/*
 		if (UserService.getInstance().usernameExists(req.getParameter(param))) {
 			req.setAttribute(param + "NotAvailable", true);
 			req.setAttribute(param + "Error", true);
 			return false;
 		}
-
+*/
 		return true;
 	}
 

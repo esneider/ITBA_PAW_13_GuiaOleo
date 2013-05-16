@@ -49,7 +49,7 @@ public abstract class BaseServlet extends HttpServlet {
 
 		if (isLoggedIn(req)) {
 
-			req.setAttribute("user", getLoggedInUser(req));
+			//req.setAttribute("user", getLoggedInUser(req));
 			req.setAttribute("loginAction",    "successful".equals(req.getParameter("loginAction")));
 			req.setAttribute("registerAction", "successful".equals(req.getParameter("registerAction")));
 			req.setAttribute("modifyAction",   "successful".equals(req.getParameter("modifyAction")));
@@ -94,8 +94,8 @@ public abstract class BaseServlet extends HttpServlet {
 	}
 
 	protected User getLoggedInUser(HttpServletRequest req) {
-
-		return UserService.getInstance().getSingleUser((Integer)req.getSession(true).getAttribute("userId"));
+		return null;
+		//return UserService.getInstance().getSingleUser((Integer)req.getSession(true).getAttribute("userId"));
 	}
 
 	protected void logout(HttpServletRequest req) {
@@ -162,10 +162,10 @@ public abstract class BaseServlet extends HttpServlet {
 			    	mpReq.setParameter(name, Streams.asString(stream));
 			    } else {
 			    	mpReq.setParameter(name, "true");
-			    	if (item.getContentType().equals("image/jpeg"))
-			    		multipart.pictures.add(PictureService.getInstance().insert(stream, item.getContentType()));
-			    	else
-			    		multipart.pictures = null;
+			    	//if (item.getContentType().equals("image/jpeg"))
+			    		//multipart.pictures.add(PictureService.getInstance().insert(stream, item.getContentType()));
+			    	//else
+			    		//multipart.pictures = null;
 			    }
 			}
 

@@ -22,24 +22,24 @@ public class IndexController {
 	
 	@RequestMapping
 	public EnhancedModelAndView list(@RequestParam(value="query", required=false) String query, @RequestParam(value="id", required=false) Integer id, @RequestParam(value="num", required=false) Integer num) {
-		
-		if (query == null) {
-			//render(req, resp, "error.jsp", "404 NOT FOUND", false);
-			error();	
-			return null;
-		}
 
 		EnhancedModelAndView mav = new EnhancedModelAndView("Guia Oleo Facha");
 		
 		try {
-			if (query.equals("all")) {
+			if (query != null) {
+				if (query.equals("all")) {
+					mav.addObject("restaurantList", restService.getAll());
+				} else if (query.equals("foodtypes")) {
+					mav.addObject("restaurantList", restService
+							.getRestaurantsByFoodType(ftService.getSingleFoodType(id)));
+				} else if (query.equals("bestrated")) {
+					mav.addObject("restaurantList",
+							restService.getBestRatedRestaurants(num));
+				} else {
+					mav.addObject("restaurantList", restService.getAll());
+				}
+			} else {
 				mav.addObject("restaurantList", restService.getAll());
-			} else if (query.equals("foodtypes")) {
-				mav.addObject("restaurantList", restService
-						.getRestaurantsByFoodType(ftService.getSingleFoodType(id)));
-			} else if (query.equals("bestrated")) {
-				mav.addObject("restaurantList",
-						restService.getBestRatedRestaurants(num));
 			}
 		} catch (Exception e) {
 			error();
