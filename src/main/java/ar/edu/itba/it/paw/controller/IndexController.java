@@ -25,8 +25,9 @@ public class IndexController {
 
 	@RequestMapping
 	public EnhancedModelAndView search(
-			@RequestParam(value = "query", required = true) String query) {
-		EnhancedModelAndView mav = new EnhancedModelAndView("Search");
+			@RequestParam(value = "query", required = false) String query) {
+		
+		EnhancedModelAndView mav = new EnhancedModelAndView("list");
 		mav.addObject("restaurantList",
 				restService.getRestaurantsByQuery(query));
 		mav.setViewName("list");
