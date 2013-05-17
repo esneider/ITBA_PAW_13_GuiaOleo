@@ -66,7 +66,11 @@ public class RegisterServlet extends BaseServlet {
 
 		if (check) {
 
+
 			/*User user = UserService.getInstance().register(name, surname, email, username, password, multipart.pictures.get(0));
+
+			//User user = UserService.getInstance().register(name, surname, email, username, password, multipart.pictures.get(0));
+
 
 			if (user != null) {
 
