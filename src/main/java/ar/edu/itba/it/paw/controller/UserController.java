@@ -28,18 +28,25 @@ public class UserController {
 
 	}
 
-	@RequestMapping
-	public EnhancedModelAndView login(RegisterForm registerForm, Errors errors) {
+	@RequestMapping(method = RequestMethod.GET)
+	public EnhancedModelAndView login() {
 		EnhancedModelAndView mav = new EnhancedModelAndView("login");
+		mav.addObject(new RegisterForm());
 		return mav;
+	}
+	@RequestMapping(method = RequestMethod.POST)
+	public String login(RegisterForm registerForm, Errors errors) {
+		//LOGICA DEL LOGIN
+		return "list";
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
 	public String register(RegisterForm registerForm, Errors errors) {
 		rvalidator.validate(registerForm, errors);
 		if (errors.hasErrors()) {
-			return null;
+			return "user/login";
 		}
+		
 
 		try {
 			User s = registerForm.build(); // TODO Hay que cambiar todo para que
@@ -48,9 +55,9 @@ public class UserController {
 					s.getUsername(), s.getPassword());
 		} catch (Exception e) {
 			errors.rejectValue("SQL CODE", "DB ERROR");
-			return null;
+			return "login";
 		}
-		return "redirect:list";
+		return "index/list";
 
 	}
 
