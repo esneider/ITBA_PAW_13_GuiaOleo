@@ -7,7 +7,7 @@
 			<c:forEach var="restaurant" items="${restaurantList}">
 			    <dl class="dl-horizontal mainList">
                     <dt>Restaurant</dt>
-                        <dd><strong><a href="view?id=${restaurant.id}">${restaurant.name}</a></strong></dd>
+                        <dd><strong><a href="../restaurant/view?id=${restaurant.id}">${restaurant.name}</a></strong></dd>
                     <dt>Address</dt>
                         <dd>${restaurant.address}</dd>
 					<dt>Food type</dt>
