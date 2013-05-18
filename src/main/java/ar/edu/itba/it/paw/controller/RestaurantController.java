@@ -21,27 +21,19 @@ import ar.edu.itba.it.paw.utils.EnhancedModelAndView;
 public class RestaurantController extends BaseController {
 	
 	private RestaurantService restService;
-	private UserService userService;
 	
 	@Autowired
 	public RestaurantController(RestaurantService restService, UserService userService) {
 		this.restService = restService;
-		this.userService = userService;
 	}
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView view(@RequestParam(value = "id") Integer id, HttpSession session) {
+	public ModelAndView view(@RequestParam("id") Restaurant rest, HttpSession session) {
 		
-		Restaurant rest = restService.getSingleRestaurant(id);
-
 		EnhancedModelAndView mav = new EnhancedModelAndView("Simple Restaurant");
 		if (rest != null) {
 			mav.addObject("restaurant", rest);
-		
-		    mav.addObject("commentList", restService
-					.getRatingsByRestaurant(restService.getSingleRestaurant(id)));
-		    
-		    addContextVariables(mav, true, "../index/");
+		    mav.addObject("commentList", restService.getRatingsByRestaurant(rest));
 		    
 		    if (isLoggedIn(session)) {
 				Rating rate = restService.getSingleRating(getLoggedInUser(session), rest);
@@ -49,28 +41,28 @@ public class RestaurantController extends BaseController {
 					mav.addObject("userComment", rate);
 		    }
 		}
+		addContextVariables(mav, true, "../index/");
 		
 		return mav;
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public ModelAndView view(@RequestParam(value = "id") Integer id, 
+	public ModelAndView view(@RequestParam("id") Restaurant rest, 
 			@RequestParam(value = "restaurant_rating") Integer rating,
 			@RequestParam(value = "comment") String comment,
 			HttpSession session) {
 	
-		if (id != null) {
+		if (rest != null) {
+			User user = getLoggedInUser(session);
 			try {
-				User user = getLoggedInUser(session);
-				Restaurant rest = restService.getSingleRestaurant(id);
 				if (restService.getSingleRating(user, rest) == null)
 					restService.insertRating(rating, comment, user, rest);
-				return view(id, session);
+				return view(rest, session);
 			} catch (Exception e) {
-				return view(id, session);
+				return view(rest, session);
 			}
 		} else {
-			return view(id, session);
+			return null;
 		}
 	}
 }
