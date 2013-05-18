@@ -14,13 +14,6 @@
         <p>
             <input type="password" name="registerPassword">
         </p>
-
-        <c:if test="${registerPasswordEmpty}">
-            <p class="text-error">You have to provide a password.</p>
-        </c:if>
-        <c:if test="${registerPasswordBadLength}">
-            <p class="text-error">The password is too long.</p>
-        </c:if>
     </div>
 </div>
 

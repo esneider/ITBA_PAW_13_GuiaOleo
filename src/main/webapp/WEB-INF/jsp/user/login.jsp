@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<c:import url="../header.jsp" />
 <c:if test="${loginUsernameError}"><c:set var="loginUsernameClass" value="error" /></c:if>
 <c:if test="${loginPasswordError}"><c:set var="loginPasswordClass" value="error" /></c:if>
 <c:if test="${registerUsernameError}"><c:set var="registerUsernameClass" value="error" /></c:if>
@@ -65,35 +66,30 @@
             <h2>Register</h2>
         </div>
 
-		<form class="registerForm form-horizontal" action="register" enctype="multipart/form-data" method="POST">
-
+		<form:form class="registerForm form-horizontal" action="register" enctype="multipart/form-data" method="POST" commandName="registerForm">
+		
+			<div class="error"><form:errors path="*" /></div>
+			<form:hidden path="user" />
+			
 			<input type="hidden" name="from" value="${fn:escapeXml(from)}"/>
 
             <div class="registerUsername control-group ${registerUsernameClass}">
                 <label class="control-label">User:</label>
                 <div class="controls">
                     <p>
-                        <input type="text" name="registerUsername" value="${fn:escapeXml(registerUsername)}">
+                    	<form:input type="text" path="username"/>
+                    	<p class="text-error"><form:errors path="username" /></p>
                     </p>
-
-                    <c:if test="${registerUsernameEmpty}">
-                        <p class="text-error">You have to provide a user name.</p>
-                    </c:if>
-                    <c:if test="${registerUsernameBadLength}">
-                        <p class="text-error">The user name is too long.</p>
-                    </c:if>
-                    <c:if test="${usernameExists}">
-                        <p class="text-error">The user name is already taken, please choose another one.</p>
-                    </c:if>
+       
                 </div>
             </div>
 
-			<c:import url="user_data_fields.jsp" />
+			<%@ include file="user_data_fields.jsp" %>
 
             <div class="control-group controls">
                 <input class="btn btn-info" type="submit" value="Register">
             </div>
 
-		</form>
+		</form:form>
 	</div>
 </div>

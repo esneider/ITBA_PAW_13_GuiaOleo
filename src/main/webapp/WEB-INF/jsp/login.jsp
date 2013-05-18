@@ -1,5 +1,3 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <c:if test="${loginUsernameError}"><c:set var="loginUsernameClass" value="error" /></c:if>
 <c:if test="${loginPasswordError}"><c:set var="loginPasswordClass" value="error" /></c:if>

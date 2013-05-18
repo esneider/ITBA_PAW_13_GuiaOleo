@@ -1,6 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-
+<c:import url="../header.jsp" />
 <div class="modify-user offset2 span8">
     <div class="offset2 span4 section-header clearfix">
         <h2>Modify your data</h2>
@@ -39,3 +39,4 @@
 		</form>
 	</div>
 </div>
+<c:import url="../footer.jsp" />
