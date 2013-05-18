@@ -66,7 +66,7 @@ public class IndexController {
 		}
 		return mav;
 	}
-
+	
 	@RequestMapping
 	public ModelAndView error() {
 		return null;
