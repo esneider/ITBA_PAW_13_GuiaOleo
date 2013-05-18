@@ -21,14 +21,12 @@ public class PictureServiceImpl implements PictureService {
 	}
 
 	public Picture insert(InputStream is, String mime) {
-
 		Picture pic = new Picture(is, mime);
 		DAO.insert(pic);
 		return pic;
 	}
 
 	public Picture getPictureById(int id) {
-
 		return DAO.getPictureById(id);
 	}
 

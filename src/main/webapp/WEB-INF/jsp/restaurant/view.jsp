@@ -46,7 +46,7 @@
     <c:forEach var="comment" items="${commentList}">
         <p>
             <div class="span1">
-                <img class="avatarPic" src="${ basePath }/getImage?imageId=${ comment.user.avatar.id }"/>
+                <img class="avatarPic" src="../user/image?imageId=${comment.user.avatar.id }"/>
             </div>
             <div class="offset1 comment">
                 <blockquote>

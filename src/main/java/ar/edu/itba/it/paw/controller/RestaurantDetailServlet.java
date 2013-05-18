@@ -1,15 +1,5 @@
 package ar.edu.itba.it.paw.controller;
 
-import java.io.IOException;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import ar.edu.itba.it.paw.model.Rating;
-import ar.edu.itba.it.paw.model.Restaurant;
-import ar.edu.itba.it.paw.service.RatingService;
-import ar.edu.itba.it.paw.service.RestaurantService;
 
 @SuppressWarnings("serial")
 public class RestaurantDetailServlet extends BaseServlet {

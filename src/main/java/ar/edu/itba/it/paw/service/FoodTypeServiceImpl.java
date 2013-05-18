@@ -14,7 +14,7 @@ public class FoodTypeServiceImpl implements FoodTypeService {
 	FoodTypesDAO DAO;
 	
 	@Autowired
-	private FoodTypeServiceImpl(FoodTypesDAO ftDAO) {
+	public FoodTypeServiceImpl(FoodTypesDAO ftDAO) {
 		this.DAO = ftDAO;
 	}
 	

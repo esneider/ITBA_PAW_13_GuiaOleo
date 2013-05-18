@@ -1,5 +1,6 @@
 package ar.edu.itba.it.paw.service;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -7,18 +8,23 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ar.edu.itba.it.paw.dao.interfaces.RatingsDAO;
 import ar.edu.itba.it.paw.dao.interfaces.RestaurantDAO;
 import ar.edu.itba.it.paw.model.FoodType;
+import ar.edu.itba.it.paw.model.Rating;
 import ar.edu.itba.it.paw.model.Restaurant;
+import ar.edu.itba.it.paw.model.User;
 
 @Service
 public class RestaurantServiceImpl implements RestaurantService {
 	
 	private RestaurantDAO DAO;
+	private RatingsDAO rtDAO;
 
 	@Autowired
-	public RestaurantServiceImpl(RestaurantDAO DAO) {
+	public RestaurantServiceImpl(RestaurantDAO DAO, RatingsDAO rtDAO) {
 		this.DAO = DAO;
+		this.rtDAO = rtDAO;
 	}
 	
 	public List<Restaurant> getBestRatedRestaurants(int cant) {
@@ -57,6 +63,27 @@ public class RestaurantServiceImpl implements RestaurantService {
             if (auxSet.add(r))
             	result.add(r);
         return result;
+	}
+	
+	public void insertRating(int value, String comment, User user,
+			Restaurant rest) {
+		if (getSingleRating(user, rest) == null) {
+			Rating rate = new Rating(value, comment, user, rest, new Date());
+
+			rtDAO.insertSingleRating(rate);
+
+			rest.setAvgScore(rtDAO.getRestaurantAvgRating(rest));
+			rest.setRatings(rtDAO.getRestaurantRatingAmmount(rest));
+			save(rest);
+		}
+	}
+	
+	public List<Rating> getRatingsByRestaurant(Restaurant rest) {
+		return rtDAO.getRatingsByRestaurant(rest);
+	}
+
+	public Rating getSingleRating(User user, Restaurant rest) {
+		return rtDAO.getSingleRating(user, rest);
 	}
 
 }

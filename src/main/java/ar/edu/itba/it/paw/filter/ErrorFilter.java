@@ -29,7 +29,6 @@ public class ErrorFilter implements Filter {
 		} catch (SQLNoConnectionException e) {
 			HttpServletResponse r = (HttpServletResponse) response;
 			r.setStatus(500);
-			System.out.println("Holis");
 			request.getRequestDispatcher("/WEB-INF/jsp/dberror.jsp")
 					.forward(request, r);
 		} catch (Exception e) {

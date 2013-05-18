@@ -11,7 +11,7 @@ import ar.edu.itba.it.paw.service.RestaurantService;
 import ar.edu.itba.it.paw.utils.EnhancedModelAndView;
 
 @Controller
-public class IndexController {
+public class IndexController extends BaseController {
 
 	FoodTypeService ftService;
 	RestaurantService restService;
@@ -30,7 +30,9 @@ public class IndexController {
 		EnhancedModelAndView mav = new EnhancedModelAndView("list");
 		mav.addObject("restaurantList",
 				restService.getRestaurantsByQuery(query));
-		mav.setViewName("list");
+		mav.setViewName("index/list");
+		addContextVariables(mav, true);
+		mav.addObject("squery", query);
 		return mav;
 
 	}
@@ -40,9 +42,11 @@ public class IndexController {
 			@RequestParam(value = "query", required = false) String query,
 			@RequestParam(value = "id", required = false) Integer id,
 			@RequestParam(value = "num", required = false) Integer num) {
-
+		
 		EnhancedModelAndView mav = new EnhancedModelAndView("Guia Oleo Facha");
-
+		
+		addContextVariables(mav, true);
+		
 		try {
 			if (query != null) {
 				if (query.equals("all")) {
@@ -66,6 +70,7 @@ public class IndexController {
 		}
 		return mav;
 	}
+
 	
 	@RequestMapping
 	public ModelAndView error() {

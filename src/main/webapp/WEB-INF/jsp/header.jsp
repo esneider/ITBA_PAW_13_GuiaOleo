@@ -37,10 +37,10 @@
                             </a>
                             <ul class="dropdown-menu" role="menu" aria-labelledby="user-dd">
                                 <li role="presentation">
-                                    <a role="menuitem" href="${ pageContext.request.contextPath }/modify_user">Modify data</a>
+                                    <a role="menuitem" href="${ pageContext.request.contextPath }/bin/user/edit">Modify data</a>
                                 </li>
                                 <li role="presentation">
-                                    <a role="menuitem" href="${ pageContext.request.contextPath }/logout">Logout</a>
+                                    <a role="menuitem" href="${ pageContext.request.contextPath }/bin/user/logout">Logout</a>
                                 </li>
                             </ul>
                         </li>
@@ -48,7 +48,7 @@
 
                     <c:otherwise>
                         <li class="login-text">
-                            <a class="menu-text" href="${ pageContext.request.contextPath }/login">Login or Register</a>
+                            <a class="menu-text" href="${ pageContext.request.contextPath }/bin/user/login">Login or Register</a>
                         </li>
                     </c:otherwise>
                 </c:choose>
@@ -87,14 +87,11 @@
 
         <div id="main">
             <c:choose>
-                <c:when test="${not sidebar}">
-                    
-                </c:when>
-                <c:otherwise>
+                <c:when test="${sidebar}">
                     <div class="tabbable tabs-left">
                         <ul class="nav nav-tabs">
 
-                            <li class="${tab_all}"><a href="${ pageContext.request.contextPath }/list?query=all">
+                            <li class="${tab_all}"><a href="${ parentMenuScope }list?query=all">
                                 <strong class="name text-warning">All restaurants</strong>
                                 <br>
                                 <c:if test="${numberOfRestaurants > 1}"><c:set var="s" value="s" /></c:if>
@@ -108,7 +105,7 @@
                                         <c:set var="mclass" value="active" />
                                     </c:if>
                                     <li class="${mclass}">
-                                        <a href="${ pageContext.request.contextPath }/list?query=foodtypes&id=${foodtype.id}">
+                                        <a href="${ parentMenuScope }list?query=foodtypes&id=${foodtype.id}">
                                             <strong class="name">${fn:escapeXml(foodtype.name)}</strong>
                                             <br>
                                             <c:if test="${foodtype.ammount > 1}"><c:set var="s" value="s" /></c:if>
@@ -117,9 +114,8 @@
                                     </li>
                                 </c:if>
                             </c:forEach>
-
-                        </ul>
-                     </c:otherwise>
-                 </c:choose>
-                        <div class="tab-content">
+                    	</ul>
+                    	<div class="tab-content">
                             <div class="tab-pane active">
+                 </c:when>
+        			</c:choose>

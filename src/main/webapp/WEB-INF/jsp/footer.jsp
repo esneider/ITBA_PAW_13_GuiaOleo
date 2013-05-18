@@ -1,8 +1,8 @@
+<c:when test="${sidebar}">
                         </div>
-                    </div>
-                </c:otherwise>
-            </c:choose>
+              	</div>
         </div>
+</c:when>
     </div>
     <div class='footer'>
     </div>
