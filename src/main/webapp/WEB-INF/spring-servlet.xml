@@ -2,10 +2,5 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd"> 
 
 <beans> 
-	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-		<property name="basename" value="/WEB-INF/i18n/messages" />
-		<property name="cacheSeconds" value="0" />
-	</bean>
 	<import resource="classpath:mvc.xml" />
-	 
 </beans>

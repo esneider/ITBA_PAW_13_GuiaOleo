@@ -19,24 +19,24 @@ public class RegisterFormValidator implements Validator {
 
 		RegisterForm obj = (RegisterForm) target;
 		if (obj.getName() == null)
-			errors.rejectValue("name", "You have to provide your name");
+			errors.rejectValue("name", "empty");
 		if (obj.getSurname() == null)
-			errors.rejectValue("surname", "You have to provide your surname.");
+			errors.rejectValue("surname", "empty");
 		if (obj.getEmail() == null)
-			errors.rejectValue("email", "You have to provide an email.");
+			errors.rejectValue("email", "empty");
 		boolean passwordSetted = obj.getPassword() != null;
 		boolean repasswordSettted = obj.getRepassword() != null;
 		if (!passwordSetted)
-			errors.rejectValue("password", "You have to provide a password.");
+			errors.rejectValue("password", "empty");
 		if (!repasswordSettted)
-			errors.rejectValue("repassword", "You have to repeat your password.");
+			errors.rejectValue("repassword", "empty");
 		if (passwordSetted && repasswordSettted && obj.getPassword() != obj.getRepassword())
-			errors.rejectValue("repassword", "Passwords don't match!");
+			errors.rejectValue("password", "mismatch");
 		if (obj.getUsername() == null)
-			errors.rejectValue("username", "You have to provide an user name");
+			errors.rejectValue("username", "empty");
 		else {
 			if (obj.getUsername().length() > 10) {
-				errors.rejectValue("username", "The user name is too long.");
+				errors.rejectValue("username", "toolong");
 			}
 		}
 
