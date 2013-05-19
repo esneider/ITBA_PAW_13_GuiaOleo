@@ -42,8 +42,7 @@ public class UserServiceImpl implements UserService {
 
 	public User register(String name, String surname, String email,
 			String username, String password) {
-
-		return register(name, surname, email, username, password);
+		return register(name, surname, email, username, password, null);
 	}
 
 	public User register(String name, String surname, String email,

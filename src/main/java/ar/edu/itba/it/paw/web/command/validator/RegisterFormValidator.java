@@ -18,21 +18,21 @@ public class RegisterFormValidator implements Validator {
 	public void validate(Object target, Errors errors) {
 
 		RegisterForm obj = (RegisterForm) target;
-		if (obj.getName() == null)
+		if (obj.getName().equals(""))
 			errors.rejectValue("name", "empty");
-		if (obj.getSurname() == null)
+		if (obj.getSurname().equals(""))
 			errors.rejectValue("surname", "empty");
-		if (obj.getEmail() == null)
+		if (obj.getEmail().equals(""))
 			errors.rejectValue("email", "empty");
-		boolean passwordSetted = obj.getPassword() != null;
-		boolean repasswordSettted = obj.getRepassword() != null;
+		boolean passwordSetted = !obj.getPassword().equals("");
+		boolean repasswordSettted = !obj.getRepassword().equals("");
 		if (!passwordSetted)
 			errors.rejectValue("password", "empty");
 		if (!repasswordSettted)
 			errors.rejectValue("repassword", "empty");
-		if (passwordSetted && repasswordSettted && obj.getPassword() != obj.getRepassword())
+		if (!obj.getPassword().equals(obj.getRepassword()))
 			errors.rejectValue("password", "mismatch");
-		if (obj.getUsername() == null)
+		if (obj.getUsername().equals(""))
 			errors.rejectValue("username", "empty");
 		else {
 			if (obj.getUsername().length() > 10) {

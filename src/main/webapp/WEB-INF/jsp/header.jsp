@@ -32,7 +32,7 @@
                         <li class="dropdown">
                             <a href="#" id="user-dd" role="button" class="dropdown-toggle menu-text" data-toggle="dropdown">
                                 ${fn:escapeXml(user.username)}
-                                <img class="avatar" src="${ pageContext.request.contextPath }/getImage?imageId=${ user.avatar.id }"/>
+                                <img class="avatar" src="${ pageContext.request.contextPath }/bin/image/showUserImage"/>
                             </a>
                             <ul class="dropdown-menu" role="menu" aria-labelledby="user-dd">
                                 <li role="presentation">
@@ -58,7 +58,7 @@
     <div class="container">
         <div id="main-logo">
             <div>
-                <a href="list"><img src="${ pageContext.request.contextPath }/assets/img/logo.PNG" /></a>
+                <a href="${ pageContext.request.contextPath }/bin/index/list"><img src="${ pageContext.request.contextPath }/assets/img/logo.PNG" /></a>
                 <h1>Oleo's guide</h1>
             </div>
         </div>
@@ -90,7 +90,7 @@
                     <div class="tabbable tabs-left">
                         <ul class="nav nav-tabs">
 
-                            <li class="${tab_all}"><a href="${ parentMenuScope }list?query=all">
+                            <li class="${tab_all}"><a href="{ pageContext.request.contextPath }/bin/index/list?query=all">
                                 <strong class="name text-warning">All restaurants</strong>
                                 <br>
                                 <c:if test="${numberOfRestaurants > 1}"><c:set var="s" value="s" /></c:if>
@@ -104,7 +104,7 @@
                                         <c:set var="mclass" value="active" />
                                     </c:if>
                                     <li class="${mclass}">
-                                        <a href="${ parentMenuScope }list?query=foodtypes&id=${foodtype.id}">
+                                        <a href="${ pageContext.request.contextPath }/bin/index/list?query=foodtypes&id=${foodtype.id}">
                                             <strong class="name">${fn:escapeXml(foodtype.name)}</strong>
                                             <br>
                                             <c:if test="${foodtype.ammount > 1}"><c:set var="s" value="s" /></c:if>

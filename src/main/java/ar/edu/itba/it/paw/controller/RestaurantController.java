@@ -30,7 +30,7 @@ public class RestaurantController extends BaseController {
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView view(@RequestParam("id") Restaurant rest, HttpSession session) {
 		
-		EnhancedModelAndView mav = new EnhancedModelAndView("Simple Restaurant");
+		EnhancedModelAndView mav = generateContext("Simple Restaurant", true);
 		if (rest != null) {
 			mav.addObject("restaurant", rest);
 		    mav.addObject("commentList", restService.getRatingsByRestaurant(rest));
@@ -41,7 +41,7 @@ public class RestaurantController extends BaseController {
 					mav.addObject("userComment", rate);
 		    }
 		}
-		addContextVariables(mav, true, "../index/");
+		
 		
 		return mav;
 	}

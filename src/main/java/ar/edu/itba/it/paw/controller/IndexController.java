@@ -25,11 +25,10 @@ public class IndexController extends BaseController {
 	public EnhancedModelAndView search(
 			@RequestParam(value = "query", required = false) String query) {
 		
-		EnhancedModelAndView mav = new EnhancedModelAndView("list");
+		EnhancedModelAndView mav = generateContext("List", true);
 		mav.addObject("restaurantList",
 				restService.getRestaurantsByQuery(query));
 		mav.setViewName("index/list");
-		addContextVariables(mav, true);
 		mav.addObject("squery", query);
 		return mav;
 
@@ -41,9 +40,7 @@ public class IndexController extends BaseController {
 			@RequestParam(value = "id", required = false) FoodType ft,
 			@RequestParam(value = "num", required = false) Integer num) {
 		
-		EnhancedModelAndView mav = new EnhancedModelAndView("Guia Oleo Facha");
-		
-		addContextVariables(mav, true);
+		EnhancedModelAndView mav = generateContext("Guia Oleo Facha", true);
 		
 		try {
 			if (query != null) {

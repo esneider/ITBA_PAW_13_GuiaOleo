@@ -53,7 +53,7 @@ public class JDBCUserDAO extends AbstractDAO implements UserDAO {
 		PreparedStatement ps = execute(
 				"INSERT INTO users (name, surname, mail, username, password, pictureId) VALUES (?, ?, ?, ?, ?, ?)",
 				user.getName(), user.getSurname(), user.getEmail(), user.getUsername(),
-				user.getPassword(), user.getAvatar().getId());
+				user.getPassword(), /*user.getAvatar().getId() TODO modificar*/ 1);
 
 		try {
 			

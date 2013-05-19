@@ -48,7 +48,7 @@
 			    <c:forEach var="comment" items="${commentList}">
 			        <p>
 			            <div class="span1">
-			                <img class="avatarPic" src="../user/image?imageId=${comment.user.avatar.id }"/>
+			                <img class="avatarPic" src="${ pageContext.request.contextPath }/bin/image/show?userId=${comment.user.avatar.id }"/>
 			            </div>
 			            <div class="offset1 comment">
 			                <blockquote>
@@ -65,7 +65,7 @@
 			    <br />
 			
 			    <c:choose>
-			        <c:when test="${not empty userId and empty userComment}">
+			        <c:when test="${not empty user and empty userComment}">
 			            <p class="lead">Rate this restaurant:</p>
 			                <form action='view' method='post' class="form-inline">
 			                    <input type='hidden' name='id' value='${restaurant.id}'/>
@@ -92,7 +92,7 @@
 			                </form>
 			            </c:when>
 			            <c:when test="${empty userComment}">
-			                <p class="lead"><a href="login">Log in to comment this restaurant</a></p>
+			                <p class="lead"><a href="${ pageContext.request.contextPath }/bin/user/login">Log in to comment this restaurant</a></p>
 			            </c:when>
 			            <c:otherwise>
 			                <p class="lead">Restaurant already commented</p>

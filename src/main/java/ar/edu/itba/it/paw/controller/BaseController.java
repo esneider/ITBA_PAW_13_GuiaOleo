@@ -8,6 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.itba.it.paw.model.User;
 import ar.edu.itba.it.paw.service.UserService;
+import ar.edu.itba.it.paw.utils.EnhancedModelAndView;
 
 @Controller
 public abstract class BaseController {
@@ -16,25 +17,40 @@ public abstract class BaseController {
 	private UserService userService;
 
 	public boolean isLoggedIn(HttpSession session) {
-		return session.getAttribute("userId") != null;
+		return session.getAttribute("user") != null;
 	}
 
 	public User getLoggedInUser(HttpSession session) {
 		if (!isLoggedIn(session))
 			return null;
 		else
-			return userService.getSingleUser((Integer) session
-					.getAttribute("userId"));
+			return (User)session.getAttribute("user");
+	}
+	
+	public void setLoggedInUser(HttpSession session, User user) {
+		session.setAttribute("user", user);
+	}
+	
+	public void logoutUser(HttpSession session) {
+		session.invalidate();
 	}
 
-	public void addContextVariables(ModelAndView mav, boolean sidebar,
-			String parentMenuScope) {
-		mav.addObject("sidebar", true);
+	public EnhancedModelAndView generateContext(String title, boolean sidebar) {
+		EnhancedModelAndView mav = new EnhancedModelAndView(title);
+		mav.addObject("sidebar", sidebar);
 		mav.addObject("parentMenuScope", "../index/");
+		return mav;
 	}
-
-	public void addContextVariables(ModelAndView mav, boolean sidebar) {
-		mav.addObject("sidebar", true);
-		mav.addObject("parentMenuScope", "../index/");
+	
+	public EnhancedModelAndView generateContext(String title, boolean sidebar, String viewName) {
+		EnhancedModelAndView mav = generateContext(title, sidebar);
+		mav.setViewName(viewName);
+		return mav;
+	}
+	
+	public EnhancedModelAndView indexContext() {
+		EnhancedModelAndView mav = new EnhancedModelAndView("Guia Oleo Facha");
+		mav.setViewName("redirect:/bin/index/list");
+		return mav;
 	}
 }

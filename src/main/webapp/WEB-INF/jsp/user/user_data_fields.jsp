@@ -20,7 +20,7 @@
 	<label class="control-label">Repeat password:</label>
     <div class="controls">
          <p>
-          <form:input type="password" name="registerPassword" path="repassword"/>
+          <form:input type="password" path="repassword"/>
         </p>
        	<p class="text-error"><form:errors path="repassword" /></p>
     </div>

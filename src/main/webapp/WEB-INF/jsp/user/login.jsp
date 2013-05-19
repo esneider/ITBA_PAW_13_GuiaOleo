@@ -18,7 +18,7 @@
             </c:if>
         </div>
 
-		<form class="loginForm form-horizontal" action="login" method="POST">
+		<form:form class="loginForm form-horizontal" action="login" method="POST" commandName="loginForm">
 		
 			<input type="hidden" name="from" value="${fn:escapeXml(from)}"/>
 
@@ -26,15 +26,9 @@
 				<label class="control-label">User:</label>
                 <div class="controls">
                     <p>
-                        <input type="text" name="loginUsername" value="${fn:escapeXml(loginUsername)}">
+                        <form:input path="username"/>
+                    	<p class="text-error"><form:errors path="username" /></p>
                     </p>
-
-                    <c:if test="${loginUsernameEmpty}">
-                        <p class="text-error">You have to provide a username.</p>
-                    </c:if>
-                    <c:if test="${loginUsernameBadLength}">
-                        <p class="text-error">The username is too long.</p>
-                    </c:if>
                 </div>
 			</div>
 
@@ -42,15 +36,9 @@
 				<label class="control-label">Password:</label>
                 <div class="controls">
                     <p>
-                        <input type="password" name="loginPassword">
+                        <form:input type="password" path="password"/>
+                    	<p class="text-error"><form:errors path="password" /></p>
                     </p>
-
-                    <c:if test="${loginPasswordEmpty}">
-                        <p class="text-error">You have to provide a password.</p>
-                    </c:if>
-                    <c:if test="${loginPasswordBadLength}">
-                        <p class="text-error">The password is too long.</p>
-                    </c:if>
                 </div>
 			</div>
 
@@ -58,7 +46,7 @@
                 <input class="btn btn-info" type="submit" value="Login">
             </div>
 
-		</form>
+		</form:form>
 	</div>
 
 	<div class="register span6 offset6">
@@ -68,8 +56,7 @@
 
 		<form:form class="registerForm form-horizontal" action="register" enctype="multipart/form-data" method="POST" commandName="registerForm">
 		
-			<div class="error"><form:errors path="*" /></div>
-			<form:hidden path="user" />
+			<form:hidden path="userId" />
 			
 			<input type="hidden" name="from" value="${fn:escapeXml(from)}"/>
 
@@ -77,10 +64,9 @@
                 <label class="control-label">User:</label>
                 <div class="controls">
                     <p>
-                    	<form:input type="text" path="username"/>
+                    	<form:input path="username"/>
                     	<p class="text-error"><form:errors path="username" /></p>
                     </p>
-       
                 </div>
             </div>
 

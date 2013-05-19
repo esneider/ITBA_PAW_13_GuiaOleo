@@ -1,13 +1,23 @@
 package ar.edu.itba.it.paw.web.command;
 
-import ar.edu.itba.it.paw.model.Picture;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
+
 import ar.edu.itba.it.paw.model.User;
 
 public class RegisterForm {
 
-	private String name, surname, email, username, password;
-	private Picture avatar;
+	private String name, surname, email, username, password, oldPassword;
+	public String getOldPassword() {
+		return oldPassword;
+	}
+
+	public void setOldPassword(String oldPassword) {
+		this.oldPassword = oldPassword;
+	}
+
+	private CommonsMultipartFile avatar;
 	private User user; // CREAR LA CLASE USERFORM ???
+	private int userId;
 
 	public User getUser() {
 		return user;
@@ -16,22 +26,30 @@ public class RegisterForm {
 	public void setUser(User user) {
 		this.user = user;
 	}
+	
+	public int getUserId(){
+		return userId;
+	}
+	
+	public void setUserId(int userId){
+		this.userId = userId;
+	}
 
 	private String repassword;
 
 	public RegisterForm() {
 	}
 
-	public RegisterForm(User user, String repassword) {
+	public RegisterForm(User user, String repassword, String oldPassword) {
 		this.user = user;
 		this.setName(user.getName());
 		this.setSurname(user.getSurname());
 		this.setEmail(user.getEmail());
 		this.setUsername(user.getUsername());
 		this.setPassword(user.getPassword());
-		this.setAvatar(user.getAvatar());
+		this.setAvatar(null);
 		this.setRepassword(repassword); // TODO DESIGN SUCKS
-
+		this.setOldPassword(oldPassword);
 	}
 
 	public String getRepassword() {
@@ -82,11 +100,11 @@ public class RegisterForm {
 		this.password = password;
 	}
 
-	public Picture getAvatar() {
+	public CommonsMultipartFile getAvatar() {
 		return avatar;
 	}
 
-	public void setAvatar(Picture avatar) {
+	public void setAvatar(CommonsMultipartFile avatar) {
 		this.avatar = avatar;
 	}
 

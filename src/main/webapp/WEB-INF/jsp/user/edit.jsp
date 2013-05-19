@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <c:import url="../header.jsp" />
 <div class="modify-user offset2 span8">
     <div class="offset2 span4 section-header clearfix">
@@ -9,24 +10,16 @@
     <c:if test="${registerOldPasswordError}"><c:set var="registerOldPasswordClass" value="error" /></c:if>
 
 	<div>
-		<form class="modifyUserForm form-horizontal" action="modify_user" enctype="multipart/form-data" method="POST">
+		<form:form class="modifyUserForm form-horizontal" action="modify_user" enctype="multipart/form-data" method="POST" commandName="registerForm">
 
 			<div class="registerPassword control-group ${registerOldPasswordClass}">
 				<label class="control-label">Previous Password:</label>
 			    <div class="controls">
 			        <p>
-			            <input type="password" name="registerOldPassword">
+			            <form:input type="password" name="registerOldPassword" path="oldPassword">
+			            <p class="text-error"><form:errors path="oldPassword" /></p>
 			        </p>
-			
-			        <c:if test="${registerOldPasswordEmpty}">
-			            <p class="text-error">You have to provide a password.</p>
-			        </c:if>
-			        <c:if test="${registerOldPasswordBadLength}">
-			            <p class="text-error">The password is too long.</p>
-			        </c:if>
-			        <c:if test="${registerOldPasswordInvalid}">
-			            <p class="text-error">The password is invalid.</p>
-			        </c:if>
+
 			    </div>
 			</div>
 			
