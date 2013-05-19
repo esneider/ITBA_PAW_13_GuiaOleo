@@ -10,26 +10,26 @@
     <c:if test="${registerOldPasswordError}"><c:set var="registerOldPasswordClass" value="error" /></c:if>
 
 	<div>
-		<form:form class="modifyUserForm form-horizontal" action="modify_user" enctype="multipart/form-data" method="POST" commandName="registerForm">
+		<form:form class="modifyUserForm form-horizontal" action="edit" enctype="multipart/form-data" method="POST" commandName="registerForm">
 
 			<div class="registerPassword control-group ${registerOldPasswordClass}">
 				<label class="control-label">Previous Password:</label>
 			    <div class="controls">
 			        <p>
-			            <form:input type="password" name="registerOldPassword" path="oldPassword">
+			            <form:input type="password" name="registerOldPassword" path="oldPassword"/>
 			            <p class="text-error"><form:errors path="oldPassword" /></p>
 			        </p>
 
 			    </div>
 			</div>
 			
-			<c:import url="user_data_fields.jsp" />
+			<%@ include file="user_data_fields.jsp" %>
 
             <div class="control-group controls">
                 <input class="btn btn-info" type="submit" value="Modify">
             </div>
 
-		</form>
+		</form:form>
 	</div>
 </div>
 <c:import url="../footer.jsp" />

@@ -1,7 +1,10 @@
 package ar.edu.itba.it.paw.web.command;
 
+import java.io.IOException;
+
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
+import ar.edu.itba.it.paw.model.Picture;
 import ar.edu.itba.it.paw.model.User;
 
 public class RegisterForm {
@@ -109,9 +112,18 @@ public class RegisterForm {
 	}
 
 	public User build() {
+		Picture pic = null;
+		if (!avatar.isEmpty()) {
+			try {
+				pic = new Picture(avatar.getInputStream(), avatar.getOriginalFilename());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 		if (user == null) {
-			return new User(name, surname, email, username, password);
+			return new User(name, surname, email, username, password, pic);
 		} else {
+			user.setAvatar(pic);
 			user.setEmail(email);
 			user.setPassword(password);
 			user.setSurname(surname);

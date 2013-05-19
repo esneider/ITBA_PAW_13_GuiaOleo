@@ -90,7 +90,7 @@
                     <div class="tabbable tabs-left">
                         <ul class="nav nav-tabs">
 
-                            <li class="${tab_all}"><a href="{ pageContext.request.contextPath }/bin/index/list?query=all">
+                            <li class="${tab_all}"><a href="${ pageContext.request.contextPath }/bin/index/list?query=all">
                                 <strong class="name text-warning">All restaurants</strong>
                                 <br>
                                 <c:if test="${numberOfRestaurants > 1}"><c:set var="s" value="s" /></c:if>

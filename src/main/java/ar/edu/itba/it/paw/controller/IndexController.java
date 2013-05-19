@@ -56,7 +56,8 @@ public class IndexController extends BaseController {
 					mav.addObject("restaurantList", restService.getAll());
 				}
 			} else {
-				mav.addObject("restaurantList", restService.getAll());
+				mav.addObject("restaurantList",
+						restService.getBestRatedRestaurants(10));
 			}
 		} catch (Exception e) {
 			error();

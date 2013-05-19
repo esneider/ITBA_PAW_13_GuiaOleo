@@ -1,14 +1,24 @@
 package ar.edu.itba.it.paw.web.command.validator;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+import ar.edu.itba.it.paw.model.User;
+import ar.edu.itba.it.paw.service.UserService;
 import ar.edu.itba.it.paw.web.command.RegisterForm;
 
 @Component
 public class RegisterFormValidator implements Validator {
 
+	private UserService userService;
+	
+	@Autowired
+	public RegisterFormValidator(UserService userService) {
+		this.userService = userService;
+	}
+	
 	@Override
 	public boolean supports(Class<?> clazz) {
 		return RegisterForm.class.equals(clazz);
@@ -18,6 +28,17 @@ public class RegisterFormValidator implements Validator {
 	public void validate(Object target, Errors errors) {
 
 		RegisterForm obj = (RegisterForm) target;
+		if (obj.getOldPassword() != null) {
+			if (obj.getOldPassword().equals("")) {
+				errors.rejectValue("oldPassword", "empty");
+			} else {
+				User user = userService.getSingleUser(obj.getUserId());
+				if (user != null) {
+					if (!user.getPassword().equals(obj.getOldPassword()))
+							errors.rejectValue("oldPassword", "mismatch");
+				}
+			}
+		}
 		if (obj.getName().equals(""))
 			errors.rejectValue("name", "empty");
 		if (obj.getSurname().equals(""))

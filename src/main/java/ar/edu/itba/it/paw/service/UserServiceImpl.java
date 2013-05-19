@@ -11,11 +11,12 @@ import ar.edu.itba.it.paw.model.User;
 public class UserServiceImpl implements UserService {
 
 	private UserDAO userDAO;
-
+	private PictureService picService;
+	
 	@Autowired
-	private UserServiceImpl(UserDAO userDAO) {
-
+	private UserServiceImpl(UserDAO userDAO, PictureService picService) {
 		this.userDAO = userDAO;
+		this.picService = picService;
 	}
 
 	public boolean usernameExists(String username) {
@@ -48,7 +49,11 @@ public class UserServiceImpl implements UserService {
 	public User register(String name, String surname, String email,
 			String username, String password, Picture avatar) {
 
-		User user = new User(name, surname, email, username, password, avatar);
+		int picId = 0;
+		if (avatar != null) {
+			picId = picService.insert(avatar.getInputStream(), avatar.getMime()).getId();
+		}
+		User user = new User(name, surname, email, username, password, picService.getPictureById(picId));
 		userDAO.register(user);
 		return user;
 	}

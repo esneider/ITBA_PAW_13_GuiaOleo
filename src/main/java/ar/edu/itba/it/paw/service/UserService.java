@@ -1,5 +1,6 @@
 package ar.edu.itba.it.paw.service;
 
+import ar.edu.itba.it.paw.model.Picture;
 import ar.edu.itba.it.paw.model.User;
 
 public interface UserService {
@@ -14,6 +15,9 @@ public interface UserService {
 
 	public User register(String name, String surname, String email,
 			String username, String password);
+	
+	public User register(String name, String surname, String email,
+			String username, String password, Picture avatar);
 
 	public void update(User user);
 

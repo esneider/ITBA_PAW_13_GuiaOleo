@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.itba.it.paw.model.User;
 import ar.edu.itba.it.paw.service.UserService;
@@ -80,8 +79,10 @@ public class UserController extends BaseController {
 		try {
 			User s = registerForm.build(); // TODO Hay que cambiar todo para que
 											// use converters
-			userService.register(s.getName(), s.getSurname(), s.getEmail(),
-					s.getUsername(), s.getPassword());
+			s = userService.register(s.getName(), s.getSurname(), s.getEmail(),
+					s.getUsername(), s.getPassword(), s.getAvatar());
+			setLoggedInUser(session, s);
+			
 		} catch (Exception e) {
 			errors.rejectValue("SQL CODE", "DB ERROR");
 			return login(session);
