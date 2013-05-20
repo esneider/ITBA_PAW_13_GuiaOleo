@@ -1,6 +1,7 @@
 package ar.edu.itba.it.paw.domain;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -15,7 +16,7 @@ public class Restaurant extends AbstractModel {
 	FoodType foodtype;
 	private String name, address, area, telephone, website, timerange;
 	private float avgprice, avgscore;
-	private int ratings;
+	private int ratings; // TODO USELESS ??
 
 	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
 	List<Rating> ratingsList = new ArrayList<Rating>();
@@ -85,6 +86,14 @@ public class Restaurant extends AbstractModel {
 
 	public void setRatings(int val) {
 		this.ratings = val;
+	}
+
+	public float getRestaurantAvgRating() {
+		float avg = 0;
+		for (Rating r : ratingsList) {
+			avg += r.getScore();
+		}
+		return avg;
 	}
 
 }

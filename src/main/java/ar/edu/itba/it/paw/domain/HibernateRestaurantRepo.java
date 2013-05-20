@@ -56,5 +56,6 @@ public class HibernateRestaurantRepo extends AbstractHibernateRepo implements Re
 		return find("from restaurant  where foodtype = ? ", query);
 
 	}
+
 	
 }

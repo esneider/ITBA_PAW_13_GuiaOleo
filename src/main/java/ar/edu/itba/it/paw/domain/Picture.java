@@ -6,7 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.Lob;
 import javax.persistence.Transient;
 
-
 @Entity
 public class Picture extends AbstractModel {
 
@@ -18,20 +17,21 @@ public class Picture extends AbstractModel {
 	@Lob
 	private byte[] img;
 
-	public Picture() {}
+	public Picture() {
+	}
 
 	public Picture(InputStream is, String mime) {
 
 		this.is = is;
 		this.mime = mime;
 	}
-	
+
 	public Picture(byte[] img, String mime) {
 
 		this.img = img;
 		this.mime = mime;
 	}
-	
+
 	public String getMime() {
 		return mime;
 	}
@@ -39,10 +39,13 @@ public class Picture extends AbstractModel {
 	public InputStream getInputStream() {
 		return is;
 	}
-	
+
 	public byte[] getBytes() {
 		return this.img;
 	}
-	
+
+	public void insert(Picture picture) {
+		// TODO IMPLEMENTAR
+	};
 
 }
