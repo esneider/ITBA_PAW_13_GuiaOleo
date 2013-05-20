@@ -2,21 +2,21 @@ package ar.edu.itba.it.paw.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="SystemUser")
 public class User extends AbstractModel {
 
 	private String name, surname, email, username, password;
-
+	
 	@OneToOne
 	private Picture avatar;
 
-	public User() {
-	}
+	public User() {}
 
-	public User(String name, String surname, String email, String username,
-			String password, Picture avatar) {
-
+	public User(String name, String surname, String email,
+			String username, String password, Picture avatar) {
 		this.name = name;
 		this.surname = surname;
 		this.email = email;
@@ -24,9 +24,9 @@ public class User extends AbstractModel {
 		this.password = password;
 		this.avatar = avatar;
 	}
-
-	public User(String name, String surname, String email, String username,
-			String password) {
+	
+	public User(String name, String surname, String email,
+			String username, String password) {
 
 		this(name, surname, email, username, password, null);
 	}
@@ -50,34 +50,34 @@ public class User extends AbstractModel {
 	public String getPassword() {
 		return password;
 	}
-
+	
 	public Picture getAvatar() {
 		return avatar;
 	}
 
 	public void setName(String name) {
-
+		
 		if (name != null) {
 			this.name = name;
 		}
 	}
 
 	public void setSurname(String surname) {
-
+		
 		if (surname != null) {
 			this.surname = surname;
 		}
 	}
 
 	public void setEmail(String email) {
-
+		
 		if (email != null) {
 			this.email = email;
 		}
 	}
 
 	public void setPassword(String password) {
-
+		
 		if (password != null) {
 			this.password = password;
 		}
@@ -88,10 +88,5 @@ public class User extends AbstractModel {
 		if (avatar != null) {
 			this.avatar = avatar;
 		}
-	}
-
-	public void register(User user) {
-	}
-	public void update(User user) {
 	}
 }

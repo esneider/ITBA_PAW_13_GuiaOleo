@@ -1,9 +1,10 @@
 DROP TABLE IF EXISTS users, pictures, restaurants, ratings, foodtypes;
+DROP TABLE IF EXISTS user, picture, restaurant, rating, foodtype;
 GRANT ALL PRIVILEGES ON DATABASE paw2 to paw;
 
 
 
-CREATE TABLE pictures
+CREATE TABLE picture
 (
     id serial,
     mime varchar(50),
@@ -12,15 +13,15 @@ CREATE TABLE pictures
     PRIMARY KEY(id)
 );
 
-CREATE UNIQUE INDEX indexPicturesId on pictures(id);
+CREATE UNIQUE INDEX indexPictureId on picture(id);
 
-GRANT ALL PRIVILEGES ON TABLE pictures to paw;
+GRANT ALL PRIVILEGES ON TABLE picture to paw;
 
-GRANT ALL PRIVILEGES ON TABLE pictures_id_seq to paw;
+GRANT ALL PRIVILEGES ON TABLE picture_id_seq to paw;
 
 
 
-CREATE TABLE users
+CREATE TABLE user
 (
     id serial,
     name varchar(50),
@@ -31,19 +32,19 @@ CREATE TABLE users
     pictureId integer,
 
     PRIMARY KEY(id),
-    FOREIGN KEY(pictureId) REFERENCES pictures(id)
+    FOREIGN KEY(pictureId) REFERENCES picture(id)
 );
 
-CREATE UNIQUE INDEX indexUsersId on users(id);
+CREATE UNIQUE INDEX indexUserId on user(id);
 
-CREATE UNIQUE INDEX indexUsersUsername on users(username);
+CREATE UNIQUE INDEX indexUserUsername on user(username);
 
-GRANT ALL PRIVILEGES ON TABLE users to paw;
+GRANT ALL PRIVILEGES ON TABLE user to paw;
 
-GRANT ALL PRIVILEGES ON TABLE users_id_seq to paw;
+GRANT ALL PRIVILEGES ON TABLE user_id_seq to paw;
 
 
-CREATE TABLE foodTypes
+CREATE TABLE foodType
 (
     id serial,
     name varchar(100),
@@ -52,14 +53,14 @@ CREATE TABLE foodTypes
     PRIMARY KEY(id)
 );
 
-CREATE UNIQUE INDEX foodTypesId on foodTypes(id);
+CREATE UNIQUE INDEX foodTypeId on foodType(id);
 
-GRANT ALL PRIVILEGES ON TABLE foodTypes to paw;
+GRANT ALL PRIVILEGES ON TABLE foodType to paw;
 
-GRANT ALL PRIVILEGES ON TABLE foodTypes_id_seq to paw;
+GRANT ALL PRIVILEGES ON TABLE foodType_id_seq to paw;
 
 
-CREATE TABLE restaurants
+CREATE TABLE restaurant
 (
     id serial,
     name varchar(50),
@@ -74,18 +75,18 @@ CREATE TABLE restaurants
     cantRatings integer,
 
     PRIMARY KEY(id),
-    FOREIGN KEY(foodTypeId) REFERENCES foodTypes(id)
+    FOREIGN KEY(foodTypeId) REFERENCES foodType(id)
 );
 
-CREATE UNIQUE INDEX indexRestaurantsId on restaurants(id);
+CREATE UNIQUE INDEX indexRestaurantId on restaurant(id);
 
-GRANT ALL PRIVILEGES ON TABLE restaurants to paw;
+GRANT ALL PRIVILEGES ON TABLE restaurant to paw;
 
-GRANT ALL PRIVILEGES ON TABLE restaurants_id_seq to paw;
+GRANT ALL PRIVILEGES ON TABLE restaurant_id_seq to paw;
 
 
 
-CREATE TABLE ratings
+CREATE TABLE rating
 (
     id serial,
     score integer,
@@ -95,15 +96,15 @@ CREATE TABLE ratings
     ratingDate date,
 
     PRIMARY KEY(id),
-    FOREIGN KEY(userId) REFERENCES users(id),
-    FOREIGN KEY(restaurantId) REFERENCES restaurants(id)
+    FOREIGN KEY(userId) REFERENCES user(id),
+    FOREIGN KEY(restaurantId) REFERENCES restaurant(id)
 );
 
-CREATE UNIQUE INDEX ratingsId on ratings(id);
+CREATE UNIQUE INDEX ratingsId on rating(id);
 
-GRANT ALL PRIVILEGES ON TABLE ratings to paw;
+GRANT ALL PRIVILEGES ON TABLE rating to paw;
 
-GRANT ALL PRIVILEGES ON TABLE ratings_id_seq to paw;
+GRANT ALL PRIVILEGES ON TABLE rating_id_seq to paw;
 
 ALTER DATABASE paw2 SET bytea_output = 'escape';
 
