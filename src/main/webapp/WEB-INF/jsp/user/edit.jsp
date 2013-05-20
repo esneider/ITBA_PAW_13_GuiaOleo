@@ -10,7 +10,7 @@
     <c:if test="${registerOldPasswordError}"><c:set var="registerOldPasswordClass" value="error" /></c:if>
 
 	<div>
-		<form:form class="modifyUserForm form-horizontal" action="edit" enctype="multipart/form-data" method="POST" commandName="registerForm">
+		<form:form class="modifyUserForm form-horizontal" action="edit" enctype="multipart/form-data" method="POST" commandName="editForm">
 
 			<div class="registerPassword control-group ${registerOldPasswordClass}">
 				<label class="control-label">Previous Password:</label>
@@ -19,9 +19,10 @@
 			            <form:input type="password" name="registerOldPassword" path="oldPassword"/>
 			            <p class="text-error"><form:errors path="oldPassword" /></p>
 			        </p>
-
-			    </div>
+			    </div>			
 			</div>
+			
+			<form:hidden path="userId"/>
 			
 			<%@ include file="user_data_fields.jsp" %>
 

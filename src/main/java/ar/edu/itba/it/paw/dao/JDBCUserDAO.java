@@ -182,7 +182,6 @@ public class JDBCUserDAO extends AbstractDAO implements UserDAO {
 	}
 	@Override
 	public void update(User user) {
-
 		executeUpdate(
 				"UPDATE users SET name = ?, surname = ?, mail = ?, username = ?, password = ?, pictureId = ? WHERE id = ?",
 				user.getName(), user.getSurname(), user.getEmail(), user.getUsername(),

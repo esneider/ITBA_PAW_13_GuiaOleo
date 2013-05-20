@@ -2,9 +2,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <c:import url="../header.jsp" />
-<c:if test="${loginUsernameError}"><c:set var="loginUsernameClass" value="error" /></c:if>
-<c:if test="${loginPasswordError}"><c:set var="loginPasswordClass" value="error" /></c:if>
-<c:if test="${registerUsernameError}"><c:set var="registerUsernameClass" value="error" /></c:if>
 
 <div class="login-container">
 	<div class="login span6 absolute">

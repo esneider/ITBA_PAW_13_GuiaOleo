@@ -2,58 +2,35 @@ package ar.edu.itba.it.paw.web.command;
 
 import java.io.IOException;
 
+import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import ar.edu.itba.it.paw.model.Picture;
 import ar.edu.itba.it.paw.model.User;
+import ar.edu.itba.it.paw.service.interfaces.UserService;
 
-public class RegisterForm {
+@Component
+public class EditForm {
 
-	private String name, surname, email, username, password;
+	private String name, surname, email, password, oldPassword, repassword;
 	private CommonsMultipartFile avatar;
-	private User user; // CREAR LA CLASE USERFORM ???
+	private User user; 
 	private int userId;
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
 	
-	public int getUserId(){
-		return userId;
-	}
-	
-	public void setUserId(int userId){
-		this.userId = userId;
-	}
-
-	private String repassword;
-
-	public RegisterForm() {
-	}
-
-	public RegisterForm(User user, String repassword) {
+	public EditForm(User user, String repassword, String oldPassword) {
 		this.user = user;
 		this.setName(user.getName());
 		this.setSurname(user.getSurname());
 		this.setEmail(user.getEmail());
-		this.setUsername(user.getUsername());
-		this.setPassword(user.getPassword());
 		this.setAvatar(null);
-		this.setRepassword(repassword); // TODO DESIGN SUCKS
+		this.setRepassword(repassword); 
+		this.setOldPassword(oldPassword);
+		this.setUserId(user.getId());
 	}
-
-	public String getRepassword() {
-		return repassword;
+	
+	EditForm(){
 	}
-
-	public void setRepassword(String repassword) {
-		this.repassword = repassword;
-	}
-
+	
 	public String getName() {
 		return name;
 	}
@@ -78,20 +55,28 @@ public class RegisterForm {
 		this.email = email;
 	}
 
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
 	public String getPassword() {
 		return password;
 	}
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getOldPassword() {
+		return oldPassword;
+	}
+
+	public void setOldPassword(String oldPassword) {
+		this.oldPassword = oldPassword;
+	}
+
+	public String getRepassword() {
+		return repassword;
+	}
+
+	public void setRepassword(String repassword) {
+		this.repassword = repassword;
 	}
 
 	public CommonsMultipartFile getAvatar() {
@@ -102,7 +87,23 @@ public class RegisterForm {
 		this.avatar = avatar;
 	}
 
-	public User build() {
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+	
+	public User build(UserService userService) {
 		Picture pic = null;
 		if (avatar != null && !avatar.isEmpty()) {
 			try {
@@ -111,15 +112,20 @@ public class RegisterForm {
 				e.printStackTrace();
 			}
 		}
-		if (user == null) {
-			return new User(name, surname, email, username, password, pic);
-		} else {
+		if (user == null)
+			user = userService.getSingleUser(getUserId());
+	
+		if (pic != null)
 			user.setAvatar(pic);
+		if (!email.equals(""))
 			user.setEmail(email);
+		if (!password.equals(""))
 			user.setPassword(password);
+		if (!surname.equals(""))
 			user.setSurname(surname);
+		if (!name.equals(""))
 			user.setName(name);
-			return user;
-		}
+		return user;
 	}
+	
 }

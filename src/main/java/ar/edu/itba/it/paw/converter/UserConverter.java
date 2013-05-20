@@ -5,7 +5,7 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 import ar.edu.itba.it.paw.model.User;
-import ar.edu.itba.it.paw.service.UserService;
+import ar.edu.itba.it.paw.service.interfaces.UserService;
 
 @Component
 public class UserConverter implements Converter<String, User> {

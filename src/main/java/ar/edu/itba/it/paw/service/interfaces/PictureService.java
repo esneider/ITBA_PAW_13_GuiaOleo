@@ -1,4 +1,4 @@
-package ar.edu.itba.it.paw.service;
+package ar.edu.itba.it.paw.service.interfaces;
 
 import java.io.InputStream;
 

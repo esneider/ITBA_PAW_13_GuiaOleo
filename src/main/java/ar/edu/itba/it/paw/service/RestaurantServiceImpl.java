@@ -14,6 +14,7 @@ import ar.edu.itba.it.paw.model.FoodType;
 import ar.edu.itba.it.paw.model.Rating;
 import ar.edu.itba.it.paw.model.Restaurant;
 import ar.edu.itba.it.paw.model.User;
+import ar.edu.itba.it.paw.service.interfaces.RestaurantService;
 
 @Service
 public class RestaurantServiceImpl implements RestaurantService {

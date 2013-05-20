@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import ar.edu.itba.it.paw.model.User;
-import ar.edu.itba.it.paw.service.UserService;
+import ar.edu.itba.it.paw.service.interfaces.UserService;
 import ar.edu.itba.it.paw.utils.ValidationHelpers;
 
 @SuppressWarnings("serial")

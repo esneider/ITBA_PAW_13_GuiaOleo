@@ -5,7 +5,7 @@ import java.util.GregorianCalendar;
 
 import javax.servlet.http.HttpServletRequest;
 
-import ar.edu.itba.it.paw.service.UserService;
+import ar.edu.itba.it.paw.service.interfaces.UserService;
 
 public class ValidationHelpers {
 

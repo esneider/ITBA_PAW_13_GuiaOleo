@@ -6,13 +6,15 @@ import org.springframework.stereotype.Service;
 import ar.edu.itba.it.paw.dao.interfaces.UserDAO;
 import ar.edu.itba.it.paw.model.Picture;
 import ar.edu.itba.it.paw.model.User;
+import ar.edu.itba.it.paw.service.interfaces.PictureService;
+import ar.edu.itba.it.paw.service.interfaces.UserService;
 
 @Service
 public class UserServiceImpl implements UserService {
 
 	private UserDAO userDAO;
 	private PictureService picService;
-	
+
 	@Autowired
 	private UserServiceImpl(UserDAO userDAO, PictureService picService) {
 		this.userDAO = userDAO;
@@ -32,12 +34,10 @@ public class UserServiceImpl implements UserService {
 	}
 
 	public User login(String username, String password) {
-
 		return userDAO.login(username, password);
 	}
 
 	public User getSingleUser(int id) {
-
 		return userDAO.getSingleUser(id);
 	}
 
@@ -51,15 +51,23 @@ public class UserServiceImpl implements UserService {
 
 		int picId = 0;
 		if (avatar != null) {
-			picId = picService.insert(avatar.getInputStream(), avatar.getMime()).getId();
+			picId = picService
+					.insert(avatar.getInputStream(), avatar.getMime()).getId();
 		}
-		User user = new User(name, surname, email, username, password, picService.getPictureById(picId));
+		User user = new User(name, surname, email, username, password,
+				picService.getPictureById(picId));
 		userDAO.register(user);
 		return user;
 	}
 
 	public void update(User user) {
 
+		int picId = user.getAvatar().getId();
+		if (picId == -1) {
+			user.getAvatar().setId(
+					picService.insert(user.getAvatar().getInputStream(),
+							user.getAvatar().getMime()).getId());
+		}
 		userDAO.update(user);
 	}
 

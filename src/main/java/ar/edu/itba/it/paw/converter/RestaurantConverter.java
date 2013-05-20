@@ -5,7 +5,7 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 import ar.edu.itba.it.paw.model.Restaurant;
-import ar.edu.itba.it.paw.service.RestaurantService;
+import ar.edu.itba.it.paw.service.interfaces.RestaurantService;
 
 @Component
 public class RestaurantConverter implements Converter<String, Restaurant> {

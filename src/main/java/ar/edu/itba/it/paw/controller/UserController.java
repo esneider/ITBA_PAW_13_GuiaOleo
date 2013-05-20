@@ -9,10 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import ar.edu.itba.it.paw.model.User;
-import ar.edu.itba.it.paw.service.UserService;
+import ar.edu.itba.it.paw.service.interfaces.UserService;
 import ar.edu.itba.it.paw.utils.EnhancedModelAndView;
+import ar.edu.itba.it.paw.web.command.EditForm;
 import ar.edu.itba.it.paw.web.command.LoginForm;
 import ar.edu.itba.it.paw.web.command.RegisterForm;
+import ar.edu.itba.it.paw.web.command.validator.EditFormValidator;
 import ar.edu.itba.it.paw.web.command.validator.LoginFormValidator;
 import ar.edu.itba.it.paw.web.command.validator.RegisterFormValidator;
 
@@ -20,15 +22,17 @@ import ar.edu.itba.it.paw.web.command.validator.RegisterFormValidator;
 public class UserController extends BaseController {
 
 	private UserService userService;
+	private EditFormValidator eValidator;
 	private RegisterFormValidator rValidator;
 	private LoginFormValidator lValidator;
 
 	@Autowired
 	public UserController(UserService usersrv,
-			RegisterFormValidator rValidator, LoginFormValidator lValidator) {
+			RegisterFormValidator rValidator, LoginFormValidator lValidator, EditFormValidator eValidator) {
 		this.userService = usersrv;
 		this.rValidator = rValidator;
 		this.lValidator = lValidator;
+		this.eValidator = eValidator;
 
 	}
 
@@ -77,8 +81,7 @@ public class UserController extends BaseController {
 		}
 
 		try {
-			User s = registerForm.build(); // TODO Hay que cambiar todo para que
-											// use converters
+			User s = registerForm.build();
 			s = userService.register(s.getName(), s.getSurname(), s.getEmail(),
 					s.getUsername(), s.getPassword(), s.getAvatar());
 			setLoggedInUser(session, s);
@@ -96,27 +99,26 @@ public class UserController extends BaseController {
 		if (!isLoggedIn(session))
 			return indexContext();
 		EnhancedModelAndView mav = generateContext("Login/Register", false);
-		mav.addObject(new RegisterForm(getLoggedInUser(session), "", ""));
+		mav.addObject(new EditForm(getLoggedInUser(session), "", ""));
 		return mav;
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public EnhancedModelAndView edit(RegisterForm registerForm,
+	public EnhancedModelAndView edit(EditForm editForm,
 			Errors errors, HttpSession session) {
 		if (!isLoggedIn(session))
 			return indexContext();
-		rValidator.validate(registerForm, errors);
+		eValidator.validate(editForm, errors);
 		if (errors.hasErrors()) {
 			return edit(session);
 		}
 
 		try {
-			User s = registerForm.build(); // TODO Hay que cambiar todo para que
-											// use converters
-			userService.register(s.getName(), s.getSurname(), s.getEmail(),
-					s.getUsername(), s.getPassword());
+			User s = editForm.build(userService); 
+			userService.update(s);
+			setLoggedInUser(session, s);
 		} catch (Exception e) {
-			errors.rejectValue("SQL CODE", "DB ERROR");
+			e.printStackTrace();
 			return login(session);
 		}
 		return indexContext();

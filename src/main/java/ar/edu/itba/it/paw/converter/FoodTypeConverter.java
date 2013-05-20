@@ -5,7 +5,7 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 import ar.edu.itba.it.paw.model.FoodType;
-import ar.edu.itba.it.paw.service.FoodTypeService;
+import ar.edu.itba.it.paw.service.interfaces.FoodTypeService;
 
 @Component
 public class FoodTypeConverter implements Converter<String, FoodType> {

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import ar.edu.itba.it.paw.model.User;
-import ar.edu.itba.it.paw.service.UserService;
+import ar.edu.itba.it.paw.service.interfaces.UserService;
 
 @Controller
 public class ImageController extends BaseController {

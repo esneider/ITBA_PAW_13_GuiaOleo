@@ -12,8 +12,8 @@ import org.springframework.web.servlet.ModelAndView;
 import ar.edu.itba.it.paw.model.Rating;
 import ar.edu.itba.it.paw.model.Restaurant;
 import ar.edu.itba.it.paw.model.User;
-import ar.edu.itba.it.paw.service.RestaurantService;
-import ar.edu.itba.it.paw.service.UserService;
+import ar.edu.itba.it.paw.service.interfaces.RestaurantService;
+import ar.edu.itba.it.paw.service.interfaces.UserService;
 import ar.edu.itba.it.paw.utils.EnhancedModelAndView;
 
 @Controller

@@ -27,8 +27,8 @@ import ar.edu.itba.it.paw.model.FoodType;
 import ar.edu.itba.it.paw.model.Picture;
 import ar.edu.itba.it.paw.model.User;
 import ar.edu.itba.it.paw.service.FoodTypeServiceImpl;
-import ar.edu.itba.it.paw.service.PictureService;
-import ar.edu.itba.it.paw.service.UserService;
+import ar.edu.itba.it.paw.service.interfaces.PictureService;
+import ar.edu.itba.it.paw.service.interfaces.UserService;
 
 
 @SuppressWarnings("serial")
