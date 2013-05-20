@@ -14,7 +14,6 @@ public class User extends AbstractModel {
 	public User() {
 	}
 
-
 	public User(String name, String surname, String email, String username,
 			String password, Picture avatar) {
 
@@ -89,5 +88,10 @@ public class User extends AbstractModel {
 		if (avatar != null) {
 			this.avatar = avatar;
 		}
+	}
+
+	public void register(User user) {
+	}
+	public void update(User user) {
 	}
 }
