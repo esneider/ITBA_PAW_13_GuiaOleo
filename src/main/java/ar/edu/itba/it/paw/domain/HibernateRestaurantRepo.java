@@ -30,31 +30,31 @@ public class HibernateRestaurantRepo extends AbstractHibernateRepo implements Re
 	@Override
 	public List<Restaurant> getBestRatedRestaurants(int cant)
 			throws SQLNoConnectionException {
-		return find("from Subject ORDER BY rating ASC LIMIT ?", cant);
+		return find("from restaurant ORDER BY rating ASC LIMIT ?", cant);
 	}
 
 	@Override
 	public List<Restaurant> getRestaurantsByFoodtype(FoodType ft) {
-		return find("from Subject  where foodtype = ? ?", cant);
-		
+		return find("from restaurant  where foodtype = ? ", ft.getName());
+		// TODO : BAD IMPLEMENTATION, EL SPRINT DOS TIENE N a N no ??
 	}
 
 	@Override
-	public List<Restaurant> getRestaurantsByName(String query) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Restaurant> getRestaurantsByName(String name) {
+		return find("from restaurant  where name = ? ", name);
+
 	}
 
 	@Override
-	public List<Restaurant> getRestaurantsByArea(String query) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Restaurant> getRestaurantsByArea(String area) {
+		return find("from restaurant  where area = ? ", area);
+
 	}
 
 	@Override
 	public List<Restaurant> getRestaurantsByFoodType(String query) {
-		// TODO Auto-generated method stub
-		return null;
+		return find("from restaurant  where foodtype = ? ", query);
+
 	}
 	
 }

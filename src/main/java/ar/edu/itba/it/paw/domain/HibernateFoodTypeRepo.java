@@ -12,7 +12,6 @@ import ar.edu.itba.it.paw.domain.interfaces.FoodTypesRepo;
 public class HibernateFoodTypeRepo extends AbstractHibernateRepo implements
 		FoodTypesRepo {
 	@Autowired
-
 	public HibernateFoodTypeRepo(SessionFactory sessionFactory) {
 		super(sessionFactory);
 
@@ -20,7 +19,7 @@ public class HibernateFoodTypeRepo extends AbstractHibernateRepo implements
 
 	@Override
 	public List<FoodType> getAll() {
-		return find("from foodtypes");
+		return find("from foodtype");
 	}
 
 	@Override
