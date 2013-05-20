@@ -1,8 +1,9 @@
 package ar.edu.itba.it.paw.domain;
 
+import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 
-
+@Entity
 public class User extends AbstractModel {
 
 	private String name, surname, email, username, password;
@@ -14,7 +15,6 @@ public class User extends AbstractModel {
 
 	public User(String name, String surname, String email,
 			String username, String password, Picture avatar) {
-
 		this.name = name;
 		this.surname = surname;
 		this.email = email;

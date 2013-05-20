@@ -4,4 +4,5 @@
 
 <beans>
 	<import resource="classpath:mvc.xml" />
+	<import resource="classpath:data.xml" />
 </beans>
