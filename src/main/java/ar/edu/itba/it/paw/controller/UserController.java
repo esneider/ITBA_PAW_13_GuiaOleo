@@ -8,7 +8,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import ar.edu.itba.it.paw.model.User;
+import ar.edu.itba.it.paw.domain.User;
 import ar.edu.itba.it.paw.service.interfaces.UserService;
 import ar.edu.itba.it.paw.utils.EnhancedModelAndView;
 import ar.edu.itba.it.paw.web.command.EditForm;

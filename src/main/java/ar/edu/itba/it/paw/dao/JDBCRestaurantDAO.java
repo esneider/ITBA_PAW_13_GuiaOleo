@@ -9,9 +9,9 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
 
 import ar.edu.itba.it.paw.dao.interfaces.RestaurantDAO;
+import ar.edu.itba.it.paw.domain.FoodType;
+import ar.edu.itba.it.paw.domain.Restaurant;
 import ar.edu.itba.it.paw.exceptions.SQLNoConnectionException;
-import ar.edu.itba.it.paw.model.FoodType;
-import ar.edu.itba.it.paw.model.Restaurant;
 
 @Repository
 public class JDBCRestaurantDAO extends AbstractDAO implements RestaurantDAO {

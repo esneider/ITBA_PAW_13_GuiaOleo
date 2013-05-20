@@ -1,4 +1,4 @@
-package ar.edu.itba.it.paw.model;
+package ar.edu.itba.it.paw.domain;
 
 import java.util.List;
 
@@ -6,6 +6,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
 
 @Entity
 public class Restaurant extends AbstractModel {

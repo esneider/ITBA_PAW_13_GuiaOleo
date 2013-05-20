@@ -10,10 +10,10 @@ import org.springframework.stereotype.Service;
 
 import ar.edu.itba.it.paw.dao.interfaces.RatingsDAO;
 import ar.edu.itba.it.paw.dao.interfaces.RestaurantDAO;
-import ar.edu.itba.it.paw.model.FoodType;
-import ar.edu.itba.it.paw.model.Rating;
-import ar.edu.itba.it.paw.model.Restaurant;
-import ar.edu.itba.it.paw.model.User;
+import ar.edu.itba.it.paw.domain.FoodType;
+import ar.edu.itba.it.paw.domain.Rating;
+import ar.edu.itba.it.paw.domain.Restaurant;
+import ar.edu.itba.it.paw.domain.User;
 import ar.edu.itba.it.paw.service.interfaces.RestaurantService;
 
 @Service

@@ -8,7 +8,7 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
 
 import ar.edu.itba.it.paw.dao.interfaces.PictureDAO;
-import ar.edu.itba.it.paw.model.Picture;
+import ar.edu.itba.it.paw.domain.Picture;
 
 @Repository
 public class JDBCPictureDAO extends AbstractDAO implements PictureDAO {

@@ -2,7 +2,7 @@ package ar.edu.itba.it.paw.service.interfaces;
 
 import java.util.List;
 
-import ar.edu.itba.it.paw.model.FoodType;
+import ar.edu.itba.it.paw.domain.FoodType;
 
 
 public interface FoodTypeService {

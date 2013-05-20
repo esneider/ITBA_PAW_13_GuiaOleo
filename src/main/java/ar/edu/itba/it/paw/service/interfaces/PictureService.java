@@ -2,7 +2,7 @@ package ar.edu.itba.it.paw.service.interfaces;
 
 import java.io.InputStream;
 
-import ar.edu.itba.it.paw.model.Picture;
+import ar.edu.itba.it.paw.domain.Picture;
 
 public interface PictureService {
 

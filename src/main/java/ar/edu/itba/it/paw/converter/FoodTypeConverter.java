@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
-import ar.edu.itba.it.paw.model.FoodType;
+import ar.edu.itba.it.paw.domain.FoodType;
 import ar.edu.itba.it.paw.service.interfaces.FoodTypeService;
 
 @Component

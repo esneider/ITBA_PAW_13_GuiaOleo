@@ -1,10 +1,11 @@
-package ar.edu.itba.it.paw.model;
+package ar.edu.itba.it.paw.domain;
 
 import java.io.InputStream;
 
 import javax.persistence.Entity;
 import javax.persistence.Lob;
 import javax.persistence.Transient;
+
 
 @Entity
 public class Picture extends AbstractModel {

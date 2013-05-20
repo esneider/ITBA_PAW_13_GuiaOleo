@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ar.edu.itba.it.paw.dao.interfaces.PictureDAO;
-import ar.edu.itba.it.paw.model.Picture;
+import ar.edu.itba.it.paw.domain.Picture;
 import ar.edu.itba.it.paw.service.interfaces.PictureService;
 
 

@@ -1,7 +1,7 @@
 package ar.edu.itba.it.paw.service.interfaces;
 
-import ar.edu.itba.it.paw.model.Picture;
-import ar.edu.itba.it.paw.model.User;
+import ar.edu.itba.it.paw.domain.Picture;
+import ar.edu.itba.it.paw.domain.User;
 
 public interface UserService {
 

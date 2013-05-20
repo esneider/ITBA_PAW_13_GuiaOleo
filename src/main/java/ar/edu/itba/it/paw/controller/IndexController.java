@@ -6,8 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import ar.edu.itba.it.paw.model.FoodType;
-import ar.edu.itba.it.paw.service.interfaces.FoodTypeService;
+import ar.edu.itba.it.paw.domain.FoodType;
 import ar.edu.itba.it.paw.service.interfaces.RestaurantService;
 import ar.edu.itba.it.paw.utils.EnhancedModelAndView;
 

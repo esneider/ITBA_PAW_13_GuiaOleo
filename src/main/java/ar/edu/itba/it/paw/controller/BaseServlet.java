@@ -22,9 +22,9 @@ import org.apache.commons.fileupload.util.Streams;
 import org.apache.log4j.Logger;
 import org.apache.struts.upload.MultipartRequestWrapper;
 
-import ar.edu.itba.it.paw.model.FoodType;
-import ar.edu.itba.it.paw.model.Picture;
-import ar.edu.itba.it.paw.model.User;
+import ar.edu.itba.it.paw.domain.FoodType;
+import ar.edu.itba.it.paw.domain.Picture;
+import ar.edu.itba.it.paw.domain.User;
 import ar.edu.itba.it.paw.service.FoodTypeServiceImpl;
 import ar.edu.itba.it.paw.service.interfaces.PictureService;
 import ar.edu.itba.it.paw.service.interfaces.UserService;

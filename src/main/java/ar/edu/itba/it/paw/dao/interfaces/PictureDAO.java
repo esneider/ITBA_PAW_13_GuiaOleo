@@ -1,6 +1,6 @@
 package ar.edu.itba.it.paw.dao.interfaces;
 
-import ar.edu.itba.it.paw.model.Picture;
+import ar.edu.itba.it.paw.domain.Picture;
 
 public interface PictureDAO {
 

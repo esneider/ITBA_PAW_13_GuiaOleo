@@ -5,7 +5,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import ar.edu.itba.it.paw.model.User;
+import ar.edu.itba.it.paw.domain.User;
 import ar.edu.itba.it.paw.service.interfaces.PictureService;
 import ar.edu.itba.it.paw.utils.EnhancedModelAndView;
 

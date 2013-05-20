@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-import ar.edu.itba.it.paw.model.User;
+import ar.edu.itba.it.paw.domain.User;
 import ar.edu.itba.it.paw.service.interfaces.UserService;
 import ar.edu.itba.it.paw.utils.Utils;
 import ar.edu.itba.it.paw.web.command.EditForm;

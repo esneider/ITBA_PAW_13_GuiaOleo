@@ -8,7 +8,7 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
 
 import ar.edu.itba.it.paw.dao.interfaces.UserDAO;
-import ar.edu.itba.it.paw.model.User;
+import ar.edu.itba.it.paw.domain.User;
 
 @Repository
 public class JDBCUserDAO extends AbstractDAO implements UserDAO {

@@ -1,6 +1,7 @@
-package ar.edu.itba.it.paw.model;
+package ar.edu.itba.it.paw.domain;
 
 import javax.persistence.Entity;
+
 
 @Entity
 public class FoodType extends AbstractModel implements Comparable<FoodType> {

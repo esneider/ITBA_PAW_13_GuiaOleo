@@ -1,6 +1,6 @@
 package ar.edu.itba.it.paw.dao.interfaces;
 
-import ar.edu.itba.it.paw.model.User;
+import ar.edu.itba.it.paw.domain.User;
 
 public interface UserDAO {
 
