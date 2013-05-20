@@ -1,16 +1,29 @@
 package ar.edu.itba.it.paw.model;
 
+import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
+@Entity
 public class Restaurant extends AbstractModel {
 
+	@OneToOne
 	FoodType foodtype;
 	private String name, address, area, telephone, website, timerange;
 	private float avgprice, avgscore;
 	private int ratings;
 	
+	@OneToMany(mappedBy="restaurant",cascade=CascadeType.ALL)
+	List<Rating> ratingsList;
+	
+	public Restaurant() {}
+
 	public Restaurant(String name, String address, String area,
 			String telephone, String website, String timerange, float avgprice, float avgscore, int ratings, FoodType foodtype) {
-		super();
+
 		this.name = name;
 		this.address = address;
 		this.area = area;

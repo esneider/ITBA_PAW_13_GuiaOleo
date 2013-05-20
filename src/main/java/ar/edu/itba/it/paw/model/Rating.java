@@ -2,17 +2,31 @@ package ar.edu.itba.it.paw.model;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
+
+@Entity
 public class Rating extends AbstractModel {
 
-	private int score;
+	private Integer score;
 	private String comment;
+	
+	@ManyToOne
 	private User user;
+
+	@ManyToOne
 	private Restaurant restaurant;
+
 	private Date date;
+
+	@Transient
 	private java.sql.Date SQLdate;
 
+	public Rating() {}
+
 	public Rating(int score, String comment, User user, Restaurant restaurant, Date date) {
-		super();
+
 		this.score = score;
 		this.comment = comment;
 		this.user = user;

@@ -1,13 +1,19 @@
 package ar.edu.itba.it.paw.model;
 
+import javax.persistence.OneToOne;
+
 public class User extends AbstractModel {
 
 	private String name, surname, email, username, password;
+	
+	@OneToOne
 	private Picture avatar;
+
+	public User() {}
 
 	public User(String name, String surname, String email,
 			String username, String password, Picture avatar) {
-		super();
+
 		this.name = name;
 		this.surname = surname;
 		this.email = email;

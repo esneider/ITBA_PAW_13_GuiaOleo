@@ -4,7 +4,6 @@ import java.util.List;
 
 import ar.edu.itba.it.paw.exceptions.SQLNoConnectionException;
 import ar.edu.itba.it.paw.model.FoodType;
-import ar.edu.itba.it.paw.model.Rating;
 import ar.edu.itba.it.paw.model.Restaurant;
 
 public interface RestaurantDAO {

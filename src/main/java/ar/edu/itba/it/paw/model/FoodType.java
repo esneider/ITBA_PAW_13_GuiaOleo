@@ -1,12 +1,16 @@
 package ar.edu.itba.it.paw.model;
 
+import javax.persistence.Entity;
+
+@Entity
 public class FoodType extends AbstractModel implements Comparable<FoodType> {
 
 	private String name;
-	private int ammount;
+	private Integer ammount;
 
-	public FoodType(String name, int ammount) {
-		super();
+	public FoodType() {}
+
+	public FoodType(String name, Integer ammount) {
 		this.name = name;
 		this.ammount = ammount;
 	}
@@ -15,7 +19,7 @@ public class FoodType extends AbstractModel implements Comparable<FoodType> {
 		return name;
 	}
 
-	public int getAmmount() {
+	public Integer getAmmount() {
 		return ammount;
 	}
 	

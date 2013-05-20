@@ -21,8 +21,9 @@ public class ValidationHelpers {
 
 		return true;
 	}
-	
+
 	public static boolean checkIsNotNull(HttpServletRequest req, Object o, String param) {
+
 		if (o == null) {
 			req.setAttribute(param + "Empty", true);
 			req.setAttribute(param + "Error", true);
@@ -39,7 +40,7 @@ public class ValidationHelpers {
 	public static boolean checkParameter(HttpServletRequest req, String param, int min, int max, boolean optional) {
 
 		if (!optional && !checkHasParameter(req, param)) {
-			return false;			
+			return false;
 		}
 
 		String value = req.getParameter(param);
@@ -93,7 +94,7 @@ public class ValidationHelpers {
 		if (checkHasParameter(req, param)) {
 			return false;
 		}
-		
+
 		Double num;
 
 		try {
@@ -144,7 +145,7 @@ public class ValidationHelpers {
 		if (value1 == null || value2 == null) {
 			return value1 == value2;
 		}
-		
+
 		if (!value1.equals(value2)) {
 			req.setAttribute(param2 + "DoesntMatch", true);
 			req.setAttribute(param2 + "Error", true);
