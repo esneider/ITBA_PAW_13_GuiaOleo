@@ -4,8 +4,8 @@ import java.util.List;
 
 import ar.edu.itba.it.paw.domain.FoodType;
 import ar.edu.itba.it.paw.domain.Rating;
-import ar.edu.itba.it.paw.domain.Restaurant;
 import ar.edu.itba.it.paw.domain.User;
+import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
 
 
 public interface RestaurantService {

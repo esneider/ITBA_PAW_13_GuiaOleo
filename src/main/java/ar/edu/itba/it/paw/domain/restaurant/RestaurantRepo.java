@@ -1,11 +1,8 @@
-package ar.edu.itba.it.paw.domain.interfaces;
+package ar.edu.itba.it.paw.domain.restaurant;
 
 import java.util.List;
 
 import ar.edu.itba.it.paw.domain.FoodType;
-import ar.edu.itba.it.paw.domain.Rating;
-import ar.edu.itba.it.paw.domain.Restaurant;
-import ar.edu.itba.it.paw.domain.User;
 import ar.edu.itba.it.paw.exceptions.SQLNoConnectionException;
 
 /**
@@ -51,5 +48,10 @@ public interface RestaurantRepo {
 	 * !!!
 	 */
 	public List<Restaurant> getRestaurantsByFoodType(String query);
+	
+	/**
+	 * Obtains a list from all the Restaurants by Query
+	 */
+	public List<Restaurant> getRestaurantsByQuery(String query);
 
 }

@@ -1,4 +1,4 @@
-package ar.edu.itba.it.paw.domain;
+package ar.edu.itba.it.paw.domain.restaurant;
 
 import java.util.List;
 
@@ -6,7 +6,8 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import ar.edu.itba.it.paw.domain.interfaces.RestaurantRepo;
+import ar.edu.itba.it.paw.domain.AbstractHibernateRepo;
+import ar.edu.itba.it.paw.domain.FoodType;
 import ar.edu.itba.it.paw.exceptions.SQLNoConnectionException;
 
 @Repository
@@ -55,6 +56,12 @@ public class HibernateRestaurantRepo extends AbstractHibernateRepo implements Re
 	public List<Restaurant> getRestaurantsByFoodType(String query) {
 		return find("from restaurant  where foodtype = ? ", query);
 
+	}
+
+	@Override
+	public List<Restaurant> getRestaurantsByQuery(String query) {
+		
+		return null;
 	}
 
 	

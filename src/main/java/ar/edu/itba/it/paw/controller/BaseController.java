@@ -5,15 +5,15 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import ar.edu.itba.it.paw.domain.PictureRepo;
 import ar.edu.itba.it.paw.domain.User;
-import ar.edu.itba.it.paw.service.interfaces.PictureService;
 import ar.edu.itba.it.paw.utils.EnhancedModelAndView;
 
 @Controller
 public abstract class BaseController {
 
 	@Autowired
-	private PictureService pictureService;
+	private PictureRepo pictureRepo;
 
 	public boolean isLoggedIn(HttpSession session) {
 		return session.getAttribute("user") != null;
@@ -29,7 +29,7 @@ public abstract class BaseController {
 	public void setLoggedInUser(HttpSession session, User user) {
 		if (user != null) {
 			if (user.getAvatar() != null)
-				user.setAvatar(pictureService.getPictureById(user.getAvatar().getId()));
+				user.setAvatar(pictureRepo.getPictureById(user.getAvatar().getId()));
 		}
 		session.setAttribute("user", user);
 	}
@@ -41,7 +41,6 @@ public abstract class BaseController {
 	public EnhancedModelAndView generateContext(String title, boolean sidebar) {
 		EnhancedModelAndView mav = new EnhancedModelAndView(title);
 		mav.addObject("sidebar", sidebar);
-		mav.addObject("parentMenuScope", "../index/");
 		return mav;
 	}
 	

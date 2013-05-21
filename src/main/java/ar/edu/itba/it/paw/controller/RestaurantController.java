@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.itba.it.paw.domain.Rating;
-import ar.edu.itba.it.paw.domain.Restaurant;
 import ar.edu.itba.it.paw.domain.User;
+import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
 import ar.edu.itba.it.paw.service.interfaces.RestaurantService;
 import ar.edu.itba.it.paw.service.interfaces.UserService;
 import ar.edu.itba.it.paw.utils.EnhancedModelAndView;

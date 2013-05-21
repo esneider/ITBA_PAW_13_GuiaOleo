@@ -12,8 +12,8 @@ import org.springframework.stereotype.Repository;
 import ar.edu.itba.it.paw.dao.interfaces.RatingsDAO;
 import ar.edu.itba.it.paw.domain.FoodType;
 import ar.edu.itba.it.paw.domain.Rating;
-import ar.edu.itba.it.paw.domain.Restaurant;
 import ar.edu.itba.it.paw.domain.User;
+import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
 
 @Repository
 public class JDBCRatingsDAO extends AbstractDAO implements RatingsDAO {
@@ -123,12 +123,12 @@ public class JDBCRatingsDAO extends AbstractDAO implements RatingsDAO {
 			FoodType ft = new FoodType(rs.getString("foodtypename"),
 					rs.getInt("ammount"));
 			ft.setId(rs.getInt("foodTypeId"));
-			Restaurant r = new Restaurant(rs.getString("name"),
+			/*Restaurant r = new Restaurant(rs.getString("name"),
 					rs.getString("address"), rs.getString("area"),
 					rs.getString("telephone"), rs.getString("website"),
 					rs.getString("timerange"), rs.getFloat("avgprice"),
 					rs.getFloat("avgscore"), rs.getInt("Ratings"), ft);
-			return getRating(rs, r);
+			return getRating(rs, r);*/
 		} catch (SQLException e) {
 			logger.error("SQL Error");
 		}

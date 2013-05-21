@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import ar.edu.itba.it.paw.dao.interfaces.RestaurantDAO;
 import ar.edu.itba.it.paw.domain.FoodType;
-import ar.edu.itba.it.paw.domain.Restaurant;
+import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
 import ar.edu.itba.it.paw.exceptions.SQLNoConnectionException;
 
 @Repository
@@ -69,13 +69,13 @@ public class JDBCRestaurantDAO extends AbstractDAO implements RestaurantDAO {
 	}
 
 	public void save(Restaurant r) {
-		executeUpdate("UPDATE restaurants SET "
+		/*executeUpdate("UPDATE restaurants SET "
 				+ "name = ?,  address = ?, area = ?, telephone = ?, "
 				+ "website = , timerange = ?, avgprice = ?, avgscore = ?, "
 				+ "ratings = ?, foodtype = ?" + "WHERE id = ?;", r.getName(),
 				r.getAddress(), r.getArea(), r.getTelephone(), r.getWebsite(),
 				r.getTimerange(), r.getAvgprice(), r.getAvgScore(),
-				r.getRatings(), r.getFoodtype(), r.getId());
+				r.getRatings(), r.getFoodtype(), r.getId());*/
 	}
 
 	public List<Restaurant> getAll() {
@@ -213,15 +213,16 @@ public class JDBCRestaurantDAO extends AbstractDAO implements RestaurantDAO {
 			FoodType ft = new FoodType(rs.getString("fname"),
 					rs.getInt("fammount"));
 			ft.setId(rs.getInt("fid"));
-			Restaurant r = new Restaurant(rs.getString("name"),
+			/*Restaurant r = new Restaurant(rs.getString("name"),
 					rs.getString("address"), rs.getString("area"),
 					rs.getString("telephone"), rs.getString("website"),
 					rs.getString("timerange"), roundToDigits(
 							rs.getFloat("avgprice"), 2), roundToDigits(
 							rs.getFloat("avgscore"), 2),
-					rs.getInt("cantratings"), ft);
-			r.setId(rs.getInt("id"));
-			return r;
+					rs.getInt("cantratings"), ft);*/
+			//r.setId(rs.getInt("id"));
+			//return r;
+			return null;
 		} catch (SQLException e) {
 			logger.error("SQL Error");
 

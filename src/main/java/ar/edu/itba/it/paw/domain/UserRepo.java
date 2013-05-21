@@ -1,6 +1,5 @@
-package ar.edu.itba.it.paw.domain.interfaces;
+package ar.edu.itba.it.paw.domain;
 
-import ar.edu.itba.it.paw.domain.User;
 
 /**
  * User repository.

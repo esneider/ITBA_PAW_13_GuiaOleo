@@ -1,10 +1,9 @@
-package ar.edu.itba.it.paw.domain.interfaces;
+package ar.edu.itba.it.paw.domain;
 
 import java.util.List;
 
-import ar.edu.itba.it.paw.domain.FoodType;
 
-public interface FoodTypesRepo {
+public interface FoodTypeRepo {
 
 	/**
 	 * FoodTypes repository.

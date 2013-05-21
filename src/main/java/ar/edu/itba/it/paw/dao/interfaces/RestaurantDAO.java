@@ -3,7 +3,7 @@ package ar.edu.itba.it.paw.dao.interfaces;
 import java.util.List;
 
 import ar.edu.itba.it.paw.domain.FoodType;
-import ar.edu.itba.it.paw.domain.Restaurant;
+import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
 import ar.edu.itba.it.paw.exceptions.SQLNoConnectionException;
 
 public interface RestaurantDAO {

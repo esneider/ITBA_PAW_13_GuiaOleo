@@ -9,8 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+@Component
 public class TransactionFilter extends OncePerRequestFilter {
 
 	private SessionFactory sessionFactory;

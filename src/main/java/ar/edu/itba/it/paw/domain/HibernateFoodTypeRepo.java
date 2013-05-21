@@ -6,11 +6,9 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import ar.edu.itba.it.paw.domain.interfaces.FoodTypesRepo;
-
 @Repository
 public class HibernateFoodTypeRepo extends AbstractHibernateRepo implements
-		FoodTypesRepo {
+		FoodTypeRepo {
 	@Autowired
 	public HibernateFoodTypeRepo(SessionFactory sessionFactory) {
 		super(sessionFactory);

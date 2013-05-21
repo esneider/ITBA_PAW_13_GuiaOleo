@@ -16,9 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import ar.edu.itba.it.paw.dao.JDBCFoodTypesDAO;
-import ar.edu.itba.it.paw.service.FoodTypeServiceImpl;
-
 public class PermissionFilter implements Filter {
 
 	private static Logger logger = Logger.getLogger(PermissionFilter.class);
@@ -86,8 +83,6 @@ public class PermissionFilter implements Filter {
 			
 			HttpServletRequest req = (HttpServletRequest) request;
 			HttpServletResponse resp = (HttpServletResponse) response;
-
-			req.setAttribute("foodTypesList", (new FoodTypeServiceImpl(new JDBCFoodTypesDAO())).getAll());
 			
 			String s = "{";
 			for (Resource r : restrictedActions) {

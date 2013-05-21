@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 
+import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
+
 
 @Entity
 public class Rating extends AbstractModel {
