@@ -6,9 +6,6 @@ import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.Type;
-import org.hibernate.cfg.Environment;
-
 import ar.edu.itba.it.paw.domain.AbstractModel;
 
 @Entity
