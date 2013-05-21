@@ -46,6 +46,7 @@ public class IndexController extends BaseController {
 					mav.addObject("restaurantList", restRepo.getAll());
 				} else if (query.equals("foodtypes")) {
 					mav.addObject("restaurantList", ft.getRestaurants());
+					mav.addObject("ftid", ft.getId());
 				} else if (query.equals("bestrated")) {
 					mav.addObject("restaurantList",
 							restRepo.getBestRatedRestaurants(num));

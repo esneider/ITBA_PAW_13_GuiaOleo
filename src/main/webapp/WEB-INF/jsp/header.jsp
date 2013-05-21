@@ -100,7 +100,7 @@
                             <c:forEach var="foodtype" items="${foodTypesList}">
                                 <c:if test="${foodtype.ammount > 0}">
                                     <c:set var="mclass" value="" />
-                                    <c:if test="${tab_active == foodtype.id}">
+                                    <c:if test="${ftid == foodtype.id}">
                                         <c:set var="mclass" value="active" />
                                     </c:if>
                                     <li class="${mclass}">
