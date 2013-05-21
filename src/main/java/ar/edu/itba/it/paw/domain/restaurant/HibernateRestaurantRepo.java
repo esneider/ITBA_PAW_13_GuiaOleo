@@ -1,5 +1,7 @@
 package ar.edu.itba.it.paw.domain.restaurant;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
@@ -7,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import ar.edu.itba.it.paw.domain.AbstractHibernateRepo;
-import ar.edu.itba.it.paw.domain.FoodType;
-import ar.edu.itba.it.paw.exceptions.SQLNoConnectionException;
 
 @Repository
 public class HibernateRestaurantRepo extends AbstractHibernateRepo implements RestaurantRepo {
@@ -29,15 +29,15 @@ public class HibernateRestaurantRepo extends AbstractHibernateRepo implements Re
 	}
 
 	@Override
-	public List<Restaurant> getBestRatedRestaurants(int cant)
-			throws SQLNoConnectionException {
-		return find("from restaurant ORDER BY rating ASC LIMIT ?", cant);
-	}
-
-	@Override
-	public List<Restaurant> getRestaurantsByFoodtype(FoodType ft) {
-		return find("from restaurant  where foodtype = ? ", ft.getName());
-		// TODO : BAD IMPLEMENTATION, EL SPRINT DOS TIENE N a N no ??
+	public List<Restaurant> getBestRatedRestaurants(int cant) {
+		//TODO Mejorar implementacion
+		List<Restaurant> allRestaurants = getAll();
+		Collections.sort(allRestaurants, new Comparator<Restaurant>(){
+			@Override
+			public int compare(Restaurant o1, Restaurant o2) {
+				return Math.round(((o2.getAvgScore() - o1.getAvgScore()) * 10));
+			}});
+		return allRestaurants.subList(0, cant-1);
 	}
 
 	@Override
@@ -55,7 +55,6 @@ public class HibernateRestaurantRepo extends AbstractHibernateRepo implements Re
 	@Override
 	public List<Restaurant> getRestaurantsByFoodType(String query) {
 		return find("from restaurant  where foodtype = ? ", query);
-
 	}
 
 	@Override

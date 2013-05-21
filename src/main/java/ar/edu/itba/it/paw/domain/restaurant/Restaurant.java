@@ -9,8 +9,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import ar.edu.itba.it.paw.domain.AbstractModel;
-import ar.edu.itba.it.paw.domain.FoodType;
-import ar.edu.itba.it.paw.domain.Rating;
+import ar.edu.itba.it.paw.domain.foodtype.FoodType;
+import ar.edu.itba.it.paw.domain.user.User;
 
 @Entity
 public class Restaurant extends AbstractModel {
@@ -71,6 +71,28 @@ public class Restaurant extends AbstractModel {
 	
 	public String getName() {
 		return name;
+	}
+	
+	public Set<Rating> getRatings() {
+		return ratingsList;
+	}
+	
+	public void addRating(Rating r) {
+		ratingsList.add(r);
+	}
+	
+	public int getRatingsAmmount() {
+		return ratingsList.size();
+	}
+	
+	//TODO Redesign
+	public Rating getUserRating(User user) {
+		for (Rating r : ratingsList) {
+			if (r.getUser().equals(user)) {
+				return r;
+			}
+		}
+		return null;
 	}
 
 	public float getAvgScore() {

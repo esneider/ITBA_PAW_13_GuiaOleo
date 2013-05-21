@@ -1,14 +1,23 @@
 package ar.edu.itba.it.paw.web.command.validator;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+import ar.edu.itba.it.paw.domain.user.UserRepo;
 import ar.edu.itba.it.paw.utils.Utils;
 import ar.edu.itba.it.paw.web.command.RegisterForm;
 
 @Component
 public class RegisterFormValidator implements Validator {
+	
+	private UserRepo userRepo;
+	
+	@Autowired
+	public RegisterFormValidator(UserRepo userRepo) {
+		this.userRepo = userRepo;
+	}
 	
 	@Override
 	public boolean supports(Class<?> clazz) {
@@ -27,6 +36,8 @@ public class RegisterFormValidator implements Validator {
 			errors.rejectValue("email", "empty");
 		if (!Utils.isEmail(obj.getEmail()))
 			errors.rejectValue("email", "badformat");
+		if (userRepo.emailExists(obj.getEmail(), -1))
+			errors.rejectValue("email", "duplicated");
 		boolean passwordSetted = !obj.getPassword().equals("");
 		boolean repasswordSettted = !obj.getRepassword().equals("");
 		if (!passwordSetted)

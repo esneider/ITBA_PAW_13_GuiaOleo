@@ -5,8 +5,9 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import ar.edu.itba.it.paw.domain.PictureRepo;
-import ar.edu.itba.it.paw.domain.User;
+import ar.edu.itba.it.paw.domain.foodtype.FoodTypeRepo;
+import ar.edu.itba.it.paw.domain.picture.PictureRepo;
+import ar.edu.itba.it.paw.domain.user.User;
 import ar.edu.itba.it.paw.utils.EnhancedModelAndView;
 
 @Controller
@@ -14,6 +15,9 @@ public abstract class BaseController {
 
 	@Autowired
 	private PictureRepo pictureRepo;
+	
+	@Autowired
+	private FoodTypeRepo ftRepo;
 
 	public boolean isLoggedIn(HttpSession session) {
 		return session.getAttribute("user") != null;
@@ -41,6 +45,8 @@ public abstract class BaseController {
 	public EnhancedModelAndView generateContext(String title, boolean sidebar) {
 		EnhancedModelAndView mav = new EnhancedModelAndView(title);
 		mav.addObject("sidebar", sidebar);
+		if (sidebar)
+			mav.addObject("foodTypesList", ftRepo.getAll());
 		return mav;
 	}
 	

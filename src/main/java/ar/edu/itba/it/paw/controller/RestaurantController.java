@@ -1,31 +1,23 @@
 package ar.edu.itba.it.paw.controller;
 
+import java.util.Date;
+
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import ar.edu.itba.it.paw.domain.Rating;
-import ar.edu.itba.it.paw.domain.User;
+import ar.edu.itba.it.paw.domain.restaurant.Rating;
 import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
-import ar.edu.itba.it.paw.service.interfaces.RestaurantService;
-import ar.edu.itba.it.paw.service.interfaces.UserService;
+import ar.edu.itba.it.paw.domain.user.User;
 import ar.edu.itba.it.paw.utils.EnhancedModelAndView;
 
 @Controller
 @RequestMapping("/restaurant")
 public class RestaurantController extends BaseController {
-	
-	private RestaurantService restService;
-	
-	@Autowired
-	public RestaurantController(RestaurantService restService, UserService userService) {
-		this.restService = restService;
-	}
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView view(@RequestParam("id") Restaurant rest, HttpSession session) {
@@ -33,17 +25,17 @@ public class RestaurantController extends BaseController {
 		EnhancedModelAndView mav = generateContext("Simple Restaurant", true);
 		if (rest != null) {
 			mav.addObject("restaurant", rest);
-		    mav.addObject("commentList", restService.getRatingsByRestaurant(rest));
+		    mav.addObject("commentList", rest.getRatings());
 		    
 		    if (isLoggedIn(session)) {
-				Rating rate = restService.getSingleRating(getLoggedInUser(session), rest);
+				Rating rate = rest.getUserRating(getLoggedInUser(session));
 			    if (rate != null)
 					mav.addObject("userComment", rate);
 		    }
+		    return mav;
+		} else {
+			return indexContext();
 		}
-		
-		
-		return mav;
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
@@ -55,8 +47,8 @@ public class RestaurantController extends BaseController {
 		if (rest != null) {
 			User user = getLoggedInUser(session);
 			try {
-				if (restService.getSingleRating(user, rest) == null)
-					restService.insertRating(rating, comment, user, rest);
+				Rating r = new Rating(rating, comment, user, rest, new Date());
+				rest.addRating(r);
 				return view(rest, session);
 			} catch (Exception e) {
 				return view(rest, session);

@@ -2,9 +2,6 @@ package ar.edu.itba.it.paw.domain.restaurant;
 
 import java.util.List;
 
-import ar.edu.itba.it.paw.domain.FoodType;
-import ar.edu.itba.it.paw.exceptions.SQLNoConnectionException;
-
 /**
  * Restaurant repository.
  * 
@@ -25,13 +22,7 @@ public interface RestaurantRepo {
 	 * Obtains a list from all the best rated Restaurants
 	 */
 
-	public List<Restaurant> getBestRatedRestaurants(int cant)
-			throws SQLNoConnectionException;
-
-	/**
-	 * Obtains a list from all the Restaurants by FoodType
-	 */
-	public List<Restaurant> getRestaurantsByFoodtype(FoodType ft);
+	public List<Restaurant> getBestRatedRestaurants(int cant);
 
 	/**
 	 * Obtains a list from all the Restaurants by Name

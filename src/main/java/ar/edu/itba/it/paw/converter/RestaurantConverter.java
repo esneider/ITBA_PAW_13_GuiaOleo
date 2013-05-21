@@ -5,21 +5,21 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
-import ar.edu.itba.it.paw.service.interfaces.RestaurantService;
+import ar.edu.itba.it.paw.domain.restaurant.RestaurantRepo;
 
 @Component
 public class RestaurantConverter implements Converter<String, Restaurant> {
 
-	private RestaurantService restService;
+	private RestaurantRepo restRepo;
 	
 	@Autowired
-	public RestaurantConverter (RestaurantService restService) {
-		this.restService = restService;
+	public RestaurantConverter (RestaurantRepo restRepo) {
+		this.restRepo = restRepo;
 	}
 	
 	@Override
 	public Restaurant convert(String arg0) {
-		return restService.getSingleRestaurant(Integer.valueOf(arg0));
+		return restRepo.get(Integer.valueOf(arg0));
 	}
 
 }

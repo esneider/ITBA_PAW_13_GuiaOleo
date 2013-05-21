@@ -1,10 +1,12 @@
-package ar.edu.itba.it.paw.domain;
+package ar.edu.itba.it.paw.domain.foodtype;
 
 import java.util.List;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import ar.edu.itba.it.paw.domain.AbstractHibernateRepo;
 
 @Repository
 public class HibernateFoodTypeRepo extends AbstractHibernateRepo implements
@@ -21,7 +23,7 @@ public class HibernateFoodTypeRepo extends AbstractHibernateRepo implements
 	}
 
 	@Override
-	public FoodType getSingleFoodType(int foodtypeid) {
+	public FoodType get(int foodtypeid) {
 		return get(FoodType.class, foodtypeid);
 	}
 

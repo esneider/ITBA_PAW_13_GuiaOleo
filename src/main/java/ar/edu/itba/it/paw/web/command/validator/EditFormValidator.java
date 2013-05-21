@@ -5,19 +5,19 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-import ar.edu.itba.it.paw.domain.User;
-import ar.edu.itba.it.paw.service.interfaces.UserService;
+import ar.edu.itba.it.paw.domain.user.User;
+import ar.edu.itba.it.paw.domain.user.UserRepo;
 import ar.edu.itba.it.paw.utils.Utils;
 import ar.edu.itba.it.paw.web.command.EditForm;
 
 @Component
 public class EditFormValidator implements Validator {
 
-private UserService userService;
+private UserRepo userRepo;
 	
 	@Autowired
-	public EditFormValidator(UserService userService) {
-		this.userService = userService;
+	public EditFormValidator(UserRepo userRepo) {
+		this.userRepo = userRepo;
 	}
 	
 	@Override
@@ -33,7 +33,7 @@ private UserService userService;
 			if (obj.getOldPassword().equals("")) {
 				errors.rejectValue("oldPassword", "empty");
 			} else {
-				User user = userService.getSingleUser(obj.getUserId());
+				User user = userRepo.get(obj.getUserId());
 				if (user != null) {
 					if (!user.getPassword().trim().equals(obj.getOldPassword()))
 							errors.rejectValue("oldPassword", "mismatch");
@@ -42,7 +42,7 @@ private UserService userService;
 		}
 		if (!obj.getPassword().equals(obj.getRepassword()))
 			errors.rejectValue("password", "mismatch");
-		if (userService.emailExists(obj.getEmail(), true, obj.getUserId()))
+		if (userRepo.emailExists(obj.getEmail(), obj.getUserId()))
 			errors.rejectValue("email", "duplicated");
 		if (!Utils.isEmail(obj.getEmail()))
 			errors.rejectValue("email", "badformat");

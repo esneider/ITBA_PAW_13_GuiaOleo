@@ -1,10 +1,11 @@
-package ar.edu.itba.it.paw.domain;
+package ar.edu.itba.it.paw.domain.foodtype;
 
 import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 
+import ar.edu.itba.it.paw.domain.AbstractModel;
 import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
 
 

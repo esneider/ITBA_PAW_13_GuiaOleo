@@ -4,8 +4,8 @@ import java.io.IOException;
 
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
-import ar.edu.itba.it.paw.domain.Picture;
-import ar.edu.itba.it.paw.domain.User;
+import ar.edu.itba.it.paw.domain.picture.Picture;
+import ar.edu.itba.it.paw.domain.user.User;
 
 public class RegisterForm {
 

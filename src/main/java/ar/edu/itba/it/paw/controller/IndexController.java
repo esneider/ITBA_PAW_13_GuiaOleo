@@ -4,10 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
-import ar.edu.itba.it.paw.domain.FoodType;
-import ar.edu.itba.it.paw.domain.FoodTypeRepo;
+import ar.edu.itba.it.paw.domain.foodtype.FoodType;
 import ar.edu.itba.it.paw.domain.restaurant.RestaurantRepo;
 import ar.edu.itba.it.paw.utils.EnhancedModelAndView;
 
@@ -15,12 +13,10 @@ import ar.edu.itba.it.paw.utils.EnhancedModelAndView;
 public class IndexController extends BaseController {
 
 	private RestaurantRepo restRepo;
-	private FoodTypeRepo ftRepo;
 	
 	@Autowired
-	public IndexController(RestaurantRepo restRepo, FoodTypeRepo ftRepo) {
+	public IndexController(RestaurantRepo restRepo) {
 		this.restRepo = restRepo;
-		this.ftRepo = ftRepo;
 	}
 
 	@RequestMapping
@@ -44,8 +40,6 @@ public class IndexController extends BaseController {
 		
 		EnhancedModelAndView mav = generateContext("Guia Oleo Facha", true);
 		
-		mav.addObject("foodTypesList", ftRepo.getAll());
-		
 		try {
 			if (query != null) {
 				if (query.equals("all")) {
@@ -63,16 +57,10 @@ public class IndexController extends BaseController {
 						restRepo.getBestRatedRestaurants(10));
 			}
 		} catch (Exception e) {
-			error();
+			e.printStackTrace();
 			return null;
 		}
 		return mav;
-	}
-
-	
-	@RequestMapping
-	public ModelAndView error() {
-		return null;
 	}
 
 }

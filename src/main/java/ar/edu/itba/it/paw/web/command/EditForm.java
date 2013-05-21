@@ -5,9 +5,9 @@ import java.io.IOException;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
-import ar.edu.itba.it.paw.domain.Picture;
-import ar.edu.itba.it.paw.domain.User;
-import ar.edu.itba.it.paw.service.interfaces.UserService;
+import ar.edu.itba.it.paw.domain.picture.Picture;
+import ar.edu.itba.it.paw.domain.user.User;
+import ar.edu.itba.it.paw.domain.user.UserRepo;
 
 @Component
 public class EditForm {
@@ -103,7 +103,7 @@ public class EditForm {
 		this.userId = userId;
 	}
 	
-	public User build(UserService userService) {
+	public User build(UserRepo userRepo) {
 		Picture pic = null;
 		if (avatar != null && !avatar.isEmpty()) {
 			try {
@@ -113,7 +113,7 @@ public class EditForm {
 			}
 		}
 		if (user == null)
-			user = userService.getSingleUser(getUserId());
+			user = userRepo.get(getUserId());
 	
 		if (pic != null)
 			user.setAvatar(pic);

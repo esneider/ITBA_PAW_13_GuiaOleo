@@ -1,10 +1,15 @@
-package ar.edu.itba.it.paw.domain;
+package ar.edu.itba.it.paw.domain.picture;
 
 import java.io.InputStream;
 
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
+
+import org.hibernate.annotations.Type;
+import org.hibernate.cfg.Environment;
+
+import ar.edu.itba.it.paw.domain.AbstractModel;
 
 @Entity
 public class Picture extends AbstractModel {

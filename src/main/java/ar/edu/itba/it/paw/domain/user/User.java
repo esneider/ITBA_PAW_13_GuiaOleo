@@ -1,8 +1,11 @@
-package ar.edu.itba.it.paw.domain;
+package ar.edu.itba.it.paw.domain.user;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import ar.edu.itba.it.paw.domain.AbstractModel;
+import ar.edu.itba.it.paw.domain.picture.Picture;
 
 @Entity
 @Table(name="SystemUser")

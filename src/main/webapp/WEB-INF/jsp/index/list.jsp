@@ -15,7 +15,7 @@
                     <dt>Average Score</dt>
                         <dd>
                             <span class="badge">${restaurant.avgScore}</span>
-                            (Scored by people)
+                            (Scored by ${restaurant.ratingsAmmount} people)
                         </dd>
                 </dl>
                 <hr />

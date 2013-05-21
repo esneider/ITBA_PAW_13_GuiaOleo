@@ -19,17 +19,19 @@ public abstract class AbstractHibernateRepo {
 		return (T) getSession().get(type, id);
 	}
 
-	@SuppressWarnings("unchecked")
 	public <T> List<T> find(String hql, Object... params) {
 		Session session = getSession();
 
 		Query query = session.createQuery(hql);
-		for (int i = 0; i < params.length; i++) {
-			query.setParameter(i, params[i]);
-		}
-		List<T> list = query.list();
-		return list;
+		return generateList(query, params);
 	}
+	
+	public <T> List<T> limitedFind(String hql, int limit, Object... params) {
+		Session session = getSession();
+
+		Query query = session.createQuery(hql);
+		return generateList(query, limit, params);
+	} 
 
 	protected org.hibernate.Session getSession() {
 		return sessionFactory.getCurrentSession();
@@ -38,5 +40,20 @@ public abstract class AbstractHibernateRepo {
 	public Serializable save(Object o) {
 		return getSession().save(o);
 	}
+	
+	@SuppressWarnings("unchecked")
+	private <T> List<T> generateList(Query query, Object... params) {
+		for (int i = 0; i < params.length; i++) {
+			query.setParameter(i, params[i]);
+		}
+		List<T> list = query.list();
+		return list;
+	}
+
+	private <T> List<T> generateList(Query query, int limit, Object... params) {
+		query.setMaxResults(limit);
+		return generateList(query, params);
+	}
+	
 
 }

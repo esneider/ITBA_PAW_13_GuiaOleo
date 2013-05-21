@@ -20,8 +20,6 @@
 			
 			        <dt>Average Price</dt>
 			            <dd>$${restaurant.avgprice}</dd>
-			        <dt>Food Type</dt>
-			            <dd>${restaurant.foodtype.name}</dd>
 			        <dt>Time range</dt>
 			            <dd>${restaurant.timerange}</dd>
 			        <dt>Website</dt>

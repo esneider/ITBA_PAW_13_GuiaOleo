@@ -8,8 +8,8 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import ar.edu.itba.it.paw.domain.User;
-import ar.edu.itba.it.paw.service.interfaces.UserService;
+import ar.edu.itba.it.paw.domain.user.User;
+import ar.edu.itba.it.paw.domain.user.UserRepo;
 import ar.edu.itba.it.paw.utils.EnhancedModelAndView;
 import ar.edu.itba.it.paw.web.command.EditForm;
 import ar.edu.itba.it.paw.web.command.LoginForm;
@@ -21,15 +21,15 @@ import ar.edu.itba.it.paw.web.command.validator.RegisterFormValidator;
 @Controller
 public class UserController extends BaseController {
 
-	private UserService userService;
+	private UserRepo userRepo;
 	private EditFormValidator eValidator;
 	private RegisterFormValidator rValidator;
 	private LoginFormValidator lValidator;
 
 	@Autowired
-	public UserController(UserService usersrv,
+	public UserController(UserRepo userRepo,
 			RegisterFormValidator rValidator, LoginFormValidator lValidator, EditFormValidator eValidator) {
-		this.userService = usersrv;
+		this.userRepo = userRepo;
 		this.rValidator = rValidator;
 		this.lValidator = lValidator;
 		this.eValidator = eValidator;
@@ -54,7 +54,7 @@ public class UserController extends BaseController {
 		if (errors.hasErrors()) {
 			return login(session);
 		}
-		User user = userService.login(loginForm.getUsername(), loginForm.getPassword());
+		User user = userRepo.login(loginForm.getUsername(), loginForm.getPassword());
 		if (user != null) {
 			setLoggedInUser(session, user);
 			return indexContext();
@@ -82,8 +82,7 @@ public class UserController extends BaseController {
 
 		try {
 			User s = registerForm.build();
-			s = userService.register(s.getName(), s.getSurname(), s.getEmail(),
-					s.getUsername(), s.getPassword(), s.getAvatar());
+			userRepo.save(s);
 			setLoggedInUser(session, s);
 			
 		} catch (Exception e) {
@@ -114,8 +113,8 @@ public class UserController extends BaseController {
 		}
 
 		try {
-			User s = editForm.build(userService); 
-			userService.update(s);
+			User s = editForm.build(userRepo); 
+			userRepo.save(s);
 			setLoggedInUser(session, s);
 		} catch (Exception e) {
 			e.printStackTrace();

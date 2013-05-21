@@ -1,4 +1,4 @@
-package ar.edu.itba.it.paw.domain;
+package ar.edu.itba.it.paw.domain.restaurant;
 
 import java.util.Date;
 
@@ -6,7 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 
-import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
+import ar.edu.itba.it.paw.domain.AbstractModel;
+import ar.edu.itba.it.paw.domain.user.User;
 
 
 @Entity
@@ -60,5 +61,25 @@ public class Rating extends AbstractModel {
 	
 	public java.sql.Date getSQLDate() {
 		return SQLdate;
+	}
+	
+	@Override
+	public int hashCode() {
+		return user.hashCode() + restaurant.hashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Rating other = (Rating) obj;
+		if (restaurant != other.restaurant || user != other.user)
+			return false;
+		return true;
 	}
 }

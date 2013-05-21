@@ -43,10 +43,10 @@
 		</init-param>
 	</filter>
 
-	<filter-mapping>
+	<!--<filter-mapping>
 		<filter-name>permissionFilter</filter-name>
 		<url-pattern>/bin/*</url-pattern>
-	</filter-mapping>
+	</filter-mapping>-->
 
 	<!-- SERVLETS -->
 	

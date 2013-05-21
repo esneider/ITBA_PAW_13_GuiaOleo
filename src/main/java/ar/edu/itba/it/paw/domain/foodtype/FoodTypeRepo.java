@@ -1,4 +1,4 @@
-package ar.edu.itba.it.paw.domain;
+package ar.edu.itba.it.paw.domain.foodtype;
 
 import java.util.List;
 
@@ -19,6 +19,6 @@ public interface FoodTypeRepo {
 	 * Obtains a single FoodType
 	 */
 	
-	public FoodType getSingleFoodType(int id);
+	public FoodType get(int id);
 
 }
