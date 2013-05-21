@@ -10,14 +10,12 @@
                         <dd><strong><a href="../restaurant/view?id=${restaurant.id}">${restaurant.name}</a></strong></dd>
                     <dt>Address</dt>
                         <dd>${restaurant.address}</dd>
-					<dt>Food type</dt>
-                        <dd>${restaurant.foodtype.name}</dd>
                     <dt>Area</dt>
                         <dd>${restaurant.area}</dd>
                     <dt>Average Score</dt>
                         <dd>
                             <span class="badge">${restaurant.avgScore}</span>
-                            (Scored by ${restaurant.ratings} people)
+                            (Scored by people)
                         </dd>
                 </dl>
                 <hr />

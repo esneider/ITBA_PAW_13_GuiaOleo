@@ -52,13 +52,7 @@ public class JDBCFoodTypesDAO extends AbstractDAO implements FoodTypesDAO {
 	}
 
 	private FoodType getFoodType(ResultSet rs) {
-		try {
-			FoodType ft = new FoodType(rs.getString("name"), rs.getInt("ammount"));
-			ft.setId(rs.getInt("id"));
-			return ft;
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+
 		return null;
 	}
 

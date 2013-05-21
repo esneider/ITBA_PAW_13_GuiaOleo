@@ -12,16 +12,14 @@ import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
 public class FoodType extends AbstractModel implements Comparable<FoodType> {
 
 	private String name;
-	private Integer ammount;
 
 	@ManyToMany
 	private Set<Restaurant> restaurants;
 	
 	public FoodType() {}
 
-	public FoodType(String name, Integer ammount) {
+	public FoodType(String name) {
 		this.name = name;
-		this.ammount = ammount;
 	}
 
 	public String getName() {
@@ -33,7 +31,7 @@ public class FoodType extends AbstractModel implements Comparable<FoodType> {
 	}
 
 	public Integer getAmmount() {
-		return ammount;
+		return restaurants.size();
 	}
 	
 	@Override

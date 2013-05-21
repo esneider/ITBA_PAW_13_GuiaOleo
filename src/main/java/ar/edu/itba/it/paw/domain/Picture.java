@@ -2,8 +2,8 @@ package ar.edu.itba.it.paw.domain;
 
 import java.io.InputStream;
 
+import javax.persistence.Basic;
 import javax.persistence.Entity;
-import javax.persistence.Lob;
 import javax.persistence.Transient;
 
 @Entity
@@ -14,7 +14,7 @@ public class Picture extends AbstractModel {
 	@Transient
 	private InputStream is;
 
-	@Lob
+	@Basic
 	private byte[] img;
 
 	public Picture() {

@@ -119,19 +119,19 @@ public class JDBCRatingsDAO extends AbstractDAO implements RatingsDAO {
 
 	@SuppressWarnings("unused")
 	private Rating getRating(ResultSet rs) {
-		try {
-			FoodType ft = new FoodType(rs.getString("foodtypename"),
-					rs.getInt("ammount"));
-			ft.setId(rs.getInt("foodTypeId"));
-			/*Restaurant r = new Restaurant(rs.getString("name"),
-					rs.getString("address"), rs.getString("area"),
-					rs.getString("telephone"), rs.getString("website"),
-					rs.getString("timerange"), rs.getFloat("avgprice"),
-					rs.getFloat("avgscore"), rs.getInt("Ratings"), ft);
-			return getRating(rs, r);*/
-		} catch (SQLException e) {
-			logger.error("SQL Error");
-		}
+//		try {
+////			FoodType ft = new FoodType(rs.getString("foodtypename"),
+////					rs.getInt("ammount"));
+////			ft.setId(rs.getInt("foodTypeId"));
+//			/*Restaurant r = new Restaurant(rs.getString("name"),
+//					rs.getString("address"), rs.getString("area"),
+//					rs.getString("telephone"), rs.getString("website"),
+//					rs.getString("timerange"), rs.getFloat("avgprice"),
+//					rs.getFloat("avgscore"), rs.getInt("Ratings"), ft);
+//			return getRating(rs, r);*/
+//		} catch (SQLException e) {
+//			logger.error("SQL Error");
+//		}
 		return null;
 	}
 

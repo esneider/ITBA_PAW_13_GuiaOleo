@@ -20,7 +20,7 @@ public class HibernateRestaurantRepo extends AbstractHibernateRepo implements Re
 	
 	@Override
 	public List<Restaurant> getAll() {
-		return find("from restaurant");
+		return find("from Restaurant");
 	}
 	
 	@Override

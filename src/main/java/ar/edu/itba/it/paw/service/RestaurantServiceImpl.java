@@ -73,7 +73,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 
 			rtDAO.insertSingleRating(rate);
 
-			rest.setAvgScore(rtDAO.getRestaurantAvgRating(rest));
+			//rest.setAvgScore(rtDAO.getRestaurantAvgRating(rest));
 			//rest.setRatings(rtDAO.getRestaurantRatingAmmount(rest));
 			save(rest);
 		}

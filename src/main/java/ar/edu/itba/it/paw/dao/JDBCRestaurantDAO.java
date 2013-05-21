@@ -209,25 +209,26 @@ public class JDBCRestaurantDAO extends AbstractDAO implements RestaurantDAO {
 	}
 
 	private Restaurant getRestaurant(ResultSet rs) {
-		try {
-			FoodType ft = new FoodType(rs.getString("fname"),
-					rs.getInt("fammount"));
-			ft.setId(rs.getInt("fid"));
-			/*Restaurant r = new Restaurant(rs.getString("name"),
-					rs.getString("address"), rs.getString("area"),
-					rs.getString("telephone"), rs.getString("website"),
-					rs.getString("timerange"), roundToDigits(
-							rs.getFloat("avgprice"), 2), roundToDigits(
-							rs.getFloat("avgscore"), 2),
-					rs.getInt("cantratings"), ft);*/
-			//r.setId(rs.getInt("id"));
-			//return r;
-			return null;
-		} catch (SQLException e) {
-			logger.error("SQL Error");
-
-			throw new SQLNoConnectionException();
-		}
+//		try {
+//			FoodType ft = new FoodType(rs.getString("fname"),
+//					rs.getInt("fammount"));
+//			ft.setId(rs.getInt("fid"));
+//			/*Restaurant r = new Restaurant(rs.getString("name"),
+//					rs.getString("address"), rs.getString("area"),
+//					rs.getString("telephone"), rs.getString("website"),
+//					rs.getString("timerange"), roundToDigits(
+//							rs.getFloat("avgprice"), 2), roundToDigits(
+//							rs.getFloat("avgscore"), 2),
+//					rs.getInt("cantratings"), ft);*/
+//			//r.setId(rs.getInt("id"));
+//			//return r;
+//			return null;
+//		} catch (SQLException e) {
+//			logger.error("SQL Error");
+//
+//			throw new SQLNoConnectionException();
+//		}
+		return null;
 	}
 
 	private float roundToDigits(float number, int cant) {

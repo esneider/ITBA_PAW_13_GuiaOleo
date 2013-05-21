@@ -17,7 +17,7 @@ public class HibernateFoodTypeRepo extends AbstractHibernateRepo implements
 
 	@Override
 	public List<FoodType> getAll() {
-		return find("from foodtype");
+		return find("from FoodType");
 	}
 
 	@Override
