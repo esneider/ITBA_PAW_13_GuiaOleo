@@ -1,5 +1,7 @@
 package ar.edu.itba.it.paw.web;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,8 +21,20 @@ public class IndexController extends BaseController {
 		this.restRepo = restRepo;
 	}
 
-	@RequestMapping(value={"/search", "/index/search"})
-	public EnhancedModelAndView search(@RequestParam(value = "query", required = false) String query) {
+	@RequestMapping(value = { "/pending", "/index/pending" })
+	public EnhancedModelAndView pending(HttpSession session) {
+
+		if (!isLoggedIn(session) || !getLoggedInUser(session).isAdmin())
+			return indexContext();
+
+		EnhancedModelAndView mav = generateContext("List", true, true);
+		mav.addObject("restaurantList", restRepo.getPendingRestaurants());
+		return mav;
+	}
+
+	@RequestMapping(value = { "/search", "/index/search" })
+	public EnhancedModelAndView search(
+			@RequestParam(value = "query", required = false) String query) {
 
 		EnhancedModelAndView mav = generateContext("List", true, true);
 		mav.addObject("restaurantList", restRepo.getRestaurantsByQuery(query));
@@ -29,19 +43,21 @@ public class IndexController extends BaseController {
 		return mav;
 	}
 
-	@RequestMapping(value={"/", "/index", "/index/list"})
-	public EnhancedModelAndView list(@RequestParam(value = "query", required = false) String query,
-									 @RequestParam(value = "id", required = false) FoodType ft,
-									 @RequestParam(value = "num", required = false) Integer num) {
+	@RequestMapping(value = { "/", "/index", "/index/list" })
+	public EnhancedModelAndView list(
+			@RequestParam(value = "query", required = false) String query,
+			@RequestParam(value = "id", required = false) FoodType ft,
+			@RequestParam(value = "num", required = false) Integer num) {
 
-		EnhancedModelAndView mav = generateContext("Guia Oleo Facha", true, true);
+		EnhancedModelAndView mav = generateContext("Guia Oleo Facha", true,
+				true);
 
 		if (query == null) {
 
 			query = "bestrated";
 			num = 10;
 		}
-	
+
 		if (query.equals("foodtypes")) {
 
 			mav.addObject("restaurantList", ft.getRestaurants());
@@ -49,7 +65,8 @@ public class IndexController extends BaseController {
 
 		} else if (query.equals("bestrated")) {
 
-			mav.addObject("restaurantList", restRepo.getBestRatedRestaurants(num));
+			mav.addObject("restaurantList",
+					restRepo.getBestRatedRestaurants(num));
 
 		} else {
 

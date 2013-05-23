@@ -28,7 +28,7 @@ public class RestaurantController extends BaseController {
 	private FoodTypeRepo ftRepo;
 	private RestaurantRepo restRepo;
 	private RestaurantFormValidator rValidator;
-	
+
 	@Autowired
 	public RestaurantController(FoodTypeRepo ftRepo, RestaurantRepo restRepo,
 			RestaurantFormValidator rValidator) {
@@ -87,8 +87,8 @@ public class RestaurantController extends BaseController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ModelAndView add(RestaurantForm restaurantForm,
-			Errors errors, HttpSession session) {
+	public ModelAndView add(RestaurantForm restaurantForm, Errors errors,
+			HttpSession session) {
 		if (!isLoggedIn(session))
 			return indexContext();
 		rValidator.validate(restaurantForm, errors);
@@ -98,5 +98,12 @@ public class RestaurantController extends BaseController {
 				.build(getLoggedInUser(session), "Pending");
 		restRepo.save(r);
 		return indexContext();
+	}
+
+	@RequestMapping(method = RequestMethod.GET)
+	public ModelAndView publish(@RequestParam("id") Restaurant rest,
+			HttpSession session) {
+		return null;
+
 	}
 }

@@ -39,14 +39,20 @@ public interface RestaurantRepo {
 	 * !!!
 	 */
 	public List<Restaurant> getRestaurantsByFoodType(String query);
-	
+
 	/**
 	 * Obtains a list from all the Restaurants by Query
 	 */
 	public List<Restaurant> getRestaurantsByQuery(String query);
+
 	/**
 	 * Saves user
 	 */
 	public void save(Restaurant r);
+
+	/**
+	 * Obtains a list from all Pending Restaurants
+	 */
+	public List<Restaurant> getPendingRestaurants();
 
 }

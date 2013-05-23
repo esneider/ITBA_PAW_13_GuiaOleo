@@ -118,4 +118,8 @@ public class User extends AbstractModel {
 		if (avatar != null) 
 			this.avatar = avatar;
 	}
+
+	public boolean isAdmin() {
+		return type.equals("Admin");
+	}
 }
