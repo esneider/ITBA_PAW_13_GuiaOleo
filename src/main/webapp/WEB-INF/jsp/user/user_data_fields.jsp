@@ -1,10 +1,3 @@
-<c:if test="${registerPasswordError}"><c:set var="registerPasswordClass" value="error" /></c:if>
-<c:if test="${registerRePasswordError}"><c:set var="registerRePasswordClass" value="error" /></c:if>
-<c:if test="${registerNameError}"><c:set var="registerNameClass" value="error" /></c:if>
-<c:if test="${registerSurnameError}"><c:set var="registerSurnameClass" value="error" /></c:if>
-<c:if test="${registerEmailError}"><c:set var="registerEmailClass" value="error" /></c:if>
-<c:if test="${registerAvatarError}"><c:set var="registerAvatarClass" value="error" /></c:if>
-
 <div class="registerPassword control-group ${registerPasswordClass}">
 	<label class="control-label">Password:</label>
     <div class="controls">

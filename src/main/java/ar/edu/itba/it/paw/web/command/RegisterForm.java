@@ -10,28 +10,10 @@ import ar.edu.itba.it.paw.domain.user.User;
 
 public class RegisterForm {
 
-	private String name, surname, email, username, password;
+	private String name, surname, email, username, password, repassword;
 	private CommonsMultipartFile avatar;
 	private User user; // CREAR LA CLASE USERFORM ???
 	private int userId;
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-	
-	public int getUserId(){
-		return userId;
-	}
-	
-	public void setUserId(int userId){
-		this.userId = userId;
-	}
-
-	private String repassword;
 
 	public RegisterForm() {
 	}
@@ -101,6 +83,22 @@ public class RegisterForm {
 
 	public void setAvatar(CommonsMultipartFile avatar) {
 		this.avatar = avatar;
+	}
+	
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+	
+	public int getUserId(){
+		return userId;
+	}
+	
+	public void setUserId(int userId){
+		this.userId = userId;
 	}
 
 	public User build() {

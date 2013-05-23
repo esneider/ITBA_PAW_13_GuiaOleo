@@ -72,5 +72,11 @@ public class HibernateRestaurantRepo extends AbstractHibernateRepo implements Re
 		return null;
 	}
 
+	@Override
+	public void save(Restaurant r) {
+		super.save(r);
+		
+	}
+
 	
 }

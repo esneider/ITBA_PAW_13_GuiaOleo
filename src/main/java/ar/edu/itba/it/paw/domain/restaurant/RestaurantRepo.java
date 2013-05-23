@@ -44,5 +44,9 @@ public interface RestaurantRepo {
 	 * Obtains a list from all the Restaurants by Query
 	 */
 	public List<Restaurant> getRestaurantsByQuery(String query);
+	/**
+	 * Saves user
+	 */
+	public void save(Restaurant r);
 
 }

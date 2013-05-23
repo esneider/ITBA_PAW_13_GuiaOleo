@@ -35,6 +35,9 @@
                                 <img class="avatar" src="${ pageContext.request.contextPath }/bin/image/showUserImage"/>
                             </a>
                             <ul class="dropdown-menu" role="menu" aria-labelledby="user-dd">
+                            	<li role="presentation">
+                                    <a role="menuitem" href="${ pageContext.request.contextPath }/bin/restaurant/add">Register Restaurant</a>
+                                </li>
                                 <li role="presentation">
                                     <a role="menuitem" href="${ pageContext.request.contextPath }/bin/user/edit">Modify data</a>
                                 </li>

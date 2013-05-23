@@ -40,7 +40,7 @@ public class UserController extends BaseController {
 	public EnhancedModelAndView login(HttpSession session) {
 		if (isLoggedIn(session))
 			return indexContext();
-		EnhancedModelAndView mav = generateContext("Login/Register", false,
+		EnhancedModelAndView mav = generateContext("Login/Register", false, false,
 				"user/login");
 		mav.addObject(new RegisterForm());
 		mav.addObject(new LoginForm());
@@ -97,7 +97,7 @@ public class UserController extends BaseController {
 	public EnhancedModelAndView edit(HttpSession session) {
 		if (!isLoggedIn(session))
 			return indexContext();
-		EnhancedModelAndView mav = generateContext("Login/Register", false);
+		EnhancedModelAndView mav = generateContext("Login/Register", false, false);
 		mav.addObject(new EditForm(getLoggedInUser(session), "", ""));
 		return mav;
 	}

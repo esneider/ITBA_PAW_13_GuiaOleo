@@ -47,22 +47,22 @@ public abstract class BaseController {
 		session.invalidate();
 	}
 
-	public EnhancedModelAndView generateContext(String title, boolean sidebar) {
+	public EnhancedModelAndView generateContext(String title, boolean sidebar, boolean setFoodTypes) {
 
 		EnhancedModelAndView mav = new EnhancedModelAndView(title);
 
 		mav.addObject("sidebar", sidebar);
 
-		if (sidebar) {
+		if (setFoodTypes) {
 			mav.addObject("foodTypesList", ftRepo.getAll());
 		}
 
 		return mav;
 	}
 	
-	public EnhancedModelAndView generateContext(String title, boolean sidebar, String viewName) {
+	public EnhancedModelAndView generateContext(String title, boolean sidebar, boolean setFoodTypes, String viewName) {
 
-		EnhancedModelAndView mav = generateContext(title, sidebar);
+		EnhancedModelAndView mav = generateContext(title, sidebar, setFoodTypes);
 		mav.setViewName(viewName);
 		return mav;
 	}
