@@ -146,7 +146,7 @@ public class UserController extends BaseController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public EnhancedModelAndView profile(HttpSession session,
-			@RequestParam(value = "id", required = true) User u) {
+			@RequestParam(value = "userId", required = true) User u) {
 		EnhancedModelAndView mav = generateContext(u.getName() + " " + u.getSurname(), false, false);
 		mav.addObject("profileUser", u);
 		return mav;
