@@ -1,6 +1,7 @@
 package ar.edu.itba.it.paw.web.command;
 
 import java.io.IOException;
+import java.util.Date;
 
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
@@ -112,7 +113,7 @@ public class RegisterForm {
 			}
 		}
 		if (user == null) {
-			return new User(name, surname, email, username, password, pic);
+			return new User(name, surname, email, username, password, pic, new Date());
 		} else {
 			user.setAvatar(pic);
 			user.setEmail(email);

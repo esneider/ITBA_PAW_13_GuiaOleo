@@ -1,8 +1,12 @@
 package ar.edu.itba.it.paw.domain.restaurant;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 
@@ -26,6 +30,12 @@ public class Rating extends AbstractModel {
 
 	@Transient
 	private java.sql.Date SQLdate;
+	
+	@ManyToMany(cascade = CascadeType.ALL)
+	Set<User> likes = new HashSet<User>();
+	@ManyToMany(cascade = CascadeType.ALL)
+	Set<User> unlikes = new HashSet<User>();
+	
 
 	public Rating() {}
 
