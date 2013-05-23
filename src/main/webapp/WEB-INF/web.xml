@@ -8,14 +8,14 @@
 
 	<filter>
 		<filter-name>ErrorFilter</filter-name>
-		<filter-class>ar.edu.itba.it.paw.filter.ErrorFilter</filter-class>
+		<filter-class>ar.edu.itba.it.paw.web.filter.ErrorFilter</filter-class>
 	</filter>
 
 	<filter-mapping>
 		<filter-name>ErrorFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-	
+
 	<filter>
  		<filter-name>transactionFilter</filter-name> 
   		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class> 
@@ -32,21 +32,21 @@
     <filter-mapping>
         <filter-name>transactionFilter</filter-name>
         <url-pattern>/bin/*</url-pattern>
-    </filter-mapping> 
+    </filter-mapping>
 		
  	<filter>
 		<filter-name>permissionFilter</filter-name>
-		<filter-class>ar.edu.itba.it.paw.filter.PermissionFilter</filter-class>
+		<filter-class>ar.edu.itba.it.paw.web.filter.PermissionFilter</filter-class>
 		<init-param>
 			<param-name>restricted-actions</param-name>
-			<param-value>/logout:GET,/logout:POST,/modify_user:GET,/modify_user:POST</param-value>
+			<param-value>/bin/user/logout:GET,/bin/user/logout:POST,/bin/user/modify_user:GET,/bin/user/modify_user:POST</param-value>
 		</init-param>
 	</filter>
 
-	<!--<filter-mapping>
+	<filter-mapping>
 		<filter-name>permissionFilter</filter-name>
 		<url-pattern>/bin/*</url-pattern>
-	</filter-mapping>-->
+	</filter-mapping>
 
 	<!-- SERVLETS -->
 	
@@ -62,5 +62,4 @@
 		<servlet-name>spring</servlet-name>
 		<url-pattern>/bin/*</url-pattern>
 	</servlet-mapping>
-
 </web-app>

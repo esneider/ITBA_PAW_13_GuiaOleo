@@ -1,4 +1,4 @@
-package ar.edu.itba.it.paw.filter;
+package ar.edu.itba.it.paw.web.filter;
 
 import java.io.IOException;
 
@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import ar.edu.itba.it.paw.exceptions.SQLNoConnectionException;
+import ar.edu.itba.it.paw.domain.exceptions.SQLNoConnectionException;
 
 public class ErrorFilter implements Filter {
 

@@ -30,13 +30,22 @@ public class HibernateRestaurantRepo extends AbstractHibernateRepo implements Re
 
 	@Override
 	public List<Restaurant> getBestRatedRestaurants(int cant) {
+
 		//TODO Mejorar implementacion
+
 		List<Restaurant> allRestaurants = getAll();
+
 		Collections.sort(allRestaurants, new Comparator<Restaurant>(){
 			@Override
 			public int compare(Restaurant o1, Restaurant o2) {
-				return Math.round(((o2.getAvgScore() - o1.getAvgScore()) * 10));
+				return Math.round(Math.signum(o2.getAvgScore() - o1.getAvgScore()));
 			}});
+
+		if (allRestaurants.size() <= cant) {
+			
+			return allRestaurants;
+		}
+
 		return allRestaurants.subList(0, cant-1);
 	}
 

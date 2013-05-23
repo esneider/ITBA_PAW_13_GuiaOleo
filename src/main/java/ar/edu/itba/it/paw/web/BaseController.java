@@ -1,4 +1,4 @@
-package ar.edu.itba.it.paw.controller;
+package ar.edu.itba.it.paw.web;
 
 import javax.servlet.http.HttpSession;
 
@@ -20,17 +20,21 @@ public abstract class BaseController {
 	private FoodTypeRepo ftRepo;
 
 	public boolean isLoggedIn(HttpSession session) {
+
 		return session.getAttribute("user") != null;
 	}
 
 	public User getLoggedInUser(HttpSession session) {
-		if (!isLoggedIn(session))
+		
+		if (!isLoggedIn(session)) {
 			return null;
-		else
-			return (User)session.getAttribute("user");
+		}
+		
+		return (User)session.getAttribute("user");
 	}
 	
 	public void setLoggedInUser(HttpSession session, User user) {
+
 		if (user != null) {
 			if (user.getAvatar() != null)
 				user.setAvatar(pictureRepo.getPictureById(user.getAvatar().getId()));
@@ -39,24 +43,32 @@ public abstract class BaseController {
 	}
 	
 	public void logoutUser(HttpSession session) {
+
 		session.invalidate();
 	}
 
 	public EnhancedModelAndView generateContext(String title, boolean sidebar) {
+
 		EnhancedModelAndView mav = new EnhancedModelAndView(title);
+
 		mav.addObject("sidebar", sidebar);
-		if (sidebar)
+
+		if (sidebar) {
 			mav.addObject("foodTypesList", ftRepo.getAll());
+		}
+
 		return mav;
 	}
 	
 	public EnhancedModelAndView generateContext(String title, boolean sidebar, String viewName) {
+
 		EnhancedModelAndView mav = generateContext(title, sidebar);
 		mav.setViewName(viewName);
 		return mav;
 	}
 	
 	public EnhancedModelAndView indexContext() {
+
 		EnhancedModelAndView mav = new EnhancedModelAndView("Guia Oleo Facha");
 		mav.setViewName("redirect:/bin/index/list");
 		return mav;
