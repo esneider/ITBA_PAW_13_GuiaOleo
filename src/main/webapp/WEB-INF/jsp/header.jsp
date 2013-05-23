@@ -29,6 +29,7 @@
             <ul id="user-menu" class="nav pull-right">
                 <c:choose>
                     <c:when test="${not empty user}">
+     
                         <li class="dropdown">
                             <a href="#" id="user-dd" role="button" class="dropdown-toggle menu-text" data-toggle="dropdown">
                                 ${fn:escapeXml(user.username)}
@@ -41,6 +42,11 @@
                                 <li role="presentation">
                                     <a role="menuitem" href="${ pageContext.request.contextPath }/bin/user/edit">Modify data</a>
                                 </li>
+                                    <c:if test="${user.type == 'Admin'}">
+		                                  <li role="presentation">
+		                                    <a role="menuitem" href="${ pageContext.request.contextPath }/bin/index/pending">See pending requests</a>
+		                                </li>
+                                    </c:if>
                                 <li role="presentation">
                                     <a role="menuitem" href="${ pageContext.request.contextPath }/bin/user/logout">Logout</a>
                                 </li>
