@@ -13,6 +13,8 @@ import ar.edu.itba.it.paw.domain.user.User;
 
 public class RestaurantForm {
 
+	// TODO Hacer que el build reciba el repo y el validator tmb. Guardar lista de foodtypes en integers
+	
 	private String name, address, area, telephone, website, timerange;
 	private float avgprice;
 	private List<FoodType> foodTypes = new ArrayList<FoodType>();

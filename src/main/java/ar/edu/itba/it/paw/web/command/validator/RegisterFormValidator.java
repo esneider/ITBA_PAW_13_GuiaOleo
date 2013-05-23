@@ -53,6 +53,8 @@ public class RegisterFormValidator implements Validator {
 				errors.rejectValue("username", "toolong");
 			}
 		}
+		if (obj.getAvatar().isEmpty())
+			errors.rejectValue("avatar", "empty");
 
 	}
 }

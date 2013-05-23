@@ -53,7 +53,6 @@ public class IndexController extends BaseController {
 				true);
 
 		if (query == null) {
-
 			query = "bestrated";
 			num = 10;
 		}
@@ -64,7 +63,6 @@ public class IndexController extends BaseController {
 			mav.addObject("ftid", ft.getId());
 
 		} else if (query.equals("bestrated")) {
-
 			mav.addObject("restaurantList",
 					restRepo.getBestRatedRestaurants(num));
 

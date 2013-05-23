@@ -107,6 +107,12 @@ h2.restaurantTitle {
     margin-bottom: 30px;
 }
 
+h2.title {
+    margin-left: 180px;
+    margin-bottom: 30px;
+}
+
+
 .comment .badge {
     position: relative;
     bottom: 3px;
@@ -121,3 +127,17 @@ h2.restaurantTitle {
 	margin-bottom: 5px !important;
 }
 
+.profilePic{
+	width: 200px;
+	height: 200px;
+	float: left;
+	display: inline;
+}
+
+.fRight {
+	float: right;
+}
+
+.detail {
+	width: 500px;
+}

@@ -1,4 +1,5 @@
-﻿INSERT INTO foodtype (name) VALUES ('Japanese Food');
+ALTER DATABASE paw2 SET bytea_output = 'escape';
+INSERT INTO foodtype (name) VALUES ('Japanese Food');
 INSERT INTO foodtype (name) VALUES ('Afrodisiac');
 INSERT INTO foodtype (name) VALUES ('Italian Food');
 INSERT INTO foodtype (name) VALUES ('Author Food');

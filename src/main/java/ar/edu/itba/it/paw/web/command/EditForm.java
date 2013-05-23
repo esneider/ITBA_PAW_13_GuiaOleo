@@ -1,7 +1,5 @@
 package ar.edu.itba.it.paw.web.command;
 
-import java.io.IOException;
-
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
@@ -105,13 +103,8 @@ public class EditForm {
 	
 	public User build(UserRepo userRepo) {
 		Picture pic = null;
-		if (avatar != null && !avatar.isEmpty()) {
-			try {
-				pic = new Picture(avatar.getInputStream(), avatar.getOriginalFilename());
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+		if (avatar != null && !avatar.isEmpty()) 
+			pic = new Picture(avatar.getBytes(), avatar.getOriginalFilename());
 		if (user == null)
 			user = userRepo.get(getUserId());
 	

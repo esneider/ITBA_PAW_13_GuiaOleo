@@ -22,7 +22,7 @@
 			</c:forEach>
 		</c:when>
 		<c:otherwise>
-            <p id="no_results" class="lead text-center">No results found for "${squery}" </p>
+            <p id="no_results" class="lead text-center">No restaurans to show</p>
 		</c:otherwise>
 	</c:choose>
 </div>

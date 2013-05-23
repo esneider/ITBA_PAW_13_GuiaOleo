@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import ar.edu.itba.it.paw.domain.user.User;
 import ar.edu.itba.it.paw.domain.user.UserRepo;
@@ -27,8 +28,8 @@ public class UserController extends BaseController {
 	private LoginFormValidator lValidator;
 
 	@Autowired
-	public UserController(UserRepo userRepo,
-			RegisterFormValidator rValidator, LoginFormValidator lValidator, EditFormValidator eValidator) {
+	public UserController(UserRepo userRepo, RegisterFormValidator rValidator,
+			LoginFormValidator lValidator, EditFormValidator eValidator) {
 		this.userRepo = userRepo;
 		this.rValidator = rValidator;
 		this.lValidator = lValidator;
@@ -40,8 +41,8 @@ public class UserController extends BaseController {
 	public EnhancedModelAndView login(HttpSession session) {
 		if (isLoggedIn(session))
 			return indexContext();
-		EnhancedModelAndView mav = generateContext("Login/Register", false, false,
-				"user/login");
+		EnhancedModelAndView mav = generateContext("Login/Register", false,
+				false, "user/login");
 		mav.addObject(new RegisterForm());
 		mav.addObject(new LoginForm());
 		return mav;
@@ -54,14 +55,15 @@ public class UserController extends BaseController {
 		if (errors.hasErrors()) {
 			return login(session);
 		}
-		User user = userRepo.login(loginForm.getUsername(), loginForm.getPassword());
+		User user = userRepo.login(loginForm.getUsername(),
+				loginForm.getPassword());
 		if (user != null) {
 			setLoggedInUser(session, user);
 			return indexContext();
 		} else {
 			errors.rejectValue("username", "mismatch");
 			return login(session);
-			
+
 		}
 	}
 
@@ -84,7 +86,7 @@ public class UserController extends BaseController {
 			User s = registerForm.build();
 			userRepo.save(s);
 			setLoggedInUser(session, s);
-			
+
 		} catch (Exception e) {
 			errors.rejectValue("SQL CODE", "DB ERROR");
 			return login(session);
@@ -92,19 +94,20 @@ public class UserController extends BaseController {
 		return indexContext();
 
 	}
-	
+
 	@RequestMapping(method = RequestMethod.GET)
 	public EnhancedModelAndView edit(HttpSession session) {
 		if (!isLoggedIn(session))
 			return indexContext();
-		EnhancedModelAndView mav = generateContext("Login/Register", false, false);
+		EnhancedModelAndView mav = generateContext("Login/Register", false,
+				false);
 		mav.addObject(new EditForm(getLoggedInUser(session), "", ""));
 		return mav;
 	}
-	
+
 	@RequestMapping(method = RequestMethod.POST)
-	public EnhancedModelAndView edit(EditForm editForm,
-			Errors errors, HttpSession session) {
+	public EnhancedModelAndView edit(EditForm editForm, Errors errors,
+			HttpSession session) {
 		if (!isLoggedIn(session))
 			return indexContext();
 		eValidator.validate(editForm, errors);
@@ -113,7 +116,7 @@ public class UserController extends BaseController {
 		}
 
 		try {
-			User s = editForm.build(userRepo); 
+			User s = editForm.build(userRepo);
 			userRepo.save(s);
 			setLoggedInUser(session, s);
 		} catch (Exception e) {
@@ -123,11 +126,19 @@ public class UserController extends BaseController {
 		return indexContext();
 
 	}
-	
+
 	@RequestMapping(method = RequestMethod.GET)
-	public EnhancedModelAndView logout(HttpSession session){
+	public EnhancedModelAndView logout(HttpSession session) {
 		logoutUser(session);
 		return indexContext();
+	}
+
+	@RequestMapping(method = RequestMethod.GET)
+	public EnhancedModelAndView profile(HttpSession session,
+			@RequestParam(value = "id", required = false) User u) {
+		EnhancedModelAndView mav = generateContext(u.getName() + " " + u.getSurname(), false, false);
+		mav.addObject("profileUser", u);
+		return mav;
 	}
 
 }

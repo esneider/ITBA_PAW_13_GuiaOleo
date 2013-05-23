@@ -1,6 +1,5 @@
 package ar.edu.itba.it.paw.web.command;
 
-import java.io.IOException;
 import java.util.Date;
 
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
@@ -26,7 +25,7 @@ public class RegisterForm {
 		this.setUsername(user.getUsername());
 		this.setPassword(user.getPassword());
 		this.setAvatar(null);
-		this.setRepassword(repassword); // TODO DESIGN SUCKS
+		this.setRepassword(repassword);
 	}
 
 	public String getRepassword() {
@@ -103,13 +102,8 @@ public class RegisterForm {
 
 	public User build() {
 		Picture pic = null;
-		if (avatar != null && !avatar.isEmpty()) {
-			try {
-				pic = new Picture(avatar.getInputStream(), avatar.getOriginalFilename());
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+		if (avatar != null && !avatar.isEmpty()) 
+			pic = new Picture(avatar.getBytes(), avatar.getOriginalFilename());
 		if (user == null) {
 			return new User(name, surname, email, username, password, pic, new Date());
 		} else {
