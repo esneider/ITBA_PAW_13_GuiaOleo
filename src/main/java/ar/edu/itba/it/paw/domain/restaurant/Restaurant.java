@@ -18,7 +18,7 @@ import ar.edu.itba.it.paw.domain.user.User;
 @Entity
 public class Restaurant extends AbstractModel {
 
-	@ManyToMany(mappedBy = "restaurants")
+	@ManyToMany
 	Set<FoodType> foodtypes;
 
 	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)

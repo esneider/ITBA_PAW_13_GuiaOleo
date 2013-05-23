@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import ar.edu.itba.it.paw.domain.foodtype.FoodTypeRepo;
 import ar.edu.itba.it.paw.domain.restaurant.Rating;
 import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
 import ar.edu.itba.it.paw.domain.restaurant.RestaurantRepo;
@@ -25,14 +24,12 @@ import ar.edu.itba.it.paw.web.command.validator.RestaurantFormValidator;
 @RequestMapping("/restaurant")
 public class RestaurantController extends BaseController {
 
-	private FoodTypeRepo ftRepo;
 	private RestaurantRepo restRepo;
 	private RestaurantFormValidator rValidator;
 
 	@Autowired
-	public RestaurantController(FoodTypeRepo ftRepo, RestaurantRepo restRepo,
+	public RestaurantController(RestaurantRepo restRepo,
 			RestaurantFormValidator rValidator) {
-		this.ftRepo = ftRepo;
 		this.restRepo = restRepo;
 		this.rValidator = rValidator;
 	}
@@ -82,7 +79,7 @@ public class RestaurantController extends BaseController {
 		if (!isLoggedIn(session))
 			return indexContext();
 		EnhancedModelAndView mav = generateContext("Add Restaurant", true, true);
-		mav.addObject(new RestaurantForm(ftRepo));
+		mav.addObject(new RestaurantForm());
 		return mav;
 	}
 

@@ -7,23 +7,14 @@ import java.util.List;
 import java.util.Set;
 
 import ar.edu.itba.it.paw.domain.foodtype.FoodType;
-import ar.edu.itba.it.paw.domain.foodtype.FoodTypeRepo;
 import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
 import ar.edu.itba.it.paw.domain.user.User;
 
 public class RestaurantForm {
-
-	// TODO Hacer que el build reciba el repo y el validator tmb. Guardar lista de foodtypes en integers
 	
 	private String name, address, area, telephone, website, timerange;
 	private float avgprice;
 	private List<FoodType> foodTypes = new ArrayList<FoodType>();
-	
-	private FoodTypeRepo ftRepo;
-
-	public RestaurantForm(FoodTypeRepo ftRepo) {
-		this.ftRepo = ftRepo;
-	}
 	
 	public RestaurantForm() {
 	}
@@ -73,17 +64,16 @@ public class RestaurantForm {
 	public void setFoodTypes(List<FoodType> foodTypes) {
 		this.foodTypes = foodTypes;
 	}
-	public void setFoodType(int index, int foodType){
-		foodTypes.add(ftRepo.get(foodType));
-	}
 	public void setAvgprice(float avgprice) {
 		this.avgprice = avgprice;
 	}
 
 	public Restaurant build(User user, String state) {
 		Set<FoodType> ftSet = new HashSet<FoodType>();
-		for (FoodType ft : foodTypes)
-			ftSet.add(ft);
+		for (FoodType ft : foodTypes) {
+			if (ft != null)
+				ftSet.add(ft);
+		}
 		return new Restaurant(name, address, area, telephone, website,
 				timerange, avgprice, state, ftSet, user, new Date());
 	}

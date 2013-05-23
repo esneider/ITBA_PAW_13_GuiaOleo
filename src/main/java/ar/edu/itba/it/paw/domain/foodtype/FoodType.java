@@ -14,7 +14,7 @@ public class FoodType extends AbstractModel implements Comparable<FoodType> {
 
 	private String name;
 
-	@ManyToMany
+	@ManyToMany(mappedBy = "foodtypes")
 	private Set<Restaurant> restaurants;
 	
 	public FoodType() {}
