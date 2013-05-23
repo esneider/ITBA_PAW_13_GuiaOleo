@@ -103,7 +103,31 @@ public class RestaurantController extends BaseController {
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView publish(@RequestParam("id") Restaurant rest,
 			HttpSession session) {
-		return null;
+		if (!isLoggedIn(session) && !getLoggedInUser(session).isAdmin())
+			return indexContext();
+		if (rest != null) {
+			EnhancedModelAndView mav = generateContext("Publish Restaurant",
+					true, true);
+			mav.addObject("restaurant", rest);
+			return mav;
+		}
 
+		return indexContext();
+
+	}
+
+	@RequestMapping(method = RequestMethod.POST)
+	public ModelAndView publish(@RequestParam("action") String action,
+			@RequestParam("id") Restaurant r, HttpSession session) {
+		if (action.equals("accept")) {
+			r.setState("Accepted");
+			System.out.println("Aceptado");
+		} else if (action.equals("decline")) {
+			System.out.println("Declinado");
+			r.setState("Rejected");
+		}
+		restRepo.save(r);
+		
+		return indexContext();
 	}
 }

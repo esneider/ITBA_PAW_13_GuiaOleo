@@ -14,9 +14,10 @@ public class HibernateUserRepo extends AbstractHibernateRepo implements
 		UserRepo {
 
 	private PictureRepo pictureRepo;
-	
+
 	@Autowired
-	public HibernateUserRepo(SessionFactory sessionFactory, PictureRepo pictureRepo) {
+	public HibernateUserRepo(SessionFactory sessionFactory,
+			PictureRepo pictureRepo) {
 		super(sessionFactory);
 		this.pictureRepo = pictureRepo;
 	}
@@ -25,11 +26,12 @@ public class HibernateUserRepo extends AbstractHibernateRepo implements
 	public User get(int userid) {
 		return get(User.class, userid);
 	}
-	
+
 	@Override
 	public boolean emailExists(String email, int id) {
 		if (id != -1)
-			return !find("from User where email = ? and id != ?", email, id).isEmpty();
+			return !find("from User where email = ? and id != ?", email, id)
+					.isEmpty();
 		else
 			return !find("from User where email = ?", email).isEmpty();
 	}
@@ -41,7 +43,8 @@ public class HibernateUserRepo extends AbstractHibernateRepo implements
 
 	@Override
 	public User login(String username, String password) {
-		List<User> list = find("from User where username = ? and password = ?", username, password);
+		List<User> list = find("from User where username = ? and password = ?",
+				username, password);
 		if (list.isEmpty())
 			return null;
 		return list.get(0);
@@ -51,6 +54,12 @@ public class HibernateUserRepo extends AbstractHibernateRepo implements
 	public void save(User u) {
 		pictureRepo.save(u.getAvatar());
 		super.save(u);
+	}
+
+	@Override
+	public List<User> getAll() {
+		List<User> list = find("from User");
+		return list;
 	}
 
 }

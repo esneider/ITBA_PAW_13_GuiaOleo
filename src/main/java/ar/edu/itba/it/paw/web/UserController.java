@@ -72,6 +72,17 @@ public class UserController extends BaseController {
 		return login(session);
 	}
 
+	@RequestMapping(value = { "/", "/user", "/user/list" })
+	public EnhancedModelAndView list(HttpSession session) {
+		if (!isLoggedIn(session) || !getLoggedInUser(session).isAdmin())
+			return indexContext();
+		EnhancedModelAndView mav = generateContext("User_List", true,
+				true);
+		mav.addObject("userList", userRepo.getAll());
+
+		return mav;
+	}
+
 	@RequestMapping(method = RequestMethod.POST)
 	public EnhancedModelAndView register(RegisterForm registerForm,
 			Errors errors, HttpSession session) {

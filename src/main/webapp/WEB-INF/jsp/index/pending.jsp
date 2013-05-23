@@ -13,8 +13,8 @@
 			        <dd>${restaurant.registerUser.name}</dd>
 			     <dt>Publishing Date</dt>
 			        <dd>${restaurant.applicationDate}</dd>
-			     <dt>View Detail</dt>
-			     <dd><a href="${ pageContext.request.contextPath}/bin/restaurant/view?id=${restaurant.id}"> Here </a> </dd>
+			     <dt>View Request</dt>
+			     <dd><a href="${ pageContext.request.contextPath}/bin/restaurant/publish?id=${restaurant.id}"> Here </a> </dd>
 			  
                     <dt>Restaurant</dt>
                         <dd><strong>${restaurant.name}</strong></dd>

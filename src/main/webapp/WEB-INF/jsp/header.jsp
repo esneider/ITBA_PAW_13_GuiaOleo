@@ -46,6 +46,9 @@
 		                                  <li role="presentation">
 		                                    <a role="menuitem" href="${ pageContext.request.contextPath }/bin/index/pending">See pending requests</a>
 		                                </li>
+		                                <li role="presentation">
+		                                    <a role="menuitem" href="${ pageContext.request.contextPath }/bin/user/list">See registered users</a>
+		                                </li>
                                     </c:if>
                                 <li role="presentation">
                                     <a role="menuitem" href="${ pageContext.request.contextPath }/bin/user/logout">Logout</a>

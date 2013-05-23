@@ -1,5 +1,7 @@
 package ar.edu.itba.it.paw.domain.user;
 
+import java.util.List;
+
 
 /**
  * User repository.
@@ -31,4 +33,9 @@ public interface UserRepo {
 	 * Saves user
 	 */
 	public void save(User u);
+	
+	/**
+	 * Get a list from all the Users
+	 */
+	public List<User> getAll();
 }
