@@ -80,7 +80,10 @@ public class HibernateRestaurantRepo extends AbstractHibernateRepo implements
 	@Override
 	public List<Restaurant> getPendingRestaurants() {
 		return find("from Restaurant  where state = 'Pending' ORDER BY applicationdate DESC");
-
+	}
+	
+	public Rating getRating(int id) { 
+		return get(Rating.class, id);
 	}
 
 }

@@ -61,7 +61,7 @@
 			
 				    <p class="lead">List of user comments</p>
 				
-				    <c:forEach var="comment" items="${commentList}">
+				    <c:forEach var="comment" items="${restaurant.ratings}">
 				        <p>
 				            <div class="span1">
 				                <img class="avatarPic" src="${ pageContext.request.contextPath }/bin/image/show?userId=${comment.user.avatar.id }"/>
@@ -73,6 +73,13 @@
 				                        ${comment.comment}
 				                    </p>
 				                    <small>By <em><a href="${ pageContext.request.contextPath }/bin/user/profile?userId=${comment.user.id}">${comment.user.name}</a></em> on ${comment.date}</small>
+				                	<c:if test="${user.type == 'Admin'}">
+				                		<form action="deleteComment" method="post">
+				      						<input type="hidden" name="ratingId" value="${comment.id}"/>
+				      						<input type="hidden" name="restId" value="${restaurant.id}"/>
+				      						<input type="submit" class="btn-mini btn-danger " value="Delete"/>
+				                		</form>
+				                	</c:if>
 				                </blockquote>
 				            </div>
 				        </p>

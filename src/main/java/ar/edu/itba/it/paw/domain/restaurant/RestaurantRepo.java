@@ -54,5 +54,9 @@ public interface RestaurantRepo {
 	 * Obtains a list from all Pending Restaurants
 	 */
 	public List<Restaurant> getPendingRestaurants();
-
+	
+	/**
+	 * Obtains a rating by its id
+	 */
+	public Rating getRating(int id);
 }

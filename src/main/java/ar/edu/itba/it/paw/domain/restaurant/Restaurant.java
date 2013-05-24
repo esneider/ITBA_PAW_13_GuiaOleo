@@ -11,6 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.Cascade;
+
 import ar.edu.itba.it.paw.domain.AbstractModel;
 import ar.edu.itba.it.paw.domain.foodtype.FoodType;
 import ar.edu.itba.it.paw.domain.user.User;
@@ -22,6 +24,7 @@ public class Restaurant extends AbstractModel {
 	Set<FoodType> foodtypes;
 
 	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
+	@Cascade(value=org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
 	Set<Rating> ratingsList = new HashSet<Rating>();
 
 	@ManyToOne
@@ -105,6 +108,10 @@ public class Restaurant extends AbstractModel {
 
 	public void addRating(Rating r) {
 		ratingsList.add(r);
+	}
+	
+	public void removeRating(Rating r) {
+		ratingsList.remove(r);
 	}
 
 	public int getRatingsAmmount() {

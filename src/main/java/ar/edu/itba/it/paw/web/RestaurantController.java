@@ -44,9 +44,8 @@ public class RestaurantController extends BaseController {
 						.equals("Admin")))
 			return indexContext();
 		EnhancedModelAndView mav = generateContext("Simple Restaurant", true,
-				true);
+				true, "restaurant/view");
 		mav.addObject("restaurant", rest);
-		mav.addObject("commentList", rest.getRatings());
 
 		if (isLoggedIn(session)) {
 			Rating rate = rest.getUserRating(getLoggedInUser(session));
@@ -127,5 +126,15 @@ public class RestaurantController extends BaseController {
 		restRepo.save(r);
 
 		return indexContext();
+	}
+	
+	@RequestMapping(method = RequestMethod.POST)
+	public ModelAndView deleteComment(@RequestParam("ratingId") Rating rating,
+			@RequestParam("restId") Restaurant rest, HttpSession session) {
+		if (rest == null || rating == null)
+			return indexContext();
+		rest.removeRating(rating);
+		restRepo.save(rest);
+		return view(rest, session);
 	}
 }
