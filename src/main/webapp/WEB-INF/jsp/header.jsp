@@ -36,20 +36,23 @@
                                 <img class="avatar" src="${ pageContext.request.contextPath }/bin/image/showUserImage"/>
                             </a>
                             <ul class="dropdown-menu" role="menu" aria-labelledby="user-dd">
-                            	<li role="presentation">
-                                    <a role="menuitem" href="${ pageContext.request.contextPath }/bin/restaurant/add">Register Restaurant</a>
-                                </li>
                                 <li role="presentation">
                                     <a role="menuitem" href="${ pageContext.request.contextPath }/bin/user/edit">Modify data</a>
                                 </li>
-                                    <c:if test="${user.type == 'Admin'}">
-		                                  <li role="presentation">
-		                                    <a role="menuitem" href="${ pageContext.request.contextPath }/bin/index/pending">See pending requests</a>
-		                                </li>
-		                                <li role="presentation">
-		                                    <a role="menuitem" href="${ pageContext.request.contextPath }/bin/user/list">See registered users</a>
-		                                </li>
-                                    </c:if>
+                                <li role="presentation">
+                                    <a role="menuitem" href="${ pageContext.request.contextPath }/bin/user/profile?userId=${user.id}">View my profile</a>
+                                </li>
+                            	<li role="presentation">
+                                    <a role="menuitem" href="${ pageContext.request.contextPath }/bin/restaurant/add">Register Restaurant</a>
+                                </li>
+                                <c:if test="${user.type == 'Admin'}">
+	                                  <li role="presentation">
+	                                    <a role="menuitem" href="${ pageContext.request.contextPath }/bin/index/pending">See pending requests</a>
+	                                </li>
+	                                <li role="presentation">
+	                                    <a role="menuitem" href="${ pageContext.request.contextPath }/bin/user/list">See registered users</a>
+	                                </li>
+                                </c:if>
                                 <li role="presentation">
                                     <a role="menuitem" href="${ pageContext.request.contextPath }/bin/user/logout">Logout</a>
                                 </li>

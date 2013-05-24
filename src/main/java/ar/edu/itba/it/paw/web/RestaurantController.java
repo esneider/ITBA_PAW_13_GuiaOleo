@@ -37,22 +37,23 @@ public class RestaurantController extends BaseController {
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView view(@RequestParam("id") Restaurant rest,
 			HttpSession session) {
-
+		if (rest == null)
+			return indexContext();
+		if (rest.getState().equals("Pending")
+				&& (!isLoggedIn(session) || !getLoggedInUser(session).getType()
+						.equals("Admin")))
+			return indexContext();
 		EnhancedModelAndView mav = generateContext("Simple Restaurant", true,
 				true);
-		if (rest != null) {
-			mav.addObject("restaurant", rest);
-			mav.addObject("commentList", rest.getRatings());
+		mav.addObject("restaurant", rest);
+		mav.addObject("commentList", rest.getRatings());
 
-			if (isLoggedIn(session)) {
-				Rating rate = rest.getUserRating(getLoggedInUser(session));
-				if (rate != null)
-					mav.addObject("userComment", rate);
-			}
-			return mav;
-		} else {
-			return indexContext();
+		if (isLoggedIn(session)) {
+			Rating rate = rest.getUserRating(getLoggedInUser(session));
+			if (rate != null)
+				mav.addObject("userComment", rate);
 		}
+		return mav;
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
@@ -104,7 +105,7 @@ public class RestaurantController extends BaseController {
 			return indexContext();
 		if (rest != null) {
 			EnhancedModelAndView mav = generateContext("Publish Restaurant",
-					true, true);
+					true, true, "restaurant/view");
 			mav.addObject("restaurant", rest);
 			return mav;
 		}
@@ -124,7 +125,7 @@ public class RestaurantController extends BaseController {
 			r.setState("Rejected");
 		}
 		restRepo.save(r);
-		
+
 		return indexContext();
 	}
 }
