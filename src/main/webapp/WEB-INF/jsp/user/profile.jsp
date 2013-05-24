@@ -11,12 +11,37 @@
 			        <dt>Surname</dt>
 			            <dd>${profileUser.surname}</dd>
 			        <dt>Mail</dt>
-			            <dd>${profileUser.email}</dd>	
+			            <dd>${profileUser.email}</dd>
+			       
+			            
+			            <br><br><br><br>
+				
+			            <c:if test="${notMe and profileUser.type != 'Admin'}">
+			            <div class="control-group controls"> 	
+							<form action="administrate" method="POST">
+								<input type="hidden" name="action" value="setadmin">
+								<input type="hidden" name="id" value="${profileUser.id}">
+								<input type="submit" class="btn btn-info" value="Set as administrator" > 
+							</form>
+						   
+	     	    		</div>
+	     	    	
+			            </c:if>
+			            <c:if test="${notMe and profileUser.type == 'Admin'}">
+			            <div class="control-group controls"> 	
+							<form action="administrate" method="POST">
+								<input type="hidden" name="action" value="unsetadmin">
+								<input type="hidden" name="id" value="${profileUser}">
+								<input type="submit" class="btn btn-info" value="Unset as administrator" > 
+							</form>
+						   
+	     	    		</div>
+			            </c:if>
 			            <br><br><br><br>
 			            <p class="lead">List of user comments</p>
 			
 			    <c:forEach var="comment" items="${profileUser.comments}">
-			        <p>
+			        
 			         
 			            <div class="offset1 comment">
 			                <blockquote>
@@ -27,7 +52,7 @@
 			                    <small>By <em>${comment.user.name}</em> on ${comment.date} to ${comment.restaurant.name}</small>
 			                </blockquote>
 			            </div>
-			        </p>
+			       
 			    </c:forEach>	
 	</dl>
 	

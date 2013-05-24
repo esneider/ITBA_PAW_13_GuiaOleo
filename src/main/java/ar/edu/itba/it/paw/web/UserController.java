@@ -8,6 +8,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.itba.it.paw.domain.user.User;
 import ar.edu.itba.it.paw.domain.user.UserRepo;
@@ -76,8 +77,7 @@ public class UserController extends BaseController {
 	public EnhancedModelAndView list(HttpSession session) {
 		if (!isLoggedIn(session) || !getLoggedInUser(session).isAdmin())
 			return indexContext();
-		EnhancedModelAndView mav = generateContext("User_List", true,
-				true);
+		EnhancedModelAndView mav = generateContext("User_List", true, true);
 		mav.addObject("userList", userRepo.getAll());
 
 		return mav;
@@ -147,9 +147,32 @@ public class UserController extends BaseController {
 	@RequestMapping(method = RequestMethod.GET)
 	public EnhancedModelAndView profile(HttpSession session,
 			@RequestParam(value = "userId", required = true) User u) {
-		EnhancedModelAndView mav = generateContext(u.getName() + " " + u.getSurname(), false, false);
+
+		EnhancedModelAndView mav = generateContext(
+				u.getName() + " " + u.getSurname(), false, false);
+		if (isLoggedIn(session))
+			mav.addObject("notMe", !getLoggedInUser(session).equals(u));
+		else
+			mav.addObject("notMe", false);
 		mav.addObject("profileUser", u);
+		System.out.println(u.getType());
+
 		return mav;
+	}
+
+	@RequestMapping(method = RequestMethod.POST)
+	public ModelAndView administrate(@RequestParam("action") String action,
+			@RequestParam("id") User u, HttpSession session) {
+		if (action.equals("setadmin")) {
+			u.setType("Admin");
+			System.out.println("Nombrado Admin");
+		} else if (action.equals("unsetadmin")) {
+			System.out.println("Desnombrado Admin");
+			u.setType("Normal");
+		}
+		userRepo.save(u);
+
+		return profile(session, u);
 	}
 
 }
