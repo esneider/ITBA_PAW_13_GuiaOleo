@@ -14,7 +14,7 @@ import ar.edu.itba.it.paw.domain.AbstractModel;
 import ar.edu.itba.it.paw.domain.user.User;
 
 @Entity
-public class Rating extends AbstractModel {
+public class Rating extends AbstractModel implements Comparable<Rating> {
 
 	private Integer score;
 	private String comment;
@@ -107,5 +107,11 @@ public class Rating extends AbstractModel {
 		if (restaurant != other.restaurant || user != other.user)
 			return false;
 		return true;
+	}
+
+	@Override
+	public int compareTo(Rating o) {
+
+		return this.likes.size() - this.unlikes.size();
 	}
 }

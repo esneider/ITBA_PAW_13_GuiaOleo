@@ -81,7 +81,7 @@
 				                        ${comment.comment}
 				                        
 				                       
-				                        <small> <em><a href="${ pageContext.request.contextPath }/bin/user/likecomment?userId=${comment.user.id}&ratingId=${comment.id}">Useful (${fn:length(comment.likes)})</a></em> <img src="/paw/assets/img/up.png"></small> 
+				                        <small> <em><a href="${ pageContext.request.contextPath }/bin/user/likecomment?userId=${comment.user.id}&ratingId=${comment.id}">Useful (${fn:length(comment.likes)})<img src="/paw/assets/img/up.png"></a></em> </small> 
 				                        <small> <em><a href="${ pageContext.request.contextPath }/bin/user/unlikecomment?userId=${comment.user.id}&ratingId=${comment.id}">Not Useful(${fn:length(comment.unlikes)})</em> <img src="/paw/assets/img/down.png"></a></small> 
 				                        
 				                    </p>

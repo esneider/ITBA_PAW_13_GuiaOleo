@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 
 import ar.edu.itba.it.paw.domain.AbstractHibernateRepo;
 import ar.edu.itba.it.paw.domain.picture.PictureRepo;
-import ar.edu.itba.it.paw.domain.restaurant.Rating;
 
 @Repository
 public class HibernateUserRepo extends AbstractHibernateRepo implements
@@ -61,12 +60,6 @@ public class HibernateUserRepo extends AbstractHibernateRepo implements
 	public List<User> getAll() {
 		List<User> list = find("from User");
 		return list;
-	}
-
-	@Override
-	public Rating findComment(User u, Rating r) {
-		List<Rating> result = find("from rating where user_id = ? and rating_id = ? ", u.getId(), r.getId());
-		return result.get(0);
 	}
 
 }

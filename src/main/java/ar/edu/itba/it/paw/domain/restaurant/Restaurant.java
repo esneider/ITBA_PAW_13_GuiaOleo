@@ -1,8 +1,9 @@
 package ar.edu.itba.it.paw.domain.restaurant;
 
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -62,7 +63,7 @@ public class Restaurant extends AbstractModel {
 
 	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
 	@Cascade(value = org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
-	Set<Rating> ratingsList = new HashSet<Rating>();
+	SortedSet<Rating> ratingsList = new TreeSet<Rating>();
 
 	@ManyToOne
 	private User registerUser;
@@ -128,7 +129,8 @@ public class Restaurant extends AbstractModel {
 		return name;
 	}
 
-	public Set<Rating> getRatings() {
+	public SortedSet<Rating> getRatings() {
+
 		return ratingsList;
 	}
 

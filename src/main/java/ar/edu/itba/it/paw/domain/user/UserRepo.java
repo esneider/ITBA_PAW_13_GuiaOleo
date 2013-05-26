@@ -2,8 +2,6 @@ package ar.edu.itba.it.paw.domain.user;
 
 import java.util.List;
 
-import ar.edu.itba.it.paw.domain.restaurant.Rating;
-
 /**
  * User repository.
  * 
@@ -39,10 +37,5 @@ public interface UserRepo {
 	 * Get a list from all the Users
 	 */
 	public List<User> getAll();
-	
-	/**
-	 * Find a single comment by a particular user
-	 */
-	public Rating findComment(User u, Rating r);
 
 }

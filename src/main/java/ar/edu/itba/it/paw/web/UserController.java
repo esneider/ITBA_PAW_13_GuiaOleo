@@ -1,5 +1,7 @@
 package ar.edu.itba.it.paw.web;
 
+import java.util.Set;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -181,18 +183,17 @@ public class UserController extends BaseController {
 			HttpSession session) {
 		if (!isLoggedIn(session))
 			return indexContext();
-		Rating toUpdate = userRepo.findComment(u, r);
-		if (toUpdate.getLikes().contains(getLoggedInUser(session))) {
-			// SIGNIFICA QUE YA LIKEÓ
-			// AVISAR AL USUARIO ?
-		} else {
-			toUpdate.addLikes(getLoggedInUser(session));
-			userRepo.save(u);
+		Set<Rating> rr = u.getComments();
+		for (Rating rating : rr) {
+			if (rating.equals(r))
+				if (!rating.getLikes().contains(getLoggedInUser(session))) {
+					rating.addLikes(getLoggedInUser(session));
+					userRepo.save(u);
+					break;
+				}
 		}
-		EnhancedModelAndView mav = generateContext("unlike", true, true);
-		mav.setViewName("restaurant/view");
-		System.out.println("Hola");
-		return mav;
+		System.out.println("HOLAAAAAAAAAAAAA");
+		return indexContext();
 
 	}
 
@@ -203,19 +204,20 @@ public class UserController extends BaseController {
 			HttpSession session) {
 		if (!isLoggedIn(session))
 			return indexContext();
-		Rating toUpdate = userRepo.findComment(u, r);
-		if (toUpdate.getLikes().contains(getLoggedInUser(session))) {
-			// SIGNIFICA QUE YA LIKEÓ
-			// AVISAR AL USUARIO ?
-		} else {
-			toUpdate.addunLikes(getLoggedInUser(session));
-			userRepo.save(u);
-		}
-		EnhancedModelAndView mav = generateContext("unlike", true, true);
-		mav.setViewName("restaurant/view");
-		System.out.println("Hola");
 
-		return mav;
+		Set<Rating> rr = u.getComments();
+		for (Rating rating : rr) {
+			if (rating.equals(r))
+				if (!rating.getUnlikes().contains(getLoggedInUser(session))) {
+					rating.addunLikes(getLoggedInUser(session));
+					userRepo.save(u);
+					break;
+				}
+		}
+
+		System.out.println("HOLAAAAAAAAAAAAA");
+
+		return indexContext();
 
 	}
 }
