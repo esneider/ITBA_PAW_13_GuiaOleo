@@ -1,6 +1,7 @@
 package ar.edu.itba.it.paw.domain.restaurant;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Restaurant repository.
@@ -41,7 +42,7 @@ public interface RestaurantRepo {
 	public List<Restaurant> getRestaurantsByFoodType(String query);
 
 	/**
-	 * Obtains a list from all the Restaurants by Query
+	 * Obtains a List from all the Restaurants Searched by Query
 	 */
 	public List<Restaurant> getRestaurantsByQuery(String query);
 

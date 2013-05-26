@@ -1,5 +1,7 @@
 package ar.edu.itba.it.paw.web;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import ar.edu.itba.it.paw.domain.foodtype.FoodType;
+import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
 import ar.edu.itba.it.paw.domain.restaurant.RestaurantRepo;
 import ar.edu.itba.it.paw.utils.EnhancedModelAndView;
 
@@ -34,10 +37,12 @@ public class IndexController extends BaseController {
 
 	@RequestMapping(value = { "/search", "/index/search" })
 	public EnhancedModelAndView search(
-			@RequestParam(value = "query", required = false) String query) {
+			@RequestParam(value = "query", required = true) String query) {
 
 		EnhancedModelAndView mav = generateContext("List", true, true);
-		mav.addObject("restaurantList", restRepo.getRestaurantsByQuery(query));
+		List<Restaurant> r = restRepo.getRestaurantsByQuery(query);
+		System.out.println(r.size());
+		mav.addObject("restaurantList", r);
 		mav.setViewName("index/list");
 		mav.addObject("squery", query);
 		return mav;

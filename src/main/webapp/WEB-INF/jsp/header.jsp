@@ -20,7 +20,7 @@
 
     <div class="navbar navbar-fixed-top">
         <div class="navbar-inner">
-            <form class="navbar-form" action="search" method="get">
+            <form class="navbar-form" action="${pageContext.request.contextPath }/bin/index/search" method="get">
                 <div class="input-append">
                     <input type="text" class="span5" placeholder="Search Restaurant" name="query"/>
                     <input class="btn btn-primary" type="submit" value="Search"/>

@@ -15,25 +15,26 @@ import ar.edu.itba.it.paw.domain.restaurant.Rating;
 import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
 
 @Entity
-@Table(name="SystemUser")
+@Table(name = "SystemUser")
 public class User extends AbstractModel {
 
 	private String name, surname, email, username, password, type;
 	private Date registerDate;
-	
+
 	@OneToOne
 	private Picture avatar;
-	
+
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private Set<Rating> comments;
-	
+
 	@OneToMany(mappedBy = "registerUser", cascade = CascadeType.ALL)
 	private Set<Restaurant> registeredRestaurants;
 
-	public User() {}
+	public User() {
+	}
 
-	public User(String name, String surname, String email,
-			String username, String password, Picture avatar, Date date, String type) {
+	public User(String name, String surname, String email, String username,
+			String password, Picture avatar, Date date, String type) {
 		this.name = name;
 		this.surname = surname;
 		this.email = email;
@@ -43,9 +44,9 @@ public class User extends AbstractModel {
 		this.registerDate = date;
 		this.type = type;
 	}
-	
-	public User(String name, String surname, String email,
-			String username, String password, Date date, String type) {
+
+	public User(String name, String surname, String email, String username,
+			String password, Date date, String type) {
 
 		this(name, surname, email, username, password, null, date, type);
 	}
@@ -69,7 +70,7 @@ public class User extends AbstractModel {
 	public String getPassword() {
 		return password;
 	}
-	
+
 	public Picture getAvatar() {
 		return avatar;
 	}
@@ -81,11 +82,11 @@ public class User extends AbstractModel {
 	public String getType() {
 		return type;
 	}
-	
+
 	public Date getRegisterDate() {
 		return registerDate;
 	}
-	
+
 	public Set<Rating> getComments() {
 		return comments;
 	}
@@ -96,31 +97,35 @@ public class User extends AbstractModel {
 	}
 
 	public void setName(String name) {
-		if (name != null) 
+		if (name != null)
 			this.name = name;
 	}
 
 	public void setSurname(String surname) {
-		if (surname != null) 
+		if (surname != null)
 			this.surname = surname;
 	}
 
 	public void setEmail(String email) {
-		if (email != null) 
+		if (email != null)
 			this.email = email;
 	}
 
 	public void setPassword(String password) {
-		if (password != null) 
+		if (password != null)
 			this.password = password;
 	}
 
 	public void setAvatar(Picture avatar) {
-		if (avatar != null) 
+		if (avatar != null)
 			this.avatar = avatar;
 	}
 
 	public boolean isAdmin() {
 		return type.equals("Admin");
+	}
+
+	public void addPublishedRestaurant(Restaurant r) {
+		registeredRestaurants.add(r);
 	}
 }

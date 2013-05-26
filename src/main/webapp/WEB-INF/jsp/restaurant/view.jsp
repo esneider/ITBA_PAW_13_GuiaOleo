@@ -8,7 +8,7 @@
 			    <h2 class="restaurantTitle">${restaurant.name}</h2>
 			
 			    <dl class="dl-horizontal">
-			
+			    	
 			        <dt>Address</dt>
 			            <dd>${restaurant.address}</dd>
 			        <dt>Area</dt>
@@ -34,7 +34,7 @@
 			            </dd>
 			            
 			            <c:if test="${not empty restaurant.registerUser}">
-			        		<dt>Registering User </dt>
+			        		<dt>Published by </dt>
 			        			<dd>	
 			        				<a href="${ pageContext.request.contextPath }/bin/user/profile?userId=${restaurant.registerUser.id}">${restaurant.registerUser.name} ${restaurant.registerUser.surname}</a>
 			        			</dd>

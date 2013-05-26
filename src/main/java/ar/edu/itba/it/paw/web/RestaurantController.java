@@ -16,6 +16,7 @@ import ar.edu.itba.it.paw.domain.restaurant.Rating;
 import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
 import ar.edu.itba.it.paw.domain.restaurant.RestaurantRepo;
 import ar.edu.itba.it.paw.domain.user.User;
+import ar.edu.itba.it.paw.domain.user.UserRepo;
 import ar.edu.itba.it.paw.utils.EnhancedModelAndView;
 import ar.edu.itba.it.paw.web.command.RestaurantForm;
 import ar.edu.itba.it.paw.web.command.validator.RestaurantFormValidator;
@@ -91,8 +92,9 @@ public class RestaurantController extends BaseController {
 		rValidator.validate(restaurantForm, errors);
 		if (errors.hasErrors())
 			return add(session);
-		Restaurant r = restaurantForm
-				.build(getLoggedInUser(session), "Pending");
+		User actualUser = getLoggedInUser(session);
+		Restaurant r = restaurantForm.build(actualUser, "Pending");
+
 		restRepo.save(r);
 		return indexContext();
 	}
@@ -127,7 +129,7 @@ public class RestaurantController extends BaseController {
 
 		return indexContext();
 	}
-	
+
 	@RequestMapping(method = RequestMethod.POST)
 	public ModelAndView deleteComment(@RequestParam("ratingId") Rating rating,
 			@RequestParam("restId") Restaurant rest, HttpSession session) {

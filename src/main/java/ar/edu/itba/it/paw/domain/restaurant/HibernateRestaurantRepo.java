@@ -1,8 +1,11 @@
 package ar.edu.itba.it.paw.domain.restaurant;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,20 +72,44 @@ public class HibernateRestaurantRepo extends AbstractHibernateRepo implements
 
 	@Override
 	public List<Restaurant> getRestaurantsByQuery(String query) {
-
-		return null;
+		query = "%" + query + "%";
+		//NO ES MAS INSENSITIVE. NO EXISTE EL EQUIVALENTE iLIKE en HQL
+		List<Restaurant> result = new ArrayList<Restaurant>();
+		List<Restaurant> byName = find("from Restaurant where name LIKE ? ",
+				query);
+		List<Restaurant> byArea = find("from Restaurant where area LIKE ? ",
+				query);
+		// List<Restaurant> byFoodType = find(
+		// "from Restaurant join restaurant_foodtype where foodtype LIKE ? ",
+		// query);
+		Set<Restaurant> s = new HashSet<Restaurant>();
+		//SIGUE INSERTANDO REPETIDOS, AUNQUE METÍ BIEN EL HASHCODE Y EL EQUALS
+		for (Restaurant restaurant : byName) {
+			if (s.add(restaurant))
+				result.add(restaurant);
+		}
+		for (Restaurant restaurant : byArea) {
+			if (s.add(restaurant))
+				result.add(restaurant);
+		}
+		// for (Restaurant restaurant : byFoodType) {
+		// if (s.add(restaurant))
+		// result.add(restaurant);
+		// }
+		return result;
 	}
 
 	@Override
 	public void save(Restaurant r) {
 		super.save(r);
 	}
+
 	@Override
 	public List<Restaurant> getPendingRestaurants() {
 		return find("from Restaurant  where state = 'Pending' ORDER BY applicationdate DESC");
 	}
-	
-	public Rating getRating(int id) { 
+
+	public Rating getRating(int id) {
 		return get(Rating.class, id);
 	}
 
