@@ -1,5 +1,6 @@
 package ar.edu.itba.it.paw.domain.foodtype;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -28,16 +29,25 @@ public class FoodType extends AbstractModel implements Comparable<FoodType> {
 	}
 	
 	public Set<Restaurant> getRestaurants() {
-		return restaurants;
+		Set<Restaurant> acceptedRestaurants = new HashSet<Restaurant>();
+		for (Restaurant r : restaurants) {
+			if (r.getState().equals("Accepted"))
+				acceptedRestaurants.add(r);
+		}
+		return acceptedRestaurants;
 	}
 
 	public Integer getAmmount() {
-		return restaurants.size();
+		int size = 0;
+		for (Restaurant r : restaurants) {
+			if (r.getState().equals("Accepted"))
+				size++;
+		}
+		return size;
 	}
 	
 	@Override
 	public int compareTo(FoodType other) {
-
 		return name.compareTo(other.name);
 	}
 }
