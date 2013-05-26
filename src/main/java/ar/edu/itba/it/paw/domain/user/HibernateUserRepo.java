@@ -65,10 +65,8 @@ public class HibernateUserRepo extends AbstractHibernateRepo implements
 
 	@Override
 	public Rating findComment(User u, Rating r) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Rating> result = find("from rating where user_id = ? and rating_id = ? ", u.getId(), r.getId());
+		return result.get(0);
 	}
-
-
 
 }

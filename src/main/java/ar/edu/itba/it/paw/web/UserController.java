@@ -190,7 +190,7 @@ public class UserController extends BaseController {
 			userRepo.save(u);
 		}
 		EnhancedModelAndView mav = generateContext("unlike", true, true);
-		mav.setViewName("index/view");
+		mav.setViewName("restaurant/view");
 		return mav;
 
 	}
@@ -211,7 +211,7 @@ public class UserController extends BaseController {
 			userRepo.save(u);
 		}
 		EnhancedModelAndView mav = generateContext("unlike", true, true);
-		mav.setViewName("index/view");
+		mav.setViewName("restaurant/view");
 		return mav;
 
 	}
