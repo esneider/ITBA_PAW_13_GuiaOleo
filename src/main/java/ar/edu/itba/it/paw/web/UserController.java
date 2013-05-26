@@ -177,7 +177,7 @@ public class UserController extends BaseController {
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView likecomment(
 			@RequestParam(value = "userId", required = true) User u,
-			@RequestParam(value = "commentId", required = true) Rating r,
+			@RequestParam(value = "ratingId", required = true) Rating r,
 			HttpSession session) {
 		if (!isLoggedIn(session))
 			return indexContext();
@@ -191,6 +191,7 @@ public class UserController extends BaseController {
 		}
 		EnhancedModelAndView mav = generateContext("unlike", true, true);
 		mav.setViewName("restaurant/view");
+		System.out.println("Hola");
 		return mav;
 
 	}
@@ -198,7 +199,7 @@ public class UserController extends BaseController {
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView unlikecomment(
 			@RequestParam(value = "userId", required = true) User u,
-			@RequestParam(value = "commentId", required = true) Rating r,
+			@RequestParam(value = "ratingId", required = true) Rating r,
 			HttpSession session) {
 		if (!isLoggedIn(session))
 			return indexContext();
@@ -212,6 +213,8 @@ public class UserController extends BaseController {
 		}
 		EnhancedModelAndView mav = generateContext("unlike", true, true);
 		mav.setViewName("restaurant/view");
+		System.out.println("Hola");
+
 		return mav;
 
 	}
