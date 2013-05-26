@@ -134,10 +134,21 @@ h2.title {
 	display: inline;
 }
 
-.fRight {
-	float: right;
-}
-
 .detail {
 	width: 500px;
+}
+
+.profileHeader {
+	width: 800px;
+	margin-bottom: 200px;
+}
+
+.profileFields {
+	 float: left;
+	 width: 620px;
+	 margin-left: 50px;
+}
+
+.inline {
+	display: inline;
 }

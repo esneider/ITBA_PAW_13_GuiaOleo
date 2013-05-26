@@ -77,7 +77,7 @@ public class UserController extends BaseController {
 	public EnhancedModelAndView list(HttpSession session) {
 		if (!isLoggedIn(session) || !getLoggedInUser(session).isAdmin())
 			return indexContext();
-		EnhancedModelAndView mav = generateContext("User_List", true, true);
+		EnhancedModelAndView mav = generateContext("User List", true, true);
 		mav.addObject("userList", userRepo.getAll());
 
 		return mav;
@@ -149,7 +149,7 @@ public class UserController extends BaseController {
 			@RequestParam(value = "userId", required = true) User u) {
 
 		EnhancedModelAndView mav = generateContext(
-				u.getName() + " " + u.getSurname(), false, false);
+				u.getName() + " " + u.getSurname(), true, true, "user/profile");
 		if (isLoggedIn(session))
 			mav.addObject("notMe", !getLoggedInUser(session).equals(u));
 		else
@@ -165,9 +165,7 @@ public class UserController extends BaseController {
 			@RequestParam("id") User u, HttpSession session) {
 		if (action.equals("setadmin")) {
 			u.setType("Admin");
-			System.out.println("Nombrado Admin");
 		} else if (action.equals("unsetadmin")) {
-			System.out.println("Desnombrado Admin");
 			u.setType("Normal");
 		}
 		userRepo.save(u);

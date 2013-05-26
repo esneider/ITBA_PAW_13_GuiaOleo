@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 
 import ar.edu.itba.it.paw.domain.foodtype.FoodTypeRepo;
 import ar.edu.itba.it.paw.domain.picture.PictureRepo;
+import ar.edu.itba.it.paw.domain.restaurant.RestaurantRepo;
 import ar.edu.itba.it.paw.domain.user.User;
 import ar.edu.itba.it.paw.utils.EnhancedModelAndView;
 
@@ -18,6 +19,9 @@ public abstract class BaseController {
 	
 	@Autowired
 	private FoodTypeRepo ftRepo;
+	
+	@Autowired
+	private RestaurantRepo restRepo;
 
 	public boolean isLoggedIn(HttpSession session) {
 
@@ -52,7 +56,8 @@ public abstract class BaseController {
 		EnhancedModelAndView mav = new EnhancedModelAndView(title);
 
 		mav.addObject("sidebar", sidebar);
-
+		mav.addObject("numberOfRestaurants", restRepo.getAll().size());
+		
 		if (setFoodTypes) {
 			mav.addObject("foodTypesList", ftRepo.getAll());
 		}

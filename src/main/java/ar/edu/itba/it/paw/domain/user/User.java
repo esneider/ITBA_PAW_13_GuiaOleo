@@ -33,7 +33,7 @@ public class User extends AbstractModel {
 	public User() {}
 
 	public User(String name, String surname, String email,
-			String username, String password, Picture avatar, Date date) {
+			String username, String password, Picture avatar, Date date, String type) {
 		this.name = name;
 		this.surname = surname;
 		this.email = email;
@@ -41,12 +41,13 @@ public class User extends AbstractModel {
 		this.password = password;
 		this.avatar = avatar;
 		this.registerDate = date;
+		this.type = type;
 	}
 	
 	public User(String name, String surname, String email,
-			String username, String password, Date date) {
+			String username, String password, Date date, String type) {
 
-		this(name, surname, email, username, password, null, date);
+		this(name, surname, email, username, password, null, date, type);
 	}
 
 	public String getName() {

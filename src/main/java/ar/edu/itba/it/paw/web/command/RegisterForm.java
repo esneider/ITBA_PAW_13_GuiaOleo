@@ -105,7 +105,7 @@ public class RegisterForm {
 		if (avatar != null && !avatar.isEmpty()) 
 			pic = new Picture(avatar.getBytes(), avatar.getOriginalFilename());
 		if (user == null) {
-			return new User(name, surname, email, username, password, pic, new Date());
+			return new User(name, surname, email, username, password, pic, new Date(), "Normal");
 		} else {
 			user.setAvatar(pic);
 			user.setEmail(email);

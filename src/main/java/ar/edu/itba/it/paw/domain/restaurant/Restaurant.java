@@ -140,7 +140,7 @@ public class Restaurant extends AbstractModel {
 		for (Rating r : ratingsList) {
 			avg += r.getScore();
 		}
-		return avg / ratingsList.size();
+		return ((float)Math.round((avg / ratingsList.size())*100))/100;
 	}
 
 

@@ -30,8 +30,15 @@
 			        <dt>Average Score</dt>
 			            <dd>
 			                <span class="badge">${restaurant.avgScore}</span>
-			                (Scored by ${restaurant.ratings} people)
+			                (Scored by ${restaurant.ratingsAmmount} people)
 			            </dd>
+			            
+			            <c:if test="${not empty restaurant.registerUser}">
+			        		<dt>Registering User </dt>
+			        			<dd>	
+			        				<a href="${ pageContext.request.contextPath }/bin/user/profile?userId=${restaurant.registerUser.id}">${restaurant.registerUser.name} ${restaurant.registerUser.surname}</a>
+			        			</dd>
+			            </c:if>
 			
 			    </dl>
 			
