@@ -125,7 +125,4 @@ public class User extends AbstractModel {
 		return type.equals("Admin");
 	}
 
-	public void addPublishedRestaurant(Restaurant r) {
-		registeredRestaurants.add(r);
-	}
 }

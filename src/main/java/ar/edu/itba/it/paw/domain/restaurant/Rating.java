@@ -2,6 +2,7 @@ package ar.edu.itba.it.paw.domain.restaurant;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -13,13 +14,12 @@ import javax.persistence.Transient;
 import ar.edu.itba.it.paw.domain.AbstractModel;
 import ar.edu.itba.it.paw.domain.user.User;
 
-
 @Entity
 public class Rating extends AbstractModel {
 
 	private Integer score;
 	private String comment;
-	
+
 	@ManyToOne
 	private User user;
 
@@ -30,16 +30,17 @@ public class Rating extends AbstractModel {
 
 	@Transient
 	private java.sql.Date SQLdate;
-	
+
 	@ManyToMany(cascade = CascadeType.ALL)
 	Set<User> likes = new HashSet<User>();
 	@ManyToMany(cascade = CascadeType.ALL)
 	Set<User> unlikes = new HashSet<User>();
-	
 
-	public Rating() {}
+	public Rating() {
+	}
 
-	public Rating(int score, String comment, User user, Restaurant restaurant, Date date) {
+	public Rating(int score, String comment, User user, Restaurant restaurant,
+			Date date) {
 
 		this.score = score;
 		this.comment = comment;
@@ -48,7 +49,7 @@ public class Rating extends AbstractModel {
 		this.date = date;
 		this.SQLdate = new java.sql.Date(date.getTime());
 	}
-	
+
 	public int getScore() {
 		return score;
 	}
@@ -64,15 +65,31 @@ public class Rating extends AbstractModel {
 	public Restaurant getRestaurant() {
 		return restaurant;
 	}
-	
+
+	public Set<User> getLikes() {
+		return likes;
+	}
+
+	public void addLikes(User user) {
+		this.likes.add(user);
+	}
+
+	public void addunLikes(User user) {
+		this.unlikes.add(user);
+	}
+
+	public Set<User> getUnlikes() {
+		return unlikes;
+	}
+
 	public Date getDate() {
 		return date;
 	}
-	
+
 	public java.sql.Date getSQLDate() {
 		return SQLdate;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return user.hashCode() + restaurant.hashCode();

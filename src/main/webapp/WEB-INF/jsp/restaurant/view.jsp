@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<c:import url="../header.jsp" />
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+ <c:import url="../header.jsp" />
 <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script>
 	<div class="restdetail">
 		<c:choose>
@@ -76,9 +77,15 @@
 				            <div class="offset1 comment">
 				                <blockquote>
 				                    <p>
-				                        <strong>Score <span class="badge">${comment.score}</span></strong>:
+				                        <strong>Score <span class="badge">${comment.score}</span></strong> :
 				                        ${comment.comment}
+				                        
+				                       
+				                        <small> <em><a href="${ pageContext.request.contextPath }/bin/user/likecomment?userId=${comment.user.id}">Useful (${fn:length(comment.likes)})</a></em> <img src="/paw/assets/img/up.png"></small> 
+				                        <small> <em><a href="${ pageContext.request.contextPath }/bin/user/unlikecomment?userId=${comment.user.id}?ratingId=${comment.id}">Not Useful(${fn:length(comment.unlikes)})</em> <img src="/paw/assets/img/down.png"></a></small> 
+				                        
 				                    </p>
+				                    <p>Rating:   ${fn:length(comment.likes) - fn:length(comment.unlikes)} points </p>
 				                    <small>By <em><a href="${ pageContext.request.contextPath }/bin/user/profile?userId=${comment.user.id}">${comment.user.name}</a></em> on ${comment.date}</small>
 				                	<c:if test="${user.type == 'Admin'}">
 				                		<form action="deleteComment" method="post">

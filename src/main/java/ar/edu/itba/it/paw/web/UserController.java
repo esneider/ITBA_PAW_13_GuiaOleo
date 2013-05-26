@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import ar.edu.itba.it.paw.domain.restaurant.Rating;
 import ar.edu.itba.it.paw.domain.user.User;
 import ar.edu.itba.it.paw.domain.user.UserRepo;
 import ar.edu.itba.it.paw.utils.EnhancedModelAndView;
@@ -173,4 +174,45 @@ public class UserController extends BaseController {
 		return profile(session, u);
 	}
 
+	@RequestMapping(method = RequestMethod.GET)
+	public ModelAndView likecomment(
+			@RequestParam(value = "userId", required = true) User u,
+			@RequestParam(value = "commentId", required = true) Rating r,
+			HttpSession session) {
+		if (!isLoggedIn(session))
+			return indexContext();
+		Rating toUpdate = userRepo.findComment(u, r);
+		if (toUpdate.getLikes().contains(getLoggedInUser(session))) {
+			// SIGNIFICA QUE YA LIKEÓ
+			// AVISAR AL USUARIO ?
+		} else {
+			toUpdate.addLikes(getLoggedInUser(session));
+			userRepo.save(u);
+		}
+		EnhancedModelAndView mav = generateContext("unlike", true, true);
+		mav.setViewName("index/view");
+		return mav;
+
+	}
+
+	@RequestMapping(method = RequestMethod.GET)
+	public ModelAndView unlikecomment(
+			@RequestParam(value = "userId", required = true) User u,
+			@RequestParam(value = "commentId", required = true) Rating r,
+			HttpSession session) {
+		if (!isLoggedIn(session))
+			return indexContext();
+		Rating toUpdate = userRepo.findComment(u, r);
+		if (toUpdate.getLikes().contains(getLoggedInUser(session))) {
+			// SIGNIFICA QUE YA LIKEÓ
+			// AVISAR AL USUARIO ?
+		} else {
+			toUpdate.addunLikes(getLoggedInUser(session));
+			userRepo.save(u);
+		}
+		EnhancedModelAndView mav = generateContext("unlike", true, true);
+		mav.setViewName("index/view");
+		return mav;
+
+	}
 }

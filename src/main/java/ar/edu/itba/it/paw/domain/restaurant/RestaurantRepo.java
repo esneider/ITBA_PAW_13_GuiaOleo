@@ -1,7 +1,6 @@
 package ar.edu.itba.it.paw.domain.restaurant;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * Restaurant repository.
