@@ -1,6 +1,8 @@
 package ar.edu.itba.it.paw.web.filter;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -13,16 +15,19 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import ar.edu.itba.it.paw.domain.exceptions.SQLNoConnectionException;
+import ar.edu.itba.it.paw.services.MailSender;
 
 public class ErrorFilter implements Filter {
 
 	private static Logger logger = Logger.getLogger(ErrorFilter.class);
 
 	@Override
-	public void init(FilterConfig arg0) throws ServletException {}
+	public void init(FilterConfig arg0) throws ServletException {
+	}
 
 	@Override
-	public void destroy() {}
+	public void destroy() {
+	}
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response,
@@ -38,14 +43,22 @@ public class ErrorFilter implements Filter {
 
 			HttpServletResponse r = (HttpServletResponse) response;
 			r.setStatus(500);
-			request.getRequestDispatcher("/WEB-INF/jsp/dberror.jsp").forward(request, r);
+			StringWriter sw = new StringWriter();
+			PrintWriter pw = new PrintWriter(sw);
+			e.printStackTrace(pw);
+			if (!MailSender.send(sw.toString())) {
+				System.out.println("Error Sending mail");
+			}
+			request.getRequestDispatcher("/WEB-INF/jsp/dberror.jsp").forward(
+					request, r);
 
 		} catch (Exception e) {
 
 			logger.error(e.getMessage(), e.fillInStackTrace());
 
-			//e.printStackTrace();
-			//request.getRequestDispatcher("/WEB-INF/jsp/error.jsp").forward(request, response);
+			// e.printStackTrace();
+			// request.getRequestDispatcher("/WEB-INF/jsp/error.jsp").forward(request,
+			// response);
 		}
 
 	}
