@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import ar.edu.itba.it.paw.domain.AbstractHibernateRepo;
+import ar.edu.itba.it.paw.domain.user.User;
 
 @Repository
 public class HibernateRestaurantRepo extends AbstractHibernateRepo implements
@@ -111,6 +112,28 @@ public class HibernateRestaurantRepo extends AbstractHibernateRepo implements
 
 	public Rating getRating(int id) {
 		return get(Rating.class, id);
+	}
+
+	@Override
+	public Set<Restaurant> getRecommendedRestaurants(Restaurant r, User u) {
+		Set<Rating> userRatings = r.getRatings();
+		Set<Restaurant> recommendedRestaurants = new HashSet<Restaurant>();
+		for (Rating rate : userRatings) {
+			if (!rate.getUser().equals(u)) {
+				if (rate.getScore() >= 3) {
+					addLikedRestaurants(recommendedRestaurants, rate.getUser(), r);
+				}
+			}
+		}
+		return recommendedRestaurants;
+	}
+	
+	public void addLikedRestaurants(Set<Restaurant> set, User u, Restaurant rest) {
+		for(Rating r : u.getComments()) {
+			if (r.getScore() >= 3 && !r.getRestaurant().equals(rest)) {
+				set.add(r.getRestaurant());
+			}
+		}
 	}
 
 }

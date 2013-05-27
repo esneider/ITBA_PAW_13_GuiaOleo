@@ -41,7 +41,6 @@ public class IndexController extends BaseController {
 
 		EnhancedModelAndView mav = generateContext("List", true, true);
 		List<Restaurant> r = restRepo.getRestaurantsByQuery(query);
-		System.out.println(r.size());
 		mav.addObject("restaurantList", r);
 		mav.setViewName("index/list");
 		mav.addObject("squery", query);

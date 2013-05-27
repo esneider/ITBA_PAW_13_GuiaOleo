@@ -1,6 +1,9 @@
 package ar.edu.itba.it.paw.domain.restaurant;
 
 import java.util.List;
+import java.util.Set;
+
+import ar.edu.itba.it.paw.domain.user.User;
 
 /**
  * Restaurant repository.
@@ -59,4 +62,11 @@ public interface RestaurantRepo {
 	 * Obtains a rating by its id
 	 */
 	public Rating getRating(int id);
+	
+	/**
+	 * Gets recommended restaurants from users who like 
+	 * the given restaurant and are not the user sent by
+	 * parameter.
+	 */
+	public Set<Restaurant> getRecommendedRestaurants(Restaurant r, User u);
 }

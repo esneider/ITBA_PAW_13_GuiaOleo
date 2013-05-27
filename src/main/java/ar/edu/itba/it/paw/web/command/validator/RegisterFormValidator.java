@@ -52,6 +52,9 @@ public class RegisterFormValidator implements Validator {
 			if (obj.getUsername().length() > 10) {
 				errors.rejectValue("username", "toolong");
 			}
+			if (userRepo.usernameExists(obj.getUsername())) {
+				errors.rejectValue("username", "duplicated");
+			}
 		}
 		if (obj.getAvatar().isEmpty())
 			errors.rejectValue("avatar", "empty");

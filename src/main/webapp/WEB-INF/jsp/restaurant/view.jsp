@@ -143,5 +143,13 @@
 				Sorry, this restaurant doesn't exist
 			</c:otherwise>
 		</c:choose>
+		<br><br><hr><br><br>
+		<h3>See restaurants recommended by other users</h3>
+		<c:forEach var="restaurant" items="${recommended}"> 		         
+            <dl class="dl-horizontal">
+             	<dt>${restaurant.name}</dt>
+        			<dd><a href="${ pageContext.request.contextPath }/bin/restaurant/view?id=${restaurant.id}">View</a></dd>
+        	</dl>
+			</c:forEach>
 	<div>
 <c:import url="../footer.jsp" />

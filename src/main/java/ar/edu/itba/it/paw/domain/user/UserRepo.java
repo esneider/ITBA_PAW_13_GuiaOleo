@@ -37,5 +37,5 @@ public interface UserRepo {
 	 * Get a list from all the Users
 	 */
 	public List<User> getAll();
-
+	
 }
