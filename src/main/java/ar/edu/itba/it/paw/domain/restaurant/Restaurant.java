@@ -52,7 +52,7 @@ public class Restaurant extends AbstractModel {
 		this.website = website;
 		this.timerange = timerange;
 		this.avgprice = ((float) Math.round(avgprice * 100)) / 100;
-		;
+
 		this.foodtypes = foodtypes;
 		this.state = state;
 		this.registerUser = user;

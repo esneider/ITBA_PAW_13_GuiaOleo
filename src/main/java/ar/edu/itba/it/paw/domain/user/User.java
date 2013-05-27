@@ -23,6 +23,36 @@ public class User extends AbstractModel {
 	private String name, surname, email, username, password, type;
 	private Date registerDate;
 
+	public void setRegisterDate(Date registerDate) {
+		this.registerDate = registerDate;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result
+				+ ((username == null) ? 0 : username.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		if (username == null) {
+			if (other.username != null)
+				return false;
+		} else if (!username.equals(other.username))
+			return false;
+		return true;
+	}
+
 	@OneToOne
 	private Picture avatar;
 
@@ -37,19 +67,21 @@ public class User extends AbstractModel {
 	@OneToMany(mappedBy = "registerUser", cascade = CascadeType.ALL)
 	private Set<Restaurant> registeredRestaurants;
 
-	public User() {
+	User() {
 	}
 
 	public User(String name, String surname, String email, String username,
 			String password, Picture avatar, Date date, String type) {
-		this.name = name;
-		this.surname = surname;
-		this.email = email;
-		this.username = username;
-		this.password = password;
-		this.avatar = avatar;
-		this.registerDate = date;
-		this.type = type;
+		setName(name);
+		setSurname(surname);
+		setEmail(email);
+		if (username != null)
+			this.username = username; // VER SI NO LANZAMO ALGO
+		setPassword(password);
+		setAvatar(avatar);
+		setType(type);
+		setRegisterDate(date);
+
 	}
 
 	public User(String name, String surname, String email, String username,
