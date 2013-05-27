@@ -6,6 +6,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
@@ -31,8 +32,10 @@ public class Rating extends AbstractModel implements Comparable<Rating> {
 	private java.sql.Date SQLdate;
 
 	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name="likes")
 	Set<User> likes = new HashSet<User>();
 	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name="unlikes")
 	Set<User> unlikes = new HashSet<User>();
 
 	public Rating() {
@@ -69,16 +72,16 @@ public class Rating extends AbstractModel implements Comparable<Rating> {
 		return likes;
 	}
 
-	public void addLikes(User user) {
-		this.likes.add(user);
-	}
-
-	public void addunLikes(User user) {
-		this.unlikes.add(user);
-	}
-
 	public Set<User> getUnlikes() {
 		return unlikes;
+	}
+	
+	public int getLikeAmmount() {
+		return likes.size();
+	}
+	
+	public int getUnlikeAmmount() {
+		return unlikes.size();
 	}
 
 	public Date getDate() {
@@ -111,7 +114,22 @@ public class Rating extends AbstractModel implements Comparable<Rating> {
 
 	@Override
 	public int compareTo(Rating o) {
-
 		return this.likes.size() - this.unlikes.size();
 	}
+	
+	public void like(User u) {
+		if (unlikes.contains(u))
+			unlikes.remove(u);
+		if (likes.add(u))
+			u.like(this);
+	}
+	
+	public void unlike(User u) {
+		if (likes.contains(u))
+			likes.remove(u);
+		if (unlikes.add(u))
+			u.unlike(this);
+	}
+	
+	
 }

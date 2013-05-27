@@ -47,6 +47,13 @@ public class RestaurantController extends BaseController {
 				true, "restaurant/view");
 		mav.addObject("restaurant", rest);
 
+		/* Get recommended restaurants */ 
+		
+		
+		
+		
+		/* Get user rating */
+		
 		if (isLoggedIn(session)) {
 			Rating rate = rest.getUserRating(getLoggedInUser(session));
 			if (rate != null)
@@ -93,7 +100,6 @@ public class RestaurantController extends BaseController {
 			return add(session);
 		User actualUser = getLoggedInUser(session);
 		Restaurant r = restaurantForm.build(actualUser, "Pending");
-
 		restRepo.save(r);
 		return indexContext();
 	}
@@ -124,8 +130,6 @@ public class RestaurantController extends BaseController {
 			System.out.println("Declinado");
 			r.setState("Rejected");
 		}
-		restRepo.save(r);
-
 		return indexContext();
 	}
 
@@ -135,7 +139,31 @@ public class RestaurantController extends BaseController {
 		if (rest == null || rating == null)
 			return indexContext();
 		rest.removeRating(rating);
-		restRepo.save(rest);
 		return view(rest, session);
+	}
+
+	@RequestMapping(method = RequestMethod.GET)
+	public ModelAndView likecomment(
+			@RequestParam(value = "userId", required = true) User u,
+			@RequestParam(value = "ratingId", required = true) Rating r,
+			@RequestParam(value = "restaurantId", required = true) Restaurant rest,
+			HttpSession session) {
+		if (!isLoggedIn(session))
+			return indexContext();
+		u.like(r);
+		return view(rest, session);
+	}
+
+	@RequestMapping(method = RequestMethod.GET)
+	public ModelAndView unlikecomment(
+			@RequestParam(value = "userId", required = true) User u,
+			@RequestParam(value = "ratingId", required = true) Rating r,
+			@RequestParam(value = "restaurantId", required = true) Restaurant rest,
+			HttpSession session) {
+		if (!isLoggedIn(session))
+			return indexContext();
+		u.unlike(r);
+		return view(rest, session);
+
 	}
 }

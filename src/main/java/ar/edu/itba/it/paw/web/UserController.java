@@ -1,7 +1,5 @@
 package ar.edu.itba.it.paw.web;
 
-import java.util.Set;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import ar.edu.itba.it.paw.domain.restaurant.Rating;
 import ar.edu.itba.it.paw.domain.user.User;
 import ar.edu.itba.it.paw.domain.user.UserRepo;
 import ar.edu.itba.it.paw.utils.EnhancedModelAndView;
@@ -131,7 +128,6 @@ public class UserController extends BaseController {
 
 		try {
 			User s = editForm.build(userRepo);
-			userRepo.save(s);
 			setLoggedInUser(session, s);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -158,7 +154,6 @@ public class UserController extends BaseController {
 		else
 			mav.addObject("notMe", false);
 		mav.addObject("profileUser", u);
-		System.out.println(u.getType());
 
 		return mav;
 	}
@@ -171,53 +166,6 @@ public class UserController extends BaseController {
 		} else if (action.equals("unsetadmin")) {
 			u.setType("Normal");
 		}
-		userRepo.save(u);
-
 		return profile(session, u);
-	}
-
-	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView likecomment(
-			@RequestParam(value = "userId", required = true) User u,
-			@RequestParam(value = "ratingId", required = true) Rating r,
-			HttpSession session) {
-		if (!isLoggedIn(session))
-			return indexContext();
-		Set<Rating> rr = u.getComments();
-		for (Rating rating : rr) {
-			if (rating.equals(r))
-				if (!rating.getLikes().contains(getLoggedInUser(session))) {
-					rating.addLikes(getLoggedInUser(session));
-					userRepo.save(u);
-					break;
-				}
-		}
-		System.out.println("HOLAAAAAAAAAAAAA");
-		return indexContext();
-
-	}
-
-	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView unlikecomment(
-			@RequestParam(value = "userId", required = true) User u,
-			@RequestParam(value = "ratingId", required = true) Rating r,
-			HttpSession session) {
-		if (!isLoggedIn(session))
-			return indexContext();
-
-		Set<Rating> rr = u.getComments();
-		for (Rating rating : rr) {
-			if (rating.equals(r))
-				if (!rating.getUnlikes().contains(getLoggedInUser(session))) {
-					rating.addunLikes(getLoggedInUser(session));
-					userRepo.save(u);
-					break;
-				}
-		}
-
-		System.out.println("HOLAAAAAAAAAAAAA");
-
-		return indexContext();
-
 	}
 }

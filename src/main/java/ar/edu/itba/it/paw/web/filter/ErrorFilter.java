@@ -43,23 +43,28 @@ public class ErrorFilter implements Filter {
 
 			HttpServletResponse r = (HttpServletResponse) response;
 			r.setStatus(500);
-			StringWriter sw = new StringWriter();
-			PrintWriter pw = new PrintWriter(sw);
-			e.printStackTrace(pw);
-			if (!MailSender.send(sw.toString())) {
-				System.out.println("Error Sending mail");
-			}
+			sendMail(e);
 			request.getRequestDispatcher("/WEB-INF/jsp/dberror.jsp").forward(
 					request, r);
 
 		} catch (Exception e) {
-
+			sendMail(e);
 			logger.error(e.getMessage(), e.fillInStackTrace());
-
+			
 			// e.printStackTrace();
 			// request.getRequestDispatcher("/WEB-INF/jsp/error.jsp").forward(request,
 			// response);
 		}
 
 	}
+	
+	private void sendMail(Exception e) {
+		StringWriter sw = new StringWriter();
+		PrintWriter pw = new PrintWriter(sw);
+		e.printStackTrace(pw);
+		if (!MailSender.send(sw.toString())) {
+			System.out.println("Error Sending mail");
+		}
+	}
+	
 }

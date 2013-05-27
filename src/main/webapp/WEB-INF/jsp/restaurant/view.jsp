@@ -80,9 +80,11 @@
 				                        <strong>Score <span class="badge">${comment.score}</span></strong> :
 				                        ${comment.comment}
 				                        
-				                       
-				                        <small> <em><a href="${ pageContext.request.contextPath }/bin/user/likecomment?userId=${comment.user.id}&ratingId=${comment.id}">Useful (${fn:length(comment.likes)})<img src="/paw/assets/img/up.png"></a></em> </small> 
-				                        <small> <em><a href="${ pageContext.request.contextPath }/bin/user/unlikecomment?userId=${comment.user.id}&ratingId=${comment.id}">Not Useful(${fn:length(comment.unlikes)})</em> <img src="/paw/assets/img/down.png"></a></small> 
+				                       <c:if test="${not empty user}">
+				                        <small> <em><a href="${ pageContext.request.contextPath }/bin/restaurant/likecomment?userId=${user.id}&ratingId=${comment.id}&restaurantId=${restaurant.id}">Useful (${comment.likeAmmount})<img src="/paw/assets/img/up.png"></a></em> </small> 
+				                        <small> <em><a href="${ pageContext.request.contextPath }/bin/restaurant/unlikecomment?userId=${user.id}&ratingId=${comment.id}&restaurantId=${restaurant.id}">Not Useful(${comment.unlikeAmmount})</em> <img src="/paw/assets/img/down.png"></a></small> 
+				                       </c:if>
+		
 				                        
 				                    </p>
 				                    <p>Rating:   ${fn:length(comment.likes) - fn:length(comment.unlikes)} points </p>

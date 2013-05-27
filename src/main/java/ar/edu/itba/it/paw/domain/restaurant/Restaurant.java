@@ -1,9 +1,8 @@
 package ar.edu.itba.it.paw.domain.restaurant;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -21,49 +20,13 @@ import ar.edu.itba.it.paw.domain.user.User;
 @Entity
 public class Restaurant extends AbstractModel {
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result + ((address == null) ? 0 : address.hashCode());
-		result = prime * result + ((area == null) ? 0 : area.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (!super.equals(obj))
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Restaurant other = (Restaurant) obj;
-		if (address == null) {
-			if (other.address != null)
-				return false;
-		} else if (!address.equals(other.address))
-			return false;
-		if (area == null) {
-			if (other.area != null)
-				return false;
-		} else if (!area.equals(other.area))
-			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		return true;
-	}
 
 	@ManyToMany
 	Set<FoodType> foodtypes;
 
 	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
 	@Cascade(value = org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
-	SortedSet<Rating> ratingsList = new TreeSet<Rating>();
+	Set<Rating> ratingsList = new HashSet<Rating>();
 
 	@ManyToOne
 	private User registerUser;
@@ -129,8 +92,7 @@ public class Restaurant extends AbstractModel {
 		return name;
 	}
 
-	public SortedSet<Rating> getRatings() {
-
+	public Set<Rating> getRatings() {
 		return ratingsList;
 	}
 
@@ -181,6 +143,43 @@ public class Restaurant extends AbstractModel {
 			avg += r.getScore();
 		}
 		return ((float) Math.round((avg / ratingsList.size()) * 100)) / 100;
+	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((address == null) ? 0 : address.hashCode());
+		result = prime * result + ((area == null) ? 0 : area.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Restaurant other = (Restaurant) obj;
+		if (address == null) {
+			if (other.address != null)
+				return false;
+		} else if (!address.equals(other.address))
+			return false;
+		if (area == null) {
+			if (other.area != null)
+				return false;
+		} else if (!area.equals(other.area))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		return true;
 	}
 
 }
