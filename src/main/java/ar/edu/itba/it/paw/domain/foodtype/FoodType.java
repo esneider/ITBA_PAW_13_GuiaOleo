@@ -36,7 +36,7 @@ public class FoodType extends AbstractModel implements Comparable<FoodType> {
 		Set<Restaurant> acceptedRestaurants = new HashSet<Restaurant>();
 
 		for (Restaurant r: restaurants) {
-			if (r.getState() == RestaurantState.ACCEPTED) {
+			if (r.getState() == RestaurantState.Accepted) {
 				acceptedRestaurants.add(r);
 			}
 		}

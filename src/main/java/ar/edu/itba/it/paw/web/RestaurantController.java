@@ -42,7 +42,7 @@ public class RestaurantController extends BaseController {
 			return indexContext();
 		}
 
-		if (rest.getState() == RestaurantState.PENDING)
+		if (rest.getState() == RestaurantState.Pending)
 		if (!isLoggedIn(session) || !getLoggedInUser(session).getType().equals("Admin")) {
 			return indexContext();
 		}
@@ -101,7 +101,7 @@ public class RestaurantController extends BaseController {
 			return add(session);
 
 		User actualUser = getLoggedInUser(session);
-		Restaurant r = restaurantForm.build(actualUser, RestaurantState.PENDING);
+		Restaurant r = restaurantForm.build(actualUser, RestaurantState.Pending);
 		restRepo.save(r);
 		return indexContext();
 	}
@@ -128,13 +128,13 @@ public class RestaurantController extends BaseController {
 
 		if (action.equals("accept")) {
 
-			r.setState(RestaurantState.ACCEPTED);
+			r.setState(RestaurantState.Accepted);
 			System.out.println("Aceptado");
 
 		} else if (action.equals("decline")) {
 
 			System.out.println("Declinado");
-			r.setState(RestaurantState.REJECTED);
+			r.setState(RestaurantState.Rejected);
 		}
 
 		return indexContext();
