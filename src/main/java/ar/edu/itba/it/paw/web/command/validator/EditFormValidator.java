@@ -29,6 +29,7 @@ private UserRepo userRepo;
 	public void validate(Object target, Errors errors) {
 
 		EditForm obj = (EditForm) target;
+
 		if (obj.getOldPassword() != null) {
 			if (obj.getOldPassword().equals("")) {
 				errors.rejectValue("oldPassword", "empty");
@@ -40,12 +41,18 @@ private UserRepo userRepo;
 				}
 			}
 		}
-		if (!obj.getPassword().equals(obj.getRepassword()))
+
+		if (!obj.getPassword().equals(obj.getRepassword())) {
 			errors.rejectValue("password", "mismatch");
-		if (userRepo.emailExists(obj.getEmail(), obj.getUserId()))
+		}
+
+		if (userRepo.emailExists(obj.getEmail())) {
 			errors.rejectValue("email", "duplicated");
-		if (!Utils.isEmail(obj.getEmail()))
+		}
+
+		if (!Utils.isEmail(obj.getEmail())) {
 			errors.rejectValue("email", "badformat");
+		}
 	}
 	
 }

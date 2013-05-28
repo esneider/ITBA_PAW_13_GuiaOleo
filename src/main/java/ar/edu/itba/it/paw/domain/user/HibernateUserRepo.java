@@ -29,13 +29,9 @@ public class HibernateUserRepo extends AbstractHibernateRepo implements UserRepo
     }
 
     @Override
-    public boolean emailExists(String email, int id) {
+    public boolean emailExists(String email) {
 
-        if (id != -1) {
-            return !find("from User where email = ? and id != ?", email, id).isEmpty();
-        }
-
-        return !find("from User where email = ?", email).isEmpty();
+    	return !find("from User where email = ?", email).isEmpty();
     }
 
     @Override

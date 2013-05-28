@@ -13,7 +13,7 @@ public interface UserRepo {
     /**
      * Checks if email already exists
      */
-    public boolean emailExists(String email, int id);
+    public boolean emailExists(String email);
 
     /**
      * Checks if user name already exists

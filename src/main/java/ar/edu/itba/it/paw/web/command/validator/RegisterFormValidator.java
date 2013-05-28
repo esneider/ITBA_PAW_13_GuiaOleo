@@ -28,27 +28,34 @@ public class RegisterFormValidator implements Validator {
 	public void validate(Object target, Errors errors) {
 
 		RegisterForm obj = (RegisterForm) target;
-		if (obj.getName().equals(""))
+
+		if (obj.getName().isEmpty())
 			errors.rejectValue("name", "empty");
-		if (obj.getSurname().equals(""))
+
+		if (obj.getSurname().isEmpty())
 			errors.rejectValue("surname", "empty");
-		if (obj.getEmail().equals(""))
+
+		if (obj.getEmail().isEmpty())
 			errors.rejectValue("email", "empty");
+
 		if (!Utils.isEmail(obj.getEmail()))
 			errors.rejectValue("email", "badformat");
-		if (userRepo.emailExists(obj.getEmail(), -1))
+
+		if (userRepo.emailExists(obj.getEmail()))
 			errors.rejectValue("email", "duplicated");
-		boolean passwordSetted = !obj.getPassword().equals("");
-		boolean repasswordSettted = !obj.getRepassword().equals("");
-		if (!passwordSetted)
+
+		if (obj.getPassword().isEmpty())
 			errors.rejectValue("password", "empty");
-		if (!repasswordSettted)
+
+		if (obj.getRepassword().isEmpty())
 			errors.rejectValue("repassword", "empty");
+
 		if (!obj.getPassword().equals(obj.getRepassword()))
 			errors.rejectValue("password", "mismatch");
-		if (obj.getUsername().equals(""))
+
+		if (obj.getUsername().isEmpty()) {
 			errors.rejectValue("username", "empty");
-		else {
+		} else {
 			if (obj.getUsername().length() > 10) {
 				errors.rejectValue("username", "toolong");
 			}
@@ -56,6 +63,7 @@ public class RegisterFormValidator implements Validator {
 				errors.rejectValue("username", "duplicated");
 			}
 		}
+
 		if (obj.getAvatar().isEmpty())
 			errors.rejectValue("avatar", "empty");
 
