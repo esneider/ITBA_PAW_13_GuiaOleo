@@ -17,37 +17,41 @@ public class FoodType extends AbstractModel implements Comparable<FoodType> {
 
 	@ManyToMany(mappedBy = "foodtypes")
 	private Set<Restaurant> restaurants;
-	
+
 	FoodType() {}
 
 	public FoodType(String name) {
+
 		this.name = name;
 	}
 
 	public String getName() {
+
 		return name;
 	}
-	
+
 	public Set<Restaurant> getRestaurants() {
+
 		Set<Restaurant> acceptedRestaurants = new HashSet<Restaurant>();
-		for (Restaurant r : restaurants) {
-			if (r.getState().equals("Accepted"))
+
+		for (Restaurant r: restaurants) {
+			if (r.getState().equals("Accepted")) {
 				acceptedRestaurants.add(r);
+			}
 		}
+
 		return acceptedRestaurants;
 	}
 
 	public Integer getAmmount() {
-		int size = 0;
-		for (Restaurant r : restaurants) {
-			if (r.getState().equals("Accepted"))
-				size++;
-		}
-		return size;
+
+		return getRestaurants().size();
 	}
-	
+
 	@Override
 	public int compareTo(FoodType other) {
+
 		return name.compareTo(other.name);
 	}
 }
+
