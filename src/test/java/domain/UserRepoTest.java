@@ -1,10 +1,5 @@
 package domain;
 
-import junit.framework.Assert;
-
-import org.junit.Test;
-
-import ar.edu.itba.it.paw.domain.user.User;
 import ar.edu.itba.it.paw.domain.user.UserRepo;
 
 public class UserRepoTest {
