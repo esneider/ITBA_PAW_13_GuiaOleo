@@ -1,4 +1,4 @@
-package ar.edu.itba.it.paw.services;
+package ar.edu.itba.it.paw.web.services;
 
 import java.io.FileInputStream;
 import java.util.Properties;
@@ -11,7 +11,9 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 public class MailSender {
+
 	public static boolean send(String msg) {
+
 		try {
 			
 			String current = new java.io.File(".").getCanonicalPath();
@@ -46,3 +48,5 @@ public class MailSender {
 		return true;
 	}
 }
+
+

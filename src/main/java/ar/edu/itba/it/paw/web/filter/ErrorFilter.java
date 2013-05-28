@@ -13,9 +13,9 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
+import org.hibernate.HibernateException;
 
-import ar.edu.itba.it.paw.domain.exceptions.SQLNoConnectionException;
-import ar.edu.itba.it.paw.services.MailSender;
+import ar.edu.itba.it.paw.web.services.MailSender;
 
 public class ErrorFilter implements Filter {
 
@@ -30,24 +30,25 @@ public class ErrorFilter implements Filter {
 	}
 
 	@Override
-	public void doFilter(ServletRequest request, ServletResponse response,
-			FilterChain chain) throws IOException, ServletException {
+	public void doFilter(ServletRequest request,
+						 ServletResponse response,
+						 FilterChain chain) throws IOException, ServletException {
 
 		try {
 
 			chain.doFilter(request, response);
 
-		} catch (SQLNoConnectionException e) {
+		} catch (HibernateException e) {
 
 			logger.error(e.getMessage(), e.fillInStackTrace());
 
 			HttpServletResponse r = (HttpServletResponse) response;
 			r.setStatus(500);
 			sendMail(e);
-			request.getRequestDispatcher("/WEB-INF/jsp/dberror.jsp").forward(
-					request, r);
+			request.getRequestDispatcher("/WEB-INF/jsp/dberror.jsp").forward(request, r);
 
 		} catch (Exception e) {
+
 			sendMail(e);
 			logger.error(e.getMessage(), e.fillInStackTrace());
 			
