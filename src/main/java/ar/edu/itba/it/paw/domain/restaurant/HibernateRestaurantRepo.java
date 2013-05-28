@@ -25,9 +25,7 @@ public class HibernateRestaurantRepo extends AbstractHibernateRepo implements Re
 
 	@Override
 	public List<Restaurant> getAll() {
-		//CUANDO ESTO SEA ENUM.
-		// find(from Restaurant where state = ?, (RestaurantState.Accepted));
-		return find("from Restaurant where state = 'Accepted'");
+		return find("from Restaurant where state = ?", RestaurantState.ACCEPTED);
 	}
 
 	@Override
@@ -115,7 +113,7 @@ public class HibernateRestaurantRepo extends AbstractHibernateRepo implements Re
 	@Override
 	public List<Restaurant> getPendingRestaurants() {
 
-		return find("from Restaurant  where state = 'Pending' ORDER BY applicationdate DESC");
+		return find("from Restaurant  where state = ? ORDER BY applicationdate DESC", RestaurantState.PENDING);
 	}
 
 	public Rating getRating(int id) {

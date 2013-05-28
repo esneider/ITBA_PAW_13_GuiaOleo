@@ -9,7 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.Transient;
 
 import ar.edu.itba.it.paw.domain.AbstractModel;
 import ar.edu.itba.it.paw.domain.user.User;
@@ -36,7 +35,7 @@ public class Rating extends AbstractModel implements Comparable<Rating> {
 	@JoinTable(name="unlikes")
 	Set<User> unlikes = new HashSet<User>();
 
-	public Rating() {}
+	Rating() {}
 
 	public Rating(int score, String comment, User user, Restaurant restaurant, Date date) {
 
@@ -81,10 +80,6 @@ public class Rating extends AbstractModel implements Comparable<Rating> {
 
 	public Date getDate() {
 		return date;
-	}
-
-	public java.sql.Date getSQLDate() {
-		return new java.sql.Date(date.getTime());
 	}
 
 	@Override

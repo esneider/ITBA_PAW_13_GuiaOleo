@@ -6,10 +6,11 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cascade;
 
@@ -31,7 +32,11 @@ public class Restaurant extends AbstractModel {
 	@ManyToOne
 	private User registerUser;
 
-	private String name, address, area, telephone, website, timerange, state;
+	private String name, address, area, telephone, website, timerange;
+
+	@Enumerated(EnumType.STRING)
+	private RestaurantState state;
+
 	private float avgprice;
 
 	private Date applicationDate;
@@ -39,7 +44,7 @@ public class Restaurant extends AbstractModel {
 	Restaurant() {}
 
 	public Restaurant(String name, String address, String area, String telephone, String website, String timerange,
-	                  float avgprice, String state, Set<FoodType> foodtypes, User user, Date appDate) {
+	                  float avgprice, RestaurantState state, Set<FoodType> foodtypes, User user, Date appDate) {
 
 		this.name = name;
 		this.address = address;
@@ -94,7 +99,7 @@ public class Restaurant extends AbstractModel {
 		return registerUser;
 	}
 
-	public String getState() {
+	public RestaurantState getState() {
 		return state;
 	}
 
@@ -102,7 +107,7 @@ public class Restaurant extends AbstractModel {
 		return applicationDate;
 	}
 
-	public void setState(String state) {
+	public void setState(RestaurantState state) {
 
 		this.state = state;
 	}

@@ -8,6 +8,7 @@ import javax.persistence.ManyToMany;
 
 import ar.edu.itba.it.paw.domain.AbstractModel;
 import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
+import ar.edu.itba.it.paw.domain.restaurant.RestaurantState;
 
 
 @Entity
@@ -35,7 +36,7 @@ public class FoodType extends AbstractModel implements Comparable<FoodType> {
 		Set<Restaurant> acceptedRestaurants = new HashSet<Restaurant>();
 
 		for (Restaurant r: restaurants) {
-			if (r.getState().equals("Accepted")) {
+			if (r.getState() == RestaurantState.ACCEPTED) {
 				acceptedRestaurants.add(r);
 			}
 		}
