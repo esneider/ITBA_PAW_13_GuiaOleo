@@ -54,7 +54,7 @@ public class IndexController extends BaseController {
 			@RequestParam(value = "num", required = false) Integer num) {
 
 		EnhancedModelAndView mav = generateContext("Guia Oleo Facha", true,
-				true);
+				true, "index/list");
 
 		if (query == null) {
 			query = "bestrated";
@@ -76,7 +76,6 @@ public class IndexController extends BaseController {
 			mav.addObject("tab_all", true);
 		}
 
-		mav.setViewName("index/list");
 		return mav;
 	}
 }

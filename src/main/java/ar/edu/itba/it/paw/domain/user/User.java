@@ -23,10 +23,6 @@ public class User extends AbstractModel {
 	private String name, surname, email, username, password, type;
 	private Date registerDate;
 
-	public void setRegisterDate(Date registerDate) {
-		this.registerDate = registerDate;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -58,7 +54,7 @@ public class User extends AbstractModel {
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private Set<Rating> comments;
-	
+
 	@ManyToMany(mappedBy = "likes", cascade = CascadeType.ALL)
 	Set<Rating> userLikes = new HashSet<Rating>();
 	@ManyToMany(mappedBy = "unlikes", cascade = CascadeType.ALL)
@@ -75,8 +71,9 @@ public class User extends AbstractModel {
 		setName(name);
 		setSurname(surname);
 		setEmail(email);
-		if (username != null)
-			this.username = username; // VER SI NO LANZAMO ALGO
+		if (username == null)
+			throw new IllegalArgumentException();
+		this.username = username;
 		setPassword(password);
 		setAvatar(avatar);
 		setType(type);
@@ -88,6 +85,10 @@ public class User extends AbstractModel {
 			String password, Date date, String type) {
 
 		this(name, surname, email, username, password, null, date, type);
+	}
+
+	public void setRegisterDate(Date registerDate) {
+		this.registerDate = registerDate;
 	}
 
 	public String getName() {
@@ -163,27 +164,27 @@ public class User extends AbstractModel {
 	public boolean isAdmin() {
 		return type.equals("Admin");
 	}
-	
+
 	public Set<Rating> getLikes() {
 		return userLikes;
 	}
-	
+
 	public Set<Rating> getUnlikes() {
 		return userUnlikes;
 	}
-	
+
 	public void like(Rating r) {
 		if (userUnlikes.contains(r))
 			userUnlikes.remove(r);
 		if (userLikes.add(r))
 			r.like(this);
 	}
-	
+
 	public void unlike(Rating r) {
 		if (userLikes.contains(r))
 			userLikes.remove(r);
 		if (userUnlikes.add(r))
 			r.unlike(this);
 	}
-	
+
 }

@@ -58,8 +58,8 @@ public class HibernateUserRepo extends AbstractHibernateRepo implements
 
 	@Override
 	public List<User> getAll() {
-		List<User> list = find("from User");
-		return list;
+		return find("from User");
+
 	}
 
 }

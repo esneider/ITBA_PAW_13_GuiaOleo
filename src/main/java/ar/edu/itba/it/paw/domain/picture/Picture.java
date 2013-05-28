@@ -13,7 +13,7 @@ public class Picture extends AbstractModel {
 	@Basic
 	private byte[] img;
 
-	public Picture() {
+	Picture() {
 	}
 
 	public Picture(byte[] img, String mime) {

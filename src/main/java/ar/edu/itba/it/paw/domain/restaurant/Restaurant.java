@@ -20,7 +20,6 @@ import ar.edu.itba.it.paw.domain.user.User;
 @Entity
 public class Restaurant extends AbstractModel {
 
-
 	@ManyToMany
 	Set<FoodType> foodtypes;
 
@@ -36,10 +35,7 @@ public class Restaurant extends AbstractModel {
 
 	private Date applicationDate;
 
-	@Transient
-	private java.sql.Date SQLApplicationDate;
-
-	public Restaurant() {
+	Restaurant() {
 	}
 
 	public Restaurant(String name, String address, String area,
@@ -54,10 +50,9 @@ public class Restaurant extends AbstractModel {
 		this.avgprice = ((float) Math.round(avgprice * 100)) / 100;
 
 		this.foodtypes = foodtypes;
-		this.state = state;
+		setState(state);
 		this.registerUser = user;
 		this.applicationDate = appDate;
-		this.SQLApplicationDate = new java.sql.Date(appDate.getTime());
 	}
 
 	public Set<FoodType> getFoodtypes() {
@@ -124,10 +119,6 @@ public class Restaurant extends AbstractModel {
 		return applicationDate;
 	}
 
-	public java.sql.Date getSQLApplicationDate() {
-		return SQLApplicationDate;
-	}
-
 	public Rating getUserRating(User user) {
 		for (Rating r : ratingsList) {
 			if (r.getUser().equals(user)) {
@@ -144,7 +135,7 @@ public class Restaurant extends AbstractModel {
 		}
 		return ((float) Math.round((avg / ratingsList.size()) * 100)) / 100;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

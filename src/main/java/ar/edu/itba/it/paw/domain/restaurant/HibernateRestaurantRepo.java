@@ -25,6 +25,8 @@ public class HibernateRestaurantRepo extends AbstractHibernateRepo implements
 
 	@Override
 	public List<Restaurant> getAll() {
+		//CUANDO ESTO SEA ENUM.
+		// find(from Restaurant where state = ?, (RestaurantState.Accepted));
 		return find("from Restaurant where state = 'Accepted'");
 	}
 
