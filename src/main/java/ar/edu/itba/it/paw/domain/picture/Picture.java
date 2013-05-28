@@ -13,21 +13,22 @@ public class Picture extends AbstractModel {
 	@Basic
 	private byte[] img;
 
-	Picture() {
-	}
+	Picture() {}
 
 	public Picture(byte[] img, String mime) {
+
 		this.img = img;
 		this.mime = mime;
 	}
 
 	public String getMime() {
+
 		return mime;
 	}
 
-
 	public byte[] getBytes() {
+
 		return this.img;
 	}
-
 }
+
