@@ -29,4 +29,9 @@ public class Utils {
 		
 		return builder.toString();
 	}
+
+	public static float round(float num) {
+
+		return ((float) Math.round(num * 100)) / 100;
+	}
 }
