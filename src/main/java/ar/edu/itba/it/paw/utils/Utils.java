@@ -4,34 +4,36 @@ import java.net.URISyntaxException;
 
 import org.apache.http.client.utils.URIBuilder;
 
+
 public class Utils {
 
-	public static boolean isEmail(String str) {
+    public static boolean isEmail(String str) {
 
-		return str != null && str.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$");
-	}
-	
-	public static String addParameterToURI(String URI, String param, String value) {
-		
-		URIBuilder builder;
+        return str != null && str.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$");
+    }
 
-		try {
+    public static String addParameterToURI(String URI, String param, String value) {
 
-			builder = new URIBuilder(URI);
+        URIBuilder builder;
 
-		} catch (URISyntaxException e) {
+        try {
 
-			e.printStackTrace();
-			return "";
-		}
-		
-		builder.addParameter(param, value);
-		
-		return builder.toString();
-	}
+            builder = new URIBuilder(URI);
 
-	public static float round(float num) {
+        } catch (URISyntaxException e) {
 
-		return ((float) Math.round(num * 100)) / 100;
-	}
+            e.printStackTrace();
+            return URI;
+        }
+
+        builder.addParameter(param, value);
+
+        return builder.toString();
+    }
+
+    public static float round(float num) {
+
+        return ((float) Math.round(num * 100)) / 100;
+    }
 }
+
