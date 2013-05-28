@@ -7,50 +7,52 @@ import ar.edu.itba.it.paw.domain.user.User;
 
 /**
  * Restaurant repository.
- * 
+ *
  */
 public interface RestaurantRepo {
 
 	/**
-	 * Obtains a list from all the restaurants
+	 * Returns a list of all the restaurants
 	 */
 	public List<Restaurant> getAll();
 
 	/**
-	 * Obtains a single Restaurant by its id
+	 * Returns a single Restaurant by its id
 	 */
 	public Restaurant get(int restaurantId);
 
 	/**
-	 * Obtains a list from all the best rated Restaurants
+	 * Returns a list of the {@code cant} best rated Restaurants
 	 */
-
 	public List<Restaurant> getBestRatedRestaurants(int cant);
 
 	/**
-	 * Obtains a List from all the Restaurants Searched by Query
+	 * Returns a list of all the Restaurants matching a given query
 	 */
 	public List<Restaurant> getRestaurantsByQuery(String query);
 
 	/**
-	 * Saves user
+	 * Saves Restaurant
 	 */
 	public void save(Restaurant r);
 
 	/**
-	 * Obtains a list from all Pending Restaurants
+	 * Returns a list of all pending Restaurants
 	 */
 	public List<Restaurant> getPendingRestaurants();
-	
+
 	/**
-	 * Obtains a rating by its id
+	 * Returns a rating by its id
 	 */
 	public Rating getRating(int id);
-	
+
 	/**
-	 * Gets recommended restaurants from users who like 
+	 * TODO: WTF is this
+	 *
+	 * Gets recommended restaurants from users who like
 	 * the given restaurant and are not the user sent by
 	 * parameter.
 	 */
 	public Set<Restaurant> getRecommendedRestaurants(Restaurant r, User u);
 }
+
