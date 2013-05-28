@@ -31,7 +31,7 @@ public abstract class AbstractHibernateRepo {
 		Query query = getSession().createQuery(hql);
 
 		return generateList(query, limit, params);
-	} 
+	}
 
 	protected org.hibernate.Session getSession() {
 
@@ -45,7 +45,7 @@ public abstract class AbstractHibernateRepo {
 
 	@SuppressWarnings("unchecked")
 	private <T> List<T> generateList(Query query, Integer limit, Object... params) {
-		
+
 		if (limit != null) {
 			query.setMaxResults(limit);
 		}
@@ -57,3 +57,4 @@ public abstract class AbstractHibernateRepo {
 		return query.list();
 	}
 }
+

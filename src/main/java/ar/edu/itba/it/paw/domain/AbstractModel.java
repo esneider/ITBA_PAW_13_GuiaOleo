@@ -19,12 +19,12 @@ public abstract class AbstractModel {
 
 		this.id = NO_ID;
 	}
-	
+
 	public int getId() {
 
 		return id;
 	}
-	
+
 	public void setId(int id) {
 
 		this.id = id;
