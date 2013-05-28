@@ -143,7 +143,7 @@
 				Sorry, this restaurant doesn't exist
 			</c:otherwise>
 		</c:choose>
-		<br><br><hr><br><br>
+		<hr>
 		<h3>See restaurants recommended by other users</h3>
 		<c:forEach var="restaurant" items="${recommended}"> 		         
             <dl class="dl-horizontal">

@@ -54,37 +54,30 @@ public class HibernateRestaurantRepo extends AbstractHibernateRepo implements
 		return allRestaurants.subList(0, cant - 1);
 	}
 
-	@Override
-	public List<Restaurant> getRestaurantsByName(String name) {
-		return find("from Restaurant  where name = ? ", name);
+	private List<Restaurant> getRestaurantsByName(String name) {
+		return find("from Restaurant where lower(name) like ? ", name);
 
 	}
 
-	@Override
-	public List<Restaurant> getRestaurantsByArea(String area) {
-		return find("from Restaurant  where area = ? ", area);
+	private List<Restaurant> getRestaurantsByArea(String area) {
+		return find("from Restaurant where lower(area) like ? ", area);
 
 	}
 
-	@Override
-	public List<Restaurant> getRestaurantsByFoodType(String query) {
-		return find("from Restaurant  where foodtype = ? ", query);
+	private List<Restaurant> getRestaurantsByFoodType(String query) {
+		return find("from Restaurant where foodtype = ? ", query);
 	}
 
 	@Override
 	public List<Restaurant> getRestaurantsByQuery(String query) {
-		query = "%" + query + "%";
-		//NO ES MAS INSENSITIVE. NO EXISTE EL EQUIVALENTE iLIKE en HQL
+		query = "%" + query.toLowerCase() + "%";
+		
 		List<Restaurant> result = new ArrayList<Restaurant>();
-		List<Restaurant> byName = find("from Restaurant where name LIKE ? ",
-				query);
-		List<Restaurant> byArea = find("from Restaurant where area LIKE ? ",
-				query);
-		// List<Restaurant> byFoodType = find(
-		// "from Restaurant join restaurant_foodtype where foodtype LIKE ? ",
-		// query);
+		List<Restaurant> byName = getRestaurantsByName(query);
+		List<Restaurant> byArea = getRestaurantsByArea(query);
+		List<Restaurant> byFoodType = getRestaurantsByFoodType(query);
+		
 		Set<Restaurant> s = new HashSet<Restaurant>();
-		//SIGUE INSERTANDO REPETIDOS, AUNQUE METÍ BIEN EL HASHCODE Y EL EQUALS
 		for (Restaurant restaurant : byName) {
 			if (s.add(restaurant))
 				result.add(restaurant);
@@ -93,10 +86,10 @@ public class HibernateRestaurantRepo extends AbstractHibernateRepo implements
 			if (s.add(restaurant))
 				result.add(restaurant);
 		}
-		// for (Restaurant restaurant : byFoodType) {
-		// if (s.add(restaurant))
-		// result.add(restaurant);
-		// }
+		for (Restaurant restaurant : byFoodType) {
+			if (s.add(restaurant))
+				result.add(restaurant);
+		}
 		return result;
 	}
 

@@ -26,7 +26,9 @@ public class ImageController extends BaseController {
 	public byte[] showUserImage(HttpSession session)  {
 		if (!isLoggedIn(session))
 			return null;
-		return getLoggedInUser(session).getAvatar().getBytes();
+		if (getLoggedInUser(session).getAvatar() != null)
+			return getLoggedInUser(session).getAvatar().getBytes();
+		return null;
 	}
 	
 	@RequestMapping

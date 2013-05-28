@@ -28,22 +28,6 @@ public interface RestaurantRepo {
 	public List<Restaurant> getBestRatedRestaurants(int cant);
 
 	/**
-	 * Obtains a list from all the Restaurants by Name
-	 */
-	public List<Restaurant> getRestaurantsByName(String query);
-
-	/**
-	 * Obtains a list from all the Restaurants by Area
-	 */
-	public List<Restaurant> getRestaurantsByArea(String query);
-
-	/**
-	 * Obtains a list from all the Restaurants by FoodType TODO: ESTA NO VA MAS
-	 * !!!
-	 */
-	public List<Restaurant> getRestaurantsByFoodType(String query);
-
-	/**
 	 * Obtains a List from all the Restaurants Searched by Query
 	 */
 	public List<Restaurant> getRestaurantsByQuery(String query);
