@@ -6,25 +6,26 @@ import org.springframework.stereotype.Repository;
 
 import ar.edu.itba.it.paw.domain.AbstractHibernateRepo;
 
+
 @Repository
 public class HibernatePictureRepo extends AbstractHibernateRepo implements PictureRepo {
 
-	@Autowired
-	public HibernatePictureRepo(SessionFactory sessionFactory) {
+    @Autowired
+    public HibernatePictureRepo(SessionFactory sessionFactory) {
 
-		super(sessionFactory);
-	}
+        super(sessionFactory);
+    }
 
-	@Override
-	public Picture getPictureById(int pictureid) {
+    @Override
+    public Picture getPictureById(int pictureid) {
 
-		return get(Picture.class, pictureid);
-	}
+        return get(Picture.class, pictureid);
+    }
 
-	@Override
-	public void save(Picture p) {
+    @Override
+    public void save(Picture p) {
 
-		super.save(p);
-	}
+        super.save(p);
+    }
 }
 

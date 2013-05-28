@@ -5,30 +5,31 @@ import javax.persistence.Entity;
 
 import ar.edu.itba.it.paw.domain.AbstractModel;
 
+
 @Entity
 public class Picture extends AbstractModel {
 
-	private String mime;
+    private String mime;
 
-	@Basic
-	private byte[] img;
+    @Basic
+    private byte[] img;
 
-	Picture() {}
+    Picture() {}
 
-	public Picture(byte[] img, String mime) {
+    public Picture(byte[] img, String mime) {
 
-		this.img = img;
-		this.mime = mime;
-	}
+        this.img = img;
+        this.mime = mime;
+    }
 
-	public String getMime() {
+    public String getMime() {
 
-		return mime;
-	}
+        return mime;
+    }
 
-	public byte[] getBytes() {
+    public byte[] getBytes() {
 
-		return this.img;
-	}
+        return this.img;
+    }
 }
 

@@ -8,25 +8,26 @@ import org.springframework.stereotype.Repository;
 
 import ar.edu.itba.it.paw.domain.AbstractHibernateRepo;
 
+
 @Repository
 public class HibernateFoodTypeRepo extends AbstractHibernateRepo implements FoodTypeRepo {
 
-	@Autowired
-	public HibernateFoodTypeRepo(SessionFactory sessionFactory) {
+    @Autowired
+    public HibernateFoodTypeRepo(SessionFactory sessionFactory) {
 
-		super(sessionFactory);
-	}
+        super(sessionFactory);
+    }
 
-	@Override
-	public List<FoodType> getAll() {
+    @Override
+    public List<FoodType> getAll() {
 
-		return find("from FoodType");
-	}
+        return find("from FoodType");
+    }
 
-	@Override
-	public FoodType get(int foodtypeid) {
+    @Override
+    public FoodType get(int foodtypeid) {
 
-		return get(FoodType.class, foodtypeid);
-	}
+        return get(FoodType.class, foodtypeid);
+    }
 }
 

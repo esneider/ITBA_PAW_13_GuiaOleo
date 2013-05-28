@@ -14,45 +14,45 @@ import ar.edu.itba.it.paw.domain.restaurant.RestaurantState;
 @Entity
 public class FoodType extends AbstractModel implements Comparable<FoodType> {
 
-	private String name;
+    private String name;
 
-	@ManyToMany(mappedBy = "foodtypes")
-	private Set<Restaurant> restaurants;
+    @ManyToMany(mappedBy = "foodtypes")
+    private Set<Restaurant> restaurants;
 
-	FoodType() {}
+    FoodType() {}
 
-	public FoodType(String name) {
+    public FoodType(String name) {
 
-		this.name = name;
-	}
+        this.name = name;
+    }
 
-	public String getName() {
+    public String getName() {
 
-		return name;
-	}
+        return name;
+    }
 
-	public Set<Restaurant> getRestaurants() {
+    public Set<Restaurant> getRestaurants() {
 
-		Set<Restaurant> acceptedRestaurants = new HashSet<Restaurant>();
+        Set<Restaurant> acceptedRestaurants = new HashSet<Restaurant>();
 
-		for (Restaurant r: restaurants) {
-			if (r.getState() == RestaurantState.Accepted) {
-				acceptedRestaurants.add(r);
-			}
-		}
+        for (Restaurant r: restaurants) {
+            if (r.getState() == RestaurantState.Accepted) {
+                acceptedRestaurants.add(r);
+            }
+        }
 
-		return acceptedRestaurants;
-	}
+        return acceptedRestaurants;
+    }
 
-	public Integer getAmmount() {
+    public Integer getAmmount() {
 
-		return getRestaurants().size();
-	}
+        return getRestaurants().size();
+    }
 
-	@Override
-	public int compareTo(FoodType other) {
+    @Override
+    public int compareTo(FoodType other) {
 
-		return name.compareTo(other.name);
-	}
+        return name.compareTo(other.name);
+    }
 }
 

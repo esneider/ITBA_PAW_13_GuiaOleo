@@ -16,175 +16,187 @@ import ar.edu.itba.it.paw.domain.picture.Picture;
 import ar.edu.itba.it.paw.domain.restaurant.Rating;
 import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
 
+
 @Entity
 @Table(name = "SystemUser")
 public class User extends AbstractModel {
 
-	private String name, surname, email, username, password, type;
-	private Date registerDate;
+    private String name, surname, email, username, password, type;
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result
-				+ ((username == null) ? 0 : username.hashCode());
-		return result;
-	}
+    private Date registerDate;
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (!super.equals(obj))
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		User other = (User) obj;
-		if (username == null) {
-			if (other.username != null)
-				return false;
-		} else if (!username.equals(other.username))
-			return false;
-		return true;
-	}
+    @OneToOne
+    private Picture avatar;
 
-	@OneToOne
-	private Picture avatar;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<Rating> comments;
 
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-	private Set<Rating> comments;
+    @ManyToMany(mappedBy = "likes", cascade = CascadeType.ALL)
+    Set<Rating> userLikes = new HashSet<Rating>();
 
-	@ManyToMany(mappedBy = "likes", cascade = CascadeType.ALL)
-	Set<Rating> userLikes = new HashSet<Rating>();
-	@ManyToMany(mappedBy = "unlikes", cascade = CascadeType.ALL)
-	Set<Rating> userUnlikes = new HashSet<Rating>();
+    @ManyToMany(mappedBy = "unlikes", cascade = CascadeType.ALL)
+    Set<Rating> userUnlikes = new HashSet<Rating>();
 
-	@OneToMany(mappedBy = "registerUser", cascade = CascadeType.ALL)
-	private Set<Restaurant> registeredRestaurants;
+    @OneToMany(mappedBy = "registerUser", cascade = CascadeType.ALL)
+    private Set<Restaurant> registeredRestaurants;
 
-	User() {
-	}
+    User() {}
 
-	public User(String name, String surname, String email, String username,
-			String password, Picture avatar, Date date, String type) {
-		setName(name);
-		setSurname(surname);
-		setEmail(email);
-		if (username == null)
-			throw new IllegalArgumentException();
-		this.username = username;
-		setPassword(password);
-		setAvatar(avatar);
-		setType(type);
-		setRegisterDate(date);
+    public User(String name, String surname, String email, String username,
+                String password, Picture avatar, Date date, String type) {
 
-	}
+        if (username == null) {
+            throw new IllegalArgumentException();
+        }
 
-	public User(String name, String surname, String email, String username,
-			String password, Date date, String type) {
+        this.username = username;
 
-		this(name, surname, email, username, password, null, date, type);
-	}
+        setName(name);
+        setSurname(surname);
+        setEmail(email);
+        setPassword(password);
+        setAvatar(avatar);
+        setType(type);
+        setRegisterDate(date);
+    }
 
-	public void setRegisterDate(Date registerDate) {
-		this.registerDate = registerDate;
-	}
+    public User(String name, String surname, String email, String username,
+                String password, Date date, String type) {
 
-	public String getName() {
-		return name;
-	}
+        this(name, surname, email, username, password, null, date, type);
+    }
 
-	public String getSurname() {
-		return surname;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public String getSurname() {
+        return surname;
+    }
 
-	public String getUsername() {
-		return username;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public String getUsername() {
+        return username;
+    }
 
-	public Picture getAvatar() {
-		return avatar;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public Set<Restaurant> getRegisteredRestaurants() {
-		return registeredRestaurants;
-	}
+    public Picture getAvatar() {
+        return avatar;
+    }
 
-	public String getType() {
-		return type;
-	}
+    public Set<Restaurant> getRegisteredRestaurants() {
+        return registeredRestaurants;
+    }
 
-	public Date getRegisterDate() {
-		return registerDate;
-	}
+    public String getType() {
+        return type;
+    }
 
-	public Set<Rating> getComments() {
-		return comments;
-	}
+    public Date getRegisterDate() {
+        return registerDate;
+    }
 
-	public void setType(String type) {
-		if (type != null)
-			this.type = type;
-	}
+    public Set<Rating> getComments() {
+        return comments;
+    }
 
-	public void setName(String name) {
-		if (name != null)
-			this.name = name;
-	}
+    public void setRegisterDate(Date registerDate) {
+        this.registerDate = registerDate;
+    }
 
-	public void setSurname(String surname) {
-		if (surname != null)
-			this.surname = surname;
-	}
+    public void setType(String type) {
+        if (type != null)
+            this.type = type;
+    }
 
-	public void setEmail(String email) {
-		if (email != null)
-			this.email = email;
-	}
+    public void setName(String name) {
+        if (name != null)
+            this.name = name;
+    }
 
-	public void setPassword(String password) {
-		if (password != null)
-			this.password = password;
-	}
+    public void setSurname(String surname) {
+        if (surname != null)
+            this.surname = surname;
+    }
 
-	public void setAvatar(Picture avatar) {
-		if (avatar != null)
-			this.avatar = avatar;
-	}
+    public void setEmail(String email) {
+        if (email != null)
+            this.email = email;
+    }
 
-	public boolean isAdmin() {
-		return type.equals("Admin");
-	}
+    public void setPassword(String password) {
+        if (password != null)
+            this.password = password;
+    }
 
-	public Set<Rating> getLikes() {
-		return userLikes;
-	}
+    public void setAvatar(Picture avatar) {
+        if (avatar != null)
+            this.avatar = avatar;
+    }
 
-	public Set<Rating> getUnlikes() {
-		return userUnlikes;
-	}
+    public boolean isAdmin() {
+        return type.equals("Admin");
+    }
 
-	public void like(Rating r) {
-		if (userUnlikes.contains(r))
-			userUnlikes.remove(r);
-		if (userLikes.add(r))
-			r.like(this);
-	}
+    public Set<Rating> getLikes() {
+        return userLikes;
+    }
 
-	public void unlike(Rating r) {
-		if (userLikes.contains(r))
-			userLikes.remove(r);
-		if (userUnlikes.add(r))
-			r.unlike(this);
-	}
+    public Set<Rating> getUnlikes() {
+        return userUnlikes;
+    }
 
+    public void like(Rating r) {
+
+        userUnlikes.remove(r);
+
+        if (userLikes.add(r)) {
+            r.like(this);
+        }
+    }
+
+    public void unlike(Rating r) {
+
+        userLikes.remove(r);
+
+        if (userUnlikes.add(r)) {
+            r.unlike(this);
+        }
+    }
+
+    @Override
+    public int hashCode() {
+
+        return super.hashCode() + 31 * ((username == null) ? 0 : username.hashCode());
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        if (this == obj)
+            return true;
+
+        if (!super.equals(obj))
+            return false;
+
+        if (getClass() != obj.getClass())
+            return false;
+
+        User other = (User) obj;
+
+        if (username == null && other.username != null)
+            return false;
+
+        if (username != null && !username.equals(other.username))
+            return false;
+
+        return true;
+    }
 }
+

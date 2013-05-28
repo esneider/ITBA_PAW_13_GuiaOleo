@@ -19,182 +19,184 @@ import ar.edu.itba.it.paw.domain.foodtype.FoodType;
 import ar.edu.itba.it.paw.domain.user.User;
 import ar.edu.itba.it.paw.utils.Utils;
 
+
 @Entity
 public class Restaurant extends AbstractModel {
 
-	@ManyToMany
-	Set<FoodType> foodtypes;
+    @ManyToMany
+    Set<FoodType> foodtypes;
 
-	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
-	@Cascade(value = org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
-	Set<Rating> ratingsList = new HashSet<Rating>();
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
+    @Cascade(value = org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
+    Set<Rating> ratingsList = new HashSet<Rating>();
 
-	@ManyToOne
-	private User registerUser;
+    @ManyToOne
+    private User registerUser;
 
-	private String name, address, area, telephone, website, timerange;
+    private String name, address, area, telephone, website, timerange;
 
-	@Enumerated(EnumType.STRING)
-	private RestaurantState state;
+    @Enumerated(EnumType.STRING)
+    private RestaurantState state;
 
-	private float avgprice;
+    private float avgprice;
 
-	private Date applicationDate;
+    private Date applicationDate;
 
-	Restaurant() {}
+    Restaurant() {}
 
-	public Restaurant(String name, String address, String area, String telephone, String website, String timerange,
-	                  float avgprice, RestaurantState state, Set<FoodType> foodtypes, User user, Date appDate) {
+    public Restaurant(String name, String address, String area, String telephone, String website, String timerange,
+                      float avgprice, RestaurantState state, Set<FoodType> foodtypes, User user, Date appDate) {
 
-		this.name = name;
-		this.address = address;
-		this.area = area;
-		this.telephone = telephone;
-		this.website = website;
-		this.timerange = timerange;
-		this.avgprice = Utils.round(avgprice);
-		this.foodtypes = foodtypes;
-		setState(state);
-		this.registerUser = user;
-		this.applicationDate = appDate;
-	}
+        this.name = name;
+        this.address = address;
+        this.area = area;
+        this.telephone = telephone;
+        this.website = website;
+        this.timerange = timerange;
+        this.avgprice = Utils.round(avgprice);
+        this.foodtypes = foodtypes;
+        this.registerUser = user;
+        this.applicationDate = appDate;
 
-	public Set<FoodType> getFoodtypes() {
-		return foodtypes;
-	}
+        setState(state);
+    }
 
-	public String getAddress() {
-		return address;
-	}
+    public Set<FoodType> getFoodtypes() {
+        return foodtypes;
+    }
 
-	public String getArea() {
-		return area;
-	}
+    public String getAddress() {
+        return address;
+    }
 
-	public String getTelephone() {
-		return telephone;
-	}
+    public String getArea() {
+        return area;
+    }
 
-	public String getWebsite() {
-		return website;
-	}
+    public String getTelephone() {
+        return telephone;
+    }
 
-	public String getTimerange() {
-		return timerange;
-	}
+    public String getWebsite() {
+        return website;
+    }
 
-	public float getAvgprice() {
-		return avgprice;
-	}
+    public String getTimerange() {
+        return timerange;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public float getAvgprice() {
+        return avgprice;
+    }
 
-	public Set<Rating> getRatings() {
-		return ratingsList;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public User getRegisterUser() {
-		return registerUser;
-	}
+    public Set<Rating> getRatings() {
+        return ratingsList;
+    }
 
-	public RestaurantState getState() {
-		return state;
-	}
+    public User getRegisterUser() {
+        return registerUser;
+    }
 
-	public Date getApplicationDate() {
-		return applicationDate;
-	}
+    public RestaurantState getState() {
+        return state;
+    }
 
-	public void setState(RestaurantState state) {
+    public Date getApplicationDate() {
+        return applicationDate;
+    }
 
-		this.state = state;
-	}
+    public void setState(RestaurantState state) {
 
-	public void addRating(Rating r) {
+        this.state = state;
+    }
 
-		ratingsList.add(r);
-	}
+    public void addRating(Rating r) {
 
-	public void removeRating(Rating r) {
+        ratingsList.add(r);
+    }
 
-		ratingsList.remove(r);
-	}
+    public void removeRating(Rating r) {
 
-	public int getRatingsAmmount() {
+        ratingsList.remove(r);
+    }
 
-		return ratingsList.size();
-	}
+    public int getRatingsAmmount() {
 
-	public Rating getUserRating(User user) {
+        return ratingsList.size();
+    }
 
-		for (Rating r : ratingsList) {
-			if (r.getUser().equals(user)) {
-				return r;
-			}
-		}
+    public Rating getUserRating(User user) {
 
-		return null;
-	}
+        for (Rating rating: ratingsList) {
+            if (rating.getUser().equals(user)) {
+                return rating;
+            }
+        }
 
-	public float getAvgScore() {
+        return null;
+    }
 
-		float avg = 0;
+    public float getAvgScore() {
 
-		for (Rating r : ratingsList) {
-			avg += r.getScore();
-		}
+        float avg = 0;
 
-		return Utils.round(avg / ratingsList.size());
-	}
+        for (Rating rating: ratingsList) {
+            avg += rating.getScore();
+        }
 
-	@Override
-	public int hashCode() {
+        return Utils.round(avg / ratingsList.size());
+    }
 
-		final int prime = 31;
+    @Override
+    public int hashCode() {
 
-		int result = super.hashCode();
-		result = prime * result + ((address == null) ? 0 : address.hashCode());
-		result = prime * result + ((area == null) ? 0 : area.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
+        final int prime = 31;
 
-		return result;
-	}
+        int result = super.hashCode();
+        result = prime * result + ((address == null) ? 0 : address.hashCode());
+        result = prime * result + ((area == null) ? 0 : area.hashCode());
+        result = prime * result + ((name == null) ? 0 : name.hashCode());
 
-	@Override
-	public boolean equals(Object obj) {
+        return result;
+    }
 
-		if (this == obj)
-			return true;
+    @Override
+    public boolean equals(Object obj) {
 
-		if (!super.equals(obj))
-			return false;
+        if (this == obj)
+            return true;
 
-		if (getClass() != obj.getClass())
-			return false;
-
-		Restaurant other = (Restaurant) obj;
-
-		if (address == null && other.address != null)
+        if (!super.equals(obj))
             return false;
 
-		if (address != null && !address.equals(other.address))
-			return false;
-
-		if (area == null && other.area != null)
+        if (getClass() != obj.getClass())
             return false;
 
-		if (area != null && !area.equals(other.area))
-			return false;
+        Restaurant other = (Restaurant) obj;
 
-		if (name == null && other.name != null)
+        if (address == null && other.address != null)
             return false;
 
-		if (name != null && !name.equals(other.name))
-			return false;
+        if (address != null && !address.equals(other.address))
+            return false;
 
-		return true;
-	}
+        if (area == null && other.area != null)
+            return false;
+
+        if (area != null && !area.equals(other.area))
+            return false;
+
+        if (name == null && other.name != null)
+            return false;
+
+        if (name != null && !name.equals(other.name))
+            return false;
+
+        return true;
+    }
 }
 
