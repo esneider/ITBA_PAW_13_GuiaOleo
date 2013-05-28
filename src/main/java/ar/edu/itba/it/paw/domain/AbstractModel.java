@@ -11,19 +11,20 @@ public abstract class AbstractModel {
 
 	protected final static int NO_ID = -1;
 
-	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 
 	protected AbstractModel () {
 
 		this.id = NO_ID;
 	}
-	
+
 	public int getId() {
 
 		return id;
 	}
-	
+
 	public void setId(int id) {
 
 		this.id = id;
@@ -32,10 +33,7 @@ public abstract class AbstractModel {
 	@Override
 	public int hashCode() {
 
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + id;
-		return result;
+		return id;
 	}
 
 	@Override
@@ -43,13 +41,19 @@ public abstract class AbstractModel {
 
 		if (this == obj)
 			return true;
+
 		if (obj == null)
 			return false;
+
 		if (getClass() != obj.getClass())
 			return false;
+
 		AbstractModel other = (AbstractModel) obj;
+
 		if (id != other.id)
 			return false;
+
 		return true;
 	}
 }
+

@@ -9,7 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.Transient;
 
 import ar.edu.itba.it.paw.domain.AbstractModel;
 import ar.edu.itba.it.paw.domain.user.User;
@@ -28,28 +27,23 @@ public class Rating extends AbstractModel implements Comparable<Rating> {
 
 	private Date date;
 
-	@Transient
-	private java.sql.Date SQLdate;
-
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name="likes")
 	Set<User> likes = new HashSet<User>();
+
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name="unlikes")
 	Set<User> unlikes = new HashSet<User>();
 
-	public Rating() {
-	}
+	Rating() {}
 
-	public Rating(int score, String comment, User user, Restaurant restaurant,
-			Date date) {
+	public Rating(int score, String comment, User user, Restaurant restaurant, Date date) {
 
 		this.score = score;
 		this.comment = comment;
 		this.user = user;
 		this.restaurant = restaurant;
 		this.date = date;
-		this.SQLdate = new java.sql.Date(date.getTime());
 	}
 
 	public int getScore() {
@@ -75,11 +69,11 @@ public class Rating extends AbstractModel implements Comparable<Rating> {
 	public Set<User> getUnlikes() {
 		return unlikes;
 	}
-	
+
 	public int getLikeAmmount() {
 		return likes.size();
 	}
-	
+
 	public int getUnlikeAmmount() {
 		return unlikes.size();
 	}
@@ -88,13 +82,10 @@ public class Rating extends AbstractModel implements Comparable<Rating> {
 		return date;
 	}
 
-	public java.sql.Date getSQLDate() {
-		return SQLdate;
-	}
-
 	@Override
 	public int hashCode() {
-		return user.hashCode() + restaurant.hashCode();
+
+		return user.hashCode() + 31 * restaurant.hashCode();
 	}
 
 	@Override
@@ -102,34 +93,48 @@ public class Rating extends AbstractModel implements Comparable<Rating> {
 
 		if (this == obj)
 			return true;
-		if (obj == null)
+
+		if (!super.equals(obj))
 			return false;
+
 		if (getClass() != obj.getClass())
 			return false;
+
 		Rating other = (Rating) obj;
+
 		if (restaurant != other.restaurant || user != other.user)
 			return false;
+
 		return true;
 	}
 
 	@Override
 	public int compareTo(Rating o) {
+
+	    // TODO: WAT? nothing to do with o?
 		return this.likes.size() - this.unlikes.size();
 	}
-	
-	public void like(User u) {
-		if (unlikes.contains(u))
-			unlikes.remove(u);
-		if (likes.add(u))
-			u.like(this);
+
+	public void like(User user) {
+
+		if (unlikes.contains(user)) {
+			unlikes.remove(user);
+        }
+
+		if (likes.add(user)) {
+			user.like(this);
+        }
 	}
-	
-	public void unlike(User u) {
-		if (likes.contains(u))
-			likes.remove(u);
-		if (unlikes.add(u))
-			u.unlike(this);
+
+	public void unlike(User user) {
+
+		if (likes.contains(user)) {
+			likes.remove(user);
+        }
+
+		if (unlikes.add(user)) {
+			user.unlike(this);
+        }
 	}
-	
-	
 }
+
