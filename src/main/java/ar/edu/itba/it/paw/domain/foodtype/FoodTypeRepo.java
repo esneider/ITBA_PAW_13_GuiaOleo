@@ -12,6 +12,7 @@ public interface FoodTypeRepo {
 
 	/**
 	 * Returns a single FoodType
-	 */	
+	 */
 	public FoodType get(int id);
 }
+

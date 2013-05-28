@@ -29,3 +29,4 @@ public class HibernateFoodTypeRepo extends AbstractHibernateRepo implements Food
 		return get(FoodType.class, foodtypeid);
 	}
 }
+
