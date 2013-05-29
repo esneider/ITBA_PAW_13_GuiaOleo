@@ -7,118 +7,134 @@ import ar.edu.itba.it.paw.domain.picture.Picture;
 import ar.edu.itba.it.paw.domain.user.User;
 import ar.edu.itba.it.paw.domain.user.UserRepo;
 
+
 @Component
 public class EditForm {
 
-	private String name, surname, email, password, oldPassword, repassword;
-	private CommonsMultipartFile avatar;
-	private User user; 
-	private int userId;
-	
-	public EditForm(User user, String repassword, String oldPassword) {
-		this.user = user;
-		this.setName(user.getName());
-		this.setSurname(user.getSurname());
-		this.setEmail(user.getEmail());
-		this.setAvatar(null);
-		this.setRepassword(repassword); 
-		this.setOldPassword(oldPassword);
-		this.setUserId(user.getId());
-	}
-	
-	EditForm(){
-	}
-	
-	public String getName() {
-		return name;
-	}
+    private String name, surname, email, password, oldPassword, repassword;
+    private CommonsMultipartFile avatar;
+    private User user;
+    private int userId;
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public EditForm(User user, String repassword, String oldPassword) {
 
-	public String getSurname() {
-		return surname;
-	}
+        this.user = user;
+        this.setName(user.getName());
+        this.setSurname(user.getSurname());
+        this.setEmail(user.getEmail());
+        this.setAvatar(null);
+        this.setRepassword(repassword);
+        this.setOldPassword(oldPassword);
+        this.setUserId(user.getId());
+    }
 
-	public void setSurname(String surname) {
-		this.surname = surname;
-	}
+    EditForm() {}
 
-	public String getEmail() {
-		return email;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public String getSurname() {
+        return surname;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
 
-	public String getOldPassword() {
-		return oldPassword;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public void setOldPassword(String oldPassword) {
-		this.oldPassword = oldPassword;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public String getRepassword() {
-		return repassword;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public void setRepassword(String repassword) {
-		this.repassword = repassword;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public CommonsMultipartFile getAvatar() {
-		return avatar;
-	}
+    public String getOldPassword() {
+        return oldPassword;
+    }
 
-	public void setAvatar(CommonsMultipartFile avatar) {
-		this.avatar = avatar;
-	}
+    public void setOldPassword(String oldPassword) {
+        this.oldPassword = oldPassword;
+    }
 
-	public User getUser() {
-		return user;
-	}
+    public String getRepassword() {
+        return repassword;
+    }
 
-	public void setUser(User user) {
-		this.user = user;
-	}
+    public void setRepassword(String repassword) {
+        this.repassword = repassword;
+    }
 
-	public int getUserId() {
-		return userId;
-	}
+    public CommonsMultipartFile getAvatar() {
+        return avatar;
+    }
 
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}
-	
-	public User build(UserRepo userRepo) {
-		Picture pic = null;
-		if (avatar != null && !avatar.isEmpty()) 
-			pic = new Picture(avatar.getBytes(), avatar.getOriginalFilename());
-		if (user == null)
-			user = userRepo.get(getUserId());
-	
-		if (pic != null)
-			user.setAvatar(pic);
-		if (!email.equals(""))
-			user.setEmail(email);
-		if (!password.equals(""))
-			user.setPassword(password);
-		if (!surname.equals(""))
-			user.setSurname(surname);
-		if (!name.equals(""))
-			user.setName(name);
-		return user;
-	}
-	
+    public void setAvatar(CommonsMultipartFile avatar) {
+        this.avatar = avatar;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public User build(UserRepo userRepo) {
+
+        Picture pic = null;
+
+        if (avatar != null && !avatar.isEmpty()) {
+            pic = new Picture(avatar.getBytes(), avatar.getOriginalFilename());
+        }
+
+        if (user == null) {
+            user = userRepo.get(getUserId());
+        }
+
+        if (pic != null) {
+            user.setAvatar(pic);
+        }
+
+        if (!email.isEmpty()){
+            user.setEmail(email);
+        }
+
+        if (!password.isEmpty()) {
+            user.setPassword(password);
+        }
+
+        if (!surname.isEmpty()) {
+            user.setSurname(surname);
+        }
+
+        if (!name.isEmpty()) {
+            user.setName(name);
+        }
+
+        return user;
+    }
 }
+

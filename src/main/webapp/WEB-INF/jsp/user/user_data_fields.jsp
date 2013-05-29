@@ -5,7 +5,6 @@
           <form:password type="password" name="registerPassword" path="password"/>
         </p>
        	<p class="text-error"><form:errors path="password" /></p>
-
     </div>
 </div>
 

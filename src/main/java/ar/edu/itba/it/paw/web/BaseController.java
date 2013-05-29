@@ -11,71 +11,65 @@ import ar.edu.itba.it.paw.domain.restaurant.RestaurantRepo;
 import ar.edu.itba.it.paw.domain.user.User;
 import ar.edu.itba.it.paw.utils.EnhancedModelAndView;
 
+
 @Controller
 public abstract class BaseController {
 
-	@Autowired
-	private PictureRepo pictureRepo;
-	
-	@Autowired
-	private FoodTypeRepo ftRepo;
-	
-	@Autowired
-	private RestaurantRepo restRepo;
+    @Autowired
+    private PictureRepo pictureRepo;
 
-	public boolean isLoggedIn(HttpSession session) {
+    @Autowired
+    private FoodTypeRepo ftRepo;
 
-		return session.getAttribute("user") != null;
-	}
+    @Autowired
+    private RestaurantRepo restRepo;
 
-	public User getLoggedInUser(HttpSession session) {
-		
-		if (!isLoggedIn(session)) {
-			return null;
-		}
-		
-		return (User)session.getAttribute("user");
-	}
-	
-	public void setLoggedInUser(HttpSession session, User user) {
+    public boolean isLoggedIn(HttpSession session) {
 
-		if (user != null) {
-			if (user.getAvatar() != null)
-				user.setAvatar(pictureRepo.getPictureById(user.getAvatar().getId()));
-		}
-		session.setAttribute("user", user);
-	}
-	
-	public void logoutUser(HttpSession session) {
+        return session.getAttribute("user") != null;
+    }
 
-		session.invalidate();
-	}
+    public User getLoggedInUser(HttpSession session) {
 
-	public EnhancedModelAndView generateContext(String title, boolean sidebar, boolean setFoodTypes) {
+        return (User)session.getAttribute("user");
+    }
 
-		EnhancedModelAndView mav = new EnhancedModelAndView(title);
+    public void setLoggedInUser(HttpSession session, User user) {
 
-		mav.addObject("sidebar", sidebar);
-		mav.addObject("numberOfRestaurants", restRepo.getAll().size());
-		
-		if (setFoodTypes) {
-			mav.addObject("foodTypesList", ftRepo.getAll());
-		}
+        session.setAttribute("user", user);
+    }
 
-		return mav;
-	}
-	
-	public EnhancedModelAndView generateContext(String title, boolean sidebar, boolean setFoodTypes, String viewName) {
+    public void logoutUser(HttpSession session) {
 
-		EnhancedModelAndView mav = generateContext(title, sidebar, setFoodTypes);
-		mav.setViewName(viewName);
-		return mav;
-	}
-	
-	public EnhancedModelAndView indexContext() {
+        session.invalidate();
+    }
 
-		EnhancedModelAndView mav = new EnhancedModelAndView("Guia Oleo Facha");
-		mav.setViewName("redirect:/bin/index/list");
-		return mav;
-	}
+    public EnhancedModelAndView generateContext(String title, boolean sidebar, boolean setFoodTypes) {
+
+        EnhancedModelAndView mav = new EnhancedModelAndView(title);
+
+        mav.addObject("sidebar", sidebar);
+        mav.addObject("numberOfRestaurants", restRepo.getAll().size()); // TODO: here?
+
+        if (setFoodTypes) {
+            mav.addObject("foodTypesList", ftRepo.getAll()); // TODO: isn't this the same as sidebar?
+        }
+
+        return mav;
+    }
+
+    public EnhancedModelAndView generateContext(String title, boolean sidebar, boolean setFoodTypes, String viewName) {
+
+        EnhancedModelAndView mav = generateContext(title, sidebar, setFoodTypes);
+        mav.setViewName(viewName);
+        return mav;
+    }
+
+    public EnhancedModelAndView indexContext() {
+
+        EnhancedModelAndView mav = new EnhancedModelAndView("Guia Oleo Facha");
+        mav.setViewName("redirect:/bin/index/list");
+        return mav;
+    }
 }
+

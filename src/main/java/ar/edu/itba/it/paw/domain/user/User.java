@@ -6,6 +6,8 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -21,7 +23,10 @@ import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
 @Table(name = "SystemUser")
 public class User extends AbstractModel {
 
-    private String name, surname, email, username, password, type;
+    private String name, surname, email, username, password;
+
+    @Enumerated(EnumType.STRING)
+    private UserType type;
 
     private Date registerDate;
 
@@ -43,7 +48,7 @@ public class User extends AbstractModel {
     User() {}
 
     public User(String name, String surname, String email, String username,
-                String password, Picture avatar, Date date, String type) {
+                String password, Picture avatar, Date date, UserType type) {
 
         if (username == null) {
             throw new IllegalArgumentException();
@@ -61,7 +66,7 @@ public class User extends AbstractModel {
     }
 
     public User(String name, String surname, String email, String username,
-                String password, Date date, String type) {
+                String password, Date date, UserType type) {
 
         this(name, surname, email, username, password, null, date, type);
     }
@@ -94,7 +99,7 @@ public class User extends AbstractModel {
         return registeredRestaurants;
     }
 
-    public String getType() {
+    public UserType getType() {
         return type;
     }
 
@@ -110,7 +115,7 @@ public class User extends AbstractModel {
         this.registerDate = registerDate;
     }
 
-    public void setType(String type) {
+    public void setType(UserType type) {
         if (type != null)
             this.type = type;
     }

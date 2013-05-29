@@ -9,63 +9,81 @@ import ar.edu.itba.it.paw.domain.user.UserRepo;
 import ar.edu.itba.it.paw.utils.Utils;
 import ar.edu.itba.it.paw.web.command.RegisterForm;
 
+
 @Component
 public class RegisterFormValidator implements Validator {
-	
-	private UserRepo userRepo;
-	
-	@Autowired
-	public RegisterFormValidator(UserRepo userRepo) {
-		this.userRepo = userRepo;
-	}
-	
-	@Override
-	public boolean supports(Class<?> clazz) {
-		return RegisterForm.class.equals(clazz);
-	}
 
-	@Override
-	public void validate(Object target, Errors errors) {
+    private UserRepo userRepo;
 
-		RegisterForm obj = (RegisterForm) target;
+    @Autowired
+    public RegisterFormValidator(UserRepo userRepo) {
+        this.userRepo = userRepo;
+    }
 
-		if (obj.getName().isEmpty())
-			errors.rejectValue("name", "empty");
+    @Override
+    public boolean supports(Class<?> clazz) {
+        return RegisterForm.class.equals(clazz);
+    }
 
-		if (obj.getSurname().isEmpty())
-			errors.rejectValue("surname", "empty");
+    @Override
+    public void validate(Object target, Errors errors) {
 
-		if (obj.getEmail().isEmpty())
-			errors.rejectValue("email", "empty");
+        RegisterForm form = (RegisterForm) target;
 
-		if (!Utils.isEmail(obj.getEmail()))
-			errors.rejectValue("email", "badformat");
+        String name       = Utils.normalizeString(form.getName());
+        String surname    = Utils.normalizeString(form.getSurname());
+        String email      = Utils.normalizeString(form.getEmail());
+        String password   = Utils.normalizeString(form.getPassword());
+        String rePassword = Utils.normalizeString(form.getRepassword());
+        String username   = Utils.normalizeString(form.getUsername());
 
-		if (userRepo.emailExists(obj.getEmail()))
-			errors.rejectValue("email", "duplicated");
+        if (name.isEmpty()) {
+            errors.rejectValue("name", "empty");
+        }
 
-		if (obj.getPassword().isEmpty())
-			errors.rejectValue("password", "empty");
+        if (surname.isEmpty()) {
+            errors.rejectValue("surname", "empty");
+        }
 
-		if (obj.getRepassword().isEmpty())
-			errors.rejectValue("repassword", "empty");
+        if (email.isEmpty()) {
+            errors.rejectValue("email", "empty");
+        }
 
-		if (!obj.getPassword().equals(obj.getRepassword()))
-			errors.rejectValue("password", "mismatch");
+        if (!Utils.isEmail(email)) {
+            errors.rejectValue("email", "badformat");
+        }
 
-		if (obj.getUsername().isEmpty()) {
-			errors.rejectValue("username", "empty");
-		} else {
-			if (obj.getUsername().length() > 10) {
-				errors.rejectValue("username", "toolong");
-			}
-			if (userRepo.usernameExists(obj.getUsername())) {
-				errors.rejectValue("username", "duplicated");
-			}
-		}
+        if (userRepo.emailExists(email)) {
+            errors.rejectValue("email", "duplicated");
+        }
 
-		if (obj.getAvatar().isEmpty())
-			errors.rejectValue("avatar", "empty");
+        if (password.isEmpty()) {
+            errors.rejectValue("password", "empty");
+        }
 
-	}
+        if (rePassword.isEmpty()) {
+            errors.rejectValue("repassword", "empty");
+        }
+
+        if (!password.equals(rePassword)) {
+            errors.rejectValue("repassword", "mismatch");
+        }
+
+        if (username.isEmpty()) {
+            errors.rejectValue("username", "empty");
+        }
+
+        if (username.length() > 10) {
+            errors.rejectValue("username", "toolong");
+        }
+
+        if (userRepo.usernameExists(username)) {
+            errors.rejectValue("username", "duplicated");
+        }
+
+        if (form.getAvatar().isEmpty()) {
+            errors.rejectValue("avatar", "empty");
+        }
+    }
 }
+

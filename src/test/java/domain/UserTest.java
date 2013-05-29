@@ -5,12 +5,13 @@ import java.util.Date;
 import org.junit.Test;
 
 import ar.edu.itba.it.paw.domain.user.User;
+import ar.edu.itba.it.paw.domain.user.UserType;
 
 public class UserTest {
 	@Test
 	public void newValidUserTest() {
 		new User("name", "surname", "email@email.com", "username", "password",
-				new Date(), "type");
+				new Date(), UserType.Normal);
 	}
 
 	// EJEMPLOS DE MAS TESTS

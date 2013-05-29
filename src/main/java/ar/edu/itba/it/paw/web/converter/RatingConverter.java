@@ -7,19 +7,22 @@ import org.springframework.stereotype.Component;
 import ar.edu.itba.it.paw.domain.restaurant.Rating;
 import ar.edu.itba.it.paw.domain.restaurant.RestaurantRepo;
 
+
 @Component
 public class RatingConverter implements Converter<String, Rating> {
 
-	private RestaurantRepo restRepo;
-	
-	@Autowired
-	public RatingConverter (RestaurantRepo restRepo) {
-		this.restRepo = restRepo;
-	}
-	
-	@Override
-	public Rating convert(String arg0) {
-		return restRepo.getRating(Integer.valueOf(arg0));
-	}
+    private RestaurantRepo restRepo;
 
+    @Autowired
+    public RatingConverter (RestaurantRepo restRepo) {
+
+        this.restRepo = restRepo;
+    }
+
+    @Override
+    public Rating convert(String arg) {
+
+        return restRepo.getRating(Integer.valueOf(arg));
+    }
 }
+

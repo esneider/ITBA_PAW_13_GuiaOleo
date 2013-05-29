@@ -1,17 +1,18 @@
 package ar.edu.itba.it.paw.web.command;
 
+
 public class LoginForm {
 
 	private String username, password;
 
 	public LoginForm(String username, String password) {
+
 		this.username = username;
 		this.password = password;
 	}
-	
-	public LoginForm() {
-	}
-	
+
+	public LoginForm() {}
+
 	public String getUsername() {
 		return username;
 	}
@@ -27,5 +28,5 @@ public class LoginForm {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
 }
+

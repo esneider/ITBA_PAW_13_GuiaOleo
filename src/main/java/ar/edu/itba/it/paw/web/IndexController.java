@@ -14,6 +14,7 @@ import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
 import ar.edu.itba.it.paw.domain.restaurant.RestaurantRepo;
 import ar.edu.itba.it.paw.utils.EnhancedModelAndView;
 
+
 @Controller
 public class IndexController extends BaseController {
 
@@ -79,3 +80,4 @@ public class IndexController extends BaseController {
 		return mav;
 	}
 }
+

@@ -35,5 +35,15 @@ public class Utils {
 
         return ((float) Math.round(num * 100)) / 100;
     }
+
+    public static String normalizeString(String s) {
+
+        if (s == null) {
+
+            return "";
+        }
+
+        return s.trim();
+    }
 }
 
