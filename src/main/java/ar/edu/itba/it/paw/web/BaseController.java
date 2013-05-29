@@ -67,7 +67,7 @@ public abstract class BaseController {
 
     public EnhancedModelAndView indexContext() {
 
-        EnhancedModelAndView mav = new EnhancedModelAndView("Guia Oleo Facha");
+        EnhancedModelAndView mav = new EnhancedModelAndView("Oleo's guide");
         mav.setViewName("redirect:/bin/index/list");
         return mav;
     }

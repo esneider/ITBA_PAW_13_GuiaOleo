@@ -56,7 +56,7 @@ public class RestaurantFormValidator  implements Validator  {
             errors.rejectValue("avgprice", "nonpositive");
         }
 
-        if (form.getFoodTypes().isEmpty()) {
+        if (form.getFoodTypes() == null || form.getFoodTypes().isEmpty()) {
             errors.rejectValue("foodTypes", "empty");
         }
     }

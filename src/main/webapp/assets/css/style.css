@@ -10,7 +10,6 @@ body > .navbar form.navbar-form > div {
     margin-bottom: auto;
 }
 
-
 .mainList > dt {
     margin-left: 100px;
     margin-right: 20px;
@@ -38,8 +37,8 @@ body > .navbar form.navbar-form > div {
 
 .avatarPic{
 
-	width: 50px;
-	height: 50px;
+    width: 50px;
+    height: 50px;
 
 }
 
@@ -86,7 +85,7 @@ body > .navbar form.navbar-form > div {
 }
 
 #map-canvas {
-	height: 300px;
+    height: 300px;
 }
 
 .login-container {
@@ -94,7 +93,7 @@ body > .navbar form.navbar-form > div {
 }
 
 .footer {
-	margin-bottom: 40px;
+    margin-bottom: 40px;
 }
 
 #no_results {
@@ -124,31 +123,46 @@ h2.title {
 }
 
 .mbot5 {
-	margin-bottom: 5px !important;
+    margin-bottom: 5px !important;
 }
 
 .profilePic{
-	width: 200px;
-	height: 200px;
-	float: left;
-	display: inline;
+    width: 200px;
+    height: 200px;
+    float: left;
+    display: inline;
 }
 
 .detail {
-	width: 500px;
+    width: 500px;
 }
 
 .profileHeader {
-	width: 800px;
-	margin-bottom: 200px;
+    width: 800px;
+    margin-bottom: 200px;
 }
 
 .profileFields {
-	 float: left;
-	 width: 620px;
-	 margin-left: 50px;
+     float: left;
+     width: 620px;
+     margin-left: 50px;
 }
 
 .inline {
-	display: inline;
+    display: inline;
 }
+
+#chk_container > span {
+    display: block;
+}
+
+#chk_container > span > input {
+    margin-top: 0;
+}
+
+#chk_container > span > label {
+    display: inline;
+    margin-left: 5px;
+    line-height: 2em;
+}
+

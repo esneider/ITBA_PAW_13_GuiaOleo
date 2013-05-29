@@ -12,7 +12,6 @@
 
     <script type="text/javascript" src="${ pageContext.request.contextPath }/assets/js/jquery.js"></script>
     <script type="text/javascript" src="${ pageContext.request.contextPath }/assets/js/bootstrap.js"></script>
-    <script type="text/javascript" src="${ pageContext.request.contextPath }/assets/js/maps.js"></script>
 
     <title>${documentTitle}</title>
 </head>
@@ -29,7 +28,7 @@
             <ul id="user-menu" class="nav pull-right">
                 <c:choose>
                     <c:when test="${not empty user}">
-     
+
                         <li class="dropdown">
                             <a href="#" id="user-dd" role="button" class="dropdown-toggle menu-text" data-toggle="dropdown">
                                 ${fn:escapeXml(user.username)}
@@ -42,16 +41,16 @@
                                 <li role="presentation">
                                     <a role="menuitem" href="${ pageContext.request.contextPath }/bin/user/profile?userId=${user.id}">View my profile</a>
                                 </li>
-                            	<li role="presentation">
+                                <li role="presentation">
                                     <a role="menuitem" href="${ pageContext.request.contextPath }/bin/restaurant/add">Register Restaurant</a>
                                 </li>
                                 <c:if test="${user.type == 'Admin'}">
-	                                  <li role="presentation">
-	                                    <a role="menuitem" href="${ pageContext.request.contextPath }/bin/index/pending">See pending requests</a>
-	                                </li>
-	                                <li role="presentation">
-	                                    <a role="menuitem" href="${ pageContext.request.contextPath }/bin/user/list">See registered users</a>
-	                                </li>
+                                      <li role="presentation">
+                                        <a role="menuitem" href="${ pageContext.request.contextPath }/bin/index/pending">See pending requests</a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a role="menuitem" href="${ pageContext.request.contextPath }/bin/user/list">See registered users</a>
+                                    </li>
                                 </c:if>
                                 <li role="presentation">
                                     <a role="menuitem" href="${ pageContext.request.contextPath }/bin/user/logout">Logout</a>
@@ -111,8 +110,8 @@
                                     </li>
                                 </c:if>
                             </c:forEach>
-                    	</ul>
-                    	<div class="tab-content">
+                        </ul>
+                        <div class="tab-content">
                             <div class="tab-pane active">
                  </c:when>
-        	</c:choose>
+            </c:choose>

@@ -47,24 +47,20 @@ public class RegisterFormValidator implements Validator {
 
         if (email.isEmpty()) {
             errors.rejectValue("email", "empty");
-        }
-
+        } else
         if (!Utils.isEmail(email)) {
             errors.rejectValue("email", "badformat");
-        }
-
+        } else
         if (userRepo.emailExists(email)) {
             errors.rejectValue("email", "duplicated");
         }
 
         if (password.isEmpty()) {
             errors.rejectValue("password", "empty");
-        }
-
+        } else
         if (rePassword.isEmpty()) {
             errors.rejectValue("repassword", "empty");
-        }
-
+        } else
         if (!password.equals(rePassword)) {
             errors.rejectValue("repassword", "mismatch");
         }
