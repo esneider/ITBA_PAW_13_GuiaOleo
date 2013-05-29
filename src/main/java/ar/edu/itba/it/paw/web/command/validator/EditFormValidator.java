@@ -64,7 +64,7 @@ public class EditFormValidator implements Validator {
             errors.rejectValue("surname", "empty");
         }
 
-        if (userRepo.emailExists(email)) {
+        if (!email.equals(user.getEmail()) && userRepo.emailExists(email)) {
             errors.rejectValue("email", "duplicated");
         }
 
