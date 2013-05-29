@@ -54,7 +54,7 @@ public class IndexController extends BaseController {
 			@RequestParam(value = "id", required = false) FoodType ft,
 			@RequestParam(value = "num", required = false) Integer num) {
 
-		EnhancedModelAndView mav = generateContext("Guia Oleo Facha", true,
+		EnhancedModelAndView mav = generateContext("Oleo's Guide", true,
 				true, "index/list");
 
 		if (query == null) {
