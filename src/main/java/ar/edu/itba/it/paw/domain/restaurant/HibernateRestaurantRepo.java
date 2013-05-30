@@ -137,7 +137,7 @@ public class HibernateRestaurantRepo extends AbstractHibernateRepo implements Re
     }
 
     @Override
-    public Set<Restaurant> getRecommendedRestaurants(Restaurant restaurant, User user) {
+    public List<Restaurant> getRecommendedRestaurants(Restaurant restaurant, User user) {
 
         if (restaurant == null) {
             throw new IllegalArgumentException("Empty restaurant");
@@ -153,11 +153,13 @@ public class HibernateRestaurantRepo extends AbstractHibernateRepo implements Re
                 }
             }
         }
-
-        return recommendedRestaurants;
+        
+        List<Restaurant> copy = new ArrayList<Restaurant>(recommendedRestaurants);
+        Collections.shuffle(copy);
+        return copy.subList(0, Math.min(copy.size(), 3));
     }
     
-    public Set<Restaurant> getRecommendedRestaurants(Restaurant restaurant) {
+    public List<Restaurant> getRecommendedRestaurants(Restaurant restaurant) {
     	return getRecommendedRestaurants(restaurant, null);
     }
 

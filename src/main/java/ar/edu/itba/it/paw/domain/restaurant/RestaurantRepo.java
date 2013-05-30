@@ -1,7 +1,6 @@
 package ar.edu.itba.it.paw.domain.restaurant;
 
 import java.util.List;
-import java.util.Set;
 
 import ar.edu.itba.it.paw.domain.user.User;
 
@@ -49,12 +48,12 @@ public interface RestaurantRepo {
      * the given restaurant and are not the user sent by
      * parameter.
      */
-    public Set<Restaurant> getRecommendedRestaurants(Restaurant r, User u);
+    public List<Restaurant> getRecommendedRestaurants(Restaurant r, User u);
     /**
     *
     * Gets recommended restaurants from users who like
     * the given restaurant.
     */
-    public Set<Restaurant> getRecommendedRestaurants(Restaurant r);
+    public List<Restaurant> getRecommendedRestaurants(Restaurant r);
 }
 

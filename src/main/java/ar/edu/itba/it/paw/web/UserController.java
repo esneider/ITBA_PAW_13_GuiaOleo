@@ -169,6 +169,12 @@ public class UserController extends BaseController {
 	@RequestMapping(method = RequestMethod.POST)
 	public ModelAndView administrate(@RequestParam("action") String action,
 			@RequestParam("id") User u, HttpSession session) {
+		if (!isLoggedIn(session))
+			return indexContext();
+		if (!getLoggedInUser(session).isAdmin())
+			return indexContext();
+		if (getLoggedInUser(session).equals(u))
+			return indexContext();
 		if (action.equals("setadmin")) {
 			u.setType(UserType.Admin);
 		} else if (action.equals("unsetadmin")) {
