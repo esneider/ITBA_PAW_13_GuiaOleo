@@ -166,3 +166,9 @@ h2.title {
     line-height: 2em;
 }
 
+@-moz-document url-prefix() {
+    .blabla {
+        border-width: 2px;
+    }
+}
+
