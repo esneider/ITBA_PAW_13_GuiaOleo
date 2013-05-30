@@ -15,7 +15,7 @@ import ar.edu.itba.it.paw.domain.user.User;
 public class RestaurantForm {
 
     private String name, address, area, telephone, website, timerange;
-    private float avgprice;
+    private Float avgprice;
     private List<FoodType> foodTypes = new ArrayList<FoodType>();
 
     public RestaurantForm() {}
@@ -68,7 +68,7 @@ public class RestaurantForm {
         this.timerange = timerange;
     }
 
-    public float getAvgprice() {
+    public Float getAvgprice() {
         return avgprice;
     }
 
