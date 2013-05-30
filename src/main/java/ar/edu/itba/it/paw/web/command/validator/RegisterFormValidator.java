@@ -76,7 +76,7 @@ public class RegisterFormValidator implements Validator {
         if (userRepo.usernameExists(username)) {
             errors.rejectValue("username", "duplicated");
         }
-        		
+
         if (form.getAvatar().isEmpty()) {
             errors.rejectValue("avatar", "empty");
         }

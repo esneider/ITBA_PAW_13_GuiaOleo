@@ -3,9 +3,23 @@ package ar.edu.itba.it.paw.utils;
 import java.net.URISyntaxException;
 
 import org.apache.http.client.utils.URIBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import ar.edu.itba.it.paw.domain.user.UserRepo;
 
 
+@Component
 public class Utils {
+
+	private static UserRepo userRepo;
+
+	Utils() {}
+
+	@Autowired
+	public void setUserRepo(UserRepo userRepo) {
+		Utils.userRepo = userRepo;
+	}
 
     public static boolean isEmail(String str) {
 
@@ -44,6 +58,16 @@ public class Utils {
         }
 
         return s.trim();
+    }
+
+    public static boolean usernameExists(String username) {
+    	
+    	return userRepo.usernameExists(username);
+    }
+    
+    public static boolean emailExists(String email) {
+    	
+    	return userRepo.emailExists(email);
     }
 }
 

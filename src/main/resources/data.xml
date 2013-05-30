@@ -40,7 +40,10 @@
 		</property>
 
 		<property name="packagesToScan">
-			<list> <value>ar.edu.itba.it.paw.domain</value> </list>
+			<list>
+                <value>ar.edu.itba.it.paw.domain</value>
+                <value>ar.edu.itba.it.paw.utils</value>
+			</list>
 		</property>
 
 	</bean>

@@ -12,9 +12,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
-
-import org.springframework.beans.factory.annotation.Autowired;
 
 import ar.edu.itba.it.paw.domain.AbstractModel;
 import ar.edu.itba.it.paw.domain.picture.Picture;
@@ -48,10 +45,6 @@ public class User extends AbstractModel {
 
     @OneToMany(mappedBy = "registerUser", cascade = CascadeType.ALL)
     private Set<Restaurant> registeredRestaurants;
-
-    @Transient
-    @Autowired
-    private UserRepo userRepo;
 
     User() {}
 
@@ -120,7 +113,7 @@ public class User extends AbstractModel {
             throw new IllegalArgumentException("Empty username");
         }
 
-        if (userRepo.usernameExists(username)) {
+        if (Utils.usernameExists(username)) {
         	throw new IllegalArgumentException("Duplicated username");
         }
 
@@ -170,11 +163,12 @@ public class User extends AbstractModel {
             throw new IllegalArgumentException("Empty email");
         }
 
-        if (Utils.isEmail(email)) {
+        if (!Utils.isEmail(email)) {
+        	System.out.println("invalid email");
             throw new IllegalArgumentException("Invalid email");
         }
 
-        if (userRepo.emailExists(email)) {
+        if (Utils.emailExists(email)) {
             throw new IllegalArgumentException("Duplicated email");
         }
 
