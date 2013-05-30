@@ -164,7 +164,6 @@ public class User extends AbstractModel {
         }
 
         if (!Utils.isEmail(email)) {
-        	System.out.println("invalid email");
             throw new IllegalArgumentException("Invalid email");
         }
 

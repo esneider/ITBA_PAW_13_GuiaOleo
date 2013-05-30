@@ -1,21 +1,79 @@
 package domain;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
+import ar.edu.itba.it.paw.domain.foodtype.FoodType;
+import ar.edu.itba.it.paw.domain.foodtype.FoodTypeRepo;
 import ar.edu.itba.it.paw.domain.picture.Picture;
+import ar.edu.itba.it.paw.domain.restaurant.Rating;
+import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
+import ar.edu.itba.it.paw.domain.restaurant.RestaurantState;
 import ar.edu.itba.it.paw.domain.user.User;
+import ar.edu.itba.it.paw.domain.user.UserRepo;
 import ar.edu.itba.it.paw.domain.user.UserType;
+import ar.edu.itba.it.paw.utils.Utils;
 
 
 public class UserTest {
 
+	class MockUserRepo implements UserRepo {
+		@Override
+		public User get(int id) {return null;}
+		@Override
+		public boolean emailExists(String email) {return false;}
+		@Override
+		public boolean usernameExists(String username) {return false;}
+		@Override
+		public User login(String username, String password) {return null;}
+		@Override
+		public void save(User user) {}
+		@Override
+		public List<User> getAll() {return null;}
+	}
+
+	class MockFoodTypeRepo implements FoodTypeRepo {
+		@Override
+		public List<FoodType> getAll() {return null;}
+		@Override
+		public FoodType get(int id) {return null;}
+		@Override
+		public boolean foodTypeExists(String name) {return false;}
+	}
+
+	Picture picture;
+	Rating rating;
+
+	@Before
+	public void init() {
+
+		Utils utils = new Utils();
+
+		utils.setUserRepo(new MockUserRepo());
+		utils.setFoodTypeRepo(new MockFoodTypeRepo());
+
+		picture = new Picture(new byte[1], "");
+
+		User user = new User("a", "a", "aa@aa.aa", "a", "a", picture, new Date(), UserType.Normal);
+
+		Set<FoodType> set = new HashSet<FoodType>();
+		
+		set.add(new FoodType("bla"));
+
+		Restaurant restaurant = new Restaurant("a", "a", "a", "a", "a", "a", 1, RestaurantState.Accepted,
+											   set, user, new Date());
+
+		rating = new Rating(2, "", user, restaurant, new Date());
+	}
+
     @Test
     public void newValidUserTest() {
-
-        Picture picture = new Picture(new byte[1], "");
 
         User user = new User("name", "surname", "email@email.com", "username", "password", picture, new Date(),
                              UserType.Normal);
@@ -26,8 +84,7 @@ public class UserTest {
     @Test(expected = IllegalArgumentException.class)
     public void nullNameTest() {
 
-        Picture picture = new Picture(new byte[1], "");
-
+        @SuppressWarnings("unused")
         User user = new User(null, "surname", "email@email.com", "username", "password", picture, new Date(),
                              UserType.Normal);
     }
@@ -35,8 +92,7 @@ public class UserTest {
     @Test(expected = IllegalArgumentException.class)
     public void nullSurnameTest() {
 
-        Picture picture = new Picture(new byte[1], "");
-
+        @SuppressWarnings("unused")
         User user = new User("name", null, "email@email.com", "username", "password", picture, new Date(),
                              UserType.Normal);
     }
@@ -44,8 +100,7 @@ public class UserTest {
     @Test(expected = IllegalArgumentException.class)
     public void nullEmailTest() {
 
-        Picture picture = new Picture(new byte[1], "");
-
+        @SuppressWarnings("unused")
         User user = new User("name", "surname", null, "username", "password", picture, new Date(),
                              UserType.Normal);
     }
@@ -53,8 +108,7 @@ public class UserTest {
     @Test(expected = IllegalArgumentException.class)
     public void nullUsernameTest() {
 
-        Picture picture = new Picture(new byte[1], "");
-
+        @SuppressWarnings("unused")
         User user = new User("name", "surname", "email@email.com", null, "password", picture, new Date(),
                              UserType.Normal);
     }
@@ -62,8 +116,7 @@ public class UserTest {
     @Test(expected = IllegalArgumentException.class)
     public void nullPasswordTest() {
 
-        Picture picture = new Picture(new byte[1], "");
-
+        @SuppressWarnings("unused")
         User user = new User("name", "surname", "email@email.com", "username", null, picture, new Date(),
                              UserType.Normal);
     }
@@ -71,6 +124,7 @@ public class UserTest {
     @Test(expected = IllegalArgumentException.class)
     public void nullPictureTest() {
 
+        @SuppressWarnings("unused")
         User user = new User("name", "surname", "email@email.com", "username", "password", null, new Date(),
                              UserType.Normal);
     }
@@ -78,99 +132,100 @@ public class UserTest {
     @Test(expected = IllegalArgumentException.class)
     public void nullDateTest() {
 
-        Picture picture = new Picture(new byte[1], "");
-
-        User user = new User("name", "surname", "email@email.com", null, "password", picture, null,
+        @SuppressWarnings("unused")
+		User user = new User("name", "surname", "email@email.com", null, "password", picture, null,
                              UserType.Normal);
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void emptyNameTest() {
 
-    /* @Test(expected = Exception.class) */
-    /* public void nullUsernameTest() { */
-    /*     new User("name", "surname", "email@email.com", null, "password", new Date(), "type"); */
-    /* } */
+        @SuppressWarnings("unused")
+        User user = new User("", "surname", "email@email.com", "username", "password", picture, new Date(),
+                             UserType.Normal);
+    }
 
-    /* @Before public void setUser(){ this.user = new User("name", "surname", */
-    /* "email", "username", "password"); this.rest = new Restaurant("name", */
-    /* "address", "neighbourhood", "phone", "webAddress", 20.0, "timetable"); } */
+    @Test(expected = IllegalArgumentException.class)
+    public void emptySurnameTest() {
 
-    /* @Test public void newValidUserTest(){ new User("name", "surname", */
-    /* "email", "username", "password"); } */
+        @SuppressWarnings("unused")
+        User user = new User("name", "", "email@email.com", "username", "password", picture, new Date(),
+                             UserType.Normal);
+    }
 
-    /* @Test(expected = IllegalArgumentException.class) public void */
-    /* nullUsernameTest(){ new User("name", "surname", "email", null, */
-    /* "password"); } */
+    @Test(expected = IllegalArgumentException.class)
+    public void emptyEmailTest() {
 
-    /* @Test(expected = IllegalArgumentException.class) public void */
-    /* emptyUsernameTest(){ new User("name", "surname", "email", "", */
-    /* "password"); } */
+        @SuppressWarnings("unused")
+        User user = new User("name", "surname", "", "username", "password", picture, new Date(),
+                             UserType.Normal);
+    }
 
-    /* @Test(expected = IllegalArgumentException.class) public void */
-    /* nullNameTest(){ new User(null, "surname", "email", "username", */
-    /* "password"); } */
+    @Test(expected = IllegalArgumentException.class)
+    public void emptyUsernameTest() {
 
-    /* @Test(expected = IllegalArgumentException.class) public void */
-    /* emptyNameTest(){ new User("", "surname", "email", "username", */
-    /* "password"); } */
+        @SuppressWarnings("unused")
+        User user = new User("name", "surname", "email@email.com", "", "password", picture, new Date(),
+                             UserType.Normal);
+    }
 
-    /* @Test(expected = IllegalArgumentException.class) public void */
-    /* nullSurnameTest(){ new User("name", null, "email", "username", */
-    /* "password"); } */
+    @Test(expected = IllegalArgumentException.class)
+    public void emptyPasswordTest() {
 
-    /* @Test(expected = IllegalArgumentException.class) public void */
-    /* emptySurnameTest(){ new User("name", "", "email", "username", */
-    /* "password"); } */
+        @SuppressWarnings("unused")
+        User user = new User("name", "surname", "email@email.com", "username", "", picture, new Date(),
+                             UserType.Normal);
+    }
 
-    /* @Test(expected = IllegalArgumentException.class) public void */
-    /* nullEmailTest(){ new User("name", "surname", null, "username", */
-    /* "password"); } */
+    @Test
+    public void isAdministratorTest() {
 
-    /* @Test(expected = IllegalArgumentException.class) public void */
-    /* emptyEmailTest(){ new User("name", "surname", "", "username", */
-    /* "password"); } */
+        User user = new User("name", "surname", "email@email.com", "username", "password", picture, new Date(),
+                             UserType.Admin);
 
-    /* @Test(expected = IllegalArgumentException.class) public void */
-    /* nullPasswordTest(){ new User("name", "surname", "email", "username", */
-    /* null); } */
+        Assert.assertTrue(user.isAdmin());
+    }
 
-    /* @Test(expected = IllegalArgumentException.class) public void */
-    /* emptyPasswordTest(){ new User("name", "surname", "email", "username", */
-    /* ""); } */
+    @Test
+    public void isNotAdministratorTest() {
 
-    /* @Test public void isAdministratorTest(){ User u = new User("name", */
-    /* "surname", "email", "username", "password", 1); */
-    /* Assert.assertTrue(u.isAdministrator()); */
-    /* Assert.assertFalse(u.isRegularUser()); } */
+        User user = new User("name", "surname", "email@email.com", "username", "password", picture, new Date(),
+                             UserType.Normal);
 
-    /* @Test public void isRegularTest(){ User u = new User("name", "surname", */
-    /* "email", "username", "password", 0); */
-    /* Assert.assertFalse(u.isAdministrator()); */
-    /* Assert.assertTrue(u.isRegularUser()); } */
+        Assert.assertFalse(user.isAdmin());
+    }
 
-    /* @Test public void toAdministratorTest(){ */
-    /* Assert.assertTrue(user.isRegularUser()); user.toAdministrator(); */
-    /* Assert.assertTrue(user.isAdministrator()); */
-    /* Assert.assertFalse(user.isRegularUser()); } */
+    @Test(expected = IllegalArgumentException.class)
+    public void invalidEmailTest() {
 
-    /* @Test public void toRegularUserTest(){ user.toAdministrator(); */
-    /* Assert.assertTrue(user.isAdministrator()); user.toRegularUser(); */
-    /* Assert.assertTrue(user.isRegularUser()); */
-    /* Assert.assertFalse(user.isAdministrator()); } */
+        @SuppressWarnings("unused")
+		User user = new User("name", "surname", "berhsdfbdhj", "username", "password", picture, new Date(),
+                             UserType.Normal);
+    }
 
-    /* @Test public void addFavouritesTest(){ user.addFavourite(rest); */
-    /* Assert.assertTrue(user.getFavourites().size() == 1); } */
+    @Test
+    public void likesTest() {
 
-    /* @Test public void noFavouritesTest(){ */
-    /* Assert.assertTrue(user.getFavourites().size() == 0); } */
+        User user = new User("name", "surname", "email@email.com", "username", "password", picture, new Date(),
+                             UserType.Normal);
 
-    /* @Test public void reAddFavouritesTest(){ user.addFavourite(rest); */
-    /* Assert.assertTrue(user.getFavourites().size() == 1); */
-    /* user.addFavourite(rest); Assert.assertTrue(user.getFavourites().size() == */
-    /* 1); } */
+        Assert.assertEquals(user.getLikes().size(), 0);
+        
+        user.like(rating);
+        
+        Assert.assertEquals(user.getLikes().size(), 1);
 
-    /* @Test public void removeFavouritesTest(){ user.addFavourite(rest); */
-    /* Assert.assertTrue(user.getFavourites().size() == 1); */
-    /* user.removeFavourite(rest); Assert.assertTrue(user.getFavourites().size() */
-    /* == 0); } */
+        user.like(rating);
+        
+        Assert.assertEquals(user.getLikes().size(), 1);
+
+        user.unlike(rating);
+
+        Assert.assertEquals(user.getLikes().size(), 0);
+
+        user.unlike(rating);
+
+        Assert.assertEquals(user.getLikes().size(), 0);
+    }
 }
 

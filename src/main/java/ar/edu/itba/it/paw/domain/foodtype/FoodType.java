@@ -22,12 +22,7 @@ public class FoodType extends AbstractModel implements Comparable<FoodType> {
 	@ManyToMany(mappedBy = "foodtypes")
 	private Set<Restaurant> restaurants;
 
-	@Transient
-	@Autowired
-	FoodTypeRepo ftRepo;
-
-	FoodType() {
-	}
+	FoodType() {}
 
 	public FoodType(String name) {
 
@@ -37,7 +32,7 @@ public class FoodType extends AbstractModel implements Comparable<FoodType> {
 			throw new IllegalArgumentException("Empty name");
 		}
 
-		if (ftRepo.foodTypeExists(name)) {
+		if (Utils.foodTypeExists(name)) {
 			throw new IllegalArgumentException("Duplicated name");
 		}
 

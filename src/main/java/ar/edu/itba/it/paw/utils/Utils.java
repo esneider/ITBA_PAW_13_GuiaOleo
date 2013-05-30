@@ -9,80 +9,92 @@ import org.apache.http.client.utils.URIBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import ar.edu.itba.it.paw.domain.foodtype.FoodTypeRepo;
 import ar.edu.itba.it.paw.domain.user.UserRepo;
 
 @Component
 public class Utils {
 
-	private static UserRepo userRepo;
+    private static UserRepo userRepo;
+    private static FoodTypeRepo foodTypeRepo;
 
-	Utils() {
-	}
+    public Utils() {}
 
-	@Autowired
-	public void setUserRepo(UserRepo userRepo) {
-		Utils.userRepo = userRepo;
-	}
+    @Autowired
+    public void setUserRepo(UserRepo userRepo) {
+        Utils.userRepo = userRepo;
+    }
 
-	public static boolean isEmail(String str) {
+    @Autowired
+    public void setFoodTypeRepo(FoodTypeRepo foodTypeRepo) {
+        Utils.foodTypeRepo = foodTypeRepo;
+    }
 
-		return str != null
-				&& str.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$");
-	}
+    public static boolean isEmail(String str) {
 
-	public static String addParameterToURI(String URI, String param,
-			String value) {
+        return str != null
+                && str.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$");
+    }
 
-		URIBuilder builder;
+    public static String addParameterToURI(String URI, String param,
+            String value) {
 
-		try {
+        URIBuilder builder;
 
-			builder = new URIBuilder(URI);
+        try {
 
-		} catch (URISyntaxException e) {
+            builder = new URIBuilder(URI);
 
-			e.printStackTrace();
-			return URI;
-		}
+        } catch (URISyntaxException e) {
 
-		builder.addParameter(param, value);
+            e.printStackTrace();
+            return URI;
+        }
 
-		return builder.toString();
-	}
+        builder.addParameter(param, value);
 
-	public static float round(float num) {
+        return builder.toString();
+    }
 
-		return ((float) Math.round(num * 100)) / 100;
-	}
+    public static float round(float num) {
 
-	public static String normalizeString(String s) {
+        return ((float) Math.round(num * 100)) / 100;
+    }
 
-		if (s == null) {
+    public static String normalizeString(String s) {
 
-			return "";
-		}
+        if (s == null) {
 
-		return s.trim();
-	}
+            return "";
+        }
 
-	public static boolean usernameExists(String username) {
+        return s.trim();
+    }
 
-		return userRepo.usernameExists(username);
-	}
+    public static boolean usernameExists(String username) {
 
-	public static boolean emailExists(String email) {
+        return userRepo.usernameExists(username);
+    }
 
-		return userRepo.emailExists(email);
-	}
+    public static boolean emailExists(String email) {
 
-	public static String function(Double doubleValue) {
-		boolean isWholeNumber = (doubleValue == Math.round(doubleValue));
-		DecimalFormatSymbols formatSymbols = new DecimalFormatSymbols(
-				Locale.ENGLISH);
-		formatSymbols.setDecimalSeparator('.');
+        return userRepo.emailExists(email);
+    }
 
-		String pattern = isWholeNumber ? "#.##" : "#.00";
-		DecimalFormat df = new DecimalFormat(pattern, formatSymbols);
-		return (df.format(doubleValue));
-	}
+    public static boolean foodTypeExists(String name) {
+
+        return foodTypeRepo.foodTypeExists(name);
+    }
+
+    public static String function(Double doubleValue) {
+
+        boolean isWholeNumber = (doubleValue == Math.round(doubleValue));
+        DecimalFormatSymbols formatSymbols = new DecimalFormatSymbols(Locale.ENGLISH);
+        formatSymbols.setDecimalSeparator('.');
+
+        String pattern = isWholeNumber ? "#.##" : "#.00";
+        DecimalFormat df = new DecimalFormat(pattern, formatSymbols);
+        return (df.format(doubleValue));
+    }
 }
+
