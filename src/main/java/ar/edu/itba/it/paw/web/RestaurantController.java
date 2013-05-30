@@ -49,7 +49,7 @@ public class RestaurantController extends BaseController {
 
 		EnhancedModelAndView mav = generateContext("Simple Restaurant", true, true, "restaurant/view");
 		mav.addObject("restaurant", rest);
-		mav.addObject("recommended", restRepo.getRecommendedRestaurants(rest, getLoggedInUser(session)));
+		//mav.addObject("recommended", restRepo.getRecommendedRestaurants(rest, getLoggedInUser(session)));
 		
 		if (isLoggedIn(session)) {
 			Rating rate = rest.getUserRating(getLoggedInUser(session));

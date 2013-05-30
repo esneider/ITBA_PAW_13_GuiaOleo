@@ -103,7 +103,7 @@ public class UserController extends BaseController {
             setLoggedInUser(session, s);
 
         } catch (Exception e) {
-            errors.rejectValue("SQL CODE", "DB ERROR");
+            errors.rejectValue("SQLCODE", "DBERROR");
             return login(session);
         }
         return indexContext();

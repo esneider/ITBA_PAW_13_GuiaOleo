@@ -13,7 +13,7 @@ public class RegisterForm {
 
     private String name, surname, email, username, password, repassword;
     private CommonsMultipartFile avatar;
-    private User user; // CREAR LA CLASE USERFORM ???
+    private User user; 
     private int userId;
 
     public RegisterForm() {}

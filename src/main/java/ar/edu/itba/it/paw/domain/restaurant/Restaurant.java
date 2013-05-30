@@ -1,5 +1,6 @@
 package ar.edu.itba.it.paw.domain.restaurant;
 
+import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -19,234 +20,236 @@ import ar.edu.itba.it.paw.domain.foodtype.FoodType;
 import ar.edu.itba.it.paw.domain.user.User;
 import ar.edu.itba.it.paw.utils.Utils;
 
-
 @Entity
 public class Restaurant extends AbstractModel {
 
-    @ManyToMany
-    Set<FoodType> foodtypes;
+	@ManyToMany
+	Set<FoodType> foodtypes;
 
-    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
-    @Cascade(value = org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
-    Set<Rating> ratingsList = new HashSet<Rating>();
+	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
+	@Cascade(value = org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
+	Set<Rating> ratingsList = new HashSet<Rating>();
 
-    @ManyToOne
-    private User registerUser;
+	@ManyToOne
+	private User registerUser;
 
-    private String name, address, area, telephone, website, timerange;
+	private String name, address, area, telephone, website, timerange;
 
-    @Enumerated(EnumType.STRING)
-    private RestaurantState state;
+	@Enumerated(EnumType.STRING)
+	private RestaurantState state;
 
-    private float avgprice;
+	private float avgprice;
 
-    private Date applicationDate;
+	private Date applicationDate;
 
-    Restaurant() {}
+	Restaurant() {
+	}
 
-    public Restaurant(String name, String address, String area, String telephone, String website, String timerange,
-                      float avgprice, RestaurantState state, Set<FoodType> foodtypes, User user, Date appDate) {
+	public Restaurant(String name, String address, String area,
+			String telephone, String website, String timerange, float avgprice,
+			RestaurantState state, Set<FoodType> foodtypes, User user,
+			Date appDate) {
 
-        name      = Utils.normalizeString(name);
-        address   = Utils.normalizeString(address);
-        area      = Utils.normalizeString(area);
-        telephone = Utils.normalizeString(telephone);
-        website   = Utils.normalizeString(website);
-        timerange = Utils.normalizeString(timerange);
+		name = Utils.normalizeString(name);
+		address = Utils.normalizeString(address);
+		area = Utils.normalizeString(area);
+		telephone = Utils.normalizeString(telephone);
+		website = Utils.normalizeString(website);
+		timerange = Utils.normalizeString(timerange);
 
-        if (name.isEmpty()) {
-            throw new IllegalArgumentException("Empty name");
-        }
-        if (address.isEmpty()) {
-            throw new IllegalArgumentException("Empty address");
-        }
-        if (area.isEmpty()) {
-            throw new IllegalArgumentException("Empty area");
-        }
-        if (telephone.isEmpty()) {
-            throw new IllegalArgumentException("Empty telephone");
-        }
-        if (website.isEmpty()) {
-            throw new IllegalArgumentException("Empty website");
-        }
-        if (timerange.isEmpty()) {
-            throw new IllegalArgumentException("Empty timerange");
-        }
-        if (avgprice <= 0) {
-            throw new IllegalArgumentException("Non-positive avgprice");
-        }
-        if (foodtypes == null || foodtypes.isEmpty()) {
-            throw new IllegalArgumentException("Empty foodtypes");
-        }
-        if (user == null) {
-            throw new IllegalArgumentException("Empty user");
-        }
-        if (appDate == null) {
-            throw new IllegalArgumentException("Empty appDate");
-        }
+		if (name.isEmpty()) {
+			throw new IllegalArgumentException("Empty name");
+		}
+		if (address.isEmpty()) {
+			throw new IllegalArgumentException("Empty address");
+		}
+		if (area.isEmpty()) {
+			throw new IllegalArgumentException("Empty area");
+		}
+		if (telephone.isEmpty()) {
+			throw new IllegalArgumentException("Empty telephone");
+		}
+		if (website.isEmpty()) {
+			throw new IllegalArgumentException("Empty website");
+		}
+		if (timerange.isEmpty()) {
+			throw new IllegalArgumentException("Empty timerange");
+		}
+		if (avgprice <= 0) {
+			throw new IllegalArgumentException("Non-positive avgprice");
+		}
+		if (foodtypes == null || foodtypes.isEmpty()) {
+			throw new IllegalArgumentException("Empty foodtypes");
+		}
+		if (user == null) {
+			throw new IllegalArgumentException("Empty user");
+		}
+		if (appDate == null) {
+			throw new IllegalArgumentException("Empty appDate");
+		}
 
-        this.name = name;
-        this.address = address;
-        this.area = area;
-        this.telephone = telephone;
-        this.website = website;
-        this.timerange = timerange;
-        this.avgprice = Utils.round(avgprice);
-        this.foodtypes = foodtypes;
-        this.registerUser = user;
-        this.applicationDate = appDate;
+		this.name = name;
+		this.address = address;
+		this.area = area;
+		this.telephone = telephone;
+		this.website = website;
+		this.timerange = timerange;
+		this.avgprice = Utils.round(avgprice);
+		this.foodtypes = foodtypes;
+		this.registerUser = user;
+		this.applicationDate = appDate;
 
-        setState(state);
-    }
+		setState(state);
+	}
 
-    public Set<FoodType> getFoodtypes() {
-        return foodtypes;
-    }
+	public Set<FoodType> getFoodtypes() {
+		return foodtypes;
+	}
 
-    public String getAddress() {
-        return address;
-    }
+	public String getAddress() {
+		return address;
+	}
 
-    public String getArea() {
-        return area;
-    }
+	public String getArea() {
+		return area;
+	}
 
-    public String getTelephone() {
-        return telephone;
-    }
+	public String getTelephone() {
+		return telephone;
+	}
 
-    public String getWebsite() {
-        return website;
-    }
+	public String getWebsite() {
+		return website;
+	}
 
-    public String getTimerange() {
-        return timerange;
-    }
+	public String getTimerange() {
+		return timerange;
+	}
 
-    public float getAvgprice() {
-        return avgprice;
-    }
+	public float getAvgprice() {
 
-    public String getName() {
-        return name;
-    }
+		return avgprice;
+	}
 
-    public Set<Rating> getRatings() {
-        return ratingsList;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public User getRegisterUser() {
-        return registerUser;
-    }
+	public Set<Rating> getRatings() {
+		return ratingsList;
+	}
 
-    public RestaurantState getState() {
-        return state;
-    }
+	public User getRegisterUser() {
+		return registerUser;
+	}
 
-    public Date getApplicationDate() {
-        return applicationDate;
-    }
+	public RestaurantState getState() {
+		return state;
+	}
 
-    public void setState(RestaurantState state) {
+	public Date getApplicationDate() {
+		return applicationDate;
+	}
 
-        if (state == null) {
-            throw new IllegalArgumentException("Empty state");
-        }
+	public void setState(RestaurantState state) {
 
-        this.state = state;
-    }
+		if (state == null) {
+			throw new IllegalArgumentException("Empty state");
+		}
 
-    public void addRating(Rating r) {
+		this.state = state;
+	}
 
-        if (r == null) {
-            throw new IllegalArgumentException("Empty rating");
-        }
+	public void addRating(Rating r) {
 
-        ratingsList.add(r);
-    }
+		if (r == null) {
+			throw new IllegalArgumentException("Empty rating");
+		}
 
-    public void removeRating(Rating r) {
+		ratingsList.add(r);
+	}
 
-        if (r == null) {
-            throw new IllegalArgumentException("Empty rating");
-        }
+	public void removeRating(Rating r) {
 
-        ratingsList.remove(r);
-    }
+		if (r == null) {
+			throw new IllegalArgumentException("Empty rating");
+		}
 
-    public int getRatingsAmmount() {
+		ratingsList.remove(r);
+	}
 
-        return ratingsList.size();
-    }
+	public int getRatingsAmmount() {
 
-    public Rating getUserRating(User user) {
+		return ratingsList.size();
+	}
 
-        for (Rating rating: ratingsList) {
-            if (rating.getUser().equals(user)) {
-                return rating;
-            }
-        }
+	public Rating getUserRating(User user) {
 
-        return null;
-    }
+		for (Rating rating : ratingsList) {
+			if (rating.getUser().equals(user)) {
+				return rating;
+			}
+		}
 
-    public float getAvgScore() {
+		return null;
+	}
 
-        float avg = 0;
+	public float getAvgScore() {
 
-        for (Rating rating: ratingsList) {
-            avg += rating.getScore();
-        }
+		float avg = 0;
 
-        return Utils.round(avg / ratingsList.size());
-    }
+		for (Rating rating : ratingsList) {
+			avg += rating.getScore();
+		}
 
-    @Override
-    public int hashCode() {
+		return Utils.round(avg / ratingsList.size());
+	}
 
-        final int prime = 31;
+	@Override
+	public int hashCode() {
 
-        int result = super.hashCode();
-        result = prime * result + ((address == null) ? 0 : address.hashCode());
-        result = prime * result + ((area == null) ? 0 : area.hashCode());
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
+		final int prime = 31;
 
-        return result;
-    }
+		int result = super.hashCode();
+		result = prime * result + ((address == null) ? 0 : address.hashCode());
+		result = prime * result + ((area == null) ? 0 : area.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
 
-    @Override
-    public boolean equals(Object obj) {
+		return result;
+	}
 
-        if (this == obj)
-            return true;
+	@Override
+	public boolean equals(Object obj) {
 
-        if (!super.equals(obj))
-            return false;
+		if (this == obj)
+			return true;
 
-        if (getClass() != obj.getClass())
-            return false;
+		if (!super.equals(obj))
+			return false;
 
-        Restaurant other = (Restaurant) obj;
+		if (getClass() != obj.getClass())
+			return false;
 
-        if (address == null && other.address != null)
-            return false;
+		Restaurant other = (Restaurant) obj;
 
-        if (address != null && !address.equals(other.address))
-            return false;
+		if (address == null && other.address != null)
+			return false;
 
-        if (area == null && other.area != null)
-            return false;
+		if (address != null && !address.equals(other.address))
+			return false;
 
-        if (area != null && !area.equals(other.area))
-            return false;
+		if (area == null && other.area != null)
+			return false;
 
-        if (name == null && other.name != null)
-            return false;
+		if (area != null && !area.equals(other.area))
+			return false;
 
-        if (name != null && !name.equals(other.name))
-            return false;
+		if (name == null && other.name != null)
+			return false;
 
-        return true;
-    }
+		if (name != null && !name.equals(other.name))
+			return false;
+
+		return true;
+	}
 }
-

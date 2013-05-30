@@ -14,63 +14,87 @@ import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
 import ar.edu.itba.it.paw.domain.restaurant.RestaurantState;
 import ar.edu.itba.it.paw.utils.Utils;
 
-
 @Entity
 public class FoodType extends AbstractModel implements Comparable<FoodType> {
 
-    private String name;
+	private String name;
 
-    @ManyToMany(mappedBy = "foodtypes")
-    private Set<Restaurant> restaurants;
+	@ManyToMany(mappedBy = "foodtypes")
+	private Set<Restaurant> restaurants;
 
-    @Transient
-    @Autowired
-    FoodTypeRepo ftRepo;
+	@Transient
+	@Autowired
+	FoodTypeRepo ftRepo;
 
-    FoodType() {}
+	FoodType() {
+	}
 
-    public FoodType(String name) {
+	public FoodType(String name) {
 
-    	name = Utils.normalizeString(name);
+		name = Utils.normalizeString(name);
 
-    	if (name.isEmpty()) {
-    		throw new IllegalArgumentException("Empty name");
-    	}
+		if (name.isEmpty()) {
+			throw new IllegalArgumentException("Empty name");
+		}
 
-    	if (ftRepo.foodTypeExists(name)) {
-    		throw new IllegalArgumentException("Duplicated name");
-    	}
+		if (ftRepo.foodTypeExists(name)) {
+			throw new IllegalArgumentException("Duplicated name");
+		}
 
-        this.name = name;
-    }
+		this.name = name;
+	}
 
-    public String getName() {
+	public String getName() {
 
-        return name;
-    }
+		return name;
+	}
 
-    public Set<Restaurant> getRestaurants() {
+	public Set<Restaurant> getRestaurants() {
 
-        Set<Restaurant> acceptedRestaurants = new HashSet<Restaurant>();
+		Set<Restaurant> acceptedRestaurants = new HashSet<Restaurant>();
 
-        for (Restaurant r: restaurants) {
-            if (r.getState() == RestaurantState.Accepted) {
-                acceptedRestaurants.add(r);
-            }
-        }
+		for (Restaurant r : restaurants) {
+			if (r.getState() == RestaurantState.Accepted) {
+				acceptedRestaurants.add(r);
+			}
+		}
 
-        return acceptedRestaurants;
-    }
+		return acceptedRestaurants;
+	}
 
-    public Integer getAmmount() {
+	public Integer getAmmount() {
 
-        return getRestaurants().size();
-    }
+		return getRestaurants().size();
+	}
 
-    @Override
-    public int compareTo(FoodType other) {
+	@Override
+	public int compareTo(FoodType other) {
 
-        return name.compareTo(other.name);
-    }
+		return name.compareTo(other.name);
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		FoodType other = (FoodType) obj;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		return true;
+	}
 }
-

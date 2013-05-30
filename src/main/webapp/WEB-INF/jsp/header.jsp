@@ -21,8 +21,8 @@
         <div class="navbar-inner">
             <form class="navbar-form" action="${pageContext.request.contextPath }/bin/index/search" method="get">
                 <div class="input-append">
-                    <input type="text" class="span5" placeholder="Search Restaurant" name="query"/>
-                    <input class="btn btn-primary" type="submit" value="Search"/>
+                    <input type="text" class="span5 inline" placeholder="Search Restaurant" name="query"/>
+                    <input class="btn btn-primary inline" type="submit" value="Search"/>
                 </div>
             </form>
             <ul id="user-menu" class="nav pull-right">
