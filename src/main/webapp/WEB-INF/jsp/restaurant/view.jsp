@@ -148,6 +148,7 @@
 
     <hr />
 
+
     <c:if test="${not hideOtherUsers}">
 	    <h3>See restaurants recommended by other users</h3>
 	
@@ -158,6 +159,7 @@
 	        </dl>
 	    </c:forEach>
 	</c:if>
+
 <div>
 
 <c:import url="../footer.jsp" />
