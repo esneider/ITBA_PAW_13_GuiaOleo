@@ -1,6 +1,5 @@
 package ar.edu.itba.it.paw.domain.restaurant;
 
-import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;

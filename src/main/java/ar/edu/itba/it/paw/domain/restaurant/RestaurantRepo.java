@@ -44,12 +44,17 @@ public interface RestaurantRepo {
     public Rating getRating(int id);
 
     /**
-     * TODO: WTF is this
      *
      * Gets recommended restaurants from users who like
      * the given restaurant and are not the user sent by
      * parameter.
      */
     public Set<Restaurant> getRecommendedRestaurants(Restaurant r, User u);
+    /**
+    *
+    * Gets recommended restaurants from users who like
+    * the given restaurant.
+    */
+    public Set<Restaurant> getRecommendedRestaurants(Restaurant r);
 }
 

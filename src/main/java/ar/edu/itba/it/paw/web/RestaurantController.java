@@ -29,28 +29,38 @@ public class RestaurantController extends BaseController {
 	private RestaurantFormValidator rValidator;
 
 	@Autowired
-	public RestaurantController(RestaurantRepo restRepo, RestaurantFormValidator rValidator) {
+	public RestaurantController(RestaurantRepo restRepo,
+			RestaurantFormValidator rValidator) {
 
 		this.restRepo = restRepo;
 		this.rValidator = rValidator;
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView view(@RequestParam("id") Restaurant rest, HttpSession session) {
+	public ModelAndView view(@RequestParam("id") Restaurant rest,
+			HttpSession session) {
 
 		if (rest == null) {
 			return indexContext();
 		}
 
-		if (rest.getState() == RestaurantState.Pending)
-		if (!isLoggedIn(session) || !getLoggedInUser(session).getType().equals("Admin")) {
-			return indexContext();
+		if (rest.getState() == RestaurantState.Pending) {
+			if (!isLoggedIn(session)
+					|| !getLoggedInUser(session).getType().equals("Admin")) {
+				return indexContext();
+			}
 		}
 
-		EnhancedModelAndView mav = generateContext("Simple Restaurant", true, true, "restaurant/view");
+		EnhancedModelAndView mav = generateContext("Simple Restaurant", true,
+				true, "restaurant/view");
 		mav.addObject("restaurant", rest);
-		//mav.addObject("recommended", restRepo.getRecommendedRestaurants(rest, getLoggedInUser(session)));
-		
+		if (isLoggedIn(session))
+			mav.addObject("recommended", restRepo.getRecommendedRestaurants(
+					rest, getLoggedInUser(session)));
+		else
+			mav.addObject("recommended",
+					restRepo.getRecommendedRestaurants(rest));
+
 		if (isLoggedIn(session)) {
 			Rating rate = rest.getUserRating(getLoggedInUser(session));
 			if (rate != null)
@@ -62,8 +72,8 @@ public class RestaurantController extends BaseController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	public ModelAndView view(@RequestParam("id") Restaurant rest,
-							 @RequestParam(value = "restaurant_rating") Integer rating,
-							 @RequestParam(value = "comment") String comment, HttpSession session) {
+			@RequestParam(value = "restaurant_rating") Integer rating,
+			@RequestParam(value = "comment") String comment, HttpSession session) {
 
 		if (rest != null) {
 			User user = getLoggedInUser(session);
@@ -91,7 +101,8 @@ public class RestaurantController extends BaseController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ModelAndView add(RestaurantForm restaurantForm, Errors errors, HttpSession session) {
+	public ModelAndView add(RestaurantForm restaurantForm, Errors errors,
+			HttpSession session) {
 
 		if (!isLoggedIn(session))
 			return indexContext();
@@ -101,7 +112,8 @@ public class RestaurantController extends BaseController {
 			return add(session);
 
 		User actualUser = getLoggedInUser(session);
-		Restaurant r = restaurantForm.build(actualUser, RestaurantState.Pending);
+		Restaurant r = restaurantForm
+				.build(actualUser, RestaurantState.Pending);
 		restRepo.save(r);
 		return indexContext();
 	}
@@ -124,16 +136,14 @@ public class RestaurantController extends BaseController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	public ModelAndView publish(@RequestParam("action") String action,
-								@RequestParam("id") Restaurant r, HttpSession session) {
+			@RequestParam("id") Restaurant r, HttpSession session) {
 
 		if (action.equals("accept")) {
 
 			r.setState(RestaurantState.Accepted);
-			System.out.println("Aceptado");
 
 		} else if (action.equals("decline")) {
 
-			System.out.println("Declinado");
 			r.setState(RestaurantState.Rejected);
 		}
 
@@ -142,9 +152,12 @@ public class RestaurantController extends BaseController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	public ModelAndView deleteComment(@RequestParam("ratingId") Rating rating,
-									  @RequestParam("restId") Restaurant rest, HttpSession session) {
+			@RequestParam("restId") Restaurant rest, HttpSession session) {
 
 		if (rest == null || rating == null)
+			return indexContext();
+
+		if (!isLoggedIn(session))
 			return indexContext();
 
 		rest.removeRating(rating);
@@ -157,7 +170,6 @@ public class RestaurantController extends BaseController {
 			@RequestParam(value = "ratingId", required = true) Rating r,
 			@RequestParam(value = "restaurantId", required = true) Restaurant rest,
 			HttpSession session) {
-
 		if (!isLoggedIn(session))
 			return indexContext();
 		u.like(r);
@@ -170,7 +182,6 @@ public class RestaurantController extends BaseController {
 			@RequestParam(value = "ratingId", required = true) Rating r,
 			@RequestParam(value = "restaurantId", required = true) Restaurant rest,
 			HttpSession session) {
-
 		if (!isLoggedIn(session))
 			return indexContext();
 		u.unlike(r);

@@ -40,7 +40,9 @@ SET default_with_oids = false;
 
 CREATE TABLE foodtype (
     id integer NOT NULL,
-    name character varying(255)
+    name character varying(255),
+    
+    PRIMARY KEY(id)
 );
 
 
@@ -71,19 +73,6 @@ ALTER SEQUENCE foodtype_id_seq OWNED BY foodtype.id;
 
 
 --
--- TOC entry 179 (class 1259 OID 36920)
--- Name: likes; Type: TABLE; Schema: public; Owner: paw
---
-
-CREATE TABLE likes (
-    userlikes_id integer NOT NULL,
-    likes_id integer NOT NULL
-);
-
-
-ALTER TABLE public.likes OWNER TO paw;
-
---
 -- TOC entry 171 (class 1259 OID 36876)
 -- Name: picture; Type: TABLE; Schema: public; Owner: paw
 --
@@ -91,7 +80,9 @@ ALTER TABLE public.likes OWNER TO paw;
 CREATE TABLE picture (
     id integer NOT NULL,
     img bytea,
-    mime character varying(255)
+    mime character varying(255),
+    
+    PRIMARY KEY(id)
 );
 
 
@@ -120,6 +111,119 @@ ALTER TABLE public.picture_id_seq OWNER TO paw;
 
 ALTER SEQUENCE picture_id_seq OWNED BY picture.id;
 
+--
+-- TOC entry 178 (class 1259 OID 36911)
+-- Name: systemuser; Type: TABLE; Schema: public; Owner: paw
+--
+
+CREATE TABLE systemuser (
+    id integer NOT NULL,
+    email character varying(255),
+    name character varying(255),
+    password character varying(255),
+    registerdate timestamp without time zone,
+    surname character varying(255),
+    type character varying(255),
+    username character varying(255),
+    avatar_id integer,
+    
+    PRIMARY KEY(id),
+    UNIQUE(username),
+    UNIQUE(email),
+    FOREIGN KEY(avatar_id) REFERENCES picture(id)
+);
+
+
+ALTER TABLE public.systemuser OWNER TO paw;
+
+--
+-- TOC entry 177 (class 1259 OID 36909)
+-- Name: systemuser_id_seq; Type: SEQUENCE; Schema: public; Owner: paw
+--
+
+CREATE SEQUENCE systemuser_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.systemuser_id_seq OWNER TO paw;
+
+--
+-- TOC entry 2011 (class 0 OID 0)
+-- Dependencies: 177
+-- Name: systemuser_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: paw
+--
+
+ALTER SEQUENCE systemuser_id_seq OWNED BY systemuser.id;
+
+
+
+--
+-- TOC entry 175 (class 1259 OID 36895)
+-- Name: restaurant; Type: TABLE; Schema: public; Owner: paw
+--
+
+CREATE TABLE restaurant (
+    id integer NOT NULL,
+    address character varying(255),
+    applicationdate timestamp without time zone,
+    area character varying(255),
+    avgprice real NOT NULL,
+    name character varying(255),
+    state character varying(255),
+    telephone character varying(255),
+    timerange character varying(255),
+    website character varying(255),
+    registeruser_id integer,
+    
+    PRIMARY KEY(id),
+    FOREIGN KEY(registeruser_id) REFERENCES systemuser(id)
+);
+
+
+ALTER TABLE public.restaurant OWNER TO paw;
+
+--
+-- TOC entry 176 (class 1259 OID 36904)
+-- Name: restaurant_foodtype; Type: TABLE; Schema: public; Owner: paw
+--
+
+CREATE TABLE restaurant_foodtype (
+    restaurants_id integer NOT NULL,
+    foodtypes_id integer NOT NULL,
+    FOREIGN KEY(restaurants_id) REFERENCES restaurant(id),
+    FOREIGN KEY(restaurants_id) REFERENCES foodtype(id)
+);
+
+ALTER TABLE public.restaurant_foodtype OWNER TO paw;
+
+--
+-- TOC entry 174 (class 1259 OID 36893)
+-- Name: restaurant_id_seq; Type: SEQUENCE; Schema: public; Owner: paw
+--
+
+CREATE SEQUENCE restaurant_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.restaurant_id_seq OWNER TO paw;
+
+--
+-- TOC entry 2010 (class 0 OID 0)
+-- Dependencies: 174
+-- Name: restaurant_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: paw
+--
+
+ALTER SEQUENCE restaurant_id_seq OWNED BY restaurant.id;
+
+
 
 --
 -- TOC entry 173 (class 1259 OID 36887)
@@ -132,7 +236,11 @@ CREATE TABLE rating (
     date timestamp without time zone,
     score integer,
     restaurant_id integer,
-    user_id integer
+    user_id integer,
+    
+    PRIMARY KEY(id),
+    FOREIGN KEY(restaurant_id) REFERENCES restaurant(id),
+    FOREIGN KEY(user_id) REFERENCES systemuser(id)
 );
 
 
@@ -163,107 +271,19 @@ ALTER SEQUENCE rating_id_seq OWNED BY rating.id;
 
 
 --
--- TOC entry 175 (class 1259 OID 36895)
--- Name: restaurant; Type: TABLE; Schema: public; Owner: paw
+-- TOC entry 179 (class 1259 OID 36920)
+-- Name: likes; Type: TABLE; Schema: public; Owner: paw
 --
 
-CREATE TABLE restaurant (
-    id integer NOT NULL,
-    address character varying(255),
-    applicationdate timestamp without time zone,
-    area character varying(255),
-    avgprice real NOT NULL,
-    name character varying(255),
-    state character varying(255),
-    telephone character varying(255),
-    timerange character varying(255),
-    website character varying(255),
-    registeruser_id integer
+CREATE TABLE likes (
+    userlikes_id integer NOT NULL,
+    likes_id integer NOT NULL,
+    FOREIGN KEY(userlikes_id) REFERENCES systemuser(id),
+    FOREIGN KEY(likes_id) REFERENCES rating(id)
 );
 
 
-ALTER TABLE public.restaurant OWNER TO paw;
-
---
--- TOC entry 176 (class 1259 OID 36904)
--- Name: restaurant_foodtype; Type: TABLE; Schema: public; Owner: paw
---
-
-CREATE TABLE restaurant_foodtype (
-    restaurants_id integer NOT NULL,
-    foodtypes_id integer NOT NULL
-);
-
-
-ALTER TABLE public.restaurant_foodtype OWNER TO paw;
-
---
--- TOC entry 174 (class 1259 OID 36893)
--- Name: restaurant_id_seq; Type: SEQUENCE; Schema: public; Owner: paw
---
-
-CREATE SEQUENCE restaurant_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.restaurant_id_seq OWNER TO paw;
-
---
--- TOC entry 2010 (class 0 OID 0)
--- Dependencies: 174
--- Name: restaurant_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: paw
---
-
-ALTER SEQUENCE restaurant_id_seq OWNED BY restaurant.id;
-
-
---
--- TOC entry 178 (class 1259 OID 36911)
--- Name: systemuser; Type: TABLE; Schema: public; Owner: paw
---
-
-CREATE TABLE systemuser (
-    id integer NOT NULL,
-    email character varying(255),
-    name character varying(255),
-    password character varying(255),
-    registerdate timestamp without time zone,
-    surname character varying(255),
-    type character varying(255),
-    username character varying(255),
-    avatar_id integer
-);
-
-
-ALTER TABLE public.systemuser OWNER TO paw;
-
---
--- TOC entry 177 (class 1259 OID 36909)
--- Name: systemuser_id_seq; Type: SEQUENCE; Schema: public; Owner: paw
---
-
-CREATE SEQUENCE systemuser_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.systemuser_id_seq OWNER TO paw;
-
---
--- TOC entry 2011 (class 0 OID 0)
--- Dependencies: 177
--- Name: systemuser_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: paw
---
-
-ALTER SEQUENCE systemuser_id_seq OWNED BY systemuser.id;
-
+ALTER TABLE public.likes OWNER TO paw;
 
 --
 -- TOC entry 180 (class 1259 OID 36925)
@@ -272,7 +292,9 @@ ALTER SEQUENCE systemuser_id_seq OWNED BY systemuser.id;
 
 CREATE TABLE unlikes (
     userunlikes_id integer NOT NULL,
-    unlikes_id integer NOT NULL
+    unlikes_id integer NOT NULL,
+    FOREIGN KEY(userunlikes_id) REFERENCES systemuser(id),
+    FOREIGN KEY(unlikes_id) REFERENCES rating(id)
 );
 
 

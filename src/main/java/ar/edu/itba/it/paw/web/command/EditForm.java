@@ -13,12 +13,10 @@ public class EditForm {
 
     private String name, surname, email, password, oldPassword, repassword;
     private CommonsMultipartFile avatar;
-    private User user;
     private int userId;
 
     public EditForm(User user, String repassword, String oldPassword) {
 
-        this.user = user;
         this.setName(user.getName());
         this.setSurname(user.getSurname());
         this.setEmail(user.getEmail());
@@ -86,14 +84,6 @@ public class EditForm {
         this.avatar = avatar;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
     public int getUserId() {
         return userId;
     }
@@ -102,7 +92,7 @@ public class EditForm {
         this.userId = userId;
     }
 
-    public User build(UserRepo userRepo) {
+    public User update(UserRepo userRepo) {
 
         Picture pic = null;
 
@@ -110,10 +100,11 @@ public class EditForm {
             pic = new Picture(avatar.getBytes(), avatar.getOriginalFilename());
         }
 
-        if (user == null) {
-            user = userRepo.get(getUserId());
-        }
-
+        User user = userRepo.get(getUserId());
+        
+        if (user == null)
+        	return null;
+        
         if (pic != null) {
             user.setAvatar(pic);
         }

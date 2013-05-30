@@ -126,9 +126,6 @@ public class HibernateRestaurantRepo extends AbstractHibernateRepo implements Re
     @Override
     public Set<Restaurant> getRecommendedRestaurants(Restaurant restaurant, User user) {
 
-        if (user == null) {
-            throw new IllegalArgumentException("Empty user");
-        }
         if (restaurant == null) {
             throw new IllegalArgumentException("Empty restaurant");
         }
@@ -137,7 +134,7 @@ public class HibernateRestaurantRepo extends AbstractHibernateRepo implements Re
         Set<Restaurant> recommendedRestaurants = new HashSet<Restaurant>();
 
         for (Rating rating: userRatings) {
-            if (!rating.getUser().equals(user)) {
+            if (user == null || !rating.getUser().equals(user)) {
                 if (rating.getScore() >= 3) {
                     addLikedRestaurants(recommendedRestaurants, rating.getUser(), restaurant);
                 }
@@ -145,6 +142,10 @@ public class HibernateRestaurantRepo extends AbstractHibernateRepo implements Re
         }
 
         return recommendedRestaurants;
+    }
+    
+    public Set<Restaurant> getRecommendedRestaurants(Restaurant restaurant) {
+    	return getRecommendedRestaurants(restaurant, null);
     }
 
     public void addLikedRestaurants(Set<Restaurant> set, User user, Restaurant rest) {

@@ -103,7 +103,6 @@ public class UserController extends BaseController {
             setLoggedInUser(session, s);
 
         } catch (Exception e) {
-            errors.rejectValue("SQLCODE", "DBERROR");
             return login(session);
         }
         return indexContext();
@@ -131,7 +130,7 @@ public class UserController extends BaseController {
         }
 
         try {
-            User s = editForm.build(userRepo);
+            User s = editForm.update(userRepo);
             setLoggedInUser(session, s);
         } catch (Exception e) {
             e.printStackTrace();

@@ -7,19 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import ar.edu.itba.it.paw.domain.AbstractHibernateRepo;
-import ar.edu.itba.it.paw.domain.picture.PictureRepo;
 
 
 @Repository
 public class HibernateUserRepo extends AbstractHibernateRepo implements UserRepo {
 
-    private PictureRepo pictureRepo;
 
     @Autowired
-    public HibernateUserRepo(SessionFactory sessionFactory, PictureRepo pictureRepo) {
-
+    public HibernateUserRepo(SessionFactory sessionFactory) {
         super(sessionFactory);
-        this.pictureRepo = pictureRepo;
     }
 
     @Override
@@ -36,7 +32,6 @@ public class HibernateUserRepo extends AbstractHibernateRepo implements UserRepo
 
     @Override
     public boolean usernameExists(String username) {
-
         return !find("from User where username = ?", username).isEmpty();
     }
 
@@ -54,14 +49,11 @@ public class HibernateUserRepo extends AbstractHibernateRepo implements UserRepo
 
     @Override
     public void save(User user) {
-
-        pictureRepo.save(user.getAvatar());
         super.save(user);
     }
 
     @Override
     public List<User> getAll() {
-
         return find("from User");
     }
 }

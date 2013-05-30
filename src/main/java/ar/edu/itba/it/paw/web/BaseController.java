@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import ar.edu.itba.it.paw.domain.foodtype.FoodTypeRepo;
-import ar.edu.itba.it.paw.domain.picture.PictureRepo;
 import ar.edu.itba.it.paw.domain.restaurant.RestaurantRepo;
 import ar.edu.itba.it.paw.domain.user.User;
 import ar.edu.itba.it.paw.utils.EnhancedModelAndView;
@@ -14,9 +13,6 @@ import ar.edu.itba.it.paw.utils.EnhancedModelAndView;
 
 @Controller
 public abstract class BaseController {
-
-    @Autowired
-    private PictureRepo pictureRepo;
 
     @Autowired
     private FoodTypeRepo ftRepo;
