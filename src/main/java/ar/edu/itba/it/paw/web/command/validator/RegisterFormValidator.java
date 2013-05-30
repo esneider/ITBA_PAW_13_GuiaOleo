@@ -79,8 +79,7 @@ public class RegisterFormValidator implements Validator {
 
         if (form.getAvatar().isEmpty()) {
             errors.rejectValue("avatar", "empty");
-        }
-        if (!(form.getAvatar().getContentType().equals("image/jpeg") || form.getAvatar().getContentType().equals("image/jpg"))) {
+        } else if (!(form.getAvatar().getContentType().equals("image/jpeg") || form.getAvatar().getContentType().equals("image/jpg"))) {
         	errors.rejectValue("avatar", "invalidformat");
         }
     }
