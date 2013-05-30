@@ -128,6 +128,7 @@ public class RestaurantController extends BaseController {
 		if (rest != null) {
 			EnhancedModelAndView mav = generateContext("Publish Restaurant",
 					true, true, "restaurant/view");
+			mav.addObject("hideOtherUsers", true);
 			mav.addObject("restaurant", rest);
 			return mav;
 		}
