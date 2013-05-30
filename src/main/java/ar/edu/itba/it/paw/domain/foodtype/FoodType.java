@@ -5,14 +5,12 @@ import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
-import javax.persistence.Transient;
-
-import org.springframework.beans.factory.annotation.Autowired;
 
 import ar.edu.itba.it.paw.domain.AbstractModel;
 import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
 import ar.edu.itba.it.paw.domain.restaurant.RestaurantState;
 import ar.edu.itba.it.paw.utils.Utils;
+
 
 @Entity
 public class FoodType extends AbstractModel implements Comparable<FoodType> {
