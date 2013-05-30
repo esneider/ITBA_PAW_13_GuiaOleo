@@ -20,7 +20,12 @@
                     <dd>${restaurant.area}</dd>
                 <dt>Telephone</dt>
                     <dd>${restaurant.telephone}</dd>
-
+                <dt>FoodType(s)</dt>
+				<c:forEach var="ft" items="${restaurant.foodtypes}">
+				    
+				         <dd>${ft.name}</dd>
+				    
+                </c:forEach>
                 <br>
 
                 <dt>Average Price</dt>

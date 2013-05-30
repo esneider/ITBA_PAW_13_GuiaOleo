@@ -14,6 +14,10 @@
                         <dd>${restaurant.address}</dd>
                     <dt>Area</dt>
                         <dd>${restaurant.area}</dd>
+                    <dt>FoodType(s)</dt>
+				     <c:forEach var="ft" items="${restaurant.foodtypes}">
+				          <dd>${ft.name}</dd>
+				     </c:forEach>
                     <dt>Average Score</dt>
                         <dd>
                             <span class="badge">${restaurant.avgScore}</span>
