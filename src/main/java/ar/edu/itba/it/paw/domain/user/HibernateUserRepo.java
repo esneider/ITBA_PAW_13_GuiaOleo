@@ -53,7 +53,6 @@ public class HibernateUserRepo extends AbstractHibernateRepo implements UserRepo
 
     @Override
     public void save(User user) {
-
     	picRepo.save(user.getAvatar());
         super.save(user);
     }

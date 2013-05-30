@@ -72,8 +72,9 @@
     <label class="control-label">Avatar image:</label>
     <div class="controls">
    <p>
-          <form:input type="file" path="avatar"/>
-        </p>
+          <form:input type="file" path="avatar"/><br>
+        	Valid formats: .jpg, .jpeg
+	</p>
         <p class="text-error"><form:errors path="avatar" /></p>
     </div>
 </div>

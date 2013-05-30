@@ -16,7 +16,7 @@ import ar.edu.itba.it.paw.utils.Utils;
 
 
 @Entity
-public class Rating extends AbstractModel {
+public class Rating extends AbstractModel implements Comparable<Rating> {
 
     private Integer score;
     private String comment;
@@ -153,5 +153,14 @@ public class Rating extends AbstractModel {
             user.unlike(this);
         }
     }
+
+    public int getLikedScore() {
+    	return likes.size() - unlikes.size();
+    }
+    
+	@Override
+	public int compareTo(Rating arg0) {
+		return arg0.getLikedScore() - this.getLikedScore();
+	}
 }
 

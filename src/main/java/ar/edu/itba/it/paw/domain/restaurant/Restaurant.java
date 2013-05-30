@@ -1,8 +1,10 @@
 package ar.edu.itba.it.paw.domain.restaurant;
 
-import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -133,8 +135,10 @@ public class Restaurant extends AbstractModel {
 		return name;
 	}
 
-	public Set<Rating> getRatings() {
-		return ratingsList;
+	public List<Rating> getRatings() {
+		List<Rating> sortedList = new ArrayList<Rating>(ratingsList);
+		Collections.sort(sortedList);
+		return sortedList;
 	}
 
 	public User getRegisterUser() {

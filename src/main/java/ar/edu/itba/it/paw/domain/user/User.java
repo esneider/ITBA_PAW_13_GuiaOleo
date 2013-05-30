@@ -155,7 +155,7 @@ public class User extends AbstractModel {
 
         email = Utils.normalizeString(email);
 
-        if (this.email == email) {
+        if (this.email.equals(email)) {
             return;
         }
 

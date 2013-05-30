@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import ar.edu.itba.it.paw.domain.AbstractHibernateRepo;
+import ar.edu.itba.it.paw.domain.foodtype.FoodType;
 import ar.edu.itba.it.paw.domain.user.User;
 
 
@@ -70,7 +71,19 @@ public class HibernateRestaurantRepo extends AbstractHibernateRepo implements Re
 
     private List<Restaurant> getRestaurantsByFoodType(String query) {
 
-        return find("from Restaurant where foodtype = ? ", query);
+//        return find("from Restaurant as rest join rest.foodtypes as foodtype where rest.foodtypes.name like ? ", query);
+//        return find("select Restaurant.* from Restaurant r, FoodTypes ft, restaurant_foodtype rft " +
+//        		"where rft.restaurants_id = r.id and rft.foodtypes_id = ft.id and ft.name like ?", query);
+    	
+    	List<Restaurant> lstRest = getAll();
+    	Set<Restaurant> ans = new HashSet<Restaurant>();
+    	for (Restaurant r : lstRest) {
+    		for (FoodType ft : r.getFoodtypes()) {
+    			if (ft.getName().toLowerCase().contains(query.substring(1, query.length()-1).toLowerCase())) 
+    				ans.add(r);
+    		}
+    	}
+    	return new ArrayList<Restaurant>(ans);
     }
 
     @Override
@@ -130,7 +143,7 @@ public class HibernateRestaurantRepo extends AbstractHibernateRepo implements Re
             throw new IllegalArgumentException("Empty restaurant");
         }
 
-        Set<Rating> userRatings = restaurant.getRatings();
+        List<Rating> userRatings = restaurant.getRatings();
         Set<Restaurant> recommendedRestaurants = new HashSet<Restaurant>();
 
         for (Rating rating: userRatings) {

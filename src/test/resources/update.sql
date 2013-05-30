@@ -278,8 +278,8 @@ ALTER SEQUENCE rating_id_seq OWNED BY rating.id;
 CREATE TABLE likes (
     userlikes_id integer NOT NULL,
     likes_id integer NOT NULL,
-    FOREIGN KEY(userlikes_id) REFERENCES systemuser(id),
-    FOREIGN KEY(likes_id) REFERENCES rating(id)
+    FOREIGN KEY(userlikes_id) REFERENCES rating(id),
+    FOREIGN KEY(likes_id) REFERENCES systemuser(id)
 );
 
 
@@ -291,10 +291,10 @@ ALTER TABLE public.likes OWNER TO paw;
 --
 
 CREATE TABLE unlikes (
-    userunlikes_id integer NOT NULL,
+    userUnlikes_id integer NOT NULL,
     unlikes_id integer NOT NULL,
-    FOREIGN KEY(userunlikes_id) REFERENCES systemuser(id),
-    FOREIGN KEY(unlikes_id) REFERENCES rating(id)
+    FOREIGN KEY(userunlikes_id) REFERENCES rating(id),
+    FOREIGN KEY(unlikes_id) REFERENCES systemuser(id)
 );
 
 
