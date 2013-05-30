@@ -60,13 +60,13 @@ public class HibernateRestaurantRepo extends AbstractHibernateRepo implements Re
 
     private List<Restaurant> getRestaurantsByName(String name) {
 
-        return find("from Restaurant where lower(name) like ? ", name);
+        return find("from Restaurant where lower(name) like ? and state = ?", name, RestaurantState.Accepted);
 
     }
 
     private List<Restaurant> getRestaurantsByArea(String area) {
 
-        return find("from Restaurant where lower(area) like ? ", area);
+        return find("from Restaurant where lower(area) like ? and state = ?", area, RestaurantState.Accepted);
     }
 
     private List<Restaurant> getRestaurantsByFoodType(String query) {
