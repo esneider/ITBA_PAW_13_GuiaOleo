@@ -37,10 +37,10 @@ public class User extends AbstractModel {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Rating> comments;
 
-    @ManyToMany(mappedBy = "likes", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "likes")
     Set<Rating> userLikes = new HashSet<Rating>();
 
-    @ManyToMany(mappedBy = "unlikes", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "unlikes")
     Set<Rating> userUnlikes = new HashSet<Rating>();
 
     @OneToMany(mappedBy = "registerUser", cascade = CascadeType.ALL)

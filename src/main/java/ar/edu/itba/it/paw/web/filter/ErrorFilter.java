@@ -49,9 +49,10 @@ public class ErrorFilter implements Filter {
         } catch (Exception e) {
 
             sendMail(e);
+            HttpServletResponse r = (HttpServletResponse) response;
+            r.setStatus(500);
             logger.error(e.getMessage(), e.fillInStackTrace());
-
-            // request.getRequestDispatcher("/WEB-INF/jsp/error.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/jsp/error.jsp").forward(request, response);
         }
     }
 

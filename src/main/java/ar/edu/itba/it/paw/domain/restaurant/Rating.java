@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -29,11 +28,11 @@ public class Rating extends AbstractModel implements Comparable<Rating> {
 
     private Date date;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(name="likes")
     Set<User> likes = new HashSet<User>();
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(name="unlikes")
     Set<User> unlikes = new HashSet<User>();
 
