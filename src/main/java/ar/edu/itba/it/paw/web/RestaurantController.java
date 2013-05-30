@@ -18,6 +18,7 @@ import ar.edu.itba.it.paw.domain.restaurant.RestaurantRepo;
 import ar.edu.itba.it.paw.domain.restaurant.RestaurantState;
 import ar.edu.itba.it.paw.domain.user.User;
 import ar.edu.itba.it.paw.utils.EnhancedModelAndView;
+import ar.edu.itba.it.paw.utils.Utils;
 import ar.edu.itba.it.paw.web.command.RestaurantForm;
 import ar.edu.itba.it.paw.web.command.validator.RestaurantFormValidator;
 
@@ -54,6 +55,7 @@ public class RestaurantController extends BaseController {
 		EnhancedModelAndView mav = generateContext("Simple Restaurant", true,
 				true, "restaurant/view");
 		mav.addObject("restaurant", rest);
+		mav.addObject("avgpriceformatted", Utils.function((double) rest.getAvgprice()));
 		if (isLoggedIn(session))
 			mav.addObject("recommended", restRepo.getRecommendedRestaurants(
 					rest, getLoggedInUser(session)));

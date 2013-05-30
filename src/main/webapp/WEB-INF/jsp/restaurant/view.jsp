@@ -24,7 +24,7 @@
                 <br>
 
                 <dt>Average Price</dt>
-                    <dd>$${restaurant.avgprice}</dd>
+                    <dd>$${avgpriceformatted}</dd>
                 <dt>Time range</dt>
                     <dd>${restaurant.timerange}</dd>
                 <dt>Website</dt>

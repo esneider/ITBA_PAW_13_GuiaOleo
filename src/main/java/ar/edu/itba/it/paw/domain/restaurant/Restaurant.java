@@ -1,5 +1,6 @@
 package ar.edu.itba.it.paw.domain.restaurant;
 
+import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -48,7 +49,6 @@ public class Restaurant extends AbstractModel {
 			String telephone, String website, String timerange, float avgprice,
 			RestaurantState state, Set<FoodType> foodtypes, User user,
 			Date appDate) {
-
 		name = Utils.normalizeString(name);
 		address = Utils.normalizeString(address);
 		area = Utils.normalizeString(area);
@@ -126,8 +126,7 @@ public class Restaurant extends AbstractModel {
 	}
 
 	public float getAvgprice() {
-
-		return avgprice;
+		return (avgprice);
 	}
 
 	public String getName() {
