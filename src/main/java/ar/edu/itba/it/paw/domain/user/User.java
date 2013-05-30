@@ -12,11 +12,15 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.springframework.beans.factory.annotation.Autowired;
 
 import ar.edu.itba.it.paw.domain.AbstractModel;
 import ar.edu.itba.it.paw.domain.picture.Picture;
 import ar.edu.itba.it.paw.domain.restaurant.Rating;
 import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
+import ar.edu.itba.it.paw.utils.Utils;
 
 
 @Entity
@@ -45,17 +49,16 @@ public class User extends AbstractModel {
     @OneToMany(mappedBy = "registerUser", cascade = CascadeType.ALL)
     private Set<Restaurant> registeredRestaurants;
 
+    @Transient
+    @Autowired
+    private UserRepo userRepo;
+
     User() {}
 
     public User(String name, String surname, String email, String username,
                 String password, Picture avatar, Date date, UserType type) {
 
-        if (username == null) {
-            throw new IllegalArgumentException();
-        }
-
-        this.username = username;
-
+    	setUsername(username);
         setName(name);
         setSurname(surname);
         setEmail(email);
@@ -63,12 +66,6 @@ public class User extends AbstractModel {
         setAvatar(avatar);
         setType(type);
         setRegisterDate(date);
-    }
-
-    public User(String name, String surname, String email, String username,
-                String password, Date date, UserType type) {
-
-        this(name, surname, email, username, password, null, date, type);
     }
 
     public String getName() {
@@ -115,49 +112,115 @@ public class User extends AbstractModel {
         this.registerDate = registerDate;
     }
 
+    private void setUsername(String username) {
+
+    	username = Utils.normalizeString(username);
+
+        if (username.isEmpty()) {
+            throw new IllegalArgumentException("Empty username");
+        }
+
+        if (userRepo.usernameExists(username)) {
+        	throw new IllegalArgumentException("Duplicated username");
+        }
+
+        this.username = username;
+    }
+
     public void setType(UserType type) {
-        if (type != null)
-            this.type = type;
+
+        if (type == null) {
+            throw new IllegalArgumentException("Empty user type");
+        }
+
+        this.type = type;
     }
 
     public void setName(String name) {
-        if (name != null)
-            this.name = name;
+
+        name = Utils.normalizeString(name);
+
+        if (name.isEmpty()) {
+            throw new IllegalArgumentException("Empty name");
+        }
+
+        this.name = name;
     }
 
     public void setSurname(String surname) {
-        if (surname != null)
-            this.surname = surname;
+
+        surname = Utils.normalizeString(surname);
+
+        if (surname.isEmpty()) {
+            throw new IllegalArgumentException("Empty surname");
+        }
+
+        this.surname = surname;
     }
 
     public void setEmail(String email) {
-        if (email != null)
-            this.email = email;
+
+        email = Utils.normalizeString(email);
+
+        if (this.email == email) {
+            return;
+        }
+
+        if (email.isEmpty()) {
+            throw new IllegalArgumentException("Empty email");
+        }
+
+        if (Utils.isEmail(email)) {
+            throw new IllegalArgumentException("Invalid email");
+        }
+
+        if (userRepo.emailExists(email)) {
+            throw new IllegalArgumentException("Duplicated email");
+        }
+
+        this.email = email;
     }
 
     public void setPassword(String password) {
-        if (password != null)
-            this.password = password;
+
+        password = Utils.normalizeString(password);
+
+        if (password.isEmpty()) {
+            throw new IllegalArgumentException("Empty password");
+        }
+
+        this.password = password;
     }
 
     public void setAvatar(Picture avatar) {
-        if (avatar != null)
-            this.avatar = avatar;
+
+        if (avatar == null) {
+            throw new IllegalArgumentException("Empty picture");
+        }
+
+        this.avatar = avatar;
     }
 
     public boolean isAdmin() {
-        return type.equals("Admin");
+
+        return type == UserType.Admin;
     }
 
     public Set<Rating> getLikes() {
+
         return userLikes;
     }
 
     public Set<Rating> getUnlikes() {
+
         return userUnlikes;
     }
 
     public void like(Rating r) {
+
+        if (r == null) {
+            throw new IllegalArgumentException("Empty rating");
+        }
 
         userUnlikes.remove(r);
 

@@ -17,55 +17,52 @@ import org.hibernate.HibernateException;
 
 import ar.edu.itba.it.paw.web.services.MailSender;
 
+
 public class ErrorFilter implements Filter {
 
-	private static Logger logger = Logger.getLogger(ErrorFilter.class);
+    private static Logger logger = Logger.getLogger(ErrorFilter.class);
 
-	@Override
-	public void init(FilterConfig arg0) throws ServletException {
-	}
+    @Override
+    public void init(FilterConfig arg0) throws ServletException {}
 
-	@Override
-	public void destroy() {
-	}
+    @Override
+    public void destroy() {}
 
-	@Override
-	public void doFilter(ServletRequest request,
-						 ServletResponse response,
-						 FilterChain chain) throws IOException, ServletException {
+    @Override
+    public void doFilter(ServletRequest request,
+                         ServletResponse response,
+                         FilterChain chain) throws IOException, ServletException {
 
-		try {
+        try {
 
-			chain.doFilter(request, response);
+            chain.doFilter(request, response);
 
-		} catch (HibernateException e) {
+        } catch (HibernateException e) {
 
-			logger.error(e.getMessage(), e.fillInStackTrace());
+            logger.error(e.getMessage(), e.fillInStackTrace());
 
-			HttpServletResponse r = (HttpServletResponse) response;
-			r.setStatus(500);
-			sendMail(e);
-			request.getRequestDispatcher("/WEB-INF/jsp/dberror.jsp").forward(request, r);
+            HttpServletResponse r = (HttpServletResponse) response;
+            r.setStatus(500);
+            sendMail(e);
+            request.getRequestDispatcher("/WEB-INF/jsp/dberror.jsp").forward(request, r);
 
-		} catch (Exception e) {
+        } catch (Exception e) {
 
-			sendMail(e);
-			logger.error(e.getMessage(), e.fillInStackTrace());
-			
-			// e.printStackTrace();
-			// request.getRequestDispatcher("/WEB-INF/jsp/error.jsp").forward(request,
-			// response);
-		}
+            sendMail(e);
+            logger.error(e.getMessage(), e.fillInStackTrace());
 
-	}
-	
-	private void sendMail(Exception e) {
-		StringWriter sw = new StringWriter();
-		PrintWriter pw = new PrintWriter(sw);
-		e.printStackTrace(pw);
-		if (!MailSender.send(sw.toString())) {
-			System.out.println("Error Sending mail");
-		}
-	}
-	
+            // request.getRequestDispatcher("/WEB-INF/jsp/error.jsp").forward(request, response);
+        }
+    }
+
+    private void sendMail(Exception e) {
+
+        StringWriter sw = new StringWriter();
+        PrintWriter pw = new PrintWriter(sw);
+        e.printStackTrace(pw);
+        if (!MailSender.send(sw.toString())) {
+        	logger.error("Error Sending mail");
+        }
+    }
 }
+

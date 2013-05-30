@@ -29,5 +29,11 @@ public class HibernateFoodTypeRepo extends AbstractHibernateRepo implements Food
 
         return get(FoodType.class, foodtypeid);
     }
+
+	@Override
+	public boolean foodTypeExists(String name) {
+
+        return !find("from FoodType where name = ?", name).isEmpty();
+	}
 }
 

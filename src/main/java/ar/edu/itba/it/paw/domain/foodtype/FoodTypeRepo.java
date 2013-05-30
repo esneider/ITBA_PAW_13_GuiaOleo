@@ -14,5 +14,10 @@ public interface FoodTypeRepo {
      * Returns a single FoodType
      */
     public FoodType get(int id);
+
+    /**
+     * Checks if food type's name already exists
+     */
+    public boolean foodTypeExists(String name);
 }
 

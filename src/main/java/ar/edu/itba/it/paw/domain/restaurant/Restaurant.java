@@ -47,6 +47,44 @@ public class Restaurant extends AbstractModel {
     public Restaurant(String name, String address, String area, String telephone, String website, String timerange,
                       float avgprice, RestaurantState state, Set<FoodType> foodtypes, User user, Date appDate) {
 
+        name      = Utils.normalizeString(name);
+        address   = Utils.normalizeString(address);
+        area      = Utils.normalizeString(area);
+        telephone = Utils.normalizeString(telephone);
+        website   = Utils.normalizeString(website);
+        timerange = Utils.normalizeString(timerange);
+
+        if (name.isEmpty()) {
+            throw new IllegalArgumentException("Empty name");
+        }
+        if (address.isEmpty()) {
+            throw new IllegalArgumentException("Empty address");
+        }
+        if (area.isEmpty()) {
+            throw new IllegalArgumentException("Empty area");
+        }
+        if (telephone.isEmpty()) {
+            throw new IllegalArgumentException("Empty telephone");
+        }
+        if (website.isEmpty()) {
+            throw new IllegalArgumentException("Empty website");
+        }
+        if (timerange.isEmpty()) {
+            throw new IllegalArgumentException("Empty timerange");
+        }
+        if (avgprice <= 0) {
+            throw new IllegalArgumentException("Non-positive avgprice");
+        }
+        if (foodtypes == null || foodtypes.isEmpty()) {
+            throw new IllegalArgumentException("Empty foodtypes");
+        }
+        if (user == null) {
+            throw new IllegalArgumentException("Empty user");
+        }
+        if (appDate == null) {
+            throw new IllegalArgumentException("Empty appDate");
+        }
+
         this.name = name;
         this.address = address;
         this.area = area;
@@ -111,15 +149,27 @@ public class Restaurant extends AbstractModel {
 
     public void setState(RestaurantState state) {
 
+        if (state == null) {
+            throw new IllegalArgumentException("Empty state");
+        }
+
         this.state = state;
     }
 
     public void addRating(Rating r) {
 
+        if (r == null) {
+            throw new IllegalArgumentException("Empty rating");
+        }
+
         ratingsList.add(r);
     }
 
     public void removeRating(Rating r) {
+
+        if (r == null) {
+            throw new IllegalArgumentException("Empty rating");
+        }
 
         ratingsList.remove(r);
     }

@@ -2,16 +2,23 @@ package domain;
 
 import java.util.Date;
 
+import org.junit.Assert;
 import org.junit.Test;
 
+import ar.edu.itba.it.paw.domain.picture.Picture;
 import ar.edu.itba.it.paw.domain.user.User;
 import ar.edu.itba.it.paw.domain.user.UserType;
 
 public class UserTest {
+
 	@Test
 	public void newValidUserTest() {
-		new User("name", "surname", "email@email.com", "username", "password",
-				new Date(), UserType.Normal);
+
+		Picture picture = new Picture(new byte[1], "");
+		User user = new User("name", "surname", "email@email.com", "username", "password", picture, new Date(),
+				             UserType.Normal);
+
+		Assert.assertNotNull(user);
 	}
 
 	// EJEMPLOS DE MAS TESTS

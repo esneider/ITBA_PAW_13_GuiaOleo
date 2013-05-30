@@ -16,117 +16,107 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
+
 public class PermissionFilter implements Filter {
 
-	private static Logger logger = Logger.getLogger(PermissionFilter.class);
-	
-	private class Resource implements Comparable<Resource> {
+    private static Logger logger = Logger.getLogger(PermissionFilter.class);
 
-		String path, method;
+    private class Resource implements Comparable<Resource> {
 
-		public Resource(String path, String method) {
-			this.path = path;
-			this.method = method;
-		}
+        String path, method;
 
-		@Override
-		public int compareTo(Resource other) {
+        public Resource(String path, String method) {
 
-			int ret = path.compareTo(other.path);
+            this.path = path;
+            this.method = method;
+        }
 
-			return ret != 0 ? ret : method.compareTo(other.method);
-		}
+        @Override
+        public int compareTo(Resource other) {
 
-		@Override
-		public boolean equals(Object obj) {
+            int ret = path.compareTo(other.path);
 
-			Resource other = (Resource) obj;
-			return path == other.path || method == other.method;
-		}
-	}
+            return ret != 0 ? ret : method.compareTo(other.method);
+        }
 
-	private Set<Resource> restrictedActions = new TreeSet<Resource>();
+        @Override
+        public boolean equals(Object obj) {
 
-	@Override
-	public void init(FilterConfig filterConfig) throws ServletException {
+            Resource other = (Resource) obj;
+            return path == other.path || method == other.method;
+        }
+    }
 
-		String actionsString = filterConfig
-				.getInitParameter("restricted-actions");
+    private Set<Resource> restrictedActions = new TreeSet<Resource>();
 
-		if (actionsString == null) {
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
 
-			return;
-		}
+        String actionsString = filterConfig.getInitParameter("restricted-actions");
 
-		String[] actions = actionsString.split(",");
+        if (actionsString == null) {
+            return;
+        }
 
-		for (String action : actions) {
+        String[] actions = actionsString.split(",");
 
-			String[] parts = action.split(":");
+        for (String action : actions) {
 
-			if (parts.length != 2) {
-				break;
-			}
+            String[] parts = action.split(":");
 
-			restrictedActions
-					.add(new Resource(parts[0], parts[1].toUpperCase()));
-		}
-	}
+            if (parts.length != 2) {
+                break;
+            }
 
-	@Override
-	public void doFilter(ServletRequest request, ServletResponse response,
-			FilterChain chain) throws IOException, ServletException {
+            restrictedActions.add(new Resource(parts[0], parts[1].toUpperCase()));
+        }
+    }
 
-		if (request instanceof HttpServletRequest
-				&& response instanceof HttpServletResponse) {
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response,
+                         FilterChain chain) throws IOException, ServletException {
 
-			
-			HttpServletRequest req = (HttpServletRequest) request;
-			HttpServletResponse resp = (HttpServletResponse) response;
-			
-			String s = "{";
-			for (Resource r : restrictedActions) {
-				s += ("[" + r.path + "," + r.method + "],");
-			}
-			s += ("} => [" + req.getServletPath() + ","
-					+ req.getMethod().toUpperCase() + "]");
+        if (request instanceof HttpServletRequest && response instanceof HttpServletResponse) {
 
-			logger.warn(s);
+            HttpServletRequest req = (HttpServletRequest) request;
+            HttpServletResponse resp = (HttpServletResponse) response;
 
-			if (restrictedActions.contains(new Resource(req.getServletPath(),
-					req.getMethod().toUpperCase()))) {
+            String s = "{";
+            for (Resource r : restrictedActions) {
+                s += ("[" + r.path + "," + r.method + "],");
+            }
+            s += ("} => [" + req.getServletPath() + "," + req.getMethod().toUpperCase() + "]");
 
-				logger.warn("RESTRICTED");
+            logger.warn(s);
 
-				Integer id = (Integer) req.getSession().getAttribute("userId");
+            if (restrictedActions.contains(new Resource(req.getServletPath(), req.getMethod().toUpperCase()))) {
 
-				if (id == null) {
+                logger.warn("RESTRICTED");
 
-					logger.warn("- You shall not pass!!!");
+                Integer id = (Integer) req.getSession().getAttribute("userId");
 
-					String from = req.getRequestURI();
+                if (id == null) {
 
-					if (req.getQueryString() != null) {
-						from += "?" + req.getQueryString();
-					}
+                    logger.warn("- You shall not pass!!!");
 
-					logger.warn("Set destination: "
-							+ URLEncoder.encode(from, "UTF-8"));
+                    String from = req.getRequestURI();
 
-					resp.sendRedirect(req.getContextPath() + "/login?from="
-							+ URLEncoder.encode(from, "UTF-8"));
-					return;
-				}
-			}
-		}
+                    if (req.getQueryString() != null) {
+                        from += "?" + req.getQueryString();
+                    }
 
-		chain.doFilter(request, response);
+                    logger.warn("Set destination: " + URLEncoder.encode(from, "UTF-8"));
 
-	}
+                    resp.sendRedirect(req.getContextPath() + "/login?from=" + URLEncoder.encode(from, "UTF-8"));
+                    return;
+                }
+            }
+        }
 
-	@Override
-	public void destroy() {
+        chain.doFilter(request, response);
+    }
 
-	}
-
+    @Override
+    public void destroy() {}
 }
+

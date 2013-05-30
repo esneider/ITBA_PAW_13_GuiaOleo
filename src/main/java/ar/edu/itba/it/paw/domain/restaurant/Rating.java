@@ -12,10 +12,11 @@ import javax.persistence.ManyToOne;
 
 import ar.edu.itba.it.paw.domain.AbstractModel;
 import ar.edu.itba.it.paw.domain.user.User;
+import ar.edu.itba.it.paw.utils.Utils;
 
 
 @Entity
-public class Rating extends AbstractModel implements Comparable<Rating> {
+public class Rating extends AbstractModel {
 
     private Integer score;
     private String comment;
@@ -39,6 +40,24 @@ public class Rating extends AbstractModel implements Comparable<Rating> {
     Rating() {}
 
     public Rating(int score, String comment, User user, Restaurant restaurant, Date date) {
+
+        if (score < 0 || score > 5) {
+            throw new IllegalArgumentException("Score out of range");
+        }
+
+        if (user == null) {
+            throw new IllegalArgumentException("Empty user");
+        }
+
+        if (restaurant == null) {
+            throw new IllegalArgumentException("Empty restaurant");
+        }
+
+        if (date == null) {
+            throw new IllegalArgumentException("Empty date");
+        }
+
+        comment = Utils.normalizeString(comment);
 
         this.score = score;
         this.comment = comment;
@@ -109,14 +128,11 @@ public class Rating extends AbstractModel implements Comparable<Rating> {
         return true;
     }
 
-    @Override
-    public int compareTo(Rating o) {
-
-        // TODO: WAT? nothing to do with o?
-        return this.likes.size() - this.unlikes.size();
-    }
-
     public void like(User user) {
+
+        if (user == null) {
+            throw new IllegalArgumentException("Empty user");
+        }
 
         unlikes.remove(user);
 
@@ -126,6 +142,10 @@ public class Rating extends AbstractModel implements Comparable<Rating> {
     }
 
     public void unlike(User user) {
+
+        if (user == null) {
+            throw new IllegalArgumentException("Empty user");
+        }
 
         likes.remove(user);
 

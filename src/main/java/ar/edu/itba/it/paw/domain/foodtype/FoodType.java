@@ -5,10 +5,14 @@ import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.persistence.Transient;
+
+import org.springframework.beans.factory.annotation.Autowired;
 
 import ar.edu.itba.it.paw.domain.AbstractModel;
 import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
 import ar.edu.itba.it.paw.domain.restaurant.RestaurantState;
+import ar.edu.itba.it.paw.utils.Utils;
 
 
 @Entity
@@ -19,9 +23,23 @@ public class FoodType extends AbstractModel implements Comparable<FoodType> {
     @ManyToMany(mappedBy = "foodtypes")
     private Set<Restaurant> restaurants;
 
+    @Transient
+    @Autowired
+    FoodTypeRepo ftRepo;
+
     FoodType() {}
 
     public FoodType(String name) {
+
+    	name = Utils.normalizeString(name);
+
+    	if (name.isEmpty()) {
+    		throw new IllegalArgumentException("Empty name");
+    	}
+
+    	if (ftRepo.foodTypeExists(name)) {
+    		throw new IllegalArgumentException("Duplicated name");
+    	}
 
         this.name = name;
     }
