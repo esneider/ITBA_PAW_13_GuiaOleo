@@ -112,12 +112,12 @@
                                 <input type='hidden' name='uid' value='${userId}'/>
 
                                 <label> <strong>Rating: &nbsp</strong>
-                                <label class="radio">0<input type="radio" name="restaurant_rating" value="0"/></label>
-                                <label class="radio">1<input type="radio" name="restaurant_rating" value="1"/></label>
-                                <label class="radio">2<input type="radio" name="restaurant_rating" value="2"/></label>
-                                <label class="radio">3<input type="radio" name="restaurant_rating" value="3" checked="checked"/></label>
-                                <label class="radio">4<input type="radio" name="restaurant_rating" value="4"/></label>
-                                <label class="radio">5<input type="radio" name="restaurant_rating" value="5"/></label>
+                                <label class="radio inline">0<input type="radio" name="restaurant_rating" value="0"/></label>
+                                <label class="radio inline">1<input type="radio" name="restaurant_rating" value="1"/></label>
+                                <label class="radio inline">2<input type="radio" name="restaurant_rating" value="2"/></label>
+                                <label class="radio inline">3<input type="radio" name="restaurant_rating" value="3" checked="checked"/></label>
+                                <label class="radio inline">4<input type="radio" name="restaurant_rating" value="4"/></label>
+                                <label class="radio inline">5<input type="radio" name="restaurant_rating" value="5"/></label>
                                 </label>
 
                                 <br />
