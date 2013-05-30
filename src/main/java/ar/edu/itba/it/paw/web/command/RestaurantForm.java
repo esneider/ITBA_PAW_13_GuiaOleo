@@ -68,6 +68,10 @@ public class RestaurantForm {
         this.timerange = timerange;
     }
 
+    public void setAvgprice(Float avgprice) {
+        this.avgprice = avgprice;
+    }
+
     public Float getAvgprice() {
         return avgprice;
     }
@@ -78,10 +82,6 @@ public class RestaurantForm {
 
     public void setFoodTypes(List<FoodType> foodTypes) {
         this.foodTypes = foodTypes;
-    }
-
-    public void setAvgprice(float avgprice) {
-        this.avgprice = avgprice;
     }
 
     public Restaurant build(User user, RestaurantState state) {
