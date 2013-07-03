@@ -6,6 +6,7 @@ import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.PropertyListView;
+import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
@@ -17,9 +18,23 @@ public class HomePage extends WebPage {
 	@SpringBean
 	private FoodTypeRepo ftRepo;
 	
-	@SuppressWarnings("serial")
 	public HomePage() {
-		System.out.println(ftRepo);
+
+		IModel<List<FoodType>> foodTypesModel = new LoadableDetachableModel<List<FoodType>>() {
+			@Override
+			protected List<FoodType> load() {
+				return ftRepo.getAll(); 
+			}
+		};
+		
+		add(new PropertyListView<FoodType>("foodtypes", foodTypesModel) {
+			@Override
+			protected void populateItem(ListItem<FoodType> item) {
+				item.add(new Label("name"));
+				item.add(new Label("ammount"));
+			}
+		});
+		
 		add(new PropertyListView<FoodType>("foodtypes", new LoadableDetachableModel<List<FoodType>>(){
 			@Override
 			protected List<FoodType> load() {
@@ -33,8 +48,6 @@ public class HomePage extends WebPage {
 			}
 			
 		});
-		//<a href="" wicket:id="foodtype"></a>
-		// add(new Label("message", "HOLA MUNDO"));
 	}
 	
 }

@@ -20,7 +20,7 @@ import ar.edu.itba.it.paw.web.services.MailSender;
 
 public class ErrorFilter implements Filter {
 
-    private static Logger logger = Logger.getLogger(ErrorFilter.class);
+    //private static Logger logger = Logger.getLogger(ErrorFilter.class);
 
     @Override
     public void init(FilterConfig arg0) throws ServletException {}
@@ -39,7 +39,7 @@ public class ErrorFilter implements Filter {
 
         } catch (HibernateException e) {
 
-            logger.error(e.getMessage(), e.fillInStackTrace());
+//            logger.error(e.getMessage(), e.fillInStackTrace());
 
             HttpServletResponse r = (HttpServletResponse) response;
             r.setStatus(500);
@@ -51,7 +51,7 @@ public class ErrorFilter implements Filter {
             sendMail(e);
             HttpServletResponse r = (HttpServletResponse) response;
             r.setStatus(500);
-            logger.error(e.getMessage(), e.fillInStackTrace());
+//            logger.error(e.getMessage(), e.fillInStackTrace());
             request.getRequestDispatcher("/WEB-INF/jsp/error.jsp").forward(request, response);
         }
     }
@@ -62,7 +62,7 @@ public class ErrorFilter implements Filter {
         PrintWriter pw = new PrintWriter(sw);
         e.printStackTrace(pw);
         if (!MailSender.send(sw.toString())) {
-        	logger.error("Error Sending mail");
+//        	logger.error("Error Sending mail");
         }
     }
 }

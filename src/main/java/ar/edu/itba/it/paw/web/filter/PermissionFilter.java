@@ -19,7 +19,7 @@ import org.apache.log4j.Logger;
 
 public class PermissionFilter implements Filter {
 
-    private static Logger logger = Logger.getLogger(PermissionFilter.class);
+    //private static Logger logger = Logger.getLogger(PermissionFilter.class);
 
     private class Resource implements Comparable<Resource> {
 
@@ -87,17 +87,17 @@ public class PermissionFilter implements Filter {
             }
             s += ("} => [" + req.getServletPath() + "," + req.getMethod().toUpperCase() + "]");
 
-            logger.warn(s);
+//            logger.warn(s);
 
             if (restrictedActions.contains(new Resource(req.getServletPath(), req.getMethod().toUpperCase()))) {
 
-                logger.warn("RESTRICTED");
+//                logger.warn("RESTRICTED");
 
                 Integer id = (Integer) req.getSession().getAttribute("userId");
 
                 if (id == null) {
 
-                    logger.warn("- You shall not pass!!!");
+//                    logger.warn("- You shall not pass!!!");
 
                     String from = req.getRequestURI();
 
@@ -105,7 +105,7 @@ public class PermissionFilter implements Filter {
                         from += "?" + req.getQueryString();
                     }
 
-                    logger.warn("Set destination: " + URLEncoder.encode(from, "UTF-8"));
+//                    logger.warn("Set destination: " + URLEncoder.encode(from, "UTF-8"));
 
                     resp.sendRedirect(req.getContextPath() + "/login?from=" + URLEncoder.encode(from, "UTF-8"));
                     return;
