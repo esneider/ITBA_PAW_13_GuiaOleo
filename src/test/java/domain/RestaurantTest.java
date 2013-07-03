@@ -35,6 +35,8 @@ public class RestaurantTest {
 		public void save(User user) {}
 		@Override
 		public List<User> getAll() {return null;}
+		@Override
+		public User get(String username) {return null;}
 	}
 
 	class MockFoodTypeRepo implements FoodTypeRepo {

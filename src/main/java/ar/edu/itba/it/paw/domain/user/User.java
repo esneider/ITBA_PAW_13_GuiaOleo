@@ -84,6 +84,10 @@ public class User extends AbstractModel {
     public Picture getAvatar() {
         return avatar;
     }
+    
+    public boolean checkPassword(String password) {
+    	return this.password != null && this.password.equals(password);
+    }
 
     public Set<Restaurant> getRegisteredRestaurants() {
         return registeredRestaurants;

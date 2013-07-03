@@ -11,6 +11,11 @@ public interface UserRepo {
     public User get(int id);
 
     /**
+     * Returns a single User by its username
+     */
+    public User get (String username);
+    
+    /**
      * Checks if email already exists
      */
     public boolean emailExists(String email);
