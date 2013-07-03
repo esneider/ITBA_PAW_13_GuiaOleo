@@ -27,7 +27,7 @@ public class HomePage extends WebPage {
 			}
 		};
 		
-		add(new PropertyListView<FoodType>("foodtypes", foodTypesModel) {
+		add(new PropertyListView<FoodType>("foodtype", foodTypesModel) {
 			@Override
 			protected void populateItem(ListItem<FoodType> item) {
 				item.add(new Label("name"));
@@ -35,19 +35,7 @@ public class HomePage extends WebPage {
 			}
 		});
 		
-		add(new PropertyListView<FoodType>("foodtypes", new LoadableDetachableModel<List<FoodType>>(){
-			@Override
-			protected List<FoodType> load() {
-				return ftRepo.getAll();
-			}		
-		}) {
 
-			@Override
-			protected void populateItem(ListItem<FoodType> lift) {
-				add(new Label("foodtype", lift.getModelObject().getName()));
-			}
-			
-		});
 	}
 	
 }

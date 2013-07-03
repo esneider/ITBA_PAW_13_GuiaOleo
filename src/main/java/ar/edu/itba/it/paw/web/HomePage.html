@@ -2,8 +2,19 @@
 	<head>
 	</head>
 	<body>
-		<ul class="nav nav-tabs" wicket:id="foodtypes">
-			<li wicket:id="foodtype"></li>
-		</ul>
+		<table>
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Ammount</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr wicket:id="foodtype">
+					<td wicket:id="name" />
+					<td wicket:id="ammount" />
+				</tr>
+			</tbody>
+		</table>
 	</body>
 </html>
