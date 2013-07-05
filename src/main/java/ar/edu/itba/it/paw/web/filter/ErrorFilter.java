@@ -12,10 +12,8 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
+// import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
-
-import ar.edu.itba.it.paw.web.services.MailSender;
 
 
 public class ErrorFilter implements Filter {
@@ -61,9 +59,6 @@ public class ErrorFilter implements Filter {
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw);
         e.printStackTrace(pw);
-        if (!MailSender.send(sw.toString())) {
-//        	logger.error("Error Sending mail");
-        }
     }
 }
 

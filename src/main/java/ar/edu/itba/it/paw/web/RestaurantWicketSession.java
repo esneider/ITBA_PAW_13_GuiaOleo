@@ -9,6 +9,8 @@ import ar.edu.itba.it.paw.domain.user.UserRepo;
 
 public class RestaurantWicketSession extends WebSession {
 
+	private static final long serialVersionUID = -6016629258146518387L;
+	
 	private String username;
 
 	public static RestaurantWicketSession get() {

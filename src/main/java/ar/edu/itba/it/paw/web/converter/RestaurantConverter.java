@@ -4,7 +4,6 @@ import java.util.Locale;
 
 import org.apache.wicket.util.convert.IConverter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
 import ar.edu.itba.it.paw.domain.restaurant.RestaurantRepo;
@@ -12,7 +11,9 @@ import ar.edu.itba.it.paw.domain.restaurant.RestaurantRepo;
 
 public class RestaurantConverter implements IConverter<Restaurant> {
 
-    private RestaurantRepo restRepo;
+	private static final long serialVersionUID = 1540811699534810763L;
+
+	private RestaurantRepo restRepo;
 
     @Autowired
     public RestaurantConverter (RestaurantRepo restRepo) {

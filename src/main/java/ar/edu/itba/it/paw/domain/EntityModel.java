@@ -7,6 +7,8 @@ import org.springframework.util.Assert;
 
 public class EntityModel<T> implements IModel<T> {
 	
+	private static final long serialVersionUID = 8664070951407708993L;
+
 	private Class<T> type;
 	private Integer id;
 	

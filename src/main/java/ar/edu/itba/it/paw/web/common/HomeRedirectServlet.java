@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class HomeRedirectServlet extends HttpServlet  {
+
+	private static final long serialVersionUID = 8346831700445359610L;
+	
 	private static final String HOME_URL_PARAM = "homeUrl";
 
 	@Override

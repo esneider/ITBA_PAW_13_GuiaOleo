@@ -14,7 +14,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
+// import org.apache.log4j.Logger;:w
 
 
 public class PermissionFilter implements Filter {
@@ -81,11 +81,11 @@ public class PermissionFilter implements Filter {
             HttpServletRequest req = (HttpServletRequest) request;
             HttpServletResponse resp = (HttpServletResponse) response;
 
-            String s = "{";
-            for (Resource r : restrictedActions) {
-                s += ("[" + r.path + "," + r.method + "],");
-            }
-            s += ("} => [" + req.getServletPath() + "," + req.getMethod().toUpperCase() + "]");
+//            String s = "{";
+//            for (Resource r : restrictedActions) {
+//                s += ("[" + r.path + "," + r.method + "],");
+//            }
+//            s += ("} => [" + req.getServletPath() + "," + req.getMethod().toUpperCase() + "]");
 
 //            logger.warn(s);
 

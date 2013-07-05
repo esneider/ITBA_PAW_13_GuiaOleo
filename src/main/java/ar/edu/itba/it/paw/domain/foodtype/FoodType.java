@@ -1,6 +1,5 @@
 package ar.edu.itba.it.paw.domain.foodtype;
 
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,6 +14,8 @@ import ar.edu.itba.it.paw.utils.Utils;
 
 @Entity
 public class FoodType extends PersistentEntity implements Comparable<FoodType> {
+
+	private static final long serialVersionUID = 7577639245170326587L;
 
 	private String name;
 

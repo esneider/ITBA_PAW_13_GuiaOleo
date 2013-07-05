@@ -1,6 +1,3 @@
-/*
- * Copyright (c) 2008 IT - ITBA -- All rights reserved
- */
 package ar.edu.itba.it.paw.domain;
 
 import java.io.Serializable;
@@ -19,6 +16,8 @@ import javax.persistence.MappedSuperclass;
  */
 @MappedSuperclass
 public class PersistentEntity implements Serializable {
+
+	private static final long serialVersionUID = -5584265661434823148L;
 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id

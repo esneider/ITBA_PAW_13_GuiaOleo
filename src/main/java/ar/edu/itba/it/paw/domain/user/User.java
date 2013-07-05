@@ -24,7 +24,9 @@ import ar.edu.itba.it.paw.utils.Utils;
 @Table(name = "SystemUser")
 public class User extends PersistentEntity {
 
-    private String name, surname, email, username, password;
+	private static final long serialVersionUID = -8992018496546437238L;
+
+	private String name, surname, email, username, password;
 
     @Enumerated(EnumType.STRING)
     private UserType type;

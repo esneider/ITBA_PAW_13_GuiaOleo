@@ -17,7 +17,9 @@ import ar.edu.itba.it.paw.utils.Utils;
 @Entity
 public class Rating extends PersistentEntity implements Comparable<Rating> {
 
-    private Integer score;
+	private static final long serialVersionUID = 1844429424794770342L;
+	
+	private Integer score;
     private String comment;
 
     @ManyToOne

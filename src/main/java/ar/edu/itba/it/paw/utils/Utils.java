@@ -1,13 +1,10 @@
 package ar.edu.itba.it.paw.utils;
 
-import java.net.URISyntaxException;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 
-import org.apache.http.client.utils.URIBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import ar.edu.itba.it.paw.domain.foodtype.FoodTypeRepo;
 import ar.edu.itba.it.paw.domain.user.UserRepo;
@@ -33,26 +30,6 @@ public class Utils {
 
         return str != null
                 && str.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$");
-    }
-
-    public static String addParameterToURI(String URI, String param,
-            String value) {
-
-        URIBuilder builder;
-
-        try {
-
-            builder = new URIBuilder(URI);
-
-        } catch (URISyntaxException e) {
-
-            e.printStackTrace();
-            return URI;
-        }
-
-        builder.addParameter(param, value);
-
-        return builder.toString();
     }
 
     public static float round(float num) {
