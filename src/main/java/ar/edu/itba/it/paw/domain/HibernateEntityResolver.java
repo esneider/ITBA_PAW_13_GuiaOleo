@@ -30,10 +30,10 @@ public class HibernateEntityResolver implements EntityResolver {
 
 	@Override
 	public Integer getId(final Object object) {
-		Assert.isInstanceOf(AbstractModel.class, object, "This entity resolver only hanldes objects implementing PersistentEntity");
+		Assert.isInstanceOf(PersistentEntity.class, object, "This entity resolver only hanldes objects implementing PersistentEntity");
 		try {
 			getSession().flush();
-			Integer id = ((AbstractModel) object).getId();
+			Integer id = ((PersistentEntity) object).getId();
 			if (id == null) {
 				throw new TransientObjectException("Object doesn't have an id associated!");
 			}

@@ -3,22 +3,22 @@
 		<wicket:extend>
 			<div class="tabbable tabs-left">
 			  	<ul class="nav nav-tabs">   
-			      	<!-- SETEAR LA CLASE ACTIVE AL QUE ESTA ACTIVO -->
 			      
 			        <li>
-			        	<a href="#">
+			        	<a href="#" wicket:id="linkAll">
 			        		<strong class="name text-warning">All restaurants</strong>
 			            	<br>
-			            	<span class="number muted">X restaurants</span>
+			            	<span class="number muted" wicket:id="all">X </span>
+			            	<span class="number muted" wicket:id="pluralizeAll"></span>
 			        	</a>
 			        </li>
 			
-			        <!-- FOR EACH SI TIENE MAS DE 0 RESTAURANTS * VER TAMBIEN SI ESTA ACTIVO (SELECCIONADO) * -->
-			        <li class="" wicket:id="foodtype">
-			        	<a href="#">
+			        <li class="" wicket:id="foodtypes">
+			        	<a href="#" wicket:id="foodtype">
 			            	<strong class="name" wicket:id="name">Nombre</strong>
 			               	<br>
-			               	<span class="number muted" wicket:id="ammount">Cantidad</span>
+			               	<span class="number muted" wicket:id="ammount">Cantidad </span> 
+			               	<span class="number muted" wicket:id="pluralizeRestaurants"></span>
 			            </a>
 			        </li>
 			  	</ul>
