@@ -35,8 +35,8 @@ public abstract class AbstractHibernateRepo {
     }
 
     protected org.hibernate.Session getSession() {
-
-        return sessionFactory.getCurrentSession();
+    	org.hibernate.Session s = sessionFactory.getCurrentSession();
+    	return s;
     }
 
     public Serializable save(Object o) {

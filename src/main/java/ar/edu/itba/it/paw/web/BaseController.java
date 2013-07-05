@@ -11,7 +11,6 @@ import ar.edu.itba.it.paw.domain.user.User;
 import ar.edu.itba.it.paw.utils.EnhancedModelAndView;
 
 
-@Controller
 public abstract class BaseController {
 
     @Autowired

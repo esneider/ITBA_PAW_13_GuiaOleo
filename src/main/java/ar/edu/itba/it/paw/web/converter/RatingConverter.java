@@ -7,10 +7,7 @@ import org.springframework.stereotype.Component;
 
 import ar.edu.itba.it.paw.domain.restaurant.Rating;
 
-@SuppressWarnings("serial")
-@Component
 public class RatingConverter implements IConverter<Rating> {
-
 
 	@Override
 	public Rating convertToObject(String value, Locale arg1) {

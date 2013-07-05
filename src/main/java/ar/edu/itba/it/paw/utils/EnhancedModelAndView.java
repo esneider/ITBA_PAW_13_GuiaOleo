@@ -1,6 +1,5 @@
 package ar.edu.itba.it.paw.utils;
 
-import org.springframework.web.servlet.ModelAndView;
 
 
 public class EnhancedModelAndView extends ModelAndView {

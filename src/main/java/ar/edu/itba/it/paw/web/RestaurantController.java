@@ -22,7 +22,6 @@ import ar.edu.itba.it.paw.utils.Utils;
 import ar.edu.itba.it.paw.web.command.RestaurantForm;
 import ar.edu.itba.it.paw.web.command.validator.RestaurantFormValidator;
 
-@Controller
 @RequestMapping("/restaurant")
 public class RestaurantController extends BaseController {
 

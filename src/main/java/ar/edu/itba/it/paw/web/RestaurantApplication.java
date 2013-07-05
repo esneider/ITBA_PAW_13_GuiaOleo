@@ -1,5 +1,6 @@
 package ar.edu.itba.it.paw.web;
 
+import org.apache.wicket.ConverterLocator;
 import org.apache.wicket.IConverterLocator;
 import org.apache.wicket.Page;
 import org.apache.wicket.Session;
@@ -11,7 +12,9 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import ar.edu.itba.it.paw.domain.foodtype.FoodType;
 import ar.edu.itba.it.paw.web.common.HibernateRequestCycleListener;
+import ar.edu.itba.it.paw.web.converter.FoodTypeConverter;
 
 @Component
 public class RestaurantApplication extends WebApplication {
@@ -26,8 +29,8 @@ public class RestaurantApplication extends WebApplication {
 	@Override
 	protected void init() {
 		super.init();
-		getRequestCycleListeners().add(new HibernateRequestCycleListener(sessionFactory));
 		getComponentInstantiationListeners().add(new SpringComponentInjector(this));
+		getRequestCycleListeners().add(new HibernateRequestCycleListener(sessionFactory));
 	}
 	
 	@Override
@@ -42,12 +45,11 @@ public class RestaurantApplication extends WebApplication {
 
 	@Override
 	protected IConverterLocator newConverterLocator() {
-		/*ConverterLocator converterLocator = new ConverterLocator();
-		converterLocator.set(Professor.class, new ProfessorConverter());
-		converterLocator.set(Department.class, new DepartmentConverter());
-		converterLocator.set(Subject.class, new SubjectConverter(subjects));
-		return converterLocator;*/
-		return null;
+		ConverterLocator converterLocator = new ConverterLocator();
+		converterLocator.set(FoodType.class, new FoodTypeConverter());
+//		converterLocator.set(Department.class, new DepartmentConverter());
+//		converterLocator.set(Subject.class, new SubjectConverter(subjects));
+		return converterLocator;
 	}
 
 }

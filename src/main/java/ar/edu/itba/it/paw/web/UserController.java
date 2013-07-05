@@ -22,7 +22,6 @@ import ar.edu.itba.it.paw.web.command.validator.EditFormValidator;
 import ar.edu.itba.it.paw.web.command.validator.LoginFormValidator;
 import ar.edu.itba.it.paw.web.command.validator.RegisterFormValidator;
 
-@Controller
 public class UserController extends BaseController {
 
 	private UserRepo userRepo;

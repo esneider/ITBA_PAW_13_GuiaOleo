@@ -6,14 +6,14 @@ import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 
-import ar.edu.itba.it.paw.domain.AbstractModel;
+import ar.edu.itba.it.paw.domain.PersistentEntity;
 import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
 import ar.edu.itba.it.paw.domain.restaurant.RestaurantState;
 import ar.edu.itba.it.paw.utils.Utils;
 
 
 @Entity
-public class FoodType extends AbstractModel implements Comparable<FoodType> {
+public class FoodType extends PersistentEntity implements Comparable<FoodType> {
 
 	private String name;
 

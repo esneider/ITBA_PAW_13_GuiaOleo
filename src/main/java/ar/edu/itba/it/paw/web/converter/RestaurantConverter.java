@@ -10,8 +10,6 @@ import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
 import ar.edu.itba.it.paw.domain.restaurant.RestaurantRepo;
 
 
-@SuppressWarnings("serial")
-@Component
 public class RestaurantConverter implements IConverter<Restaurant> {
 
     private RestaurantRepo restRepo;

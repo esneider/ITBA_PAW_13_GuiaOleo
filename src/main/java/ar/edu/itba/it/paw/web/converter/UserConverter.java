@@ -9,8 +9,6 @@ import org.springframework.stereotype.Component;
 import ar.edu.itba.it.paw.domain.user.User;
 import ar.edu.itba.it.paw.domain.user.UserRepo;
 
-@SuppressWarnings("serial")
-@Component
 public class UserConverter implements IConverter<User> {
 
 	private UserRepo userRepo;

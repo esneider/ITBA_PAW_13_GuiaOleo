@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 import ar.edu.itba.it.paw.domain.foodtype.FoodTypeRepo;
 import ar.edu.itba.it.paw.domain.user.UserRepo;
 
-@Component
 public class Utils {
 
     private static UserRepo userRepo;
