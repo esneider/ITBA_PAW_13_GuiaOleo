@@ -2,10 +2,10 @@ package ar.edu.itba.it.paw.web.base;
 
 import org.apache.wicket.markup.html.panel.Panel;
 
-public class HeaderPanel extends Panel {
+public class UnLoggedHeaderPanel extends Panel {
 
-	public HeaderPanel(String id) {
+	public UnLoggedHeaderPanel(String id) {
 		super(id);
 	}
-
+	
 }

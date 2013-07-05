@@ -1,4 +1,4 @@
-package ar.edu.itba.it.paw.web;
+package ar.edu.itba.it.paw.web.application;
 
 import org.apache.wicket.ConverterLocator;
 import org.apache.wicket.IConverterLocator;
@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import ar.edu.itba.it.paw.domain.foodtype.FoodType;
+import ar.edu.itba.it.paw.web.HomePage;
+import ar.edu.itba.it.paw.web.RestaurantWicketSession;
 import ar.edu.itba.it.paw.web.common.HibernateRequestCycleListener;
 import ar.edu.itba.it.paw.web.converter.FoodTypeConverter;
 
