@@ -13,7 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import ar.edu.itba.it.paw.domain.AbstractModel;
+import ar.edu.itba.it.paw.domain.PersistentEntity;
 import ar.edu.itba.it.paw.domain.picture.Picture;
 import ar.edu.itba.it.paw.domain.restaurant.Rating;
 import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
@@ -22,7 +22,7 @@ import ar.edu.itba.it.paw.utils.Utils;
 
 @Entity
 @Table(name = "SystemUser")
-public class User extends AbstractModel {
+public class User extends PersistentEntity {
 
     private String name, surname, email, username, password;
 

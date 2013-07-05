@@ -1,5 +1,6 @@
 package ar.edu.itba.it.paw.domain.foodtype;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 

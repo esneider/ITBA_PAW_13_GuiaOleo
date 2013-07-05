@@ -10,7 +10,6 @@ import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.RefreshingView;
 import org.apache.wicket.model.AbstractReadOnlyModel;
-import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -30,10 +29,10 @@ public class SideBarPage extends BasePage {
 	@SpringBean
 	private RestaurantRepo restRepo;
 
-	public SideBarPage(final IModel<FoodType> selected) {
+	public SideBarPage(final FoodType selected) {
 
 		int totalCant = restRepo.getAll().size();
-		
+
 		Link<Void> generalLink = new Link<Void>("linkAll") {
 			@Override
 			public void onClick() {
@@ -41,14 +40,15 @@ public class SideBarPage extends BasePage {
 			}
 		};
 		generalLink.add(new Label("all", String.valueOf(totalCant)));
-		generalLink.add(new Label("pluralizeAll", pluralizeItem("Restaurant", totalCant)));
+		generalLink.add(new Label("pluralizeAll", pluralizeItem("Restaurant",
+				totalCant)));
 		add(generalLink);
-		
+
 		if (selected == null) {
 			generalLink.add(new AttributeAppender("class", new Model<String>(
 					"active")));
 		}
-		
+
 		add(new RefreshingView<FoodType>("foodtypes") {
 			@Override
 			protected Iterator<IModel<FoodType>> getItemModels() {
@@ -63,11 +63,11 @@ public class SideBarPage extends BasePage {
 			@Override
 			protected void populateItem(final Item<FoodType> item) {
 				final FoodType ft = item.getModelObject();
-				Link<FoodType> link = new Link<FoodType>("foodtype", item.getModel()) {
+				Link<FoodType> link = new Link<FoodType>("foodtype",
+						item.getModel()) {
 					@Override
 					public void onClick() {
-						setResponsePage(new HomePage(new EntityModel<FoodType>(
-								FoodType.class, item.getModelObject())));
+						setResponsePage(new HomePage(item.getModelObject()));
 					}
 				};
 				link.add(new Label("name", item.getModel()));

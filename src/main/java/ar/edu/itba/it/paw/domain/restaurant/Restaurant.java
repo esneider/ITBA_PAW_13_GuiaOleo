@@ -18,12 +18,13 @@ import javax.persistence.OneToMany;
 import org.hibernate.annotations.Cascade;
 
 import ar.edu.itba.it.paw.domain.AbstractModel;
+import ar.edu.itba.it.paw.domain.PersistentEntity;
 import ar.edu.itba.it.paw.domain.foodtype.FoodType;
 import ar.edu.itba.it.paw.domain.user.User;
 import ar.edu.itba.it.paw.utils.Utils;
 
 @Entity
-public class Restaurant extends AbstractModel {
+public class Restaurant extends PersistentEntity {
 
 	@ManyToMany
 	Set<FoodType> foodtypes;

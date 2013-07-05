@@ -16,7 +16,7 @@ public class HomePage extends SideBarPage {
 		super(null);
 	}
 	
-	public HomePage(final IModel<FoodType> selected) {
+	public HomePage(final FoodType selected) {
 		super(selected);
 	}	
 }

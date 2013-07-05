@@ -10,12 +10,13 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 import ar.edu.itba.it.paw.domain.AbstractModel;
+import ar.edu.itba.it.paw.domain.PersistentEntity;
 import ar.edu.itba.it.paw.domain.user.User;
 import ar.edu.itba.it.paw.utils.Utils;
 
 
 @Entity
-public class Rating extends AbstractModel implements Comparable<Rating> {
+public class Rating extends PersistentEntity implements Comparable<Rating> {
 
     private Integer score;
     private String comment;

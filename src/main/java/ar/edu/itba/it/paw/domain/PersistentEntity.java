@@ -3,6 +3,8 @@
  */
 package ar.edu.itba.it.paw.domain;
 
+import java.io.Serializable;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,7 +18,7 @@ import javax.persistence.MappedSuperclass;
  * </p>
  */
 @MappedSuperclass
-public class PersistentEntity {
+public class PersistentEntity implements Serializable {
 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
