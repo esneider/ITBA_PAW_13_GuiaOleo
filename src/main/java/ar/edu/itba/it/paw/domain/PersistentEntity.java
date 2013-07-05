@@ -23,7 +23,7 @@ public class PersistentEntity implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
 	protected Integer id;
-
+	
 	public PersistentEntity() {
 		super();
 	}

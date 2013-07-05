@@ -30,7 +30,7 @@ public class SideBarPage extends BasePage {
 	private RestaurantRepo restRepo;
 
 	public SideBarPage(final FoodType selected) {
-
+		super();
 		int totalCant = restRepo.getAll().size();
 
 		Link<Void> generalLink = new Link<Void>("linkAll") {

@@ -8,12 +8,16 @@ import ar.edu.itba.it.paw.web.RestaurantWicketSession;
 public class BasePage extends WebPage {
 	
 	public BasePage() {
-		RestaurantWicketSession session = RestaurantWicketSession.get();
+		RestaurantWicketSession session = getRestaurantWicketSession();
 		if (session.isSignedIn()) {
 			add(new LoggedHeaderPanel("header"));
 		} else {
 			add(new UnLoggedHeaderPanel("header"));
 		}
+	}
+	
+	private RestaurantWicketSession getRestaurantWicketSession() {
+		return (RestaurantWicketSession) getSession();
 	}
 	
 //	@Override

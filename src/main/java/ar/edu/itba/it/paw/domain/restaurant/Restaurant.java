@@ -17,7 +17,6 @@ import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.Cascade;
 
-import ar.edu.itba.it.paw.domain.AbstractModel;
 import ar.edu.itba.it.paw.domain.PersistentEntity;
 import ar.edu.itba.it.paw.domain.foodtype.FoodType;
 import ar.edu.itba.it.paw.domain.user.User;
