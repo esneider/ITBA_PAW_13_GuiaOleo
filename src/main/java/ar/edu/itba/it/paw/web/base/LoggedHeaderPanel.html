@@ -1,0 +1,30 @@
+<wicket:panel>	
+	<li class="dropdown">
+	    <a href="#" id="user-dd" role="button" class="dropdown-toggle menu-text" data-toggle="dropdown">
+	        Username
+	        <img class="avatar" src="#"/>
+	    </a>
+	    <ul class="dropdown-menu" role="menu" aria-labelledby="user-dd">
+	        <li role="presentation">
+	            <a role="menuitem" href="#">Modify data</a>
+	        </li>
+	        <li role="presentation">
+	            <a role="menuitem" href="#">View my profile</a>
+	        </li>
+	        <li role="presentation">
+	            <a role="menuitem" href="#">Register Restaurant</a>
+	        </li>
+	        <c:if test="${user.type == 'Admin'}">
+	              <li role="presentation">
+	                <a role="menuitem" href="#">See pending requests</a>
+	            </li>
+	            <li role="presentation">
+	                <a role="menuitem" href="#">See registered users</a>
+	            </li>
+	        </c:if>
+	        <li role="presentation">
+	            <a role="menuitem" href="#">Logout</a>
+	        </li>
+	    </ul>
+	</li>
+</wicket:panel>

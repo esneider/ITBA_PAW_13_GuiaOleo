@@ -1,0 +1,92 @@
+<html>
+<body>
+<wicket:extend>
+  <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <form class="navbar-form" action="#" method="get">
+                <div class="input-append">
+                    <input type="text" class="span5 inline" placeholder="Search Restaurant" name="query"/>
+                    <input class="btn btn-primary blabla" type="submit" value="Search" />
+                </div>
+            </form>
+            <ul id="user-menu" class="nav pull-right">
+            
+            
+            <!-- CUANDO ESTA LOGGEADO -->
+            
+                <li class="dropdown">
+                    <a href="#" id="user-dd" role="button" class="dropdown-toggle menu-text" data-toggle="dropdown">
+                        Username
+                        <img class="avatar" src="#"/>
+                    </a>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="user-dd">
+                        <li role="presentation">
+                            <a role="menuitem" href="#">Modify data</a>
+                        </li>
+                        <li role="presentation">
+                            <a role="menuitem" href="#">View my profile</a>
+                        </li>
+                        <li role="presentation">
+                            <a role="menuitem" href="#">Register Restaurant</a>
+                        </li>
+                        <c:if test="${user.type == 'Admin'}">
+                              <li role="presentation">
+                                <a role="menuitem" href="#">See pending requests</a>
+                            </li>
+                            <li role="presentation">
+                                <a role="menuitem" href="#">See registered users</a>
+                            </li>
+                        </c:if>
+                        <li role="presentation">
+                            <a role="menuitem" href="#">Logout</a>
+                        </li>
+                    </ul>
+                </li>
+            
+            <!-- CUANDO NO ESTA LOGGEADO -->
+                
+                <li class="login-text">
+                    <a class="menu-text" href="#">Login or Register</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="container">
+        <div id="main-logo">
+            <div>
+                <a href="#"><img src="#" /></a>
+                <h1>Oleo's guide</h1>
+            </div>
+        </div>
+
+        <hr />
+
+        <div id="main">
+			<!-- CUANDO HAY SIDEBAR -->
+              <div class="tabbable tabs-left">
+                  <ul class="nav nav-tabs">
+                  
+                      <!-- SETEAR LA CLASE ACTIVE AL QUE ESTA ACTIVO -->
+                  
+                      <li><a href="#">
+                          <strong class="name text-warning">All restaurants</strong>
+                          <br>
+                          <span class="number muted">X restaurants</span>
+                      </a></li>
+                      <!-- FOR EACH SI TIENE MAS DE 0 RESTAURANTS * VER TAMBIEN SI ESTA ACTIVO (SELECCIONADO) * -->
+                      <li class="">
+                          <a href="#">
+                              <strong class="name">Nombre</strong>
+                              <br>
+                              <span class="number muted">Cantidad</span>
+                          </a>
+                      </li>
+                  </ul>
+                  <div class="tab-content">
+                      <div class="tab-pane active">
+           	
+           		<!-- HASTA ACA SIDEBAR -->
+		</wicket:extend>
+	</body>
+</html>

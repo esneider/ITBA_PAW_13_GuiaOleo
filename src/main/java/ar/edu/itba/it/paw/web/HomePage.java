@@ -2,7 +2,6 @@ package ar.edu.itba.it.paw.web;
 
 import java.util.List;
 
-import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.PropertyListView;
@@ -10,11 +9,11 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
-import ar.edu.itba.it.paw.domain.EntityModel;
 import ar.edu.itba.it.paw.domain.foodtype.FoodType;
 import ar.edu.itba.it.paw.domain.foodtype.FoodTypeRepo;
+import ar.edu.itba.it.paw.web.base.BasePage;
 
-public class HomePage extends WebPage {
+public class HomePage extends BasePage {
 
 	@SpringBean
 	private FoodTypeRepo ftRepo;
@@ -32,7 +31,7 @@ public class HomePage extends WebPage {
 			@Override
 			protected void populateItem(ListItem<FoodType> item) {
 				item.add(new Label("name"));
-//				item.add(new Label("ammount"));
+				item.add(new Label("ammount"));
 			}
 		});
 		
