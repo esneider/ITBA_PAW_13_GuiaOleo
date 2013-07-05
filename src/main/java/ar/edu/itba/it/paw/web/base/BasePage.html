@@ -13,7 +13,6 @@
                 	</div>
             	</form>
         
-        
             	<ul id="user-menu" class="nav pull-right">
 					<div wicket:id="header"/>
 				</ul>
@@ -32,42 +31,9 @@
 			<hr />
 
 	        <div id="main">
-				<!-- CUANDO HAY SIDEBAR -->
-              	<div class="tabbable tabs-left">
-                  	<ul class="nav nav-tabs">   
-                      	<!-- SETEAR LA CLASE ACTIVE AL QUE ESTA ACTIVO -->
-	                  
-	                    <li>
-	                    	<a href="#">
-	                    		<strong class="name text-warning">All restaurants</strong>
-	                        	<br>
-	                        	<span class="number muted">X restaurants</span>
-	                    	</a>
-	                    </li>
-	                    <!-- FOR EACH SI TIENE MAS DE 0 RESTAURANTS * VER TAMBIEN SI ESTA ACTIVO (SELECCIONADO) * -->
-	                    <li class="">
-	                    	<a href="#">
-	                        	<strong class="name">Nombre</strong>
-	                           	<br>
-	                           	<span class="number muted">Cantidad</span>
-	                        </a>
-	                    </li>
-                  	</ul>
-               	</div>
-               	<div class="tab-content">
-               		<div class="tab-pane active">
-           	
-   						<!-- HASTA ACA SIDEBAR -->
-			
-						<wicket:child />
-
-						<!-- SI HUBO SIDEBAR -->
-	    				</div> 
-	    			</div> 
-	    		</div>
-	    <!-- SI HUBO SIDEBAR -->
-	 		</div>
-	 
+				<wicket:child/>              	           	
+			</div>
+	 	</div>
 	    <div class='footer'> </div>
 	</body>
 </html>
