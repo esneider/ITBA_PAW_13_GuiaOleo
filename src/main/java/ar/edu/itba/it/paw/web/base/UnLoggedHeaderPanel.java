@@ -11,7 +11,7 @@ public class UnLoggedHeaderPanel extends Panel {
 
 	public UnLoggedHeaderPanel(String id) {
 		super(id);
-		
+
 		add(new Link<Void>("login"){
 
 			private static final long serialVersionUID = -6116478108555751666L;
@@ -20,8 +20,7 @@ public class UnLoggedHeaderPanel extends Panel {
 			public void onClick() {
 				setResponsePage(LoginRegisterPage.class);
 			}
-			
 		});
 	}
-	
 }
+
