@@ -83,7 +83,7 @@
 				<c:if test="${not empty comment.user.avatar}">
                             		<img class="avatarPic" src="${ pageContext.request.contextPath }/bin/image/show?userId=${comment.user.avatar.id }"/>
 	                	</c:if>        
-			</div>
+						</div>
                         <div class="offset1 comment">
                             <blockquote>
                                 <p>

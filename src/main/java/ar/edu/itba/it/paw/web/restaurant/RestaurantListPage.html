@@ -1,4 +1,5 @@
 <html>
+<<<<<<< Updated upstream
     <body>
         <wicket:extend>
             <div class="restlist">
@@ -25,3 +26,31 @@
     </body>
 </html>
 
+=======
+	<body>
+		<wicket:extend>
+		 <div class="restlist">
+          
+            <dl wicket:id="restaurant" class="dl-horizontal mainList">
+                <dt>Restaurant</dt>
+                    <dd><a class="name" wicket:id="name"><wicket:container wicket:id="restName" /></a></dd>
+                <dt>Address</dt>
+                    <dd  class="address" wicket:id="address"></dd>
+                <dt>Area</dt>
+                    <dd  class="area" wicket:id="area"></dd>
+               <div class="mainListPanel" wicket:id="foodtypes"/>
+		         
+                <dt>Average Score</dt>
+                    <dd>
+                        <span class="badge" wicket:id="avgScore"></span>
+                        (Scored by <span wicket:id="ratingsAmmount"> </span> people)
+                    </dd>
+            </dl>
+                <hr/>
+    		
+			</div>
+		</wicket:extend>
+	</body>
+	
+</html>
+>>>>>>> Stashed changes

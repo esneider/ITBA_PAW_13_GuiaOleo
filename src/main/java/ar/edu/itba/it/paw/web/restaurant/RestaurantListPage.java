@@ -38,7 +38,8 @@ public class RestaurantListPage extends SideBarPage {
 		IModel<List<Restaurant>> listModel = new LoadableDetachableModel<List<Restaurant>>() {
 			@Override
 			protected List<Restaurant> load() {
-				return new ArrayList<Restaurant>(ft.getObject().getRestaurants());
+				return new ArrayList<Restaurant>(ft.getObject()
+						.getRestaurants());
 			}
 
 		};
@@ -64,25 +65,11 @@ public class RestaurantListPage extends SideBarPage {
 				item.add(new Link<Restaurant>("name", item.getModel()) {
 					@Override
 					public void onClick() {
-						setResponsePage(null, null);
+						setResponsePage(new RestaurantViewPage(item.getModel()));
 					}
 				}.add(new Label("restName", item.getModel())));
 
-				IModel<List<FoodType>> foodTypesModel = new LoadableDetachableModel<List<FoodType>>() {
-					@Override
-					protected List<FoodType> load() {
-						return new ArrayList<FoodType>(item.getModelObject().getFoodtypes());
-					}
-
-				};
-				
-				item.add(new PropertyListView<FoodType>("foodtypes", foodTypesModel) {
-
-					@Override
-					protected void populateItem(ListItem<FoodType> item) {
-						item.add(new Label("name"));
-					}
-				});
+				item.add(new FoodTypesPanel("foodtypes", item.getModel()));
 				item.add(new Label("address"));
 				item.add(new Label("area"));
 				item.add(new Label("avgScore"));
