@@ -30,7 +30,7 @@ public class SideBarPage extends BasePage {
     @SpringBean
     private RestaurantRepo restRepo;
 
-    public SideBarPage(final FoodType selected) {
+    public SideBarPage(final IModel<FoodType> selected) {
 
         super();
 
@@ -74,8 +74,8 @@ public class SideBarPage extends BasePage {
             }
 
             @Override
-            protected void populateItem(final Item<FoodType> item) {
-                final FoodType ft = item.getModelObject();
+            protected void populateItem(Item<FoodType> item) {
+                final IModel<FoodType> ft = item.getModel();
                 Link<FoodType> link = new Link<FoodType>("foodtype",
                         item.getModel()) {
 
@@ -94,15 +94,17 @@ public class SideBarPage extends BasePage {
 
                             @Override
                             public Integer getObject() {
-                                return ft.getAmmount();
+                                return ft.getObject().getAmmount();
                             }
                         }));
                 link.add(new Label("pluralizeRestaurants", pluralizeItem(
-                        "Restaurant", ft.getAmmount())));
+                        "Restaurant", ft.getObject().getAmmount())));
                 item.add(link);
-                if (item.getModelObject().equals(selected)) {
-                    item.add(new AttributeAppender("class", new Model<String>(
-                            "active"), " "));
+                if (selected != null) {
+	                if (item.getModelObject().equals(selected.getObject())) {
+	                    item.add(new AttributeAppender("class", new Model<String>(
+	                            "active"), " "));
+	                }
                 }
             }
         });

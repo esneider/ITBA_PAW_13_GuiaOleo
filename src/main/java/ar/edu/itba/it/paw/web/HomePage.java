@@ -1,5 +1,7 @@
 package ar.edu.itba.it.paw.web;
 
+import org.apache.wicket.model.IModel;
+
 import ar.edu.itba.it.paw.domain.foodtype.FoodType;
 import ar.edu.itba.it.paw.web.base.SideBarPage;
 
@@ -11,7 +13,7 @@ public class HomePage extends SideBarPage {
 		super(null);
 	}
 	
-	public HomePage(final FoodType selected) {
+	public HomePage(IModel<FoodType> selected) {
 		super(selected);
 	}
 }
