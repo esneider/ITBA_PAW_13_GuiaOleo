@@ -1,28 +1,27 @@
 <html>
-	<body>
-		<wicket:extend>
-		 <div class="restlist">
-          
-            <dl wicket:id="restaurant" class="dl-horizontal mainList">
-                <dt>Restaurant</dt>
-                    <dd><a class="name" wicket:id="name"><wicket:container wicket:id="restName" /></a></dd>
-                <dt>Address</dt>
-                    <dd  class="address" wicket:id="address"></dd>
-                <dt>Area</dt>
-                    <dd  class="area" wicket:id="area"></dd>
-               <dt>FoodType(s)</dt>
-		          <dd wicket:id="foodtype"><span wicket:id="name"></span></dd>
-		         
-                <dt>Average Score</dt>
-                    <dd>
-                        <span class="badge" wicket:id="avgScore"></span>
-                        (Scored by <span wicket:id="ratingsAmmount"> </span> people)
-                    </dd>
-            </dl>
-                <hr/>
-    		
-			</div>
-		</wicket:extend>
-	</body>
-	
+    <body>
+        <wicket:extend>
+            <div class="restlist">
+                <div wicket:id="restaurant">
+                    <dl class="dl-horizontal mainList">
+                        <dt>Restaurant</dt>
+                            <dd><a class="name" wicket:id="name"><wicket:container wicket:id="restName" /></a></dd>
+                        <dt>Address</dt>
+                            <dd  class="address" wicket:id="address"></dd>
+                        <dt>Area</dt>
+                            <dd  class="area" wicket:id="area"></dd>
+                        <dt>FoodType(s)</dt>
+                            <dd wicket:id="foodtypes"><span wicket:id="name"></span></dd>
+                        <dt>Average Score</dt>
+                            <dd>
+                                <span class="badge" wicket:id="avgScore"></span>
+                                (Scored by <span wicket:id="ratingsAmmount"> </span> people)
+                            </dd>
+                    </dl>
+                    <hr/>
+                </div>
+            </div>
+        </wicket:extend>
+    </body>
 </html>
+
