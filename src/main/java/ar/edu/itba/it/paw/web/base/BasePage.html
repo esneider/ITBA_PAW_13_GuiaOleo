@@ -1,48 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-	<head>
-	    <meta http-equiv="Content-Type" content="text/html; charset=UTF8">
-	    <link href="assets/css/style.css" type="text/css" rel="stylesheet" />
-	    <link href="assets/css/bootstrap.css" type="text/css" rel="stylesheet" />
-	    
-	    <script type="text/javascript" src="assets/js/jquery.js"></script>
-    	<script type="text/javascript" src="assets/js/bootstrap.js"></script>
-    	<script type="text/javascript" src="assets/js/maps.js"></script>
-	    
-	    <title>Oleo's Guide</title>	
-	</head>
-	<body>
-		<div class="navbar navbar-fixed-top">
-        	<div class="navbar-inner">
-            	<form class="navbar-form" action="#" method="get">
-                	<div class="input-append">
-                    	<input type="text" class="span5 inline" placeholder="Search Restaurant" name="query"/>
-                    	<input class="btn btn-primary blabla" type="submit" value="Search" />
-                	</div>
-            	</form>
-        
-            	<ul id="user-menu" class="nav pull-right">
-					<div wicket:id="header"/>
-				</ul>
-			</div>
-    	</div>
-		
-		
- 		<div class="container">
-			<div id="main-logo">
-        		<div>
-            		<!-- POR ESTO NO ANDABA
-            		<a href="#"><img src="#" /></a>
-            		-->
-            		<h1>Oleo's guide</h1>
-        		</div>
-			</div>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF8">
+        <link href="assets/css/style.css" type="text/css" rel="stylesheet" />
+        <link href="assets/css/bootstrap.css" type="text/css" rel="stylesheet" />
 
-			<hr />
+        <script type="text/javascript" src="assets/js/jquery.js"></script>
+        <script type="text/javascript" src="assets/js/bootstrap.js"></script>
+        <script type="text/javascript" src="assets/js/maps.js"></script>
 
-	        <div id="main">
-				<wicket:child/>              	           	
-			</div>
-	 	</div>
-	    <div class='footer'> </div>
-	</body>
+        <title>Oleo's Guide</title>
+    </head>
+    <body>
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <form class="navbar-form" action="#" method="get">
+                    <div class="input-append">
+                        <input type="text" class="span5 inline" placeholder="Search Restaurant" name="query"/>
+                        <input class="btn btn-primary blabla" type="submit" value="Search" />
+                    </div>
+                </form>
+
+                <ul id="user-menu" class="nav pull-right">
+                    <div wicket:id="header"/>
+                </ul>
+            </div>
+        </div>
+
+        <div class="container">
+            <div id="main-logo">
+                <div>
+                    <!-- POR ESTO NO ANDABA
+                    <a href="#"><img src="#" /></a>
+                    -->
+                    <h1>Oleo's guide</h1>
+                </div>
+            </div>
+
+            <hr />
+
+            <div id="main">
+                <wicket:child/>
+            </div>
+        </div>
+        <div class='footer'> </div>
+    </body>
 </html>
+

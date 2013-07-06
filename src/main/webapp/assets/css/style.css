@@ -25,8 +25,8 @@ body > .navbar form.navbar-form > div {
 
 #user-menu {
     position: absolute;
-    top: -3px;
-    right: 0;
+    top: 6px;
+    right: 10px;
     left: auto;
 }
 
@@ -69,6 +69,7 @@ body > .navbar form.navbar-form > div {
 }
 
 #main-logo {
+    padding-top: 70px;
     text-align: left;
 }
 
