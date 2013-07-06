@@ -10,6 +10,7 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
+import org.apache.wicket.model.util.ListModel;
 
 import ar.edu.itba.it.paw.domain.restaurant.Rating;
 import ar.edu.itba.it.paw.domain.user.User;
@@ -18,17 +19,16 @@ public class CommentPanel extends Panel {
 
 	public CommentPanel(String id, final IModel<User> userModel) {
 		super(id);
+
 		IModel<List<Rating>> listModel = new LoadableDetachableModel<List<Rating>>() {
 			@Override
 			protected List<Rating> load() {
 				return new ArrayList<Rating>(userModel.getObject()
 						.getComments());
 			}
-		};
-		populatePanel(listModel);
-	}
 
-	private void populatePanel(IModel<List<Rating>> listModel) {
+		};
+
 		add(new PropertyListView<Rating>("comments", listModel) {
 
 			@Override
