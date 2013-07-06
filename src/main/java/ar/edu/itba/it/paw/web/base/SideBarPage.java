@@ -19,6 +19,7 @@ import ar.edu.itba.it.paw.domain.foodtype.FoodType;
 import ar.edu.itba.it.paw.domain.foodtype.FoodTypeRepo;
 import ar.edu.itba.it.paw.domain.restaurant.RestaurantRepo;
 import ar.edu.itba.it.paw.web.HomePage;
+import ar.edu.itba.it.paw.web.restaurant.RestaurantListPage;
 
 public class SideBarPage extends BasePage {
 
@@ -83,7 +84,7 @@ public class SideBarPage extends BasePage {
 
                     @Override
                     public void onClick() {
-                        setResponsePage(new HomePage(ft));
+                        setResponsePage(new RestaurantListPage(ft));
                     }
                 };
                 link.add(new Label("name", item.getModel()));
