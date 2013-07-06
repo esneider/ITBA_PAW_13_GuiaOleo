@@ -15,6 +15,7 @@ import ar.edu.itba.it.paw.web.restaurant.RestaurantListPage;
 
 @SuppressWarnings("serial")
 public class BasePage extends WebPage {
+	
 	private transient String query;
 
 	public BasePage() {
@@ -53,7 +54,7 @@ public class BasePage extends WebPage {
 		});
 	}
 
-	private RestaurantWicketSession getRestaurantWicketSession() {
+	protected RestaurantWicketSession getRestaurantWicketSession() {
 
 		return (RestaurantWicketSession) getSession();
 	}

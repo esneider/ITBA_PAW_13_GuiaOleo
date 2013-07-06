@@ -1,0 +1,54 @@
+<html>
+	<body>
+		<wicket:extend>	
+			
+			<div class="detail">
+			    <h2 class="title" wicket:id="username"></h2>
+			    <div class="profileHeader">
+			        <img class="profilePic" wicket:id="profilePic" style ="width : 100px; height: 100px"/>
+			        <div class="profileFields">
+			            <dt class="inline">Name</dt>
+			                <dd class="inline" wicket:id="name"></dd><br>
+			            <dt class="inline">Registration Date</dt>
+			                <dd class="inline" wicket:id="registerDate"></dd><br>
+			            <dt class="inline">Surname</dt>
+			                <dd class="inline" wicket:id="surname"></dd><br>
+			            <dt class="inline">Mail</dt>
+			                <dd class="inline" wicket:id="email"></dd>
+			        </div>
+			    </div>
+			
+			
+			
+			
+			
+				<div>
+			        <dl class="dl-horizontal">
+			            <div wicket:id="adminPanel"/>
+			            <p class="lead">List of user comments</p>
+			            <div wicket:id="commentPanel"/>
+			            
+			            
+			            <br><br>
+			            <p class="lead">List of restaurants registered by this user</p>
+			            <c:forEach var="restaurant" items="${profileUser.registeredRestaurants}">
+			                <c:if test="${restaurant.state == 'Accepted'}">
+			                    <dl class="dl-horizontal">
+			                        <dt>${restaurant.name}</dt>
+			                            <dd><a href="${ pageContext.request.contextPath }/bin/restaurant/view?id=${restaurant.id}">View</a></dd>
+			                    </dl>
+			                </c:if>
+			            </c:forEach>
+			        </dl>
+			    </div>
+				
+			
+			
+			
+			
+			
+			
+			</div>
+		</wicket:extend>
+	</body>
+</html>

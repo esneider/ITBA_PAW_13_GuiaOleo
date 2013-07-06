@@ -11,7 +11,7 @@ import ar.edu.itba.it.paw.domain.user.User;
 import ar.edu.itba.it.paw.web.HomePage;
 import ar.edu.itba.it.paw.web.RestaurantWicketSession;
 import ar.edu.itba.it.paw.web.provider.ImageProvider;
-import ar.edu.itba.it.paw.web.user.UserProfile;
+import ar.edu.itba.it.paw.web.user.UserProfilePage;
 
 public class LoggedHeaderPanel extends Panel {
 
@@ -33,7 +33,7 @@ public class LoggedHeaderPanel extends Panel {
 		add(new Link<Void>("profile") {
 			@Override
 			public void onClick() {
-				setResponsePage(new UserProfile(new EntityModel<User>(
+				setResponsePage(new UserProfilePage(new EntityModel<User>(
 						User.class, getUser())));
 			}
 		});
