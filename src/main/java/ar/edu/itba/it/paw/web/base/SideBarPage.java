@@ -7,10 +7,13 @@ import java.util.List;
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
+import org.apache.wicket.markup.html.list.ListItem;
+import org.apache.wicket.markup.html.list.PropertyListView;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.RefreshingView;
 import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
@@ -48,26 +51,28 @@ public class SideBarPage extends BasePage {
 			generalLink.add(new AttributeAppender("class", new Model<String>(
 					"active")));
 		}
-
-		add(new RefreshingView<FoodType>("foodtypes") {
+		
+		IModel<List<FoodType>> foodTypesModel = new LoadableDetachableModel<List<FoodType>>() {
 			@Override
-			protected Iterator<IModel<FoodType>> getItemModels() {
-				List<IModel<FoodType>> result = new ArrayList<IModel<FoodType>>();
-				for (FoodType ft : ftRepo.getAll()) {
-					if (ft.getAmmount() > 0)
-						result.add(new EntityModel<FoodType>(FoodType.class, ft));
+			protected List<FoodType> load() {
+				List<FoodType> list = ftRepo.getAll();
+				for (int i = 0; i < list.size(); i++) {
+					if(list.get(i).getAmmount() == 0)
+						list.remove(i);
 				}
-				return result.iterator();
+				return list;
 			}
-
+		};
+		
+		add(new PropertyListView<FoodType>("foodtypes", foodTypesModel) {
 			@Override
-			protected void populateItem(final Item<FoodType> item) {
+			protected void populateItem(ListItem<FoodType> item) {
 				final FoodType ft = item.getModelObject();
 				Link<FoodType> link = new Link<FoodType>("foodtype",
 						item.getModel()) {
 					@Override
 					public void onClick() {
-						setResponsePage(new HomePage(item.getModelObject()));
+						setResponsePage(new HomePage(ft));
 					}
 				};
 				link.add(new Label("name", item.getModel()));
@@ -85,10 +90,51 @@ public class SideBarPage extends BasePage {
 					item.add(new AttributeAppender("class", new Model<String>(
 							"active")));
 				}
+
 			}
 		});
-
+		
+//		add(new RefreshingView<FoodType>("foodtypes") {
+//			@Override
+//			protected Iterator<IModel<FoodType>> getItemModels() {
+//				List<IModel<FoodType>> result = new ArrayList<IModel<FoodType>>();
+//				for (FoodType ft : ftRepo.getAll()) {
+//					if (ft.getAmmount() > 0)
+//						result.add(new EntityModel<FoodType>(FoodType.class, ft));
+//				}
+//				return result.iterator();
+//			}
+//
+//			@Override
+//			protected void populateItem(Item<FoodType> item) {
+//				final FoodType ft = item.getModelObject();
+//				Link<FoodType> link = new Link<FoodType>("foodtype",
+//						item.getModel()) {
+//					@Override
+//					public void onClick() {
+//						setResponsePage(new HomePage(ft));
+//					}
+//				};
+//				link.add(new Label("name", item.getModel()));
+//				link.add(new Label("ammount",
+//						new AbstractReadOnlyModel<Integer>() {
+//							@Override
+//							public Integer getObject() {
+//								return ft.getAmmount();
+//							}
+//						}));
+//				link.add(new Label("pluralizeRestaurants", pluralizeItem(
+//						"Restaurant", ft.getAmmount())));
+//				item.add(link);
+//				if (item.getModelObject().equals(selected)) {
+//					item.add(new AttributeAppender("class", new Model<String>(
+//							"active")));
+//				}
+//			}
+//		});
+//
 	}
+	
 	private String pluralizeItem(String item, int ammount) {
 		if (ammount > 1)
 			return item + "s";

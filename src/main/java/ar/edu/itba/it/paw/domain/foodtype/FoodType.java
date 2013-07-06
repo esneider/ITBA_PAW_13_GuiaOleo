@@ -3,6 +3,7 @@ package ar.edu.itba.it.paw.domain.foodtype;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 
@@ -15,15 +16,15 @@ import ar.edu.itba.it.paw.utils.Utils;
 @Entity
 public class FoodType extends PersistentEntity implements Comparable<FoodType> {
 
-	private static final long serialVersionUID = 7577639245170326587L;
-
+	@Column(nullable=false)
 	private String name;
 
+	
 	@ManyToMany(mappedBy = "foodtypes")
 	private Set<Restaurant> restaurants;
 
-	FoodType() {}
-
+	public FoodType() {}
+	
 	public FoodType(String name) {
 
 		name = Utils.normalizeString(name);
