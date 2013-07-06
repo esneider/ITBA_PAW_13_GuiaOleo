@@ -4,8 +4,7 @@
 		
 		
 				<div class="restdetail">
-				    <c:choose>
-				        <c:when test="${not empty restaurant}">
+				  
 				
 				            <h2 class="restaurantTitle" wicket:id="name"></h2>
 				
@@ -29,6 +28,7 @@
 				                    <dd><a wicket:id="website"></a></dd>
 				
 				                <br>
+								<div wicket:id="adminPendingResquests"/>
 				
 				                <dt>Average Score</dt>
 				                    <dd>
