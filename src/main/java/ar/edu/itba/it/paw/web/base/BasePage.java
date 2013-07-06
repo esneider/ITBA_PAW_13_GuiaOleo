@@ -1,17 +1,25 @@
 package ar.edu.itba.it.paw.web.base;
 
-import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.WebPage;
+import org.apache.wicket.markup.html.image.Image;
+import org.apache.wicket.markup.html.image.NonCachingImage;
+import org.apache.wicket.markup.html.link.Link;
+import org.apache.wicket.request.resource.PackageResourceReference;
 
+import ar.edu.itba.it.paw.domain.EntityModel;
+import ar.edu.itba.it.paw.domain.picture.Picture;
+import ar.edu.itba.it.paw.domain.user.User;
 import ar.edu.itba.it.paw.web.HomePage;
 import ar.edu.itba.it.paw.web.RestaurantWicketSession;
+import ar.edu.itba.it.paw.web.application.RestaurantApplication;
+import ar.edu.itba.it.paw.web.picture.PictureImageResource;
 
 @SuppressWarnings("serial")
 public class BasePage extends WebPage {
 
 	public BasePage() {
 
-        // Header
+		// Header
 
 		RestaurantWicketSession session = getRestaurantWicketSession();
 
@@ -21,7 +29,7 @@ public class BasePage extends WebPage {
 			add(new UnLoggedHeaderPanel("header"));
 		}
 
-        // Logo
+		// Logo
 
 		add(new Link<Void>("link-logo") {
 
@@ -36,15 +44,4 @@ public class BasePage extends WebPage {
 
 		return (RestaurantWicketSession) getSession();
 	}
-
-//	@Override
-//	public void renderHead(IHeaderResponse response) {
-//		response.renderCSSReference(new PackageResourceReference(RestaurantApplication.class, "style.css"));
-//		response.renderCSSReference(new PackageResourceReference(RestaurantApplication.class, "bootstrap.css"));
-//
-//		response.renderJavaScriptReference(new PackageResourceReference(RestaurantApplication.class, "jquery.js"));
-//		response.renderJavaScriptReference(new PackageResourceReference(RestaurantApplication.class, "bootstrap.js"));
-//		response.renderJavaScriptReference(new PackageResourceReference(RestaurantApplication.class, "bootstrap-modal.js"));
-//		response.renderJavaScriptReference(new PackageResourceReference(RestaurantApplication.class, "maps.js"));
-//	}
 }
