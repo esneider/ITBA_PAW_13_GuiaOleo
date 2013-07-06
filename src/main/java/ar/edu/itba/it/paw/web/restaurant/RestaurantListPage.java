@@ -76,7 +76,7 @@ public class RestaurantListPage extends SideBarPage {
 
 				};
 				
-				item.add(new PropertyListView<FoodType>("foodtype", foodTypesModel) {
+				item.add(new PropertyListView<FoodType>("foodtypes", foodTypesModel) {
 
 					@Override
 					protected void populateItem(ListItem<FoodType> item) {
