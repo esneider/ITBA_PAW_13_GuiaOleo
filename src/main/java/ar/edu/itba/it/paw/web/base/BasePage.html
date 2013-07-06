@@ -14,10 +14,10 @@
     <body>
         <div class="navbar navbar-fixed-top">
             <div class="navbar-inner">
-                <form class="navbar-form" action="#" method="get">
+                <form wicket:id="searchForm" class="navbar-form" action="#" method="get">
                     <div class="input-append">
-                        <input type="text" class="span5 inline" placeholder="Search Restaurant" name="query"/>
-                        <input class="btn btn-primary blabla" type="submit" value="Search" />
+                        <input type="text"  wicket:id="query" class="span5 inline" placeholder="Search Restaurant" name="query"/>
+                        <input class="btn btn-primary blabla"  wicket:id="search" type="submit" value="Search" />
                     </div>
                 </form>
 
