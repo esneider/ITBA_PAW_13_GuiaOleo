@@ -13,15 +13,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import ar.edu.itba.it.paw.domain.foodtype.FoodType;
-import ar.edu.itba.it.paw.web.HomePage;
+import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
 import ar.edu.itba.it.paw.web.RestaurantWicketSession;
 import ar.edu.itba.it.paw.web.common.HibernateRequestCycleListener;
 import ar.edu.itba.it.paw.web.converter.FoodTypeConverter;
+import ar.edu.itba.it.paw.web.converter.RestaurantConverter;
+import ar.edu.itba.it.paw.web.restaurant.RestaurantListPage;
 
 @Component
 public class RestaurantApplication extends WebApplication {
 
 	private final SessionFactory sessionFactory;
+	
 	
 	@Autowired
 	public RestaurantApplication(SessionFactory sessionFactory) {
@@ -37,7 +40,7 @@ public class RestaurantApplication extends WebApplication {
 	
 	@Override
 	public Class<? extends Page> getHomePage() {
-		return HomePage.class;
+		return RestaurantListPage.class;
 	}
 
 	@Override
@@ -49,6 +52,7 @@ public class RestaurantApplication extends WebApplication {
 	protected IConverterLocator newConverterLocator() {
 		ConverterLocator converterLocator = new ConverterLocator();
 		converterLocator.set(FoodType.class, new FoodTypeConverter());
+		converterLocator.set(Restaurant.class, new RestaurantConverter());
 //		converterLocator.set(Department.class, new DepartmentConverter());
 //		converterLocator.set(Subject.class, new SubjectConverter(subjects));
 		return converterLocator;
