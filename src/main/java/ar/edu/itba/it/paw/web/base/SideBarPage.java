@@ -20,81 +20,101 @@ import ar.edu.itba.it.paw.domain.foodtype.FoodTypeRepo;
 import ar.edu.itba.it.paw.domain.restaurant.RestaurantRepo;
 import ar.edu.itba.it.paw.web.HomePage;
 
-@SuppressWarnings("serial")
 public class SideBarPage extends BasePage {
 
-	@SpringBean
-	private FoodTypeRepo ftRepo;
+    private static final long serialVersionUID = 5052449722147192913L;
 
-	@SpringBean
-	private RestaurantRepo restRepo;
+    @SpringBean
+    private FoodTypeRepo ftRepo;
 
-	public SideBarPage(final FoodType selected) {
-		super();
-		int totalCant = restRepo.getAll().size();
+    @SpringBean
+    private RestaurantRepo restRepo;
 
-		Link<Void> generalLink = new Link<Void>("linkAll") {
-			@Override
-			public void onClick() {
-				setResponsePage(HomePage.class);
-			}
-		};
-		generalLink.add(new Label("all", String.valueOf(totalCant)));
-		generalLink.add(new Label("pluralizeAll", pluralizeItem("Restaurant",
-				totalCant)));
-		add(generalLink);
+    public SideBarPage(final FoodType selected) {
 
-		if (selected == null) {
-			generalLink.add(new AttributeAppender("class", new Model<String>(
-					"active")));
-		}
-		
-		add(new RefreshingView<FoodType>("foodtypes") {
-			@Override
-			protected Iterator<IModel<FoodType>> getItemModels() {
-				List<IModel<FoodType>> result = new ArrayList<IModel<FoodType>>();
-				for (FoodType ft : ftRepo.getAll()) {
-					if (ft.getAmmount() > 0)
-						result.add(new EntityModel<FoodType>(FoodType.class, ft));
-				}
-				return result.iterator();
-			}
+        super();
 
-			@Override
-			protected void populateItem(final Item<FoodType> item) {
-				final FoodType ft = item.getModelObject();
-				Link<FoodType> link = new Link<FoodType>("foodtype",
-						item.getModel()) {
-					@Override
-					public void onClick() {
-						setResponsePage(new HomePage(ft));
-					}
-				};
-				link.add(new Label("name", item.getModel()));
-				link.add(new Label("ammount",
-						new AbstractReadOnlyModel<Integer>() {
-							@Override
-							public Integer getObject() {
-								return ft.getAmmount();
-							}
-						}));
-				link.add(new Label("pluralizeRestaurants", pluralizeItem(
-						"Restaurant", ft.getAmmount())));
-				item.add(link);
-				if (item.getModelObject().equals(selected)) {
-					item.add(new AttributeAppender("class", new Model<String>(
-							"active"), " "));
-				}
-			}
-		});
+        // All restaurants
 
-	}
-	
-	private String pluralizeItem(String item, int ammount) {
-		if (ammount > 1)
-			return item + "s";
-		else
-			return item;
-	}
+        int numRestaurants = restRepo.getAll().size();
+
+        Link<Void> generalLink = new Link<Void>("linkAll") {
+
+            private static final long serialVersionUID = 273349550644734223L;
+
+            @Override
+            public void onClick() {
+                setResponsePage(HomePage.class);
+            }
+        };
+
+        generalLink.add(new Label("all", String.valueOf(numRestaurants)));
+        generalLink.add(new Label("pluralizeAll", pluralizeItem("Restaurant", numRestaurants)));
+
+        if (selected == null) {
+            generalLink.add(new AttributeAppender("class", new Model<String>("active")));
+        }
+
+        add(generalLink);
+
+        // Food types
+
+        add(new RefreshingView<FoodType>("foodtypes") {
+
+            private static final long serialVersionUID = 7702722087881335104L;
+
+            @Override
+            protected Iterator<IModel<FoodType>> getItemModels() {
+                List<IModel<FoodType>> result = new ArrayList<IModel<FoodType>>();
+                for (FoodType ft : ftRepo.getAll()) {
+                    if (ft.getAmmount() > 0)
+                        result.add(new EntityModel<FoodType>(FoodType.class, ft));
+                }
+                return result.iterator();
+            }
+
+            @Override
+            protected void populateItem(final Item<FoodType> item) {
+                final FoodType ft = item.getModelObject();
+                Link<FoodType> link = new Link<FoodType>("foodtype",
+                        item.getModel()) {
+
+                            private static final long serialVersionUID = 8515291019588887965L;
+
+                    @Override
+                    public void onClick() {
+                        setResponsePage(new HomePage(ft));
+                    }
+                };
+                link.add(new Label("name", item.getModel()));
+                link.add(new Label("ammount",
+                        new AbstractReadOnlyModel<Integer>() {
+
+                            private static final long serialVersionUID = 4023409327769339113L;
+
+                            @Override
+                            public Integer getObject() {
+                                return ft.getAmmount();
+                            }
+                        }));
+                link.add(new Label("pluralizeRestaurants", pluralizeItem(
+                        "Restaurant", ft.getAmmount())));
+                item.add(link);
+                if (item.getModelObject().equals(selected)) {
+                    item.add(new AttributeAppender("class", new Model<String>(
+                            "active"), " "));
+                }
+            }
+        });
+    }
+
+    private String pluralizeItem(String item, int ammount) {
+
+        if (ammount != 1) {
+            item += "s";
+        }
+
+        return item;
+    }
 
 }
