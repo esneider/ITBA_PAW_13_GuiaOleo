@@ -22,6 +22,7 @@ import ar.edu.itba.it.paw.domain.user.User;
 import ar.edu.itba.it.paw.domain.user.UserRepo;
 import ar.edu.itba.it.paw.utils.Utils;
 import ar.edu.itba.it.paw.web.base.SideBarPage;
+import ar.edu.itba.it.paw.web.user.CommentPanel;
 
 public class RestaurantViewPage extends SideBarPage {
 
@@ -50,6 +51,9 @@ public class RestaurantViewPage extends SideBarPage {
 				.getObject().getRatingsAmmount())));
 		add(new FoodTypesPanel("foodtypesPanel", restaurantModel));
 
+		
+		add(new CommentPanel("commentPanel", restaurantModel));
+		
 		if (restaurantModel.getObject().getRegisterUser() != null) {
 			add(new Label("registerUser", new Model<String>(restaurantModel
 					.getObject().getRegisterUser().getName()

@@ -3,7 +3,8 @@ package ar.edu.itba.it.paw.web.base;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.panel.Panel;
 
-import ar.edu.itba.it.paw.web.HomePage;
+import ar.edu.itba.it.paw.web.user.PendingRestaurantsPage;
+import ar.edu.itba.it.paw.web.user.RegisteredUsersPage;
 
 public class AdminOptionsPanel extends Panel {
 
@@ -20,7 +21,7 @@ public class AdminOptionsPanel extends Panel {
 		add(new Link<Void>("registeredUsers") {
 			@Override
 			public void onClick() {
-				setResponsePage(HomePage.class);
+				setResponsePage(RegisteredUsersPage.class);
 			}
 		});
 	}

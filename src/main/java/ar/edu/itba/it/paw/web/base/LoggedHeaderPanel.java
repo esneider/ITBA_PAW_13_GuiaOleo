@@ -10,9 +10,9 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import ar.edu.itba.it.paw.domain.EntityModel;
 import ar.edu.itba.it.paw.domain.user.User;
 import ar.edu.itba.it.paw.domain.user.UserRepo;
-import ar.edu.itba.it.paw.web.HomePage;
 import ar.edu.itba.it.paw.web.RestaurantWicketSession;
 import ar.edu.itba.it.paw.web.provider.ImageProvider;
+import ar.edu.itba.it.paw.web.restaurant.RestaurantListPage;
 import ar.edu.itba.it.paw.web.user.UserProfilePage;
 
 public class LoggedHeaderPanel extends Panel {
@@ -31,7 +31,7 @@ public class LoggedHeaderPanel extends Panel {
 		add(new Link<Void>("modify") {
 			@Override
 			public void onClick() {
-				setResponsePage(HomePage.class);
+				setResponsePage(RestaurantListPage.class);
 			}
 		});
 
@@ -46,7 +46,7 @@ public class LoggedHeaderPanel extends Panel {
 		add(new Link<Void>("registerRestaurant") {
 			@Override
 			public void onClick() {
-				setResponsePage(HomePage.class);
+				setResponsePage(RestaurantListPage.class);
 			}
 		});
 

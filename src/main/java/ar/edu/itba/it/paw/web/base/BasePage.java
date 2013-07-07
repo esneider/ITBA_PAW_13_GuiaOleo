@@ -8,7 +8,6 @@ import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.model.ResourceModel;
 
-import ar.edu.itba.it.paw.web.HomePage;
 import ar.edu.itba.it.paw.web.RestaurantWicketSession;
 import ar.edu.itba.it.paw.web.restaurant.RestaurantListPage;
 
@@ -49,7 +48,7 @@ public class BasePage extends WebPage {
 
 			@Override
 			public void onClick() {
-				setResponsePage(HomePage.class);
+				setResponsePage(RestaurantListPage.class);
 			}
 		});
 	}
