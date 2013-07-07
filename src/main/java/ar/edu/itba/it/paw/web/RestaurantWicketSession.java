@@ -26,6 +26,10 @@ public class RestaurantWicketSession extends WebSession {
 	public User getUser() {
 		return userModel.getObject();
 	}
+	
+	public IModel<User> getModel() {
+		return userModel;
+	}
 
 	public boolean signIn(String username, String password, UserRepo users) {
 		User user = users.get(username);

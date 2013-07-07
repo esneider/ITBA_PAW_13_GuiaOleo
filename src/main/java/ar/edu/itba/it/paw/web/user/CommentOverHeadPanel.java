@@ -10,16 +10,16 @@ import ar.edu.itba.it.paw.web.RestaurantWicketSession;
 
 public class CommentOverHeadPanel extends Panel {
 
-
 	public CommentOverHeadPanel(String id, final IModel<Rating> ratingModel) {
 		super(id);
+
+		setDefaultModel(ratingModel);
 
 		Link<Void> likeLink = new Link<Void>("like") {
 			@Override
 			public void onClick() {
 				RestaurantWicketSession.get().getUser()
 						.like(ratingModel.getObject());
-				setResponsePage(getPage());
 			}
 		};
 		likeLink.add(new Label("ammount", String.valueOf(ratingModel
@@ -30,7 +30,6 @@ public class CommentOverHeadPanel extends Panel {
 			public void onClick() {
 				RestaurantWicketSession.get().getUser()
 						.unlike(ratingModel.getObject());
-				setResponsePage(getPage());
 			}
 		};
 		unLikeLink.add(new Label("ammount", String.valueOf(ratingModel

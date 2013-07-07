@@ -26,7 +26,7 @@ public class UserProfilePage extends NoSideBarPage {
 		add(new AdminUserProfilePanel("adminPanel", userModel).setVisible(currentUser.isAdmin()
 				&& !currentUser.equals(userModel.getObject())));
 
-		add(new CommentPanel("commentPanel", userModel, true));
+		add(new CommentPanel("commentPanel", userModel, false));
 	}
 
 }
