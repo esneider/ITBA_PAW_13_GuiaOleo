@@ -19,6 +19,7 @@ import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
 import ar.edu.itba.it.paw.domain.restaurant.RestaurantRepo;
 import ar.edu.itba.it.paw.domain.restaurant.RestaurantState;
 import ar.edu.itba.it.paw.domain.user.User;
+import ar.edu.itba.it.paw.domain.user.UserRepo;
 import ar.edu.itba.it.paw.utils.Utils;
 import ar.edu.itba.it.paw.web.base.SideBarPage;
 
@@ -27,7 +28,9 @@ public class RestaurantViewPage extends SideBarPage {
 	private static final long serialVersionUID = 1094753744913503034L;
 	@SpringBean
 	private RestaurantRepo restRepo;
-
+	@SpringBean
+	private UserRepo userRepo;
+	
 	@SuppressWarnings("serial")
 	public RestaurantViewPage(final IModel<Restaurant> restaurantModel) {
 		super(null);
@@ -68,7 +71,7 @@ public class RestaurantViewPage extends SideBarPage {
 				if (getRestaurantWicketSession().isSignedIn()) {
 					return restRepo.getRecommendedRestaurants(
 							restaurantModel.getObject(),
-							getRestaurantWicketSession().getUser());
+							getRestaurantWicketSession().getUser(userRepo));
 				} else {
 					return restRepo.getRecommendedRestaurants(restaurantModel
 							.getObject());
@@ -98,7 +101,7 @@ public class RestaurantViewPage extends SideBarPage {
 			public boolean isVisible() {
 				if (!getRestaurantWicketSession().isSignedIn())
 					return false;
-				User currentUser = getRestaurantWicketSession().getUser();
+				User currentUser = getRestaurantWicketSession().getUser(userRepo);
 				return currentUser.isAdmin()
 						&& restaurantModel.getObject().getState()
 								.equals(RestaurantState.Pending);

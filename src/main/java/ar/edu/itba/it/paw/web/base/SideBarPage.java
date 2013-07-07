@@ -45,7 +45,7 @@ public class SideBarPage extends BasePage {
 
             @Override
             public void onClick() {
-                setResponsePage(HomePage.class);
+                setResponsePage(RestaurantListPage.class);
             }
         };
 

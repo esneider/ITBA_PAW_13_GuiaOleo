@@ -55,7 +55,6 @@ public class BasePage extends WebPage {
 	}
 
 	protected RestaurantWicketSession getRestaurantWicketSession() {
-
 		return (RestaurantWicketSession) getSession();
 	}
 }

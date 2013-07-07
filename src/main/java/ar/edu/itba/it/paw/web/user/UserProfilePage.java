@@ -3,13 +3,18 @@ package ar.edu.itba.it.paw.web.user;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import ar.edu.itba.it.paw.domain.user.User;
+import ar.edu.itba.it.paw.domain.user.UserRepo;
 import ar.edu.itba.it.paw.web.base.NoSideBarPage;
 import ar.edu.itba.it.paw.web.provider.ImageProvider;
 
 public class UserProfilePage extends NoSideBarPage {
 
+	@SpringBean 
+	private UserRepo userRepo;
+	
 	public UserProfilePage(IModel<User> userModel) {
 		setDefaultModel(new CompoundPropertyModel<User>(userModel));
 
@@ -21,12 +26,12 @@ public class UserProfilePage extends NoSideBarPage {
 		add(new Label("registerDate"));
 		add(new Label("email"));
 
-		User currentUser = getRestaurantWicketSession().getUser();
+		User currentUser = getRestaurantWicketSession().getUser(userRepo);
 		
-		add(new AdminUserProfilePanel("adminPanel", userModel)).setVisible(currentUser.isAdmin()
-				&& !currentUser.equals(userModel.getObject()));
+		add(new AdminUserProfilePanel("adminPanel", userModel).setVisible(currentUser.isAdmin()
+				&& !currentUser.equals(userModel.getObject())));
 
-		add(new CommentPanel("commentPanel", userModel));
+		add(new CommentPanel("commentPanel", userModel, true));
 	}
 
 }

@@ -13,7 +13,7 @@ public class RestaurantWicketSession extends WebSession {
 
 	private static final long serialVersionUID = -6016629258146518387L;
 	
-	private IModel<User> sessionUserModel = new EntityModel<User>(User.class);
+	private String username = null;
 	
 	public static RestaurantWicketSession get() {
 		return (RestaurantWicketSession) Session.get();
@@ -24,24 +24,24 @@ public class RestaurantWicketSession extends WebSession {
 	}
 
 	public String getUsername() {
-		return sessionUserModel.getObject().getUsername();
+		return username;
 	}
 	
-	public User getUser() {
-		return sessionUserModel.getObject();
+	public User getUser(UserRepo userRepo) {
+		return userRepo.get(username);
 	}
 
 	public boolean signIn(String username, String password, UserRepo users) {
 		User user = users.get(username);
 		if (user != null && user.checkPassword(password)) {
-			this.sessionUserModel.setObject(user);
+			this.username = username;
 			return true;
 		}
 		return false;
 	}
 
 	public boolean isSignedIn() {
-		return sessionUserModel.getObject() != null;
+		return username != null;
 	}
 
 	public void signOut() {

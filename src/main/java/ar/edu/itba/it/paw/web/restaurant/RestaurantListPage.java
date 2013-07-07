@@ -34,7 +34,7 @@ public class RestaurantListPage extends SideBarPage {
 	}
 
 	public RestaurantListPage(final IModel<FoodType> ft) {
-		super(null);
+		super(ft);
 		IModel<List<Restaurant>> listModel = new LoadableDetachableModel<List<Restaurant>>() {
 			@Override
 			protected List<Restaurant> load() {

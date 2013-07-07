@@ -5,9 +5,11 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import ar.edu.itba.it.paw.domain.EntityModel;
 import ar.edu.itba.it.paw.domain.user.User;
+import ar.edu.itba.it.paw.domain.user.UserRepo;
 import ar.edu.itba.it.paw.web.HomePage;
 import ar.edu.itba.it.paw.web.RestaurantWicketSession;
 import ar.edu.itba.it.paw.web.provider.ImageProvider;
@@ -17,6 +19,9 @@ public class LoggedHeaderPanel extends Panel {
 
 	private static final long serialVersionUID = 719015207600371947L;
 
+	@SpringBean
+	private UserRepo userRepo;
+	
 	public LoggedHeaderPanel(String id) {
 		super(id);
 
@@ -64,7 +69,7 @@ public class LoggedHeaderPanel extends Panel {
 	}
 
 	private User getUser() {
-		return RestaurantWicketSession.get().getUser();
+		return RestaurantWicketSession.get().getUser(userRepo);
 	}
 
 }

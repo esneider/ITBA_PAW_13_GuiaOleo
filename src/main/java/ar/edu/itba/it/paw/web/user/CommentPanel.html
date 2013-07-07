@@ -1,11 +1,17 @@
 <wicket:panel>
-    <div wicket:id="comments" class="offset1 comment">
-        <blockquote>
-            <p>
-                <strong>Score <span wicket:id="score" class="badge"></span></strong>:
-                <span wicket:id="comment"></span>
-            </p>
-            <small>By <em wicket:id="username"></em> on <span wicket:id="date"></span>to <span wicket:id="restaurantName"></span></small>
-        </blockquote>
-    </div>
+	<p wicket:id="comments">
+	        <div class="span1">
+				<img class="avatarPic" wicket:id="img" src="#"/>
+			</div>
+		    <div class="offset1 comment">
+	        <blockquote>
+	            <p>
+	                <strong>Score <span wicket:id="score" class="badge"></span></strong>:
+	                <span wicket:id="comment"></span>
+	            </p>
+	            <small>By <em wicket:id="username"></em> on <span wicket:id="date"></span>to <span wicket:id="restaurantName"></span></small>
+	        </blockquote>
+	        <div wicket:id="overhead"/>
+	    </div>
+    </p>
 </wicket:panel>
