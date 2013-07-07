@@ -16,6 +16,7 @@ import ar.edu.itba.it.paw.domain.EntityModel;
 import ar.edu.itba.it.paw.domain.restaurant.Rating;
 import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
 import ar.edu.itba.it.paw.domain.user.User;
+import ar.edu.itba.it.paw.web.RestaurantWicketSession;
 import ar.edu.itba.it.paw.web.provider.ImageProvider;
 
 public class CommentPanel extends Panel {
@@ -72,7 +73,9 @@ public class CommentPanel extends Panel {
 						.getUser()));
 				item.add(new CommentOverHeadPanel("overhead",
 						new EntityModel<Rating>(Rating.class, item
-								.getModelObject())).setVisible(showOverHead));
+								.getModelObject()))
+						.setVisible(RestaurantWicketSession.get().isSignedIn()
+								&& showOverHead));
 			}
 
 		});

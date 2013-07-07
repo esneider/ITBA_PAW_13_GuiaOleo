@@ -13,7 +13,6 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
 import ar.edu.itba.it.paw.domain.restaurant.RestaurantRepo;
-import ar.edu.itba.it.paw.domain.user.UserRepo;
 import ar.edu.itba.it.paw.web.base.NoSideBarPage;
 import ar.edu.itba.it.paw.web.restaurant.RestaurantListPage;
 import ar.edu.itba.it.paw.web.restaurant.RestaurantViewPage;
@@ -26,14 +25,11 @@ public class PendingRestaurantsPage extends NoSideBarPage {
 	private static final long serialVersionUID = -651147582500585478L;
 	@SpringBean
 	private RestaurantRepo restRepo;
-
-	@SpringBean
-	private UserRepo userRepo;
 	
 	public PendingRestaurantsPage() {
 		super();
 		if (!getRestaurantWicketSession().isSignedIn()
-				|| !getRestaurantWicketSession().getUser(userRepo).isAdmin())
+				|| !getRestaurantWicketSession().getUser().isAdmin())
 			setResponsePage(RestaurantListPage.class);
 		@SuppressWarnings("serial")
 		IModel<List<Restaurant>> listModel = new LoadableDetachableModel<List<Restaurant>>() {

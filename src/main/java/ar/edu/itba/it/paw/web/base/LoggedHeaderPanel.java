@@ -19,9 +19,6 @@ public class LoggedHeaderPanel extends Panel {
 
 	private static final long serialVersionUID = 719015207600371947L;
 
-	@SpringBean
-	private UserRepo userRepo;
-	
 	public LoggedHeaderPanel(String id) {
 		super(id);
 
@@ -69,7 +66,7 @@ public class LoggedHeaderPanel extends Panel {
 	}
 
 	private User getUser() {
-		return RestaurantWicketSession.get().getUser(userRepo);
+		return RestaurantWicketSession.get().getUser();
 	}
 
 }
