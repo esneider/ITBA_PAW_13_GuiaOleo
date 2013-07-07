@@ -13,7 +13,7 @@ public class AdminOptionsPanel extends Panel {
 		add(new Link<Void>("pending") {
 			@Override
 			public void onClick() {
-				setResponsePage(HomePage.class);
+				setResponsePage(PendingRestaurantsPage.class);
 			}
 		});
 		
