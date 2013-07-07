@@ -12,17 +12,18 @@ import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
 import ar.edu.itba.it.paw.domain.restaurant.RestaurantRepo;
 import ar.edu.itba.it.paw.domain.restaurant.RestaurantState;
 import ar.edu.itba.it.paw.domain.user.User;
 import ar.edu.itba.it.paw.web.base.SideBarPage;
-import ar.edu.itba.it.paw.web.user.AdminUserProfilePanel;
 
 public class RestaurantViewPage extends SideBarPage {
 
 	private static final long serialVersionUID = 1094753744913503034L;
+	@SpringBean
 	private RestaurantRepo restRepo;
 
 	@SuppressWarnings("serial")
