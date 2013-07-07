@@ -21,28 +21,28 @@ public class CommentOverHeadPanel extends Panel {
 		Link<Void> likeLink = new Link<Void>("like") {
 			@Override
 			public void onClick() {
-				ratingModel.getObject().like(
-						RestaurantWicketSession.get().getUser(userRepo));
+				RestaurantWicketSession.get().getUser(userRepo)
+						.like(ratingModel.getObject());
 				setResponsePage(getPage());
 			}
 		};
 		likeLink.add(new Label("ammount", String.valueOf(ratingModel
 				.getObject().getLikeAmmount())));
-		
+
 		Link<Void> unLikeLink = new Link<Void>("unlike") {
 			@Override
 			public void onClick() {
-				ratingModel.getObject().unlike(
-						RestaurantWicketSession.get().getUser(userRepo));
+				RestaurantWicketSession.get().getUser(userRepo)
+						.unlike(ratingModel.getObject());
 				setResponsePage(getPage());
 			}
 		};
 		unLikeLink.add(new Label("ammount", String.valueOf(ratingModel
 				.getObject().getUnlikeAmmount())));
-		
+
 		add(likeLink);
 		add(unLikeLink);
-		
+
 	}
 
 }
