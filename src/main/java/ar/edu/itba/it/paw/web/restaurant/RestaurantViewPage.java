@@ -14,10 +14,12 @@ import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
+import ar.edu.itba.it.paw.domain.EntityModel;
 import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
 import ar.edu.itba.it.paw.domain.restaurant.RestaurantRepo;
 import ar.edu.itba.it.paw.domain.restaurant.RestaurantState;
 import ar.edu.itba.it.paw.domain.user.User;
+import ar.edu.itba.it.paw.utils.Utils;
 import ar.edu.itba.it.paw.web.base.SideBarPage;
 
 public class RestaurantViewPage extends SideBarPage {
@@ -34,9 +36,17 @@ public class RestaurantViewPage extends SideBarPage {
 		add(new Label("address"));
 		add(new Label("area"));
 		add(new Label("telephone"));
-		add(new Label("price"));
+		add(new Label("avgprice", new Model<String>("$"
+				+ Utils.function((double) restaurantModel.getObject()
+						.getAvgprice()))));
 		add(new Label("timerange"));
 		add(new Label("website"));
+		add(new Label("avgScore"));
+
+		add(new Label("ratingsAmmount", String.valueOf(restaurantModel
+				.getObject().getRatingsAmmount())));
+		add(new FoodTypesPanel("foodtypesPanel", restaurantModel));
+
 		if (restaurantModel.getObject().getRegisterUser() != null) {
 			add(new Label("registerUser", new Model<String>(restaurantModel
 					.getObject().getRegisterUser().getName()
@@ -44,7 +54,7 @@ public class RestaurantViewPage extends SideBarPage {
 					+ restaurantModel.getObject().getRegisterUser()
 							.getUsername())));
 		} else {
-			add(new Label("registerUser", "Doesn't have")); //TODO REFACTOR
+			add(new Label("registerUser", " - ")); // TODO REFACTOR
 		}
 		add(
 				new WebMarkupContainer("googlemap").add(new AttributeAppender(
@@ -65,15 +75,20 @@ public class RestaurantViewPage extends SideBarPage {
 				}
 			}
 		};
-		add(new PropertyListView<Restaurant>("restaurant", listModel) {
+		add(new PropertyListView<Restaurant>("recommended", listModel) {
 			@Override
 			protected void populateItem(final ListItem<Restaurant> item) {
 				item.add(new Link<Restaurant>("link", item.getModel()) {
 					@Override
 					public void onClick() {
-						setResponsePage(new RestaurantViewPage(item.getModel()));
+						System.out.println(item.getModel().getObject()
+								.getName());
+						setResponsePage(new RestaurantViewPage(
+								new EntityModel<Restaurant>(Restaurant.class,
+										item.getModelObject())));
 					}
-				}.add(new Label("name", item.getModel())));
+				});
+				item.add(new Label("name", item.getModel()));
 
 			}
 		});
@@ -81,6 +96,8 @@ public class RestaurantViewPage extends SideBarPage {
 				restaurantModel) {
 			@Override
 			public boolean isVisible() {
+				if (!getRestaurantWicketSession().isSignedIn())
+					return false;
 				User currentUser = getRestaurantWicketSession().getUser();
 				return currentUser.isAdmin()
 						&& restaurantModel.getObject().getState()
