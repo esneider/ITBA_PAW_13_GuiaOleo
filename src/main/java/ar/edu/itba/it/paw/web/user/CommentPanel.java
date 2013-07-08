@@ -33,10 +33,11 @@ public class CommentPanel extends Panel {
 			}
 
 		};
-		populatePage(listModel, showOverHead);
+		populatePage(listModel, null, showOverHead);
 	}
 	public CommentPanel(String id, final IModel<Restaurant> restaurantModel) {
 		super(id);
+		setDefaultModel(restaurantModel);
 		IModel<List<Rating>> listModel = new LoadableDetachableModel<List<Rating>>() {
 			@Override
 			protected List<Rating> load() {
@@ -44,11 +45,11 @@ public class CommentPanel extends Panel {
 			}
 
 		};
-		populatePage(listModel, true);
+		populatePage(listModel, restaurantModel, true);
 	}
 
 	private void populatePage(IModel<List<Rating>> listModel,
-			final boolean showOverHead) {
+			final IModel<Restaurant> restaurantModel, final boolean showOverHead) {
 		add(new PropertyListView<Rating>("comments", listModel) {
 
 			@Override
@@ -73,7 +74,7 @@ public class CommentPanel extends Panel {
 						.getUser()));
 				item.add(new CommentOverHeadPanel("overhead",
 						new EntityModel<Rating>(Rating.class, item
-								.getModelObject()))
+								.getModelObject()), restaurantModel)
 						.setVisible(RestaurantWicketSession.get().isSignedIn()
 								&& showOverHead));
 			}

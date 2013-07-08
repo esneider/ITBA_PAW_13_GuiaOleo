@@ -1,4 +1,7 @@
 <wicket:panel>
 	<small><em><a wicket:id="like" href="#">Useful (<span wicket:id="ammount"></span>)<img src="assets/img/up.png"/></a></em> </small>
 	<small><em><a wicket:id="unlike" href="#">Not Useful(<span wicket:id="ammount"></span>)<img src="assets/img/down.png"/></a></em></small>
+	<form action="#" wicket:id="deleteForm" method="post">
+        <input type="submit" class="btn-mini btn-danger " value="Delete"/>
+    </form>
 </wicket:panel>
