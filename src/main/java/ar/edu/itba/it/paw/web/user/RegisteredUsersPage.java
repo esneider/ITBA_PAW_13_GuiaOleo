@@ -25,7 +25,7 @@ public class RegisteredUsersPage extends NoSideBarPage {
 	private UserRepo userRepo;
 
 	public RegisteredUsersPage() {
-		super();
+		super(true);
 		if (!getRestaurantWicketSession().isSignedIn()
 				|| !getRestaurantWicketSession().getUser().isAdmin())
 			setResponsePage(RestaurantListPage.class);

@@ -18,10 +18,6 @@
 			        </div>
 			    </div>
 			
-			
-			
-			
-			
 				<div>
 			        <dl class="dl-horizontal">
 			            <div wicket:id="adminPanel"/>
@@ -31,22 +27,9 @@
 			            
 			            <br><br>
 			            <p class="lead">List of restaurants registered by this user</p>
-			            <c:forEach var="restaurant" items="${profileUser.registeredRestaurants}">
-			                <c:if test="${restaurant.state == 'Accepted'}">
-			                    <dl class="dl-horizontal">
-			                        <dt>${restaurant.name}</dt>
-			                            <dd><a href="${ pageContext.request.contextPath }/bin/restaurant/view?id=${restaurant.id}">View</a></dd>
-			                    </dl>
-			                </c:if>
-			            </c:forEach>
+			            <div wicket:id="registeredRestaurants"/>
 			        </dl>
 			    </div>
-				
-			
-			
-			
-			
-			
 			
 			</div>
 		</wicket:extend>

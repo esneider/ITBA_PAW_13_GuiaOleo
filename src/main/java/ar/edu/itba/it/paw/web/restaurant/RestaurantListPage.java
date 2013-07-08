@@ -23,7 +23,7 @@ public class RestaurantListPage extends SideBarPage {
 	private RestaurantRepo restRepo;
 
 	public RestaurantListPage() {
-		super(null);
+		super(null, false);
 		IModel<List<Restaurant>> listModel = new LoadableDetachableModel<List<Restaurant>>() {
 			@Override
 			protected List<Restaurant> load() {
@@ -34,7 +34,7 @@ public class RestaurantListPage extends SideBarPage {
 	}
 
 	public RestaurantListPage(final IModel<FoodType> ft) {
-		super(ft);
+		super(ft, false);
 		IModel<List<Restaurant>> listModel = new LoadableDetachableModel<List<Restaurant>>() {
 			@Override
 			protected List<Restaurant> load() {
@@ -47,7 +47,7 @@ public class RestaurantListPage extends SideBarPage {
 	}
 
 	public RestaurantListPage(final String query) {
-		super(null);
+		super(null, false);
 		IModel<List<Restaurant>> listModel = new LoadableDetachableModel<List<Restaurant>>() {
 			@Override
 			protected List<Restaurant> load() {
@@ -76,24 +76,6 @@ public class RestaurantListPage extends SideBarPage {
 				item.add(new Label("ratingsAmmount"));
 			}
 		});
-	}
-
-	// UNA CON FOODTYPE
-	// OTRA CON QUERY .
-	// ALL
-	public RestaurantListPage(Restaurant restaurant) {
-		super(null);
-		/*
-		 * super(null); setDefaultModel(new
-		 * EntityModel<Restaurant>(Restaurant.class, restaurant)); add(new
-		 * RestaurantListPanel("restaurants", new
-		 * PropertyModel<Collection<Restaurant>>(getDefaultModel(),
-		 * "restaurants"), new
-		 * LoadableDetachableModel<RestaurantPanelProvider>() {
-		 * 
-		 * @Override protected RestaurantPanelProvider load() { return new
-		 * SimpleRestaurantPanelProvider(); } }));
-		 */
 	}
 
 }

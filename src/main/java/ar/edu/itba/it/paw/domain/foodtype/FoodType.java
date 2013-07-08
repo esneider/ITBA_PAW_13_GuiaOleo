@@ -15,9 +15,7 @@ import ar.edu.itba.it.paw.utils.Utils;
 
 @Entity
 public class FoodType extends PersistentEntity implements Comparable<FoodType> {
-
-	private static final long serialVersionUID = -4037019439281524484L;
-
+	
 	@Column(nullable=false)
 	private String name;
 	

@@ -31,12 +31,16 @@ public class RestaurantViewPage extends SideBarPage {
 	private static final long serialVersionUID = 1094753744913503034L;
 	@SpringBean
 	private RestaurantRepo restRepo;
-	
+
 	@SuppressWarnings("serial")
 	public RestaurantViewPage(final IModel<Restaurant> restaurantModel) {
-		super(null);
-		
+		super(null, false);
+
 		setDefaultModel(new CompoundPropertyModel<Restaurant>(restaurantModel));
+		
+		/*
+		 * Basic fields 
+		 */
 		add(new Label("name"));
 		add(new Label("address"));
 		add(new Label("area"));
@@ -52,9 +56,12 @@ public class RestaurantViewPage extends SideBarPage {
 				.getObject().getRatingsAmmount())));
 		add(new FoodTypesPanel("foodtypesPanel", restaurantModel));
 
-		
 		add(new CommentPanel("commentPanel", restaurantModel));
+
 		
+		/*
+		 * Adding Register user
+		 */
 		if (restaurantModel.getObject().getRegisterUser() != null) {
 			add(new Label("registerUser", new Model<String>(restaurantModel
 					.getObject().getRegisterUser().getName()
@@ -64,12 +71,20 @@ public class RestaurantViewPage extends SideBarPage {
 		} else {
 			add(new Label("registerUser", " - ")); // TODO REFACTOR
 		}
-		add(
-				new WebMarkupContainer("googlemap").add(new AttributeAppender(
-						"data-address", new Model<String>(restaurantModel
-								.getObject().getAddress()))).add(
+		
+		/*
+		 * Google Maps
+		 */
+		add(new WebMarkupContainer("googlemap").add(
+				new AttributeAppender("data-address", new Model<String>(
+						restaurantModel.getObject().getAddress()))).add(
 				new AttributeAppender("data-description", new Model<String>(
 						restaurantModel.getObject().getName()))));
+		
+		
+		/*
+		 * Recommended restaurants
+		 */
 		IModel<List<Restaurant>> listModel = new LoadableDetachableModel<List<Restaurant>>() {
 			@Override
 			protected List<Restaurant> load() {
@@ -83,23 +98,13 @@ public class RestaurantViewPage extends SideBarPage {
 				}
 			}
 		};
-		add(new PropertyListView<Restaurant>("recommended", listModel) {
-			@Override
-			protected void populateItem(final ListItem<Restaurant> item) {
-				item.add(new Link<Restaurant>("link", item.getModel()) {
-					@Override
-					public void onClick() {
-						System.out.println(item.getModel().getObject()
-								.getName());
-						setResponsePage(new RestaurantViewPage(
-								new EntityModel<Restaurant>(Restaurant.class,
-										item.getModelObject())));
-					}
-				});
-				item.add(new Label("name", item.getModel()));
-
-			}
-		});
+	
+		add(new SimpleRestaurantListPanel("recommended", listModel));
+		
+		
+		/*
+		 * Pending requests
+		 */
 		add(new AdminPendingRequestsPanel("adminPendingResquests",
 				restaurantModel) {
 			@Override
@@ -114,11 +119,12 @@ public class RestaurantViewPage extends SideBarPage {
 		});
 
 	}
-	
+
 	@Override
 	public void renderHead(IHeaderResponse response) {
 		super.renderHead(response);
 		response.renderJavaScriptReference("https://maps.google.com/maps/api/js?sensor=false");
-		response.renderJavaScriptReference(new PackageResourceReference(RestaurantApplication.class, "maps.js"));
+		response.renderJavaScriptReference(new PackageResourceReference(
+				RestaurantApplication.class, "maps.js"));
 	}
 }

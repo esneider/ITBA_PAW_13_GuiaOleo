@@ -30,9 +30,9 @@ public class SideBarPage extends BasePage {
     @SpringBean
     private RestaurantRepo restRepo;
 
-    public SideBarPage(final IModel<FoodType> selected) {
+    public SideBarPage(final IModel<FoodType> selected, boolean secured) {
 
-        super();
+        super(secured);
 
         // All restaurants
 

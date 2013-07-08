@@ -27,7 +27,7 @@ public class PendingRestaurantsPage extends NoSideBarPage {
 	private RestaurantRepo restRepo;
 	
 	public PendingRestaurantsPage() {
-		super();
+		super(true);
 		if (!getRestaurantWicketSession().isSignedIn()
 				|| !getRestaurantWicketSession().getUser().isAdmin())
 			setResponsePage(RestaurantListPage.class);

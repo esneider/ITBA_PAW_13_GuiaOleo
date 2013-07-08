@@ -9,8 +9,6 @@ import ar.edu.itba.it.paw.domain.PersistentEntity;
 @Entity
 public class Picture extends PersistentEntity {
 
-	private static final long serialVersionUID = 811873056474640618L;
-
 	private String mime;
 
     @Basic

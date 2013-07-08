@@ -25,8 +25,6 @@ import ar.edu.itba.it.paw.utils.Utils;
 @Entity
 public class Restaurant extends PersistentEntity {
 
-	private static final long serialVersionUID = -1943879543362455948L;
-
 	@ManyToMany
 	Set<FoodType> foodtypes;
 
@@ -255,5 +253,9 @@ public class Restaurant extends PersistentEntity {
 			return false;
 
 		return true;
+	}
+	
+	public boolean isAccepted() {
+		return this.state.equals(RestaurantState.Accepted);
 	}
 }

@@ -9,6 +9,7 @@ import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.model.ResourceModel;
 
 import ar.edu.itba.it.paw.web.RestaurantWicketSession;
+import ar.edu.itba.it.paw.web.auth.LoginRegisterPage;
 import ar.edu.itba.it.paw.web.restaurant.RestaurantListPage;
 
 
@@ -17,11 +18,17 @@ public class BasePage extends WebPage {
 	
 	private transient String query;
 
-	public BasePage() {
+	public BasePage(boolean secured) {
 
 		// Header
 
 		RestaurantWicketSession session = getRestaurantWicketSession();
+		
+		if (secured) {
+			if (!session.isSignedIn()) {
+				redirectToInterceptPage(new LoginRegisterPage());
+			}
+		}
 
 		if (session.isSignedIn()) {
 			add(new LoggedHeaderPanel("header"));
