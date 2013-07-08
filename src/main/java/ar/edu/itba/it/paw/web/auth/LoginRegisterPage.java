@@ -9,6 +9,7 @@ public class LoginRegisterPage extends NoSideBarPage {
 	public LoginRegisterPage() {
 		super(false);
 		add(new LoginPanel("login"));
+		add(new RegisterPanel("register"));
 	}
 	
 }

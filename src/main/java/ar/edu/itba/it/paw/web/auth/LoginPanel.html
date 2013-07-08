@@ -3,10 +3,10 @@
 	    <div class="login span6 absolute">
 	        <div class="offset2 span4 section-header">
 	            <h2>Login</h2>
-	            <div wicket:id="feedback" class="formErrors"/>
+            <div wicket:id="loginFeedback" class="text-error"/>
 	        </div>
 	
-	        <form wicket:id="loginForm" class="loginForm form-horizontal" action="login" method="POST">
+	        <form wicket:id="loginForm" class="form-horizontal" action="login" method="POST">
 				
 	            <div class="loginUsername control-group">
 	                <label class="control-label">User:</label>
@@ -17,7 +17,7 @@
 	                </div>
 	            </div>
 	
-	            <div class="loginPassword control-group">
+	            <div class="control-group">
 	                <label class="control-label">Password:</label>
 	                <div class="controls">
 	                    <p>

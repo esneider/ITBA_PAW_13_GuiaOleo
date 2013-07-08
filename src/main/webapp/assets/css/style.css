@@ -178,3 +178,11 @@ h2.title {
     }
 }
 
+.text-error ul {
+    margin: 0;
+    padding: 0;
+}
+
+.text-error li {
+    list-style: none;
+}

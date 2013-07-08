@@ -26,7 +26,7 @@ public class User extends PersistentEntity {
 
 	private static final long serialVersionUID = -8992018496546437238L;
 
-	private String name, surname, email, username, password;
+    private String name, surname, email, username, password;
 
     @Enumerated(EnumType.STRING)
     private UserType type;
@@ -119,9 +119,9 @@ public class User extends PersistentEntity {
             throw new IllegalArgumentException("Empty username");
         }
 
-        if (Utils.usernameExists(username)) {
-        	throw new IllegalArgumentException("Duplicated username");
-        }
+//        if (userRepo.usernameExists(username)) {
+//        	throw new IllegalArgumentException("Duplicated username");
+//        }
 
         this.username = username;
     }
@@ -173,9 +173,9 @@ public class User extends PersistentEntity {
             throw new IllegalArgumentException("Invalid email");
         }
 
-        if (Utils.emailExists(email)) {
-            throw new IllegalArgumentException("Duplicated email");
-        }
+//        if (Utils.emailExists(email)) {
+//            throw new IllegalArgumentException("Duplicated email");
+//        }
 
         this.email = email;
     }

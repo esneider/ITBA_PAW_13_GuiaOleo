@@ -1,5 +1,6 @@
 package ar.edu.itba.it.paw.web.auth;
 
+import org.apache.wicket.feedback.ContainerFeedbackMessageFilter;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.PasswordTextField;
@@ -15,6 +16,8 @@ import ar.edu.itba.it.paw.web.RestaurantWicketSession;
 
 public class LoginPanel extends Panel {
 
+	private static final long serialVersionUID = -4788537571243090492L;
+
 	@SpringBean
 	private UserRepo userRepo;
 	
@@ -23,9 +26,16 @@ public class LoginPanel extends Panel {
 	
 	public LoginPanel(String id) {
 		super(id);
-	
-		add(new FeedbackPanel("feedback"));
+
+		FeedbackPanel panel = new FeedbackPanel("loginFeedback");
+		panel.setFilter(new ContainerFeedbackMessageFilter(this));
+
+		add(panel);
+
 		Form<LoginPanel> form = new Form<LoginPanel>("loginForm", new CompoundPropertyModel<LoginPanel>(this)) {
+
+			private static final long serialVersionUID = 4524463630059496333L;
+
 			@Override
 			protected void onSubmit() {
 				RestaurantWicketSession session = RestaurantWicketSession.get();
@@ -41,7 +51,7 @@ public class LoginPanel extends Panel {
 		};
 		
 		form.add(new TextField<String>("username").setRequired(true));
-		form.add(new PasswordTextField("password"));
+		form.add(new PasswordTextField("password").setRequired(true));
 		form.add(new Button("login", new ResourceModel("login")));
 		add(form);
 
