@@ -30,26 +30,29 @@ public class UserProfilePage extends NoSideBarPage {
 		add(new Label("email"));
 
 		User currentUser = getRestaurantWicketSession().getUser();
-		
-		add(new AdminUserProfilePanel("adminPanel", userModel).setVisible(currentUser.isAdmin()
-				&& !currentUser.equals(userModel.getObject())));
+
+		add(new AdminUserProfilePanel("adminPanel", userModel)
+				.setVisible(getRestaurantWicketSession().isSignedIn()
+						&& currentUser.isAdmin()
+						&& !currentUser.equals(userModel.getObject())));
 
 		add(new CommentPanel("commentPanel", userModel, false));
-		
+
 		IModel<List<Restaurant>> listModel = new LoadableDetachableModel<List<Restaurant>>() {
 
 			@Override
 			protected List<Restaurant> load() {
 				List<Restaurant> registered = new ArrayList<Restaurant>();
-				for (Restaurant r : userModel.getObject().getRegisteredRestaurants()) {
-					if (r.isAccepted()) 
+				for (Restaurant r : userModel.getObject()
+						.getRegisteredRestaurants()) {
+					if (r.isAccepted())
 						registered.add(r);
 				}
 				return registered;
 			}
-			
+
 		};
-		
+
 		add(new SimpleRestaurantListPanel("registeredRestaurants", listModel));
 	}
 

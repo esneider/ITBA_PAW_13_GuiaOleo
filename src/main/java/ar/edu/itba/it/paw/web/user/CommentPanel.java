@@ -64,9 +64,9 @@ public class CommentPanel extends Panel {
 				item.add(new Link<User>("link") {
 					@Override
 					public void onClick() {
+						User u = item.getModelObject().getUser();
 						setResponsePage(new UserProfilePage(
-								new EntityModel<User>(User.class, item
-										.getModelObject().getUser())));
+								new EntityModel<User>(User.class, u)));
 					}
 				}.add(new Label("user.username")));
 				item.add(new Label("date"));
