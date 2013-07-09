@@ -22,6 +22,7 @@ import ar.edu.itba.it.paw.domain.user.User;
 import ar.edu.itba.it.paw.domain.user.UserRepo;
 import ar.edu.itba.it.paw.domain.user.UserType;
 import ar.edu.itba.it.paw.utils.Utils;
+import ar.edu.itba.it.paw.web.RestaurantWicketSession;
 
 public class RegisterPanel extends Panel {
 
@@ -100,7 +101,6 @@ public class RegisterPanel extends Panel {
 				if (!"image/jpeg".equals(avatar.get(0).getContentType()) &&
 					!"image/jpg".equals(avatar.get(0).getContentType())) {
 
-					System.out.println(avatar.get(0).getContentType());
 					error(getString("invalidformatAvatar"));
 				}
 				
@@ -109,6 +109,15 @@ public class RegisterPanel extends Panel {
 					Picture avatarPic = new Picture(avatar.get(0).getBytes(), avatar.get(0).getContentType());
 					User user = new User(name, surname, email, username, password, avatarPic, new Date(), UserType.Normal);
 					userRepo.save(user);
+					
+					RestaurantWicketSession session = RestaurantWicketSession.get();
+
+					if (session.signIn(username, password, userRepo)) {
+						if (!continueToOriginalDestination()) {
+							setResponsePage(getApplication().getHomePage());
+						}
+						return;						
+					}
 					setResponsePage(getApplication().getHomePage());
 				}
 			}
