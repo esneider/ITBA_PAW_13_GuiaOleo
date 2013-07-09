@@ -60,22 +60,24 @@ public class BasePage extends WebPage {
 				"query")){
 
 			@Override
-			protected Iterator<String> getChoices(String arg0) {
+			protected Iterator<String> getChoices(String value) {
 				Set<String> stringSet = new HashSet<String>();
 				List<Restaurant> restList = restRepo.getAll();
+				String s = value.toLowerCase();
 				for (Restaurant r : restList) {
-					stringSet.add(r.getName());
-					stringSet.add(r.getArea());
+					if (r.getName().toLowerCase().contains(s))
+						stringSet.add(r.getName());
+					if (r.getArea().toLowerCase().contains(s))
+						stringSet.add(r.getArea());
 					for (FoodType f : r.getFoodtypes()) {
-						stringSet.add(f.getName());
+						if (f.getName().toLowerCase().contains(s))
+							stringSet.add(f.getName());
 					}
 				}
 				return stringSet.iterator();
 			}
 			
 		});
-//		form.add(new TextField<String>("query", new PropertyModel<String>(this,
-//				"query")));
 		form.add(new Button("search", new ResourceModel("search")));
 		add(form);
 
