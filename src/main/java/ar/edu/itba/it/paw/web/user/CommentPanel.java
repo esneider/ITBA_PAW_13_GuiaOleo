@@ -61,7 +61,7 @@ public class CommentPanel extends Panel {
 				item.add(new Label("comment"));
 				final IModel<User> userModel = new EntityModel<User>(
 						User.class, item.getModelObject().getUser());
-				item.add(new Link<User>("link") {
+				item.add(new Link<User>("link2") {
 					@Override
 					public void onClick() {
 						User u = item.getModelObject().getUser();

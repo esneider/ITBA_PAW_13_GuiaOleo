@@ -35,12 +35,14 @@ public class RestaurantViewPage extends SideBarPage {
 	private RestaurantRepo restRepo;
 
 	@SuppressWarnings("serial")
+	
+	
 	public RestaurantViewPage(final IModel<Restaurant> restaurantModel) {
 		super(null, false);
 		setDefaultModel(new CompoundPropertyModel<Restaurant>(restaurantModel));
 		restaurantModel.detach();
 		restaurantModel.getObject().setNewAccess();
-
+		getRenderCount();
 		/*
 		 * Basic fields
 		 */

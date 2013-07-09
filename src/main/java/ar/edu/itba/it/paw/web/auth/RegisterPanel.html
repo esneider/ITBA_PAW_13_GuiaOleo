@@ -25,6 +25,8 @@
                         </p>
                     </div>
                 </div>
+                
+                
     
                 <div class="control-group">
                     <label class="control-label">Repeat password:</label>
@@ -70,7 +72,13 @@
                         </p>
                     </div>
                 </div>
-	
+				
+				<img wicket:id="captchaImage" class="control-label" />
+				<div class="control-group">
+                		<input wicket:id="captcha" id="captcha" type="text" size="40"
+							placeholder="Type what you see in the image" />
+				</div>
+				
 	            <div class="control-group controls">
 	                <input class="btn btn-info" type="submit" value="Register" wicket:id="register">
 	            </div>

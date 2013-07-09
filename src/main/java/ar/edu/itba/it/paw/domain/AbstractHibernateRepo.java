@@ -43,6 +43,10 @@ public abstract class AbstractHibernateRepo {
 
         return getSession().save(o);
     }
+    
+    public void delete(Object o){
+		getSession().delete(o);
+	}
 
     @SuppressWarnings("unchecked")
     private <T> List<T> generateList(Query query, Integer limit, Object... params) {
