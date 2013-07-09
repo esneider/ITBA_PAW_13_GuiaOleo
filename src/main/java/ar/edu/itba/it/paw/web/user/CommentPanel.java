@@ -59,14 +59,16 @@ public class CommentPanel extends Panel {
 						new EntityModel(Rating.class, item.getModelObject())));
 				item.add(new Label("score"));
 				item.add(new Label("comment"));
-				final IModel<User> userModel = new EntityModel<User>(User.class, item
-						.getModelObject().getUser());
-				item.add(new Link<User>("username", userModel) {
+				final IModel<User> userModel = new EntityModel<User>(
+						User.class, item.getModelObject().getUser());
+				item.add(new Link<User>("link") {
 					@Override
 					public void onClick() {
-						setResponsePage(new UserProfilePage(userModel));
+						setResponsePage(new UserProfilePage(
+								new EntityModel<User>(User.class, item
+										.getModelObject().getUser())));
 					}
-				});
+				}.add(new Label("user.username")));
 				item.add(new Label("date"));
 				item.add(new Label("restaurantName", item.getModelObject()
 						.getRestaurant().getName()));
