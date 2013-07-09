@@ -62,6 +62,7 @@ public class RestaurantListPage extends SideBarPage {
 		add(new PropertyListView<Restaurant>("restaurant", restaurantsModel) {
 			@Override
 			protected void populateItem(final ListItem<Restaurant> item) {
+				item.setDefaultModel(item.getModel());
 				item.add(new Link<Restaurant>("name", item.getModel()) {
 					@Override
 					public void onClick() {

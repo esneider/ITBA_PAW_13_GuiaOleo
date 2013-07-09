@@ -62,7 +62,6 @@ public class RestaurantApplication extends WebApplication {
 		converterLocator.set(FoodType.class, new FoodTypeConverter());
 		converterLocator.set(Restaurant.class, new RestaurantConverter());
 		converterLocator.set(User.class, new UserConverter(userRepo));
-		// converterLocator.set(Subject.class, new SubjectConverter(subjects));
 		return converterLocator;
 	}
 

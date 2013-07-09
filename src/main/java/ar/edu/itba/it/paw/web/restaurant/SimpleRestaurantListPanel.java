@@ -19,6 +19,7 @@ public class SimpleRestaurantListPanel extends Panel {
 		add(new PropertyListView<Restaurant>("restaurant", restaurantListModel) {
 			@Override
 			protected void populateItem(final ListItem<Restaurant> item) {
+				item.setDefaultModel(item.getModel());
 				item.add(new Link<Restaurant>("link", item.getModel()) {
 					@Override
 					public void onClick() {

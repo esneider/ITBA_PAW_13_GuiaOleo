@@ -47,7 +47,9 @@ public class CommentOverHeadPanel extends Panel {
 				restaurantModel.getObject().removeRating(
 						ratingModel.getObject());
 			}
-		}.setVisible(restaurantModel != null));
+		}.setVisible(restaurantModel != null
+				&& RestaurantWicketSession.get().isSignedIn()
+				&& RestaurantWicketSession.get().getUser().isAdmin()));
 
 	}
 

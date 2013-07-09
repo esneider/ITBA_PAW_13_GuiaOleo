@@ -11,6 +11,7 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
+import org.apache.wicket.model.PropertyModel;
 
 import ar.edu.itba.it.paw.domain.EntityModel;
 import ar.edu.itba.it.paw.domain.restaurant.Rating;
@@ -58,13 +59,12 @@ public class CommentPanel extends Panel {
 						new EntityModel(Rating.class, item.getModelObject())));
 				item.add(new Label("score"));
 				item.add(new Label("comment"));
-				item.add(new Link<User>("username", new EntityModel<User>(
-						User.class, item.getModelObject().getUser())) {
+				final IModel<User> userModel = new EntityModel<User>(User.class, item
+						.getModelObject().getUser());
+				item.add(new Link<User>("username", userModel) {
 					@Override
 					public void onClick() {
-						setResponsePage(new UserProfilePage(
-								new EntityModel<User>(User.class, item
-										.getModelObject().getUser())));
+						setResponsePage(new UserProfilePage(userModel));
 					}
 				});
 				item.add(new Label("date"));
@@ -82,5 +82,4 @@ public class CommentPanel extends Panel {
 		});
 
 	}
-
 }
