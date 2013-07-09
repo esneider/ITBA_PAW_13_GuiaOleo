@@ -1,13 +1,22 @@
 package ar.edu.itba.it.paw.web.base;
 
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+
+import org.apache.wicket.extensions.ajax.markup.html.autocomplete.AutoCompleteTextField;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
-import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.model.ResourceModel;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 
+import ar.edu.itba.it.paw.domain.foodtype.FoodType;
+import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
+import ar.edu.itba.it.paw.domain.restaurant.RestaurantRepo;
 import ar.edu.itba.it.paw.web.RestaurantWicketSession;
 import ar.edu.itba.it.paw.web.auth.LoginRegisterPage;
 import ar.edu.itba.it.paw.web.restaurant.RestaurantListPage;
@@ -15,6 +24,9 @@ import ar.edu.itba.it.paw.web.restaurant.RestaurantListPage;
 
 @SuppressWarnings("serial")
 public class BasePage extends WebPage {
+	
+	@SpringBean
+	private RestaurantRepo restRepo;
 	
 	private transient String query;
 
@@ -44,8 +56,26 @@ public class BasePage extends WebPage {
 				setResponsePage(new RestaurantListPage(query));
 			}
 		};
-		form.add(new TextField<String>("query", new PropertyModel<String>(this,
-				"query")));
+		form.add(new AutoCompleteTextField<String>("query", new PropertyModel<String>(this,
+				"query")){
+
+			@Override
+			protected Iterator<String> getChoices(String arg0) {
+				Set<String> stringSet = new HashSet<String>();
+				List<Restaurant> restList = restRepo.getAll();
+				for (Restaurant r : restList) {
+					stringSet.add(r.getName());
+					stringSet.add(r.getArea());
+					for (FoodType f : r.getFoodtypes()) {
+						stringSet.add(f.getName());
+					}
+				}
+				return stringSet.iterator();
+			}
+			
+		});
+//		form.add(new TextField<String>("query", new PropertyModel<String>(this,
+//				"query")));
 		form.add(new Button("search", new ResourceModel("search")));
 		add(form);
 
