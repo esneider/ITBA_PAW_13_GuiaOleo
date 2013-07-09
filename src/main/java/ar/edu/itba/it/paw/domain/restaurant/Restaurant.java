@@ -106,6 +106,10 @@ public class Restaurant extends PersistentEntity {
 	public Set<FoodType> getFoodtypes() {
 		return foodtypes;
 	}
+	
+	public void addFoodType(FoodType ft) {
+		foodtypes.add(ft);
+	}
 
 	public String getAddress() {
 		return address;

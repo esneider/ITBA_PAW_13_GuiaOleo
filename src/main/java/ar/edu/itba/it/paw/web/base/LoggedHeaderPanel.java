@@ -12,6 +12,7 @@ import ar.edu.itba.it.paw.domain.user.User;
 import ar.edu.itba.it.paw.domain.user.UserRepo;
 import ar.edu.itba.it.paw.web.RestaurantWicketSession;
 import ar.edu.itba.it.paw.web.provider.ImageProvider;
+import ar.edu.itba.it.paw.web.restaurant.RegisterRestaurantPage;
 import ar.edu.itba.it.paw.web.restaurant.RestaurantListPage;
 import ar.edu.itba.it.paw.web.user.UserProfilePage;
 
@@ -43,7 +44,7 @@ public class LoggedHeaderPanel extends Panel {
 		add(new Link<Void>("registerRestaurant") {
 			@Override
 			public void onClick() {
-				setResponsePage(RestaurantListPage.class);
+				setResponsePage(RegisterRestaurantPage.class);
 			}
 		});
 

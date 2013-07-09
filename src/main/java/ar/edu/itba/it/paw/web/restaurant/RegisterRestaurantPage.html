@@ -1,0 +1,88 @@
+<html>
+	<body>
+		<wicket:extend>
+			<h2 class="restaurantTitle">Register Restaurant</h2>
+
+			<div wicket:id="restaurantFeedback" class="text-error"/>
+
+			<form class="form-horizontal" action="#" method="POST" wicket:id="restaurantForm">
+				
+				
+				<div class="control-group">
+				    <label class="control-label">Name:</label>
+				    <div class="controls">
+				        <p>
+				          <input type="text" wicket:id="name"/>
+				        </p>
+				    </div>
+				</div>
+				
+				<div class="control-group">
+				    <label class="control-label">Address:</label>
+				    <div class="controls">
+				        <p>
+				          <input type="text" wicket:id="address"/>
+				        </p>
+				    </div>
+				</div>
+				
+				<div class="control-group">
+				    <label class="control-label">Area:</label>
+				    <div class="controls">
+				        <p>
+				          <input type="text" wicket:id="area"/>
+				        </p>
+				    </div>
+				</div>
+				
+				<div class="control-group">
+				    <label class="control-label">Average Price:</label>
+				    <div class="controls">
+				        <p>
+				          <input type="text" wicket:id="avgprice"/>
+				        </p>
+				    </div>
+				</div>
+				
+				<div class="control-group">
+				    <label class="control-label">Telephone:</label>
+				    <div class="controls">
+				        <p>
+				          <input type="text" wicket:id="telephone"/>
+				        </p>
+				    </div>
+				</div>
+				
+				<div class="control-group">
+				    <label class="control-label">Time Range:</label>
+				    <div class="controls">
+				        <p>
+				          <input type="text" wicket:id="timerange"/>
+				        </p>
+				    </div>
+				</div>
+				
+				<div class="control-group">
+				    <label class="control-label">Website:</label>
+				    <div class="controls">
+				        <p>
+				          <input type="text" wicket:id="website"/>
+				        </p>
+				    </div>
+				</div>
+				
+				<div class="control-group">
+				    <label class="control-label">Food Types:</label>
+				    <div class="controls" id="chk_container">
+				    	<select wicket:id="foodtypes" ></select>
+				    	Ctrl + Click to select multiple Food Types
+				    </div>
+				</div>
+				
+				<div class="control-group controls">
+        			<input class="btn btn-info" type="submit" value="Register Restaurant">
+    			</div>
+			</form>
+		</wicket:extend>
+	</body>
+</html>
