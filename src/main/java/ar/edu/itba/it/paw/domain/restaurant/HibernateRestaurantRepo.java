@@ -15,171 +15,210 @@ import ar.edu.itba.it.paw.domain.AbstractHibernateRepo;
 import ar.edu.itba.it.paw.domain.foodtype.FoodType;
 import ar.edu.itba.it.paw.domain.user.User;
 
-
 @Repository
-public class HibernateRestaurantRepo extends AbstractHibernateRepo implements RestaurantRepo {
+public class HibernateRestaurantRepo extends AbstractHibernateRepo implements
+		RestaurantRepo {
 
-    @Autowired
-    public HibernateRestaurantRepo(SessionFactory sessionFactory) {
+	@Autowired
+	public HibernateRestaurantRepo(SessionFactory sessionFactory) {
 
-        super(sessionFactory);
-    }
+		super(sessionFactory);
+	}
 
-    @Override
-    public List<Restaurant> getAll() {
+	@Override
+	public List<Restaurant> getAll() {
 
-        return find("from Restaurant where state = ?", RestaurantState.Accepted);
-    }
+		return find("from Restaurant where state = ?", RestaurantState.Accepted);
+	}
 
-    @Override
-    public Restaurant get(int restaurantId) {
+	@Override
+	public Restaurant get(int restaurantId) {
 
-        return get(Restaurant.class, restaurantId);
-    }
+		return get(Restaurant.class, restaurantId);
+	}
 
-    @Override
-    public List<Restaurant> getBestRatedRestaurants(int cant) {
+	@Override
+	public List<Restaurant> getBestRatedRestaurants(int cant) {
 
-        List<Restaurant> allRestaurants = getAll();
+		List<Restaurant> allRestaurants = getAll();
 
-        Collections.sort(allRestaurants, new Comparator<Restaurant>() {
-            @Override
-            public int compare(Restaurant o1, Restaurant o2) {
+		Collections.sort(allRestaurants, new Comparator<Restaurant>() {
+			@Override
+			public int compare(Restaurant o1, Restaurant o2) {
 
-                return Math.round(Math.signum(o2.getAvgScore() - o1.getAvgScore()));
-            }
-        });
+				return Math.round(Math.signum(o2.getAvgScore()
+						- o1.getAvgScore()));
+			}
+		});
 
-        if (allRestaurants.size() <= cant) {
+		if (allRestaurants.size() <= cant) {
 
-            return allRestaurants;
-        }
+			return allRestaurants;
+		}
 
-        return allRestaurants.subList(0, cant - 1);
-    }
+		return allRestaurants.subList(0, cant - 1);
+	}
 
-    private List<Restaurant> getRestaurantsByName(String name) {
+	private List<Restaurant> getRestaurantsByName(String name) {
 
-        return find("from Restaurant where lower(name) like ? and state = ?", name, RestaurantState.Accepted);
+		return find("from Restaurant where lower(name) like ? and state = ?",
+				name, RestaurantState.Accepted);
 
-    }
+	}
 
-    private List<Restaurant> getRestaurantsByArea(String area) {
+	private List<Restaurant> getRestaurantsByArea(String area) {
 
-        return find("from Restaurant where lower(area) like ? and state = ?", area, RestaurantState.Accepted);
-    }
+		return find("from Restaurant where lower(area) like ? and state = ?",
+				area, RestaurantState.Accepted);
+	}
 
-    private List<Restaurant> getRestaurantsByFoodType(String query) {
+	private List<Restaurant> getRestaurantsByFoodType(String query) {
 
-//        return find("from Restaurant as rest join rest.foodtypes as foodtype where rest.foodtypes.name like ? ", query);
-//        return find("select Restaurant.* from Restaurant r, FoodTypes ft, restaurant_foodtype rft " +
-//        		"where rft.restaurants_id = r.id and rft.foodtypes_id = ft.id and ft.name like ?", query);
-    	
-    	List<Restaurant> lstRest = getAll();
-    	Set<Restaurant> ans = new HashSet<Restaurant>();
-    	for (Restaurant r : lstRest) {
-    		for (FoodType ft : r.getFoodtypes()) {
-    			if (ft.getName().toLowerCase().contains(query.substring(1, query.length()-1).toLowerCase())) 
-    				ans.add(r);
-    		}
-    	}
-    	return new ArrayList<Restaurant>(ans);
-    }
+		// return
+		// find("from Restaurant as rest join rest.foodtypes as foodtype where rest.foodtypes.name like ? ",
+		// query);
+		// return
+		// find("select Restaurant.* from Restaurant r, FoodTypes ft, restaurant_foodtype rft "
+		// +
+		// "where rft.restaurants_id = r.id and rft.foodtypes_id = ft.id and ft.name like ?",
+		// query);
 
-    @Override
-    public List<Restaurant> getRestaurantsByQuery(String query) {
+		List<Restaurant> lstRest = getAll();
+		Set<Restaurant> ans = new HashSet<Restaurant>();
+		for (Restaurant r : lstRest) {
+			for (FoodType ft : r.getFoodtypes()) {
+				if (ft.getName()
+						.toLowerCase()
+						.contains(
+								query.substring(1, query.length() - 1)
+										.toLowerCase()))
+					ans.add(r);
+			}
+		}
+		return new ArrayList<Restaurant>(ans);
+	}
 
-        query = "%" + query.toLowerCase() + "%";
+	@Override
+	public List<Restaurant> getRestaurantsByQuery(String query) {
 
-        List<Restaurant> result = new ArrayList<Restaurant>();
-        List<Restaurant> byName = getRestaurantsByName(query);
-        List<Restaurant> byArea = getRestaurantsByArea(query);
-        List<Restaurant> byFoodType = getRestaurantsByFoodType(query);
+		query = "%" + query.toLowerCase() + "%";
 
-        Set<Restaurant> s = new HashSet<Restaurant>();
+		List<Restaurant> result = new ArrayList<Restaurant>();
+		List<Restaurant> byName = getRestaurantsByName(query);
+		List<Restaurant> byArea = getRestaurantsByArea(query);
+		List<Restaurant> byFoodType = getRestaurantsByFoodType(query);
 
-        for (Restaurant restaurant : byName) {
-            if (s.add(restaurant)) {
-                result.add(restaurant);
-            }
-        }
+		Set<Restaurant> s = new HashSet<Restaurant>();
 
-        for (Restaurant restaurant : byArea) {
-            if (s.add(restaurant)) {
-                result.add(restaurant);
-            }
-        }
+		for (Restaurant restaurant : byName) {
+			if (s.add(restaurant)) {
+				result.add(restaurant);
+			}
+		}
 
-        for (Restaurant restaurant : byFoodType) {
-            if (s.add(restaurant)) {
-                result.add(restaurant);
-            }
-        }
+		for (Restaurant restaurant : byArea) {
+			if (s.add(restaurant)) {
+				result.add(restaurant);
+			}
+		}
 
-        return result;
-    }
+		for (Restaurant restaurant : byFoodType) {
+			if (s.add(restaurant)) {
+				result.add(restaurant);
+			}
+		}
 
-    @Override
-    public void save(Restaurant r) {
+		return result;
+	}
 
-        super.save(r);
-    }
+	@Override
+	public void save(Restaurant r) {
 
-    @Override
-    public List<Restaurant> getPendingRestaurants() {
+		super.save(r);
+	}
 
-        return find("from Restaurant where state = ? ORDER BY applicationdate DESC", RestaurantState.Pending);
-    }
+	@Override
+	public List<Restaurant> getPendingRestaurants() {
 
-    public Rating getRating(int id) {
+		return find(
+				"from Restaurant where state = ? ORDER BY applicationdate DESC",
+				RestaurantState.Pending);
+	}
 
-        return get(Rating.class, id);
-    }
+	public Rating getRating(int id) {
 
-    @Override
-    public List<Restaurant> getRecommendedRestaurants(Restaurant restaurant, User user) {
+		return get(Rating.class, id);
+	}
 
-        if (restaurant == null) {
-            throw new IllegalArgumentException("Empty restaurant");
-        }
+	@Override
+	public List<Restaurant> getRecommendedRestaurants(Restaurant restaurant,
+			User user) {
 
-        List<Rating> userRatings = restaurant.getRatings();
-        Set<Restaurant> recommendedRestaurants = new HashSet<Restaurant>();
+		if (restaurant == null) {
+			throw new IllegalArgumentException("Empty restaurant");
+		}
 
-        for (Rating rating: userRatings) {
-            if (user == null || !rating.getUser().equals(user)) {
-                if (rating.getScore() >= 3) {
-                    addLikedRestaurants(recommendedRestaurants, rating.getUser(), restaurant);
-                }
-            }
-        }
-        
-        List<Restaurant> copy = new ArrayList<Restaurant>(recommendedRestaurants);
-        Collections.shuffle(copy);
-        return copy.subList(0, Math.min(copy.size(), 3));
-    }
-    
-    public List<Restaurant> getRecommendedRestaurants(Restaurant restaurant) {
-    	return getRecommendedRestaurants(restaurant, null);
-    }
+		List<Rating> userRatings = restaurant.getRatings();
+		Set<Restaurant> recommendedRestaurants = new HashSet<Restaurant>();
 
-    public void addLikedRestaurants(Set<Restaurant> set, User user, Restaurant rest) {
+		for (Rating rating : userRatings) {
+			if (user == null || !rating.getUser().equals(user)) {
+				if (rating.getScore() >= 3) {
+					addLikedRestaurants(recommendedRestaurants,
+							rating.getUser(), restaurant);
+				}
+			}
+		}
 
-        if (set == null) {
-            throw new IllegalArgumentException("Empty set");
-        }
-        if (user == null) {
-            throw new IllegalArgumentException("Empty user");
-        }
-        if (rest == null) {
-            throw new IllegalArgumentException("Empty rest");
-        }
+		List<Restaurant> copy = new ArrayList<Restaurant>(
+				recommendedRestaurants);
+		Collections.shuffle(copy);
+		return copy.subList(0, Math.min(copy.size(), 3));
+	}
 
-        for(Rating rating: user.getComments()) {
-            if (rating.getScore() >= 3 && !rating.getRestaurant().equals(rest)) {
-                set.add(rating.getRestaurant());
-            }
-        }
-    }
+	public List<Restaurant> getRecommendedRestaurants(Restaurant restaurant) {
+		return getRecommendedRestaurants(restaurant, null);
+	}
+
+	public void addLikedRestaurants(Set<Restaurant> set, User user,
+			Restaurant rest) {
+
+		if (set == null) {
+			throw new IllegalArgumentException("Empty set");
+		}
+		if (user == null) {
+			throw new IllegalArgumentException("Empty user");
+		}
+		if (rest == null) {
+			throw new IllegalArgumentException("Empty rest");
+		}
+
+		for (Rating rating : user.getComments()) {
+			if (rating.getScore() >= 3 && !rating.getRestaurant().equals(rest)) {
+				set.add(rating.getRestaurant());
+			}
+		}
+	}
+
+	@Override
+	public List<Restaurant> getAdvertisedRestaurants(User user) {
+
+		if (user == null)
+			throw new IllegalArgumentException("Empty user");
+		int uId = user.getId();
+		List<Restaurant> highlightedRest = find(
+				"from Restaurant where highlighted = true AND registeruser_id = ?",
+				uId);
+		Collections.shuffle(highlightedRest);
+		return highlightedRest.subList(0, Math.min(highlightedRest.size(), 3));
+	}
+
+	@Override
+	public List<Restaurant> getAdvertisedRestaurants() {
+		List<Restaurant> highlightedRest = find(
+				"from Restaurant where highlighted = ?", true);
+		Collections.shuffle(highlightedRest);
+		return highlightedRest.subList(0, Math.min(highlightedRest.size(), 3));
+
+	}
 }
-

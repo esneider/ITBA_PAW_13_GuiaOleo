@@ -43,6 +43,8 @@ public class Restaurant extends PersistentEntity {
 	private float avgprice;
 
 	private Date applicationDate;
+	private long accessCount = 0;
+	private boolean highlighted = false;
 
 	Restaurant() {
 	}
@@ -258,8 +260,28 @@ public class Restaurant extends PersistentEntity {
 
 		return true;
 	}
-	
+
 	public boolean isAccepted() {
 		return this.state.equals(RestaurantState.Accepted);
+	}
+
+	public boolean isHighlighted() {
+		return highlighted;
+	}
+
+	public void highlight() {
+		this.highlighted = true;
+	}
+
+	public void unhighlight() {
+		this.highlighted = false;
+	}
+
+	public long getAccessCount() {
+		return accessCount;
+	}
+
+	public void setNewAccess() {
+		this.accessCount++;
 	}
 }

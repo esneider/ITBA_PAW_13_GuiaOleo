@@ -6,6 +6,7 @@ import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.markup.html.IHeaderResponse;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.image.Image;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.PropertyListView;
@@ -24,6 +25,7 @@ import ar.edu.itba.it.paw.domain.user.User;
 import ar.edu.itba.it.paw.utils.Utils;
 import ar.edu.itba.it.paw.web.application.RestaurantApplication;
 import ar.edu.itba.it.paw.web.base.SideBarPage;
+import ar.edu.itba.it.paw.web.common.HighlightedRestaurantLink;
 import ar.edu.itba.it.paw.web.user.CommentPanel;
 
 public class RestaurantViewPage extends SideBarPage {
@@ -35,13 +37,16 @@ public class RestaurantViewPage extends SideBarPage {
 	@SuppressWarnings("serial")
 	public RestaurantViewPage(final IModel<Restaurant> restaurantModel) {
 		super(null, false);
-
 		setDefaultModel(new CompoundPropertyModel<Restaurant>(restaurantModel));
-		
+		restaurantModel.detach();
+		restaurantModel.getObject().setNewAccess();
+
 		/*
-		 * Basic fields 
+		 * Basic fields
 		 */
 		add(new Label("name"));
+		add(new Image("imghigh", RestaurantApplication.HIGHLIGHTED_ICON)
+				.setVisible(restaurantModel.getObject().isHighlighted()));
 		add(new Label("address"));
 		add(new Label("area"));
 		add(new Label("telephone"));
@@ -58,7 +63,6 @@ public class RestaurantViewPage extends SideBarPage {
 
 		add(new CommentPanel("commentPanel", restaurantModel));
 
-		
 		/*
 		 * Adding Register user
 		 */
@@ -71,7 +75,7 @@ public class RestaurantViewPage extends SideBarPage {
 		} else {
 			add(new Label("registerUser", " - ")); // TODO REFACTOR
 		}
-		
+
 		/*
 		 * Google Maps
 		 */
@@ -80,8 +84,7 @@ public class RestaurantViewPage extends SideBarPage {
 						restaurantModel.getObject().getAddress()))).add(
 				new AttributeAppender("data-description", new Model<String>(
 						restaurantModel.getObject().getName()))));
-		
-		
+
 		/*
 		 * Recommended restaurants
 		 */
@@ -98,10 +101,14 @@ public class RestaurantViewPage extends SideBarPage {
 				}
 			}
 		};
-	
+
 		add(new SimpleRestaurantListPanel("recommended", listModel));
-		
-		
+
+		/*
+		 * Access Restaurant ViewPage Count
+		 */
+		add(new Label("accessCount"));
+
 		/*
 		 * Pending requests
 		 */

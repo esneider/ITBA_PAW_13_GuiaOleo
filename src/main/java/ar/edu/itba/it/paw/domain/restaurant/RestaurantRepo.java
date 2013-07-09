@@ -55,5 +55,25 @@ public interface RestaurantRepo {
     * the given restaurant.
     */
     public List<Restaurant> getRecommendedRestaurants(Restaurant r);
+
+    
+    /**
+    *
+    * Gets advertised restaurant that don't have the User as the owner
+    * 
+    */
+    
+	public List<Restaurant> getAdvertisedRestaurants(User user);
+	
+	/**
+    *
+    * Gets advertised restaurant 
+    * 
+    */
+	
+	
+	public List<Restaurant> getAdvertisedRestaurants();
+	
+	
 }
 

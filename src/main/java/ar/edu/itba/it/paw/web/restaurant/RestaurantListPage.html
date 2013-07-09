@@ -1,11 +1,13 @@
 <html>
 	<body>
 		<wicket:extend>
+		<div wicket:id="advPanel"></div>
 		 <div class="restlist" wicket:id="restaurant" >
           
             <dl class="dl-horizontal mainList">
                 <dt>Restaurant</dt>
-                    <dd><a class="name" wicket:id="name"><wicket:container wicket:id="restName" /></a></dd>
+                    <dd><a class="name" wicket:id="name"><wicket:container wicket:id="restName" /><img wicket:id="imgHighlighted"/></a></dd>
+                    <div wicket:id="highlightpanel"> </div>
                 <dt>Address</dt>
                     <dd  class="address" wicket:id="address"></dd>
                 <dt>Area</dt>

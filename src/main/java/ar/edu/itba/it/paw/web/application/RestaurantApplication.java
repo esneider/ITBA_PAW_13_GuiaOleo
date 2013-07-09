@@ -7,6 +7,8 @@ import org.apache.wicket.Session;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.request.Request;
 import org.apache.wicket.request.Response;
+import org.apache.wicket.request.resource.PackageResourceReference;
+import org.apache.wicket.request.resource.ResourceReference;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,7 @@ import ar.edu.itba.it.paw.web.restaurant.RestaurantListPage;
 @Component
 public class RestaurantApplication extends WebApplication {
 
+	public static final ResourceReference HIGHLIGHTED_ICON = new PackageResourceReference(RestaurantApplication.class, "high.jpg");
 	private final SessionFactory sessionFactory;
 
 	private UserRepo userRepo;

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.PropertyListView;
 import org.apache.wicket.model.IModel;
@@ -15,6 +14,7 @@ import ar.edu.itba.it.paw.domain.foodtype.FoodType;
 import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
 import ar.edu.itba.it.paw.domain.restaurant.RestaurantRepo;
 import ar.edu.itba.it.paw.web.base.SideBarPage;
+import ar.edu.itba.it.paw.web.common.HighlightedRestaurantLink;
 
 @SuppressWarnings("serial")
 public class RestaurantListPage extends SideBarPage {
@@ -59,11 +59,13 @@ public class RestaurantListPage extends SideBarPage {
 	}
 
 	public void populatePage(IModel<List<Restaurant>> restaurantsModel) {
+		add(new AdvertisePanel("advPanel"));
 		add(new PropertyListView<Restaurant>("restaurant", restaurantsModel) {
 			@Override
 			protected void populateItem(final ListItem<Restaurant> item) {
 				item.setDefaultModel(item.getModel());
-				item.add(new Link<Restaurant>("name", item.getModel()) {
+				item.add(new HighlightedRestaurantLink<Restaurant>("name", item
+						.getModel()) {
 					@Override
 					public void onClick() {
 						setResponsePage(new RestaurantViewPage(item.getModel()));
@@ -75,8 +77,11 @@ public class RestaurantListPage extends SideBarPage {
 				item.add(new Label("area"));
 				item.add(new Label("avgScore"));
 				item.add(new Label("ratingsAmmount"));
+				item.add(new HighlightActionsPanel("highlightpanel", item
+						.getModel()));
 			}
 		});
+
 	}
 
 }

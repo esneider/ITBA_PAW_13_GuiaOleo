@@ -19,11 +19,13 @@ import org.apache.wicket.model.Model;
 import ar.edu.itba.it.paw.domain.EntityModel;
 import ar.edu.itba.it.paw.domain.foodtype.FoodType;
 import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
+import ar.edu.itba.it.paw.web.common.HighlightedRestaurantLink;
 
 public class SimpleRestaurantListPanel extends Panel {
 
 	public SimpleRestaurantListPanel(String id,
-			final IModel<List<Restaurant>> restaurantListModel) {
+
+	final IModel<List<Restaurant>> restaurantListModel) {
 		super(id);
 
 		add(new RefreshingView<Restaurant>("restaurants") {
@@ -41,7 +43,9 @@ public class SimpleRestaurantListPanel extends Panel {
 
 			@Override
 			protected void populateItem(final Item<Restaurant> item) {
-				item.add(new Link<Restaurant>("link") {
+				item.add(new HighlightedRestaurantLink<Restaurant>("link", item
+						.getModel()) {
+
 					@Override
 					public void onClick() {
 						setResponsePage(new RestaurantViewPage(item.getModel()));
