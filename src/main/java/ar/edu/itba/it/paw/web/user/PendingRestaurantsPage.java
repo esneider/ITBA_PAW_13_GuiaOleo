@@ -28,8 +28,7 @@ public class PendingRestaurantsPage extends NoSideBarPage {
 	
 	public PendingRestaurantsPage() {
 		super(true);
-		if (!getRestaurantWicketSession().isSignedIn()
-				|| !getRestaurantWicketSession().getUser().isAdmin())
+		if (!getRestaurantWicketSession().getUser().isAdmin())
 			setResponsePage(RestaurantListPage.class);
 		@SuppressWarnings("serial")
 		IModel<List<Restaurant>> listModel = new LoadableDetachableModel<List<Restaurant>>() {

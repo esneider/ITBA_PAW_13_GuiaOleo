@@ -26,8 +26,7 @@ public class RegisteredUsersPage extends NoSideBarPage {
 
 	public RegisteredUsersPage() {
 		super(true);
-		if (!getRestaurantWicketSession().isSignedIn()
-				|| !getRestaurantWicketSession().getUser().isAdmin())
+		if (!getRestaurantWicketSession().getUser().isAdmin())
 			setResponsePage(RestaurantListPage.class);
 		@SuppressWarnings("serial")
 		IModel<List<User>> listModel = new LoadableDetachableModel<List<User>>() {
