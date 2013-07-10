@@ -33,6 +33,8 @@ public class RestaurantViewPage extends SideBarPage {
 	private static final long serialVersionUID = 1094753744913503034L;
 	@SpringBean
 	private RestaurantRepo restRepo;
+	
+	private transient IModel<Restaurant> restaurantModel;
 
 	@SuppressWarnings("serial")
 	
@@ -40,9 +42,7 @@ public class RestaurantViewPage extends SideBarPage {
 	public RestaurantViewPage(final IModel<Restaurant> restaurantModel) {
 		super(null, false);
 		setDefaultModel(new CompoundPropertyModel<Restaurant>(restaurantModel));
-		restaurantModel.detach();
-		restaurantModel.getObject().setNewAccess();
-		getRenderCount();
+		this.restaurantModel = restaurantModel;
 		/*
 		 * Basic fields
 		 */
@@ -126,7 +126,7 @@ public class RestaurantViewPage extends SideBarPage {
 								.equals(RestaurantState.Pending);
 			}
 		});
-
+		
 	}
 
 	@Override
@@ -135,5 +135,11 @@ public class RestaurantViewPage extends SideBarPage {
 		response.renderJavaScriptReference("https://maps.google.com/maps/api/js?sensor=false");
 		response.renderJavaScriptReference(new PackageResourceReference(
 				RestaurantApplication.class, "maps.js"));
+	}
+		
+	@Override
+	protected void onBeforeRender() {
+		super.onBeforeRender();
+		restaurantModel.getObject().setNewAccess();
 	}
 }
