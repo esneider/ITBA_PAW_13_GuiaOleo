@@ -2,14 +2,14 @@
 	<div class="register-container">
 	    <div class="register span6 offset6">
 	        <div class="offset2 span4 section-header">
-	            <h2>Register</h2>
+	            <h2><wicket:message key="registerTitle"/></h2>
                 <div wicket:id="registerFeedback" class="text-error"/>
             </div>
 	
 	        <form wicket:id="registerForm" class="registerForm form-horizontal" action="register" enctype="multipart/form-data" method="POST">
 				
                 <div class="control-group">
-                    <label class="control-label">User:</label>
+                    <label class="control-label"><wicket:message key="user"/></label>
                     <div class="controls">
                         <p>
                             <input type="text" wicket:id="username"/>
@@ -18,7 +18,7 @@
                 </div>
     
                 <div class="control-group">
-                    <label class="control-label">Password:</label>
+                    <label class="control-label"><wicket:message key="password"/></label>
                     <div class="controls">
                         <p>
                             <input type="password" wicket:id="password"/>
@@ -29,7 +29,7 @@
                 
     
                 <div class="control-group">
-                    <label class="control-label">Repeat password:</label>
+                    <label class="control-label"><wicket:message key="repassword"/></label>
                     <div class="controls">
                         <p>
                             <input type="password" wicket:id="repassword"/>
@@ -38,7 +38,7 @@
                 </div>
     
                 <div class="control-group">
-                    <label class="control-label">Name:</label>
+                    <label class="control-label"><wicket:message key="name"/></label>
                     <div class="controls">
                         <p>
                             <input type="text" wicket:id="name"/>
@@ -47,7 +47,7 @@
                 </div>
     
                 <div class="control-group">
-                    <label class="control-label">Surname:</label>
+                    <label class="control-label"><wicket:message key="surname"/></label>
                     <div class="controls">
                         <p>
                             <input type="text" wicket:id="surname"/>
@@ -56,7 +56,7 @@
                 </div>
     
                 <div class="control-group">
-                    <label class="control-label">Email:</label>
+                    <label class="control-label"><wicket:message key="email"/></label>
                     <div class="controls">
                         <p>
                             <input type="text" wicket:id="email"/>
@@ -65,7 +65,7 @@
                 </div>
     
                  <div class="control-group">
-                    <label class="control-label">Avatar image:</label>
+                    <label class="control-label"><wicket:message key="avatar"/></label>
                     <div class="controls">
                         <p>
                             <input type="file" wicket:id="avatar"/>
@@ -80,7 +80,7 @@
 				</div>
 				
 	            <div class="control-group controls">
-	                <input class="btn btn-info" type="submit" value="Register" wicket:id="register">
+	                <input class="btn btn-info" type="submit" value="Register" wicket:id="register"/>
 	            </div>
 	
 	        </form>
