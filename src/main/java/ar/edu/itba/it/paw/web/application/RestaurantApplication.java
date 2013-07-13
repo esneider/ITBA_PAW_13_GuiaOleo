@@ -29,8 +29,12 @@ import ar.edu.itba.it.paw.web.restaurant.RestaurantListPage;
 public class RestaurantApplication extends WebApplication {
 
 	public static final ResourceReference HIGHLIGHTED_ICON = new PackageResourceReference(RestaurantApplication.class, "high.jpg");
+	
+	public static final String SESSION_COOKIE = "sessionCookie";
+	public static final int COOKIE_TTL = 2592000;
+	
 	private final SessionFactory sessionFactory;
-
+	
 	private UserRepo userRepo;
 
 	@Autowired

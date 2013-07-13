@@ -3,7 +3,7 @@
 
         <modelVersion>4.0.0</modelVersion>
 		<groupId>ar.edu.itba.it.paw</groupId>
-		<artifactId>TPE_2013</artifactId>
+		<artifactId>paw</artifactId>
 		<packaging>war</packaging>
 		<version>0.0.1-SNAPSHOT</version>
 		<name>TPE_2013 Maven Webapp</name>

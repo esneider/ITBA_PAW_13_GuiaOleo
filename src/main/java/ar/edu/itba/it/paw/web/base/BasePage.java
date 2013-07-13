@@ -5,6 +5,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import javax.servlet.http.Cookie;
+
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.form.Button;
@@ -17,17 +19,23 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import ar.edu.itba.it.paw.domain.foodtype.FoodType;
 import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
 import ar.edu.itba.it.paw.domain.restaurant.RestaurantRepo;
+import ar.edu.itba.it.paw.domain.user.User;
+import ar.edu.itba.it.paw.domain.user.UserRepo;
+import ar.edu.itba.it.paw.utils.CookieManager;
 import ar.edu.itba.it.paw.web.RestaurantWicketSession;
+import ar.edu.itba.it.paw.web.application.RestaurantApplication;
 import ar.edu.itba.it.paw.web.auth.LoginRegisterPage;
 import ar.edu.itba.it.paw.web.restaurant.RestaurantListPage;
 
-
 @SuppressWarnings("serial")
 public class BasePage extends WebPage {
-	
+
 	@SpringBean
 	private RestaurantRepo restRepo;
-	
+
+	@SpringBean
+	private UserRepo userRepo;
+
 	private transient String query;
 
 	public BasePage(boolean secured) {
@@ -35,7 +43,19 @@ public class BasePage extends WebPage {
 		// Header
 
 		RestaurantWicketSession session = getRestaurantWicketSession();
-		
+
+		if (!session.isSignedIn()) {
+			CookieManager cookieManager = new CookieManager();
+			Cookie sessionCookie = cookieManager.retrieveCookie(getRequest(),
+					RestaurantApplication.SESSION_COOKIE);
+			if (sessionCookie != null && sessionCookie.getValue() != null) {
+				User user = userRepo.get(sessionCookie.getValue());
+				if (session.signIn(user.getUsername(), user.getPassword(),
+						userRepo)) {
+				}
+			}
+		}
+
 		if (secured) {
 			if (!session.isSignedIn()) {
 				redirectToInterceptPage(new LoginRegisterPage());
@@ -57,7 +77,8 @@ public class BasePage extends WebPage {
 			}
 		};
 
-		form.add(new TypeAhead<String>("query", new PropertyModel<String>(this, "query")) {
+		form.add(new TypeAhead<String>("query", new PropertyModel<String>(this,
+				"query")) {
 
 			@Override
 			protected Iterator<String> getChoices() {
@@ -76,7 +97,7 @@ public class BasePage extends WebPage {
 				}
 				return stringSet.iterator();
 			}
-			
+
 			@Override
 			protected void onSelect(AjaxRequestTarget target) {
 				setResponsePage(new RestaurantListPage(getInput()));
@@ -96,7 +117,6 @@ public class BasePage extends WebPage {
 			}
 		});
 	}
-
 	protected RestaurantWicketSession getRestaurantWicketSession() {
 		return (RestaurantWicketSession) getSession();
 	}
