@@ -18,6 +18,7 @@ import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
 import ar.edu.itba.it.paw.domain.user.User;
 import ar.edu.itba.it.paw.web.RestaurantWicketSession;
 import ar.edu.itba.it.paw.web.provider.ImageProvider;
+import ar.edu.itba.it.paw.web.restaurant.RestaurantViewPage;
 
 public class CommentPanel extends Panel {
 
@@ -40,6 +41,7 @@ public class CommentPanel extends Panel {
 		};
 		populatePage(listModel, null, showOverHead);
 	}
+
 	public CommentPanel(String id, final IModel<Restaurant> restaurantModel) {
 		super(id);
 		setDefaultModel(restaurantModel);
@@ -65,11 +67,13 @@ public class CommentPanel extends Panel {
 			@Override
 			protected void populateItem(final ListItem<Rating> item) {
 				item.setDefaultModel(new CompoundPropertyModel<Rating>(
-						new EntityModel<Rating>(Rating.class, item.getModelObject())));
+						new EntityModel<Rating>(Rating.class, item
+								.getModelObject())));
 				item.add(new Label("score"));
 				item.add(new Label("comment"));
-				final IModel<User> userModel = new EntityModel<User>(
-						User.class, item.getModelObject().getUser());
+
+				final IModel<Restaurant> rModel = new EntityModel<Restaurant>(
+						Restaurant.class, item.getModelObject().getRestaurant());
 				item.add(new Link<User>("link2") {
 
 					private static final long serialVersionUID = 4983575985141500243L;
@@ -82,8 +86,22 @@ public class CommentPanel extends Panel {
 					}
 				}.add(new Label("user.username")));
 				item.add(new Label("date"));
-				item.add(new Label("restaurantName", item.getModelObject()
-						.getRestaurant().getName()));
+
+				item.add(new Link<User>("rlink") {
+
+					private static final long serialVersionUID = 4983575985141500243L;
+
+					@Override
+					public void onClick() {
+						Restaurant r = item.getModelObject().getRestaurant();
+						setResponsePage(new RestaurantViewPage(
+								new EntityModel<Restaurant>(Restaurant.class, r)));
+					}
+				}.add(new Label("restaurant.name", item.getModelObject()
+						.getRestaurant().getName())));
+
+//				item.add(new Label("restaurantName", item.getModelObject()
+//						.getRestaurant().getName()));
 				item.add(ImageProvider.getImage("img", item.getModelObject()
 						.getUser()));
 				item.add(new CommentOverHeadPanel("overhead",

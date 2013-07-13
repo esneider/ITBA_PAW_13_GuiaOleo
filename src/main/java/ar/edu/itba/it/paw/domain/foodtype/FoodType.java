@@ -32,10 +32,6 @@ public class FoodType extends PersistentEntity implements Comparable<FoodType> {
 			throw new IllegalArgumentException("Empty name");
 		}
 
-		if (Utils.foodTypeExists(name)) {
-			throw new IllegalArgumentException("Duplicated name");
-		}
-
 		this.name = name;
 	}
 

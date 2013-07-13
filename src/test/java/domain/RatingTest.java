@@ -57,8 +57,6 @@ public class RatingTest {
 
 		Utils utils = new Utils();
 
-		utils.setUserRepo(new MockUserRepo());
-		utils.setFoodTypeRepo(new MockFoodTypeRepo());
 
 		Picture picture = new Picture(new byte[1], "");
 

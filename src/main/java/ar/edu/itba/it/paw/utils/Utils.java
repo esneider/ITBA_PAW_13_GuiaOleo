@@ -11,66 +11,39 @@ import ar.edu.itba.it.paw.domain.user.UserRepo;
 
 public class Utils {
 
-    private static UserRepo userRepo;
-    private static FoodTypeRepo foodTypeRepo;
+	public Utils() {
+	}
 
-    public Utils() {}
+	public static boolean isEmail(String str) {
 
-    @Autowired
-    public void setUserRepo(UserRepo userRepo) {
-        Utils.userRepo = userRepo;
-    }
+		return str != null
+				&& str.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$");
+	}
 
-    @Autowired
-    public void setFoodTypeRepo(FoodTypeRepo foodTypeRepo) {
-        Utils.foodTypeRepo = foodTypeRepo;
-    }
+	public static float round(float num) {
 
-    public static boolean isEmail(String str) {
+		return ((float) Math.round(num * 100)) / 100;
+	}
 
-        return str != null
-                && str.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$");
-    }
+	public static String normalizeString(String s) {
 
-    public static float round(float num) {
+		if (s == null) {
 
-        return ((float) Math.round(num * 100)) / 100;
-    }
+			return "";
+		}
 
-    public static String normalizeString(String s) {
+		return s.trim();
+	}
 
-        if (s == null) {
+	public static String function(Double doubleValue) {
 
-            return "";
-        }
+		boolean isWholeNumber = (doubleValue == Math.round(doubleValue));
+		DecimalFormatSymbols formatSymbols = new DecimalFormatSymbols(
+				Locale.ENGLISH);
+		formatSymbols.setDecimalSeparator('.');
 
-        return s.trim();
-    }
-
-    public static boolean usernameExists(String username) {
-
-        return userRepo.usernameExists(username);
-    }
-
-    public static boolean emailExists(String email) {
-
-        return userRepo.emailExists(email);
-    }
-
-    public static boolean foodTypeExists(String name) {
-
-        return foodTypeRepo.foodTypeExists(name);
-    }
-
-    public static String function(Double doubleValue) {
-
-        boolean isWholeNumber = (doubleValue == Math.round(doubleValue));
-        DecimalFormatSymbols formatSymbols = new DecimalFormatSymbols(Locale.ENGLISH);
-        formatSymbols.setDecimalSeparator('.');
-
-        String pattern = isWholeNumber ? "#.##" : "#.00";
-        DecimalFormat df = new DecimalFormat(pattern, formatSymbols);
-        return (df.format(doubleValue));
-    }
+		String pattern = isWholeNumber ? "#.##" : "#.00";
+		DecimalFormat df = new DecimalFormat(pattern, formatSymbols);
+		return (df.format(doubleValue));
+	}
 }
-

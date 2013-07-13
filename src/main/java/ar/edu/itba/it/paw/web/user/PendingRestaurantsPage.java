@@ -11,8 +11,10 @@ import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
+import ar.edu.itba.it.paw.domain.EntityModel;
 import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
 import ar.edu.itba.it.paw.domain.restaurant.RestaurantRepo;
+import ar.edu.itba.it.paw.domain.user.User;
 import ar.edu.itba.it.paw.web.base.NoSideBarPage;
 import ar.edu.itba.it.paw.web.restaurant.RestaurantListPage;
 import ar.edu.itba.it.paw.web.restaurant.RestaurantViewPage;
@@ -25,7 +27,7 @@ public class PendingRestaurantsPage extends NoSideBarPage {
 	private static final long serialVersionUID = -651147582500585478L;
 	@SpringBean
 	private RestaurantRepo restRepo;
-	
+
 	public PendingRestaurantsPage() {
 		super(true);
 		if (!getRestaurantWicketSession().getUser().isAdmin())
@@ -70,6 +72,19 @@ public class PendingRestaurantsPage extends NoSideBarPage {
 							+ " - "
 							+ item.getModelObject().getRegisterUser()
 									.getUsername())));
+					final IModel<User> m = new EntityModel<User>(User.class,
+							item.getModelObject().getRegisterUser());
+					item.add(new Link<User>("ulink", m) {
+						/**
+						 * 
+						 */
+						private static final long serialVersionUID = 1L;
+
+						@Override
+						public void onClick() {
+							setResponsePage(new UserProfilePage(m));
+						}
+					}.setDefaultModel(m));
 				} else {
 					item.add(new Label("registerUser", " - ")); // TODO REFACTOR
 				}

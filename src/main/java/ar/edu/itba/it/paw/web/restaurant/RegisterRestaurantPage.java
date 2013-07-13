@@ -29,7 +29,7 @@ public class RegisterRestaurantPage extends NoSideBarPage {
 
 	@SpringBean
 	private RestaurantRepo restRepo;
-	
+
 	@SpringBean
 	private FoodTypeRepo ftRepo;
 
@@ -66,16 +66,17 @@ public class RegisterRestaurantPage extends NoSideBarPage {
 				if (!hasError()) {
 					Restaurant rest = new Restaurant(name, address, area,
 							telephone, website, timerange, avgprice,
-							RestaurantState.Pending, new HashSet<FoodType>(foodtypes),
-							RestaurantWicketSession.get().getUser(), new Date());
-					
+							RestaurantState.Pending, new HashSet<FoodType>(
+									foodtypes), RestaurantWicketSession.get()
+									.getUser(), new Date());
+
 					restRepo.save(rest);
 					setResponsePage(getApplication().getHomePage());
 				}
-				
+
 			}
 		};
-		
+
 		form.add(new TextField<String>("name").setRequired(true));
 		form.add(new TextField<String>("address").setRequired(true));
 		form.add(new TextField<String>("area").setRequired(true));
@@ -83,7 +84,7 @@ public class RegisterRestaurantPage extends NoSideBarPage {
 		form.add(new TextField<String>("website").setRequired(true));
 		form.add(new TextField<String>("timerange").setRequired(true));
 		form.add(new TextField<String>("avgprice").setRequired(true));
-		
+
 		IModel<List<FoodType>> foodTypesModel = new LoadableDetachableModel<List<FoodType>>() {
 
 			private static final long serialVersionUID = 1824811483108400829L;
@@ -93,11 +94,12 @@ public class RegisterRestaurantPage extends NoSideBarPage {
 				return ftRepo.getAll();
 			}
 		};
-		
+
 		form.add(new ListMultipleChoice<FoodType>("foodtypes", foodTypesModel)
-				.setChoiceRenderer(new ChoiceRenderer<FoodType>("name", "id")));
-		
+				.setChoiceRenderer(new ChoiceRenderer<FoodType>("name", "id"))
+				.setRequired(true));
+
 		add(form);
 	}
-	
+
 }
