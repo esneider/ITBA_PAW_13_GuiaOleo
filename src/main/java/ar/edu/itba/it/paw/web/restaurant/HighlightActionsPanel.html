@@ -1,12 +1,12 @@
 <wicket:panel>
 	
 	<div class="control-group controls">
-				                    <form wicket:id="highlightForm" action="#" method="POST">
-				                        <input type="submit" wicket:id="highlight" class="btn btn-info" value="Highlight Restaurant" >
-				                    </form>
-				                     <form wicket:id="unhighlightForm" action="#" method="POST">
-				                        <input type="submit" wicket:id="unhighlight" class="btn btn-info" value="unHighlight Restaurant" >
-				                    </form>
+        <form wicket:id="highlightForm" action="#" method="POST">
+            <input type="submit" wicket:id="highlight" class="btn btn-info" wicket:message="value:highlightButton" >
+        </form>
+         <form wicket:id="unhighlightForm" action="#" method="POST">
+            <input type="submit" wicket:id="unhighlight" class="btn btn-info" wicket:message="value:unhighlightButton" >
+        </form>
   
 	</div>
 </wicket:panel>

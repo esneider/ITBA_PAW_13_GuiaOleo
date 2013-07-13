@@ -1,7 +1,7 @@
 <wicket:panel>
-	<small><em><a wicket:id="like" href="#">Useful (<span wicket:id="ammount"></span>)<img src="assets/img/up.png"/></a></em> </small>
-	<small><em><a wicket:id="unlike" href="#">Not Useful(<span wicket:id="ammount"></span>)<img src="assets/img/down.png"/></a></em></small>
+    <small><em><a wicket:id="like" href="#"><wicket:message key="useful"/><img src="assets/img/up.png"/></a></em> </small>
+    <small><em><a wicket:id="unlike" href="#"><wicket:message key="notUseful"/><img src="assets/img/down.png"/></a></em></small>
 	<form action="#" wicket:id="deleteForm" method="post">
-        <input type="submit" class="btn-mini btn-danger " value="Delete"/>
+        <input type="submit" class="btn-mini btn-danger " wicket:message="value:button"/>
     </form>
 </wicket:panel>

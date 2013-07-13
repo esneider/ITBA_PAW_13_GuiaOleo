@@ -43,10 +43,8 @@ public class RestaurantApplication extends WebApplication {
 	@Override
 	protected void init() {
 		super.init();
-		getComponentInstantiationListeners().add(
-				new SpringComponentInjector(this));
-		getRequestCycleListeners().add(
-				new HibernateRequestCycleListener(sessionFactory));
+		getComponentInstantiationListeners().add(new SpringComponentInjector(this));
+		getRequestCycleListeners().add(new HibernateRequestCycleListener(sessionFactory));
 	}
 
 	@Override

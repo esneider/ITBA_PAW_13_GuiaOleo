@@ -6,27 +6,28 @@
 			    <h2 class="title" wicket:id="username"></h2>
 			    <div class="profileHeader">
 			        <img class="profilePic" wicket:id="profilePic" style ="width : 100px; height: 100px"/>
-			        <div class="profileFields">
-			            <dt class="inline">Name</dt>
+			        <dl class="profileFields dl-horizontal">
+			        
+			            <dt class="inline"><wicket:message key="name"/></dt>
 			                <dd class="inline" wicket:id="name"></dd><br>
-			            <dt class="inline">Registration Date</dt>
-			                <dd class="inline" wicket:id="registerDate"></dd><br>
-			            <dt class="inline">Surname</dt>
+			            <dt class="inline"><wicket:message key="surname"/></dt>
 			                <dd class="inline" wicket:id="surname"></dd><br>
-			            <dt class="inline">Mail</dt>
+			            <dt class="inline"><wicket:message key="mail"/></dt>
 			                <dd class="inline" wicket:id="email"></dd>
-			        </div>
+                        <dt class="inline"><wicket:message key="date"/></dt>
+                            <dd class="inline" wicket:id="registerDate"></dd><br>
+			        </dl>
 			    </div>
 			
 				<div>
 			        <dl class="dl-horizontal">
 			            <div wicket:id="adminPanel"/>
-			            <p class="lead">List of user comments</p>
+			            <p class="lead"><wicket:message key="comments"/></p>
 			            <div wicket:id="commentPanel"/>
 			            
 			            
 			            <br><br>
-			            <p class="lead">List of restaurants registered by this user</p>
+			            <p class="lead"><wicket:message key="restaurants"/></p>
 			            <div wicket:id="registeredRestaurants"/>
 			        </dl>
 			    </div>

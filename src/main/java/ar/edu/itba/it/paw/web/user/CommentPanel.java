@@ -11,7 +11,6 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
-import org.apache.wicket.model.PropertyModel;
 
 import ar.edu.itba.it.paw.domain.EntityModel;
 import ar.edu.itba.it.paw.domain.restaurant.Rating;
@@ -22,11 +21,16 @@ import ar.edu.itba.it.paw.web.provider.ImageProvider;
 
 public class CommentPanel extends Panel {
 
+	private static final long serialVersionUID = -5151933145269591740L;
+
 	public CommentPanel(String id, final IModel<User> userModel,
 			boolean showOverHead) {
 		super(id);
 
 		IModel<List<Rating>> listModel = new LoadableDetachableModel<List<Rating>>() {
+
+			private static final long serialVersionUID = 2751168865421199459L;
+
 			@Override
 			protected List<Rating> load() {
 				return new ArrayList<Rating>(userModel.getObject()
@@ -40,6 +44,9 @@ public class CommentPanel extends Panel {
 		super(id);
 		setDefaultModel(restaurantModel);
 		IModel<List<Rating>> listModel = new LoadableDetachableModel<List<Rating>>() {
+
+			private static final long serialVersionUID = -1233934859283357630L;
+
 			@Override
 			protected List<Rating> load() {
 				return restaurantModel.getObject().getRatings();
@@ -53,15 +60,20 @@ public class CommentPanel extends Panel {
 			final IModel<Restaurant> restaurantModel, final boolean showOverHead) {
 		add(new PropertyListView<Rating>("comments", listModel) {
 
+			private static final long serialVersionUID = 4388837109742369283L;
+
 			@Override
 			protected void populateItem(final ListItem<Rating> item) {
 				item.setDefaultModel(new CompoundPropertyModel<Rating>(
-						new EntityModel(Rating.class, item.getModelObject())));
+						new EntityModel<Rating>(Rating.class, item.getModelObject())));
 				item.add(new Label("score"));
 				item.add(new Label("comment"));
 				final IModel<User> userModel = new EntityModel<User>(
 						User.class, item.getModelObject().getUser());
 				item.add(new Link<User>("link2") {
+
+					private static final long serialVersionUID = 4983575985141500243L;
+
 					@Override
 					public void onClick() {
 						User u = item.getModelObject().getUser();

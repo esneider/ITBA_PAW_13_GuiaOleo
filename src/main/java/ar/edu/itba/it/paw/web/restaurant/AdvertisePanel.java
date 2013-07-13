@@ -2,9 +2,6 @@ package ar.edu.itba.it.paw.web.restaurant;
 
 import java.util.List;
 
-import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.list.ListItem;
-import org.apache.wicket.markup.html.list.PropertyListView;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
@@ -16,18 +13,17 @@ import ar.edu.itba.it.paw.web.RestaurantWicketSession;
 
 public class AdvertisePanel extends Panel {
 
-	/**
-	 * 
-	 */
 	@SpringBean
 	private RestaurantRepo restRepo;
 
 	private static final long serialVersionUID = 2655489110845048370L;
 
-	@SuppressWarnings("serial")
 	public AdvertisePanel(String id) {
 		super(id);
 		IModel<List<Restaurant>> advRestModel = new LoadableDetachableModel<List<Restaurant>>() {
+
+			private static final long serialVersionUID = -7145013158283395788L;
+
 			@Override
 			protected List<Restaurant> load() {
 				if (RestaurantWicketSession.get().isSignedIn()) {

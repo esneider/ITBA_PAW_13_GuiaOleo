@@ -4,24 +4,18 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.link.Link;
-import org.apache.wicket.markup.html.list.ListItem;
-import org.apache.wicket.markup.html.list.PropertyListView;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.RefreshingView;
-import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.IModel;
-import org.apache.wicket.model.Model;
-
 import ar.edu.itba.it.paw.domain.EntityModel;
-import ar.edu.itba.it.paw.domain.foodtype.FoodType;
 import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
 import ar.edu.itba.it.paw.web.common.HighlightedRestaurantLink;
 
 public class SimpleRestaurantListPanel extends Panel {
+
+	private static final long serialVersionUID = -3687249904130826179L;
 
 	public SimpleRestaurantListPanel(String id,
 
@@ -45,6 +39,8 @@ public class SimpleRestaurantListPanel extends Panel {
 			protected void populateItem(final Item<Restaurant> item) {
 				item.add(new HighlightedRestaurantLink<Restaurant>("link", item
 						.getModel()) {
+
+					private static final long serialVersionUID = 3059997643546595055L;
 
 					@Override
 					public void onClick() {

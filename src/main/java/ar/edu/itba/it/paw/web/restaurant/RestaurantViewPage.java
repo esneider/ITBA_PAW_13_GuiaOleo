@@ -1,23 +1,22 @@
 package ar.edu.itba.it.paw.web.restaurant;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.apache.wicket.behavior.AttributeAppender;
-import org.apache.wicket.markup.html.IHeaderResponse;
+import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.image.Image;
-import org.apache.wicket.markup.html.link.Link;
-import org.apache.wicket.markup.html.list.ListItem;
-import org.apache.wicket.markup.html.list.PropertyListView;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
-import org.apache.wicket.request.resource.PackageResourceReference;
+import org.apache.wicket.model.StringResourceModel;
+import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
-import ar.edu.itba.it.paw.domain.EntityModel;
 import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
 import ar.edu.itba.it.paw.domain.restaurant.RestaurantRepo;
 import ar.edu.itba.it.paw.domain.restaurant.RestaurantState;
@@ -25,7 +24,6 @@ import ar.edu.itba.it.paw.domain.user.User;
 import ar.edu.itba.it.paw.utils.Utils;
 import ar.edu.itba.it.paw.web.application.RestaurantApplication;
 import ar.edu.itba.it.paw.web.base.SideBarPage;
-import ar.edu.itba.it.paw.web.common.HighlightedRestaurantLink;
 import ar.edu.itba.it.paw.web.user.CommentPanel;
 
 public class RestaurantViewPage extends SideBarPage {
@@ -59,8 +57,8 @@ public class RestaurantViewPage extends SideBarPage {
 		add(new Label("website"));
 		add(new Label("avgScore"));
 
-		add(new Label("ratingsAmmount", String.valueOf(restaurantModel
-				.getObject().getRatingsAmmount())));
+		add(new Label("scoredBy", new StringResourceModel("scoredBy", new Model<Serializable>(restaurantModel.getObject().getRatingsAmmount()))));
+
 		add(new FoodTypesPanel("foodtypesPanel", restaurantModel));
 
 		add(new CommentPanel("commentPanel", restaurantModel));
@@ -109,7 +107,7 @@ public class RestaurantViewPage extends SideBarPage {
 		/*
 		 * Access Restaurant ViewPage Count
 		 */
-		add(new Label("accessCount"));
+		add(new Label("visited", new StringResourceModel("visited", new Model<Serializable>(restaurantModel.getObject().getAccessCount()))));
 
 		/*
 		 * Pending requests
@@ -132,9 +130,9 @@ public class RestaurantViewPage extends SideBarPage {
 	@Override
 	public void renderHead(IHeaderResponse response) {
 		super.renderHead(response);
-		response.renderJavaScriptReference("https://maps.google.com/maps/api/js?sensor=false");
-		response.renderJavaScriptReference(new PackageResourceReference(
-				RestaurantApplication.class, "maps.js"));
+
+		response.render(JavaScriptHeaderItem.forUrl("https://maps.google.com/maps/api/js?sensor=false"));
+		response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(RestaurantApplication.class, "maps.js")));
 	}
 		
 	@Override

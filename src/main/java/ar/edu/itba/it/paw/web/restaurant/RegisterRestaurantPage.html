@@ -1,7 +1,7 @@
 <html>
 	<body>
 		<wicket:extend>
-			<h2 class="restaurantTitle">Register Restaurant</h2>
+			<h2 class="restaurantTitle"><wicket:message key="title"/></h2>
 
 			<div wicket:id="restaurantFeedback" class="text-error"/>
 
@@ -9,7 +9,7 @@
 				
 				
 				<div class="control-group">
-				    <label class="control-label">Name:</label>
+				    <label class="control-label"><wicket:message key="name"/></label>
 				    <div class="controls">
 				        <p>
 				          <input type="text" wicket:id="name"/>
@@ -18,7 +18,7 @@
 				</div>
 				
 				<div class="control-group">
-				    <label class="control-label">Address:</label>
+				    <label class="control-label"><wicket:message key="address"/></label>
 				    <div class="controls">
 				        <p>
 				          <input type="text" wicket:id="address"/>
@@ -27,7 +27,7 @@
 				</div>
 				
 				<div class="control-group">
-				    <label class="control-label">Area:</label>
+				    <label class="control-label"><wicket:message key="area"/></label>
 				    <div class="controls">
 				        <p>
 				          <input type="text" wicket:id="area"/>
@@ -36,7 +36,7 @@
 				</div>
 				
 				<div class="control-group">
-				    <label class="control-label">Average Price:</label>
+				    <label class="control-label"><wicket:message key="avgprice"/></label>
 				    <div class="controls">
 				        <p>
 				          <input type="text" wicket:id="avgprice"/>
@@ -45,7 +45,7 @@
 				</div>
 				
 				<div class="control-group">
-				    <label class="control-label">Telephone:</label>
+				    <label class="control-label"><wicket:message key="telephone"/></label>
 				    <div class="controls">
 				        <p>
 				          <input type="text" wicket:id="telephone"/>
@@ -54,7 +54,7 @@
 				</div>
 				
 				<div class="control-group">
-				    <label class="control-label">Time Range:</label>
+				    <label class="control-label"><wicket:message key="timerange"/></label>
 				    <div class="controls">
 				        <p>
 				          <input type="text" wicket:id="timerange"/>
@@ -63,7 +63,7 @@
 				</div>
 				
 				<div class="control-group">
-				    <label class="control-label">Website:</label>
+				    <label class="control-label"><wicket:message key="website"/></label>
 				    <div class="controls">
 				        <p>
 				          <input type="text" wicket:id="website"/>
@@ -72,15 +72,17 @@
 				</div>
 				
 				<div class="control-group">
-				    <label class="control-label">Food Types:</label>
+				    <label class="control-label"><wicket:message key="foodTypes"/></label>
 				    <div class="controls" id="chk_container">
 				    	<select wicket:id="foodtypes" ></select>
 				    </div>
-				    Ctrl + Click to select multiple Food Types
 				</div>
+			    <div class="control-group controls">
+			        <i><wicket:message key="foodTypesMsg"/></i>
+			    </div>
 				
 				<div class="control-group controls">
-        			<input class="btn btn-info" type="submit" value="Register Restaurant">
+        			<input class="btn btn-info" type="submit" wicket:message="value:button">
     			</div>
 			</form>
 		</wicket:extend>

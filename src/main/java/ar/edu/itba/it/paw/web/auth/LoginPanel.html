@@ -3,7 +3,7 @@
 	    <div class="login span6 absolute">
 	        <div class="offset2 span4 section-header">
 	            <h2><wicket:message key="loginTitle"/></h2>
-            <div wicket:id="loginFeedback" class="text-error"/>
+                <div wicket:id="loginFeedback" class="text-error"/>
 	        </div>
 	
 	        <form wicket:id="loginForm" class="form-horizontal" action="login" method="POST">
@@ -27,7 +27,7 @@
 	            </div>
 	
 	            <div class="control-group controls">
-	                <input class="btn btn-info" type="submit" value="Login" wicket:id="login">
+	                <input class="btn btn-info" type="submit" wicket:message="value:button" wicket:id="login">
 	            </div>
 	
 	        </form>

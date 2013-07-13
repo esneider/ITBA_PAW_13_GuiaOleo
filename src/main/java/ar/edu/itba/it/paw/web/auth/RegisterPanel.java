@@ -9,11 +9,9 @@ import org.apache.wicket.feedback.ContainerFeedbackMessageFilter;
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
-import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.markup.html.form.RequiredTextField;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.form.upload.FileUpload;
-import org.apache.wicket.markup.html.form.upload.FileUploadField;
 import org.apache.wicket.markup.html.image.NonCachingImage;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.markup.html.panel.Panel;
@@ -21,7 +19,6 @@ import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.model.ResourceModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.apache.wicket.util.lang.Bytes;
 import org.apache.wicket.util.value.ValueMap;
 import org.apache.wicket.validation.IValidatable;
 import org.apache.wicket.validation.IValidator;
@@ -33,6 +30,7 @@ import ar.edu.itba.it.paw.domain.user.UserRepo;
 import ar.edu.itba.it.paw.domain.user.UserType;
 import ar.edu.itba.it.paw.utils.Utils;
 import ar.edu.itba.it.paw.web.RestaurantWicketSession;
+import ar.edu.itba.it.paw.web.user.UserDataFormPanel;
 
 public class RegisterPanel extends Panel {
 
@@ -108,7 +106,11 @@ public class RegisterPanel extends Panel {
 					error(getString("invalidformatAvatar"));
 				}
 
-				if (!hasError()) {
+				if (hasError()) {
+					
+					updateFormComponentModels();
+					
+				} else {
 
 					Picture avatarPic = new Picture(avatar.get(0).getBytes(),
 							avatar.get(0).getContentType());
@@ -120,10 +122,7 @@ public class RegisterPanel extends Panel {
 							.get();
 
 					if (session.signIn(username, password, userRepo)) {
-						if (!continueToOriginalDestination()) {
-							setResponsePage(getApplication().getHomePage());
-						}
-						return;
+						continueToOriginalDestination();
 					}
 					setResponsePage(getApplication().getHomePage());
 				}
@@ -132,14 +131,7 @@ public class RegisterPanel extends Panel {
 
 		addCaptcha(form);
 		form.add(new TextField<String>("username"));
-		form.add(new PasswordTextField("password"));
-		form.add(new PasswordTextField("repassword"));
-		form.add(new TextField<String>("name"));
-		form.add(new TextField<String>("surname"));
-		form.add(new TextField<String>("email"));
-		form.setMultiPart(true);
-		form.setMaxSize(Bytes.megabytes(10));
-		form.add(new FileUploadField("avatar"));
+		form.add(new UserDataFormPanel("userDataForm"));
 		form.add(new Button("register", new ResourceModel("register")));
 		add(form);
 	}
@@ -153,10 +145,8 @@ public class RegisterPanel extends Panel {
 		form.add(new NonCachingImage("captchaImage", captchaImageResource));
 		RequiredTextField<String> captcha = new RequiredTextField<String>(
 				"captcha", new PropertyModel<String>(properties, "captcha")) {
-			/**
-					 * 
-					 */
-			private static final long serialVersionUID = 1L;
+
+			private static final long serialVersionUID = 4169879394321180095L;
 
 			@Override
 			protected final void onComponentTag(final ComponentTag tag) {
@@ -167,10 +157,8 @@ public class RegisterPanel extends Panel {
 		};
 		form.add(captcha);
 		IValidator<String> captchaValidator = new IValidator<String>() {
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
+
+			private static final long serialVersionUID = 7259435240452624441L;
 
 			@Override
 			public void validate(IValidatable<String> validatable) {
@@ -179,8 +167,7 @@ public class RegisterPanel extends Panel {
 				final String field = validatable.getValue();
 				if (!field.equals(imagePass)) {
 					// System.out.println("captcha:"+imagePass+" user:"+field);
-					validatable.error(new ValidationError()
-							.addMessageKey("invalidCaptcha"));
+					validatable.error(new ValidationError().addMessageKey("invalidCaptcha"));
 				}
 			}
 		};

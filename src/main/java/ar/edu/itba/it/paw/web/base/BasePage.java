@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.wicket.extensions.ajax.markup.html.autocomplete.AutoCompleteTextField;
+import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
@@ -56,14 +56,14 @@ public class BasePage extends WebPage {
 				setResponsePage(new RestaurantListPage(query));
 			}
 		};
-		form.add(new AutoCompleteTextField<String>("query", new PropertyModel<String>(this,
-				"query")){
+
+		form.add(new TypeAhead<String>("query", new PropertyModel<String>(this, "query")) {
 
 			@Override
-			protected Iterator<String> getChoices(String value) {
+			protected Iterator<String> getChoices() {
 				Set<String> stringSet = new HashSet<String>();
 				List<Restaurant> restList = restRepo.getAll();
-				String s = value.toLowerCase();
+				String s = getInput().toLowerCase();
 				for (Restaurant r : restList) {
 					if (r.getName().toLowerCase().contains(s))
 						stringSet.add(r.getName());
@@ -77,7 +77,12 @@ public class BasePage extends WebPage {
 				return stringSet.iterator();
 			}
 			
+			@Override
+			protected void onSelect(AjaxRequestTarget target) {
+				setResponsePage(new RestaurantListPage(getInput()));
+			}
 		});
+
 		form.add(new Button("search", new ResourceModel("search")));
 		add(form);
 

@@ -7,6 +7,8 @@ import ar.edu.itba.it.paw.domain.picture.Picture;
 
 public class PictureImageResource extends DynamicImageResource {
 
+	private static final long serialVersionUID = 5725004041044856828L;
+	
 	private IModel<Picture> pictureModel;
 	
 	public PictureImageResource(final IModel<Picture> pictureModel){

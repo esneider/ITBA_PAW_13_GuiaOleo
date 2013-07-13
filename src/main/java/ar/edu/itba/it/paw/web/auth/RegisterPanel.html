@@ -17,70 +17,18 @@
                     </div>
                 </div>
     
-                <div class="control-group">
-                    <label class="control-label"><wicket:message key="password"/></label>
-                    <div class="controls">
-                        <p>
-                            <input type="password" wicket:id="password"/>
-                        </p>
-                    </div>
-                </div>
-                
-                
-    
-                <div class="control-group">
-                    <label class="control-label"><wicket:message key="repassword"/></label>
-                    <div class="controls">
-                        <p>
-                            <input type="password" wicket:id="repassword"/>
-                        </p>
-                    </div>
-                </div>
-    
-                <div class="control-group">
-                    <label class="control-label"><wicket:message key="name"/></label>
-                    <div class="controls">
-                        <p>
-                            <input type="text" wicket:id="name"/>
-                        </p>
-                    </div>
-                </div>
-    
-                <div class="control-group">
-                    <label class="control-label"><wicket:message key="surname"/></label>
-                    <div class="controls">
-                        <p>
-                            <input type="text" wicket:id="surname"/>
-                        </p>
-                    </div>
-                </div>
-    
-                <div class="control-group">
-                    <label class="control-label"><wicket:message key="email"/></label>
-                    <div class="controls">
-                        <p>
-                            <input type="text" wicket:id="email"/>
-                        </p>
-                    </div>
-                </div>
-    
-                 <div class="control-group">
-                    <label class="control-label"><wicket:message key="avatar"/></label>
-                    <div class="controls">
-                        <p>
-                            <input type="file" wicket:id="avatar"/>
-                        </p>
-                    </div>
+                <div wicket:id="userDataForm" />                
+
+                <div class="control-group controls">
+                    <img wicket:id="captchaImage" class="control-label" />
                 </div>
 				
-				<img wicket:id="captchaImage" class="control-label" />
-				<div class="control-group">
-                		<input wicket:id="captcha" id="captcha" type="text" size="40"
-							placeholder="Type what you see in the image" />
-				</div>
+                <div class="control-group controls">
+                    <input wicket:id="captcha" id="captcha" type="text" size="40" wicket:message="placeholder:captcha" />
+                </div>
 				
 	            <div class="control-group controls">
-	                <input class="btn btn-info" type="submit" value="Register" wicket:id="register"/>
+	                <input class="btn btn-info" type="submit" wicket:message="value:button" wicket:id="register"/>
 	            </div>
 	
 	        </form>

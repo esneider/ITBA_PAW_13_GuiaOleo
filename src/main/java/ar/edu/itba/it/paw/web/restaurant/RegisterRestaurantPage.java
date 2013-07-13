@@ -1,6 +1,5 @@
 package ar.edu.itba.it.paw.web.restaurant;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -25,6 +24,8 @@ import ar.edu.itba.it.paw.web.RestaurantWicketSession;
 import ar.edu.itba.it.paw.web.base.NoSideBarPage;
 
 public class RegisterRestaurantPage extends NoSideBarPage {
+
+	private static final long serialVersionUID = 471629832655073132L;
 
 	@SpringBean
 	private RestaurantRepo restRepo;
@@ -84,6 +85,9 @@ public class RegisterRestaurantPage extends NoSideBarPage {
 		form.add(new TextField<String>("avgprice").setRequired(true));
 		
 		IModel<List<FoodType>> foodTypesModel = new LoadableDetachableModel<List<FoodType>>() {
+
+			private static final long serialVersionUID = 1824811483108400829L;
+
 			@Override
 			protected List<FoodType> load() {
 				return ftRepo.getAll();

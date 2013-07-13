@@ -11,10 +11,15 @@ import ar.edu.itba.it.paw.domain.user.UserType;
 
 public class AdminUserProfilePanel extends Panel {
 
+	private static final long serialVersionUID = -109562030108587343L;
+
 	public AdminUserProfilePanel(String id, final IModel<User> currentUserModel) {
 		super(id);
 		final boolean isAdmin = currentUserModel.getObject().isAdmin();
 		Form<Void> form = new Form<Void>("setAdminForm") {
+
+			private static final long serialVersionUID = -5878140646916448918L;
+
 			@Override
 			protected void onSubmit() {
 				if (isAdmin) {

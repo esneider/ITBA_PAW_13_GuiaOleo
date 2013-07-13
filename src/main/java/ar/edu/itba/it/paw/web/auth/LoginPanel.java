@@ -41,9 +41,8 @@ public class LoginPanel extends Panel {
 				RestaurantWicketSession session = RestaurantWicketSession.get();
 
 				if (session.signIn(username, password, userRepo)) {
-					if (!continueToOriginalDestination()) {
-						setResponsePage(getApplication().getHomePage());
-					}
+					continueToOriginalDestination();
+					setResponsePage(getApplication().getHomePage());
 				} else {
 					error(getString("invalidCredentials"));
 				}

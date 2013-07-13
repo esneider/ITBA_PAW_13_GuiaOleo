@@ -2,27 +2,27 @@
 	<body>
 		<wicket:extend>
 		<div wicket:id="advPanel"></div>
-		 <div class="restlist" wicket:id="restaurant" >
+		<div class="restlist" wicket:id="restaurant" >
           
             <dl class="dl-horizontal mainList">
-                <dt>Restaurant</dt>
+                <dt><wicket:message key="restaurantTag"/></dt>
                     <dd><a class="name" wicket:id="name"><wicket:container wicket:id="restName" /><img wicket:id="imgHighlighted"/></a></dd>
                     <div wicket:id="highlightpanel"> </div>
-                <dt>Address</dt>
+                <dt><wicket:message key="addressTag"/></dt>
                     <dd  class="address" wicket:id="address"></dd>
-                <dt>Area</dt>
+                <dt><wicket:message key="areaTag"/></dt>
                     <dd  class="area" wicket:id="area"></dd>
                <div class="mainListPanel" wicket:id="foodtypes"/>
 		         
-                <dt>Average Score</dt>
+                <dt><wicket:message key="averageScoreTag"/></dt>
                     <dd>
                         <span class="badge" wicket:id="avgScore"></span>
-                        (Scored by <span wicket:id="ratingsAmmount"> </span> people)
+                        <span wicket:id="scoredBy"></span>
                     </dd>
             </dl>
-                <hr/>
-    		
-			</div>
+
+            <hr/>
+		</div>
 		</wicket:extend>
 	</body>
 	

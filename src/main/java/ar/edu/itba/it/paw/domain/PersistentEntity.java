@@ -15,8 +15,6 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public class PersistentEntity {
 
-	private static final long serialVersionUID = -5584265661434823148L;
-
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
 	protected Integer id;
