@@ -33,6 +33,8 @@ public class User extends PersistentEntity {
 
     @OneToOne
     private Picture avatar;
+    
+    private String token;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Rating> comments;
@@ -71,6 +73,10 @@ public class User extends PersistentEntity {
 
     public String getEmail() {
         return email;
+    }
+    
+    public String getToken() {
+    	return token;
     }
 
     public String getUsername() {
@@ -142,6 +148,10 @@ public class User extends PersistentEntity {
         }
 
         this.name = name;
+    }
+    
+    public void setToken(String token) {
+    	this.token = token;
     }
 
     public void setSurname(String surname) {
