@@ -1,16 +1,9 @@
 package ar.edu.itba.it.paw.web.restaurant;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.list.ListItem;
-import org.apache.wicket.markup.html.list.PropertyListView;
 import org.apache.wicket.model.IModel;
-import org.apache.wicket.model.LoadableDetachableModel;
-import org.apache.wicket.model.Model;
-import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import ar.edu.itba.it.paw.domain.foodtype.FoodType;
@@ -18,7 +11,6 @@ import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
 import ar.edu.itba.it.paw.domain.restaurant.RestaurantRepo;
 import ar.edu.itba.it.paw.utils.Utils;
 import ar.edu.itba.it.paw.web.base.SideBarPage;
-import ar.edu.itba.it.paw.web.common.HighlightedRestaurantLink;
 
 @SuppressWarnings("serial")
 public class RestaurantListPage extends SideBarPage {
@@ -28,62 +20,23 @@ public class RestaurantListPage extends SideBarPage {
 
 	public RestaurantListPage() {
 		super(null, false);
-		IModel<List<Restaurant>> listModel = new LoadableDetachableModel<List<Restaurant>>() {
-			@Override
-			protected List<Restaurant> load() {
-				return restRepo.getBestRatedRestaurants(10);
-			}
-		};
-		populatePage(listModel);
+		populatePage(restRepo.getBestRatedRestaurants(10));
 	}
 
 	public RestaurantListPage(final IModel<FoodType> ft) {
 		super(ft, false);
-		IModel<List<Restaurant>> listModel = new LoadableDetachableModel<List<Restaurant>>() {
-			@Override
-			protected List<Restaurant> load() {
-				return new ArrayList<Restaurant>(ft.getObject()
-						.getRestaurants());
-			}
-
-		};
-		populatePage(listModel);
+		populatePage(new ArrayList<Restaurant>(ft.getObject()
+				.getRestaurants()));
 	}
 
 	public RestaurantListPage(final String query) {
 		super(null, false);
-		IModel<List<Restaurant>> listModel = new LoadableDetachableModel<List<Restaurant>>() {
-			@Override
-			protected List<Restaurant> load() {
-				return restRepo.getRestaurantsByQuery(Utils.normalizeString(query));
-			}
-
-		};
-		populatePage(listModel);
+		populatePage(restRepo.getRestaurantsByQuery(Utils.normalizeString(query)));
 	}
 
-	public void populatePage(IModel<List<Restaurant>> restaurantsModel) {
+	public void populatePage(List<Restaurant> restaurantsModel) {
 		add(new AdvertisePanel("advPanel"));
-		add(new PropertyListView<Restaurant>("restaurant", restaurantsModel) {
-			@Override
-			protected void populateItem(final ListItem<Restaurant> item) {
-				item.setDefaultModel(item.getModel());
-				item.add(new HighlightedRestaurantLink<Restaurant>("name", item.getModel()) {
-					@Override
-					public void onClick() {
-						setResponsePage(new RestaurantViewPage(item.getModel()));
-					}
-				}.add(new Label("restName", item.getModel())));
-
-				item.add(new FoodTypesPanel("foodtypes", item.getModel()));
-				item.add(new Label("address"));
-				item.add(new Label("area"));
-				item.add(new Label("avgScore"));
-				item.add(new Label("scoredBy", new StringResourceModel("scoredBy", new Model<Serializable>(item.getModelObject().getRatingsAmmount()))));
-				item.add(new HighlightActionsPanel("highlightpanel", item.getModel()));
-			}
-		});
-
+		add(new RefreshingRestaurantListView("restaurant", restaurantsModel));
 	}
 
 }
