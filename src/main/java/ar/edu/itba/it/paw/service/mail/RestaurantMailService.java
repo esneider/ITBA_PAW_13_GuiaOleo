@@ -29,8 +29,7 @@ public class RestaurantMailService implements MailService {
 
 	@Override
 	public void sendRecoveryMail(User user, HttpServletRequest request)
-			throws AddressException, MessagingException,
-			MailConfigurationException {
+			 {
 		String token = RandomStringUtils.randomAlphabetic(20);
 		user.setToken(token);
 
@@ -40,15 +39,37 @@ public class RestaurantMailService implements MailService {
 		String content = "Click <a href=\"" + url
 				+ "\">here</a> to reset your password.";
 
-		send(FROM, user.getEmail(), "Recover your password", content,
-				"text/html");
+		try {
+			send(FROM, user.getEmail(), "Recover your password", content,
+					"text/html");
+		} catch (AddressException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (MailConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
+
 	@Override
-	public void sendErrorMail(Exception e) throws AddressException,
-			MessagingException, MailConfigurationException {
-		send(FROM, ERROR_TO, "Exception at Oleo's", e.getStackTrace()
-				.toString(), "text/html");
+	public void sendErrorMail(Exception e) {
+		try {
+			send(FROM, ERROR_TO, "Exception at Oleo's", e.getStackTrace()
+					.toString(), "text/html");
+		} catch (AddressException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (MessagingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (MailConfigurationException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 
 	private void send(String from, String to, String subject, String content,
