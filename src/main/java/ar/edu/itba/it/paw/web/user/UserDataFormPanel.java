@@ -21,8 +21,7 @@ public class UserDataFormPanel extends Panel {
 
 		super(id);
 
-		add(new PasswordTextField("password").setRequired(false));
-		add(new PasswordTextField("repassword").setRequired(false));
+		add(new TwoPasswordPanel("passwordPanel"));
 		add(new TextField<String>("name"));
 		add(new TextField<String>("surname"));
 		add(new TextField<String>("email"));

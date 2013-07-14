@@ -70,5 +70,14 @@ public class HibernateUserRepo extends AbstractHibernateRepo implements UserRepo
         }
         return list.get(0);
 	}
+
+	@Override
+	public User getByToken(String token) {
+		List<User> list = find("from User where token = ?", token);
+        if (list.isEmpty()) {
+            return null;
+        }
+        return list.get(0);
+	}
 }
 

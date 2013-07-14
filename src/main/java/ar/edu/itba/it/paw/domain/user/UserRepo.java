@@ -39,5 +39,10 @@ public interface UserRepo {
      * Returns a list of all the Users
      */
     public List<User> getAll();
+    
+    /**
+     * Returns a user by its token
+     */
+    public User getByToken(String token);
 }
 

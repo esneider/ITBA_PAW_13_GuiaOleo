@@ -38,6 +38,10 @@ public class RatingTest {
 		public List<User> getAll() {return null;}
 		@Override
 		public User get(String username) {return null;}
+		@Override
+		public User getByToken(String token) {
+			return null;
+		}
 	}
 
 	class MockFoodTypeRepo implements FoodTypeRepo {

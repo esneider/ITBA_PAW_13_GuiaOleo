@@ -244,6 +244,10 @@ public class User extends PersistentEntity {
             r.unlike(this);
         }
     }
+    
+    public void clearToken() {
+    	this.token = "";
+    }
 
     @Override
     public int hashCode() {
