@@ -30,6 +30,10 @@ public class Restaurant extends PersistentEntity {
 
 	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
 	@Cascade(value = org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
+	Set<DailyReport> reports;
+	
+	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
+	@Cascade(value = org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
 	Set<Rating> ratingsList = new HashSet<Rating>();
 
 	@ManyToOne
@@ -292,5 +296,26 @@ public class Restaurant extends PersistentEntity {
 	public void setNewAccess() {
 		
 		this.accessCount = getAccessCount() + 1;
+	}
+	
+	public void click(DailyReportRepo reportRepo) {
+		DailyReport report = getReport(reportRepo);
+		report.click();
+	}
+	
+	public void show(DailyReportRepo reportRepo) {
+		DailyReport report = getReport(reportRepo);
+		report.show();
+	}
+	
+	private DailyReport getReport(DailyReportRepo reportRepo) {
+		DailyReport report = reportRepo.get(this, new Date());
+		
+		if (report == null) { 
+			report = new DailyReport(this);
+			reports.add(report);
+		}
+		
+		return report;
 	}
 }
