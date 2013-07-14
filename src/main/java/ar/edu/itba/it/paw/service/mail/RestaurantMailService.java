@@ -24,7 +24,7 @@ import ar.edu.itba.it.paw.service.exception.MailConfigurationException;
 @Component
 public class RestaurantMailService implements MailService {
 
-	private static String FROM = "admin@oleosguide.com";
+	private static String FROM = "noreply.oleosguide@gmail.com";
 	private static String ERROR_TO = "lmoscovicz@gmail.com";
 
 	@Override
