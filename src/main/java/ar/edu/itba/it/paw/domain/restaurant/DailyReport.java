@@ -19,6 +19,9 @@ public class DailyReport extends PersistentEntity {
 
 	private Date date;
 	
+	DailyReport() {	
+	}
+	
 	public DailyReport(Restaurant restaurant) {
 		this.restaurant = restaurant;
 		this.date = new Date();

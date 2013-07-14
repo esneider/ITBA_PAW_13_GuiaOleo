@@ -102,7 +102,7 @@ public class RestaurantViewPage extends SideBarPage {
 			}
 		};
 
-		add(new SimpleRestaurantListPanel("recommended", listModel));
+		add(new SimpleRestaurantListPanel("recommended", listModel, false));
 
 		/*
 		 * Access Restaurant ViewPage Count

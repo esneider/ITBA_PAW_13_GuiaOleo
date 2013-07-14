@@ -56,7 +56,7 @@ public class UserProfilePage extends NoSideBarPage {
 
 		};
 
-		add(new SimpleRestaurantListPanel("registeredRestaurants", listModel));
+		add(new SimpleRestaurantListPanel("registeredRestaurants", listModel, false));
 	}
 
 }
