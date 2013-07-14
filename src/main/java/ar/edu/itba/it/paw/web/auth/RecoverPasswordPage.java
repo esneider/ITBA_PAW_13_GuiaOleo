@@ -19,26 +19,29 @@ import ar.edu.itba.it.paw.service.exception.MailConfigurationException;
 import ar.edu.itba.it.paw.service.mail.MailService;
 import ar.edu.itba.it.paw.web.base.NoSideBarPage;
 
+@SuppressWarnings("serial")
 public class RecoverPasswordPage extends NoSideBarPage {
 
 	private transient String username;
-	
+
 	@SpringBean
 	private MailService mailer;
-	
+
 	@SpringBean
 	private UserRepo userRepo;
-	
+
+	@SuppressWarnings("rawtypes")
 	public RecoverPasswordPage() {
 		super(false);
-		
+
 		FeedbackPanel panel = new FeedbackPanel("recoverFeedback");
 		panel.setFilter(new ContainerFeedbackMessageFilter(this));
 
 		add(panel);
-		
-		Form<RecoverPasswordPage> form = new Form<RecoverPasswordPage>("recoverForm",
-				new CompoundPropertyModel<RecoverPasswordPage>(this)) {
+
+		Form<RecoverPasswordPage> form = new Form<RecoverPasswordPage>(
+				"recoverForm", new CompoundPropertyModel<RecoverPasswordPage>(
+						this)) {
 
 			private static final long serialVersionUID = -7094369998728459726L;
 
@@ -50,8 +53,12 @@ public class RecoverPasswordPage extends NoSideBarPage {
 						error(getString("nonExistingUser"));
 					} else {
 						try {
-							mailer.sendRecoveryMail(u, (HttpServletRequest) getRequest().getContainerRequest());
+							mailer.sendRecoveryMail(u,
+									(HttpServletRequest) getRequest()
+											.getContainerRequest());
+
 							setResponsePage(getApplication().getHomePage());
+
 						} catch (AddressException e) {
 							e.printStackTrace();
 						} catch (MessagingException e) {
@@ -63,10 +70,10 @@ public class RecoverPasswordPage extends NoSideBarPage {
 				}
 			}
 		};
-		
+
 		form.add(new TextField("username").setRequired(true));
 		form.add(new Button("recover", new ResourceModel("recover")));
-	
+
 		add(form);
 	}
 
