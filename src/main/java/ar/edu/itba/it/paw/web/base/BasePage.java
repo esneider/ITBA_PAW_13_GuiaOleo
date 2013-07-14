@@ -48,7 +48,7 @@ public class BasePage extends WebPage {
 			CookieManager cookieManager = new CookieManager();
 			Cookie sessionCookie = cookieManager.retrieveCookie(getRequest(),
 					RestaurantApplication.SESSION_COOKIE);
-			if (sessionCookie != null && sessionCookie.getValue() != null) {
+			if (sessionCookie != null && !sessionCookie.getValue().equals("no-user")) {
 				User user = userRepo.get(sessionCookie.getValue());
 				if (session.signIn(user.getUsername(), user.getPassword(),
 						userRepo)) {

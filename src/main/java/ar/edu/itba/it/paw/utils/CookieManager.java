@@ -16,7 +16,8 @@ public class CookieManager {
 	public void clearCookie(Request req, Response resp, String cookieName) {
 		Cookie c = retrieveCookie(req, cookieName);
 		if (c != null) {
-			c.setMaxAge(0);
+			c.setMaxAge(-1000);
+			c.setValue("no-user");
 			((WebResponse)resp).addCookie(c);
 		}
 	}
