@@ -51,6 +51,7 @@ public class RecoverPasswordPage extends NoSideBarPage {
 					} else {
 						try {
 							mailer.sendRecoveryMail(u, (HttpServletRequest) getRequest().getContainerRequest());
+							setResponsePage(getApplication().getHomePage());
 						} catch (AddressException e) {
 							e.printStackTrace();
 						} catch (MessagingException e) {

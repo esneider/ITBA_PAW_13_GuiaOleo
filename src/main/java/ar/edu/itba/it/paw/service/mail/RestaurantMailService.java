@@ -4,8 +4,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.AddressException;
@@ -35,8 +37,8 @@ public class RestaurantMailService implements MailService {
 		String url = "http://" + request.getServerName() + ":"
 				+ request.getServerPort() + request.getContextPath()
 				+ "/bin/resetPassword?token=" + user.getToken();
-		String content = "Click<a href=\"" + url
-				+ "\"> here </a>to reset your password.";
+		String content = "Click <a href=\"" + url
+				+ "\">here</a> to reset your password.";
 
 		send(FROM, user.getEmail(), "Recover your password", content,
 				"text/html");
@@ -52,7 +54,7 @@ public class RestaurantMailService implements MailService {
 	private void send(String from, String to, String subject, String content,
 			String contentType) throws AddressException, MessagingException,
 			MailConfigurationException {
-		Properties props = new Properties();
+		final Properties props = new Properties();
 		try {
 			InputStream propsIs = getClass().getClassLoader()
 					.getResourceAsStream("mail.properties");
@@ -61,11 +63,18 @@ public class RestaurantMailService implements MailService {
 			throw new MailConfigurationException();
 		}
 
-		Session session = Session.getInstance(props);
+		Session session = Session.getInstance(props, new Authenticator() {
+			@Override
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(props.getProperty("user"),
+						props.getProperty("pass"));
+			}
+		});
 
 		MimeMessage message = new MimeMessage(session);
 		message.setFrom(new InternetAddress(from));
-		message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+		InternetAddress toInetAddr = new InternetAddress(to);
+		message.addRecipient(Message.RecipientType.TO, toInetAddr);
 		message.setSubject(subject);
 		message.setContent(content, contentType);
 		Transport.send(message, message.getAllRecipients());
