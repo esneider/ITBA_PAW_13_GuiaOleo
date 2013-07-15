@@ -207,7 +207,7 @@ public class HibernateRestaurantRepo extends AbstractHibernateRepo implements
 			throw new IllegalArgumentException("Empty user");
 		int uId = user.getId();
 		List<Restaurant> highlightedRest = find(
-				"from Restaurant where highlighted = true AND registeruser_id = ?",
+				"from Restaurant where highlighted = true AND registeruser_id != ?",
 				uId);
 		Collections.shuffle(highlightedRest);
 		return highlightedRest.subList(0, Math.min(highlightedRest.size(), 3));

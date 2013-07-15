@@ -117,11 +117,9 @@ public class RestaurantViewPage extends SideBarPage {
 		 * Access Restaurant ViewPage Count
 		 */
 		if (!isPending)
-			add(new Label("visited", new StringResourceModel("visited",
-					new Model<Serializable>(restaurantModel.getObject()
-							.getAccessCount()))));
+			add(new Label("accessCount"));
 		else
-			add(new Label("visited", new Model<String>("N/A")));
+			add(new Label("accessCount", new Model<String>("N/A")));
 
 		/*
 		 * Pending requests
