@@ -1,6 +1,8 @@
 package ar.edu.itba.it.paw.web.user;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.apache.wicket.markup.html.basic.Label;
@@ -51,6 +53,13 @@ public class CommentPanel extends Panel {
 
 			@Override
 			protected List<Rating> load() {
+				List<Rating> l = restaurantModel.getObject().getRatings();
+				Collections.sort(l, new Comparator<Rating>() {
+					@Override
+					public int compare(Rating r1, Rating r2) {
+						return r1.getLikedScore() - r2.getLikedScore();
+					}
+				});
 				return restaurantModel.getObject().getRatings();
 			}
 
@@ -95,13 +104,14 @@ public class CommentPanel extends Panel {
 					public void onClick() {
 						Restaurant r = item.getModelObject().getRestaurant();
 						setResponsePage(new RestaurantViewPage(
-								new EntityModel<Restaurant>(Restaurant.class, r)));
+								new EntityModel<Restaurant>(Restaurant.class, r),
+								false));
 					}
 				}.add(new Label("restaurant.name", item.getModelObject()
 						.getRestaurant().getName())));
 
-//				item.add(new Label("restaurantName", item.getModelObject()
-//						.getRestaurant().getName()));
+				// item.add(new Label("restaurantName", item.getModelObject()
+				// .getRestaurant().getName()));
 				item.add(ImageProvider.getImage("img", item.getModelObject()
 						.getUser()));
 				item.add(new CommentOverHeadPanel("overhead",

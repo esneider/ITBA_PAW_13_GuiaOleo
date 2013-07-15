@@ -22,9 +22,10 @@ public class SimpleRestaurantListPanel extends Panel {
 
 	@SpringBean
 	private DailyReportRepo reportRepo;
-	
+
 	public SimpleRestaurantListPanel(String id,
-			final IModel<List<Restaurant>> restaurantListModel, final boolean reportOnClick) {
+			final IModel<List<Restaurant>> restaurantListModel,
+			final boolean reportOnClick) {
 		super(id);
 
 		add(new RefreshingView<Restaurant>("restaurants") {
@@ -49,10 +50,11 @@ public class SimpleRestaurantListPanel extends Panel {
 
 					@Override
 					public void onClick() {
-						if (reportOnClick) 
+						if (reportOnClick)
 							item.getModelObject().click(reportRepo);
-						
-						setResponsePage(new RestaurantViewPage(item.getModel()));
+
+						setResponsePage(new RestaurantViewPage(item.getModel(),
+								false));
 					}
 				});
 				item.add(new Label("name", item.getModel()));

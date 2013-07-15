@@ -46,7 +46,7 @@ public class RefreshingRestaurantListView extends RefreshingView<Restaurant> {
 				.getModel()) {
 			@Override
 			public void onClick() {
-				setResponsePage(new RestaurantViewPage(item.getModel()));
+				setResponsePage(new RestaurantViewPage(item.getModel(), false));
 			}
 		}.add(new Label("restName", item.getModel())));
 

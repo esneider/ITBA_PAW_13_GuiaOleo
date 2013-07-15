@@ -31,7 +31,7 @@ public class Restaurant extends PersistentEntity {
 	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
 	@Cascade(value = org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
 	Set<DailyReport> reports;
-	
+
 	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
 	@Cascade(value = org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
 	Set<Rating> ratingsList = new HashSet<Rating>();
@@ -112,7 +112,7 @@ public class Restaurant extends PersistentEntity {
 	public Set<FoodType> getFoodtypes() {
 		return foodtypes;
 	}
-	
+
 	public void addFoodType(FoodType ft) {
 		foodtypes.add(ft);
 	}
@@ -168,7 +168,7 @@ public class Restaurant extends PersistentEntity {
 		if (state == null) {
 			throw new IllegalArgumentException("Empty state");
 		}
-
+		resetAccessCount();
 		this.state = state;
 	}
 
@@ -297,29 +297,33 @@ public class Restaurant extends PersistentEntity {
 		this.accessCount = accessCount;
 	}
 
+	private void resetAccessCount() {
+		accessCount = (long) 0;
+	}
+
 	public void setNewAccess() {
-		
+
 		this.accessCount = getAccessCount() + 1;
 	}
-	
+
 	public void click(DailyReportRepo reportRepo) {
 		DailyReport report = getReport(reportRepo);
 		report.click();
 	}
-	
+
 	public void show(DailyReportRepo reportRepo) {
 		DailyReport report = getReport(reportRepo);
 		report.show();
 	}
-	
+
 	private DailyReport getReport(DailyReportRepo reportRepo) {
 		DailyReport report = reportRepo.get(this, new Date());
-		
-		if (report == null) { 
+
+		if (report == null) {
 			report = new DailyReport(this);
 			reports.add(report);
 		}
-		
+
 		return report;
 	}
 }

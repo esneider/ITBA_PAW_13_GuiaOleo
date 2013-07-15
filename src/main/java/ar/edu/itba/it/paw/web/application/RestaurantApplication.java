@@ -19,6 +19,7 @@ import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
 import ar.edu.itba.it.paw.domain.user.User;
 import ar.edu.itba.it.paw.domain.user.UserRepo;
 import ar.edu.itba.it.paw.web.RestaurantWicketSession;
+import ar.edu.itba.it.paw.web.common.ErrorRequestCycleListener;
 import ar.edu.itba.it.paw.web.common.HibernateRequestCycleListener;
 import ar.edu.itba.it.paw.web.converter.FoodTypeConverter;
 import ar.edu.itba.it.paw.web.converter.RestaurantConverter;
@@ -28,13 +29,14 @@ import ar.edu.itba.it.paw.web.restaurant.RestaurantListPage;
 @Component
 public class RestaurantApplication extends WebApplication {
 
-	public static final ResourceReference HIGHLIGHTED_ICON = new PackageResourceReference(RestaurantApplication.class, "high.jpg");
-	
+	public static final ResourceReference HIGHLIGHTED_ICON = new PackageResourceReference(
+			RestaurantApplication.class, "high.jpg");
+
 	public static final String SESSION_COOKIE = "sessionCookie";
 	public static final int COOKIE_TTL = 2592000;
-	
+
 	private final SessionFactory sessionFactory;
-	
+
 	private UserRepo userRepo;
 
 	@Autowired
@@ -47,8 +49,12 @@ public class RestaurantApplication extends WebApplication {
 	@Override
 	protected void init() {
 		super.init();
-		getComponentInstantiationListeners().add(new SpringComponentInjector(this));
-		getRequestCycleListeners().add(new HibernateRequestCycleListener(sessionFactory));
+		getComponentInstantiationListeners().add(
+				new SpringComponentInjector(this));
+		getRequestCycleListeners().add(
+				new HibernateRequestCycleListener(sessionFactory));
+		getRequestCycleListeners().add(new ErrorRequestCycleListener());
+
 	}
 
 	@Override

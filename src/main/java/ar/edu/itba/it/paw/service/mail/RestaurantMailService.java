@@ -2,6 +2,8 @@ package ar.edu.itba.it.paw.service.mail;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.Properties;
 
 import javax.mail.Authenticator;
@@ -28,8 +30,7 @@ public class RestaurantMailService implements MailService {
 	private static String ERROR_TO = "lmoscovicz@gmail.com";
 
 	@Override
-	public void sendRecoveryMail(User user, HttpServletRequest request)
-			 {
+	public void sendRecoveryMail(User user, HttpServletRequest request) {
 		String token = RandomStringUtils.randomAlphabetic(20);
 		user.setToken(token);
 
@@ -57,9 +58,12 @@ public class RestaurantMailService implements MailService {
 
 	@Override
 	public void sendErrorMail(Exception e) {
+		StringWriter sw = new StringWriter();
+		PrintWriter pw = new PrintWriter(sw);
+		e.printStackTrace(pw);
 		try {
-			send(FROM, ERROR_TO, "Exception at Oleo's", e.getStackTrace()
-					.toString(), "text/html");
+			send(FROM, ERROR_TO, "Exception at Oleo's", sw.toString(),
+					"text/html");
 		} catch (AddressException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

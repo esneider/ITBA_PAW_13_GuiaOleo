@@ -32,12 +32,13 @@ public class RestaurantViewPage extends SideBarPage {
 	@SpringBean
 	private RestaurantRepo restRepo;
 	
+
 	private transient IModel<Restaurant> restaurantModel;
 
 	@SuppressWarnings("serial")
-	
-	
-	public RestaurantViewPage(final IModel<Restaurant> restaurantModel) {
+	public RestaurantViewPage(final IModel<Restaurant> restaurantModel,
+			boolean isPending) {
+		
 		super(null, false);
 		setDefaultModel(new CompoundPropertyModel<Restaurant>(restaurantModel));
 		this.restaurantModel = restaurantModel;
@@ -57,7 +58,9 @@ public class RestaurantViewPage extends SideBarPage {
 		add(new Label("website"));
 		add(new Label("avgScore"));
 
-		add(new Label("scoredBy", new StringResourceModel("scoredBy", new Model<Serializable>(restaurantModel.getObject().getRatingsAmmount()))));
+		add(new Label("scoredBy", new StringResourceModel("scoredBy",
+				new Model<Serializable>(restaurantModel.getObject()
+						.getRatingsAmmount()))));
 
 		add(new FoodTypesPanel("foodtypesPanel", restaurantModel));
 
@@ -79,11 +82,14 @@ public class RestaurantViewPage extends SideBarPage {
 		/*
 		 * Google Maps
 		 */
-		add(new WebMarkupContainer("googlemap").add(
-				new AttributeAppender("data-address", new Model<String>(
-						restaurantModel.getObject().getAddress()))).add(
-				new AttributeAppender("data-description", new Model<String>(
-						restaurantModel.getObject().getName()))));
+		add(
+				new WebMarkupContainer("googlemap").add(
+						new AttributeAppender("data-address",
+								new Model<String>(restaurantModel.getObject()
+										.getAddress()))).add(
+						new AttributeAppender("data-description",
+								new Model<String>(restaurantModel.getObject()
+										.getName())))).setVisible(!isPending);
 
 		/*
 		 * Recommended restaurants
@@ -102,12 +108,15 @@ public class RestaurantViewPage extends SideBarPage {
 			}
 		};
 
-		add(new SimpleRestaurantListPanel("recommended", listModel, false));
+		add(new SimpleRestaurantListPanel("recommended", listModel,false))
+				.setVisible(!isPending);
 
 		/*
 		 * Access Restaurant ViewPage Count
 		 */
-		add(new Label("visited", new StringResourceModel("visited", new Model<Serializable>(restaurantModel.getObject().getAccessCount()))));
+		add(new Label("visited", new StringResourceModel("visited",
+				new Model<Serializable>(restaurantModel.getObject()
+						.getAccessCount())))).setVisible(!isPending);
 
 		/*
 		 * Pending requests
@@ -125,17 +134,20 @@ public class RestaurantViewPage extends SideBarPage {
 								.equals(RestaurantState.Pending);
 			}
 		});
-		
+
 	}
 
 	@Override
 	public void renderHead(IHeaderResponse response) {
 		super.renderHead(response);
 
-		response.render(JavaScriptHeaderItem.forUrl("https://maps.google.com/maps/api/js?sensor=false"));
-		response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(RestaurantApplication.class, "maps.js")));
+		response.render(JavaScriptHeaderItem
+				.forUrl("https://maps.google.com/maps/api/js?sensor=false"));
+		response.render(JavaScriptHeaderItem
+				.forReference(new JavaScriptResourceReference(
+						RestaurantApplication.class, "maps.js")));
 	}
-		
+
 	@Override
 	protected void onBeforeRender() {
 		super.onBeforeRender();

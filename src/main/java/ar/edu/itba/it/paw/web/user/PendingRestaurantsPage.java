@@ -1,5 +1,7 @@
 package ar.edu.itba.it.paw.web.user;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.apache.wicket.markup.html.basic.Label;
@@ -36,9 +38,19 @@ public class PendingRestaurantsPage extends NoSideBarPage {
 		IModel<List<Restaurant>> listModel = new LoadableDetachableModel<List<Restaurant>>() {
 			@Override
 			protected List<Restaurant> load() {
-				return restRepo.getPendingRestaurants();
+				List<Restaurant> l = restRepo.getPendingRestaurants();
+				// Collections.sort(l, new Comparator<Restaurant>() {
+				//
+				// @Override
+				// public int compare(Restaurant r1, Restaurant r2) {
+				// return r1.getApplicationDate().compareTo(
+				// r2.getApplicationDate());
+				// }
+				// });
+				return l;
 			}
 		};
+		add(new Label("cant", listModel.getObject().size()));
 		populatePage(listModel);
 
 	}
@@ -60,7 +72,14 @@ public class PendingRestaurantsPage extends NoSideBarPage {
 
 					@Override
 					public void onClick() {
-						setResponsePage(new RestaurantViewPage(item.getModel()));
+						setResponsePage(new RestaurantViewPage(item.getModel(),
+								true));
+					}
+
+					private void setResponsePage(
+							RestaurantViewPage restaurantViewPage, boolean b) {
+						// TODO Auto-generated method stub
+
 					}
 				});
 

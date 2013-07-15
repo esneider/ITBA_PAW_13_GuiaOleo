@@ -13,6 +13,9 @@ import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.apache.wicket.validation.IValidatable;
+import org.apache.wicket.validation.IValidator;
+import org.apache.wicket.validation.ValidationError;
 
 import ar.edu.itba.it.paw.domain.foodtype.FoodType;
 import ar.edu.itba.it.paw.domain.foodtype.FoodTypeRepo;
@@ -83,7 +86,16 @@ public class RegisterRestaurantPage extends NoSideBarPage {
 		form.add(new TextField<String>("telephone").setRequired(true));
 		form.add(new TextField<String>("website").setRequired(true));
 		form.add(new TextField<String>("timerange").setRequired(true));
-		form.add(new TextField<String>("avgprice").setRequired(true));
+		form.add(new TextField<Float>("avgprice").setRequired(true).add(
+				new IValidator<Float>() {
+					@Override
+					public void validate(IValidatable<Float> validatable) {
+						if (Float.valueOf(validatable.getValue()) < 0)
+							validatable.error(new ValidationError()
+									.addMessageKey("avgpriceerror"));
+
+					}
+				}));
 
 		IModel<List<FoodType>> foodTypesModel = new LoadableDetachableModel<List<FoodType>>() {
 

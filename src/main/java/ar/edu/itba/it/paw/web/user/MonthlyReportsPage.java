@@ -61,7 +61,8 @@ public class MonthlyReportsPage extends NoSideBarPage {
 
 					@Override
 					public void onClick() {
-						setResponsePage(new RestaurantViewPage(restaurantModel));
+						setResponsePage(new RestaurantViewPage(restaurantModel,
+								false));
 					}
 
 				};
