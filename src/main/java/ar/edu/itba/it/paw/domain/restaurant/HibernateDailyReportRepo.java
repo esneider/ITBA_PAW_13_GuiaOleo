@@ -56,5 +56,8 @@ public class HibernateDailyReportRepo extends AbstractHibernateRepo
 		}
 		
 		return new ArrayList<MonthlyReport>(monthlyMap.values());
+
+//		return find("SELECT new MonthlyReport(restaurant, SUM(highlightClicks), SUM(highlightShows)) from DailyReport WHERE date > ? GROUP BY restaurant", d);
+	
 	}
 }

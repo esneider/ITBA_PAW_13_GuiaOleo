@@ -317,7 +317,7 @@ public class Restaurant extends PersistentEntity {
 	}
 
 	private DailyReport getReport(DailyReportRepo reportRepo) {
-		DailyReport report = reportRepo.get(this, new Date());
+			DailyReport report = reportRepo.get(this, new Date());
 
 		if (report == null) {
 			report = new DailyReport(this);
