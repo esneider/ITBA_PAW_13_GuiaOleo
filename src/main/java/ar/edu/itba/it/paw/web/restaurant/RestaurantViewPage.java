@@ -31,14 +31,13 @@ public class RestaurantViewPage extends SideBarPage {
 	private static final long serialVersionUID = 1094753744913503034L;
 	@SpringBean
 	private RestaurantRepo restRepo;
-	
 
 	private transient IModel<Restaurant> restaurantModel;
 
 	@SuppressWarnings("serial")
 	public RestaurantViewPage(final IModel<Restaurant> restaurantModel,
 			boolean isPending) {
-		
+
 		super(null, false);
 		setDefaultModel(new CompoundPropertyModel<Restaurant>(restaurantModel));
 		this.restaurantModel = restaurantModel;
@@ -77,20 +76,19 @@ public class RestaurantViewPage extends SideBarPage {
 					+ restaurantModel.getObject().getRegisterUser()
 							.getUsername())));
 		} else {
-			add(new Label("registerUser", " - ")); // TODO REFACTOR
+			add(new Label("registerUser", " - "));
 		}
 
 		/*
 		 * Google Maps
 		 */
-		add(
-				new WebMarkupContainer("googlemap").add(
-						new AttributeAppender("data-address",
-								new Model<String>(restaurantModel.getObject()
-										.getAddress()))).add(
-						new AttributeAppender("data-description",
-								new Model<String>(restaurantModel.getObject()
-										.getName())))).setVisible(!isPending);
+		add(new WebMarkupContainer("googlemap")
+				.add(new AttributeAppender("data-address", new Model<String>(
+						restaurantModel.getObject().getAddress())))
+				.add(new AttributeAppender(
+						"data-description",
+						new Model<String>(restaurantModel.getObject().getName())))
+				.setVisible(!isPending));
 
 		/*
 		 * Recommended restaurants
@@ -109,15 +107,21 @@ public class RestaurantViewPage extends SideBarPage {
 			}
 		};
 
-		add(new SimpleRestaurantListPanel("recommended", listModel,false))
-				.setVisible(!isPending);
+		WebMarkupContainer a = new WebMarkupContainer("caretaFix");
+		a.setVisible(!isPending);
+		add(a);
+		add(new SimpleRestaurantListPanel("recommended", listModel, false)
+				.setVisible(!isPending));
 
 		/*
 		 * Access Restaurant ViewPage Count
 		 */
-		add(new Label("visited", new StringResourceModel("visited",
-				new Model<Serializable>(restaurantModel.getObject()
-						.getAccessCount())))).setVisible(!isPending);
+		if (!isPending)
+			add(new Label("visited", new StringResourceModel("visited",
+					new Model<Serializable>(restaurantModel.getObject()
+							.getAccessCount()))));
+		else
+			add(new Label("visited", new Model<String>("N/A")));
 
 		/*
 		 * Pending requests
@@ -129,7 +133,6 @@ public class RestaurantViewPage extends SideBarPage {
 				if (!getRestaurantWicketSession().isSignedIn())
 					return false;
 				User currentUser = getRestaurantWicketSession().getUser();
-				Restaurant rest = restaurantModel.getObject();
 				return currentUser.isAdmin()
 						&& restaurantModel.getObject().getState()
 								.equals(RestaurantState.Pending);

@@ -6,7 +6,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.RefreshingView;
 import org.apache.wicket.model.CompoundPropertyModel;
@@ -20,6 +19,10 @@ import ar.edu.itba.it.paw.web.common.HighlightedRestaurantLink;
 
 public class RefreshingRestaurantListView extends RefreshingView<Restaurant> {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3598656638378637587L;
 	private transient List<Restaurant> restaurantList;
 
 	public RefreshingRestaurantListView(String id,
@@ -44,6 +47,11 @@ public class RefreshingRestaurantListView extends RefreshingView<Restaurant> {
 				.getModel()));
 		item.add(new HighlightedRestaurantLink<Restaurant>("name", item
 				.getModel()) {
+			/**
+					 * 
+					 */
+					private static final long serialVersionUID = 7185882732507990579L;
+
 			@Override
 			public void onClick() {
 				setResponsePage(new RestaurantViewPage(item.getModel(), false));

@@ -18,7 +18,6 @@ import ar.edu.itba.it.paw.domain.restaurant.RestaurantState;
 import ar.edu.itba.it.paw.domain.user.User;
 import ar.edu.itba.it.paw.domain.user.UserRepo;
 import ar.edu.itba.it.paw.domain.user.UserType;
-import ar.edu.itba.it.paw.utils.Utils;
 
 public class UserTest {
 
@@ -86,7 +85,6 @@ public class UserTest {
 	@Before
 	public void init() {
 
-		Utils utils = new Utils();
 
 		picture = new Picture(new byte[1], "");
 

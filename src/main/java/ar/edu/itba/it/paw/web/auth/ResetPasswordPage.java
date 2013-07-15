@@ -13,6 +13,11 @@ import ar.edu.itba.it.paw.web.user.TwoPasswordPanel;
 
 public class ResetPasswordPage extends NoSideBarPage {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@SpringBean
 	private UserRepo userRepo;
 	
@@ -32,6 +37,7 @@ public class ResetPasswordPage extends NoSideBarPage {
 			return;
 		}
 			
+		@SuppressWarnings("serial")
 		Form<ResetPasswordPage> form = new Form<ResetPasswordPage>("resetForm"){
 			@Override
 			protected void onSubmit() {

@@ -160,6 +160,7 @@ public class RegisterPanel extends Panel {
 
 			private static final long serialVersionUID = 7259435240452624441L;
 
+			@SuppressWarnings("deprecation")
 			@Override
 			public void validate(IValidatable<String> validatable) {
 

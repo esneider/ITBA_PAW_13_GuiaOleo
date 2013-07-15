@@ -81,8 +81,6 @@ public class CommentPanel extends Panel {
 				item.add(new Label("score"));
 				item.add(new Label("comment"));
 
-				final IModel<Restaurant> rModel = new EntityModel<Restaurant>(
-						Restaurant.class, item.getModelObject().getRestaurant());
 				item.add(new Link<User>("link2") {
 
 					private static final long serialVersionUID = 4983575985141500243L;

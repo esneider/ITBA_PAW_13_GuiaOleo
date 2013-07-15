@@ -1,15 +1,11 @@
 package ar.edu.itba.it.paw.web.user;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.PropertyListView;
-import org.apache.wicket.markup.repeater.Item;
-import org.apache.wicket.markup.repeater.RefreshingView;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -26,6 +22,10 @@ import ar.edu.itba.it.paw.web.restaurant.RestaurantViewPage;
 
 public class MonthlyReportsPage extends NoSideBarPage {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2310660163808118231L;
 	@SpringBean
 	private DailyReportRepo reportRepo;
 
@@ -41,6 +41,11 @@ public class MonthlyReportsPage extends NoSideBarPage {
 
 		IModel<List<MonthlyReport>> reportList = new LoadableDetachableModel<List<MonthlyReport>>() {
 
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = -5081488842994116746L;
+
 			@Override
 			protected List<MonthlyReport> load() {
 				return reportRepo.getMonthlyReports();
@@ -49,6 +54,11 @@ public class MonthlyReportsPage extends NoSideBarPage {
 		};
 
 		add(new PropertyListView<MonthlyReport>("reports", reportList) {
+
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = -7346507725940002062L;
 
 			@Override
 			protected void populateItem(ListItem<MonthlyReport> item) {

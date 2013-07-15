@@ -45,6 +45,7 @@ public class RegisterRestaurantPage extends NoSideBarPage {
 	private transient String telephone;
 	private transient List<FoodType> foodtypes;
 
+	@SuppressWarnings("serial")
 	public RegisterRestaurantPage() {
 		super(true);
 
@@ -88,6 +89,7 @@ public class RegisterRestaurantPage extends NoSideBarPage {
 		form.add(new TextField<String>("timerange").setRequired(true));
 		form.add(new TextField<Float>("avgprice").setRequired(true).add(
 				new IValidator<Float>() {
+					@SuppressWarnings("deprecation")
 					@Override
 					public void validate(IValidatable<Float> validatable) {
 						if (Float.valueOf(validatable.getValue()) < 0)

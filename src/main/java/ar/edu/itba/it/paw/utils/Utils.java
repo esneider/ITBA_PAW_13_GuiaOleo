@@ -4,11 +4,6 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import ar.edu.itba.it.paw.domain.foodtype.FoodTypeRepo;
-import ar.edu.itba.it.paw.domain.user.UserRepo;
-
 public class Utils {
 
 	public Utils() {

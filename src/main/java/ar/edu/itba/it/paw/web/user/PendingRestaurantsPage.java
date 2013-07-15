@@ -1,7 +1,5 @@
 package ar.edu.itba.it.paw.web.user;
 
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import org.apache.wicket.markup.html.basic.Label;
@@ -76,11 +74,7 @@ public class PendingRestaurantsPage extends NoSideBarPage {
 								true));
 					}
 
-					private void setResponsePage(
-							RestaurantViewPage restaurantViewPage, boolean b) {
-						// TODO Auto-generated method stub
-
-					}
+					
 				});
 
 				item.add(new Label("name"));
