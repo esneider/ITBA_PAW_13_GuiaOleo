@@ -1,0 +1,21 @@
+<html>
+	<body>
+		<wicket:extend>
+				<div class="restlist">
+		            <h3><wicket:message key="reportsTitle"/></h3>
+					
+					<div wicket:id="reports">
+		                <dl class="dl-horizontal mainList">
+		                    <dt><wicket:message key="restaurant"/></dt>
+		                        <dd><a wicket:id="rlink"><span wicket:id="restaurant.name"/><img wicket:id="imgHighlighted"/></a> </dd>
+		                    <dt><wicket:message key="clicks"/></dt>
+		                        <dd wicket:id="clicks"></dd>
+		                    <dt><wicket:message key="shows"/></dt>
+		                        <dd wicket:id="shows"></dd>
+		                </dl>
+		                <hr />
+		            </div>
+		        </div>
+		</wicket:extend>
+	</body>
+</html>

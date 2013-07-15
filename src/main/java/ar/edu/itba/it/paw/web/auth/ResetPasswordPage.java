@@ -22,12 +22,16 @@ public class ResetPasswordPage extends NoSideBarPage {
 	public ResetPasswordPage(PageParameters params) {
 		super(false);
 		String token = params.get("token").toString();
-		if (token == null || token.equals(""))
-			redirectToInterceptPage(new RestaurantListPage());
+		if (token == null || token.equals("")) {
+			setResponsePage(getApplication().getHomePage());
+			return;
+		}
 		final User u = userRepo.getByToken(token);
-		if (u == null)
-			redirectToInterceptPage(new RestaurantListPage());
-	
+		if (u == null) {
+			setResponsePage(RestaurantListPage.class);
+			return;
+		}
+			
 		Form<ResetPasswordPage> form = new Form<ResetPasswordPage>("resetForm"){
 			@Override
 			protected void onSubmit() {

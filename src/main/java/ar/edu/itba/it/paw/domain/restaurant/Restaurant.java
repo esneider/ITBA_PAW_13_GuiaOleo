@@ -292,6 +292,10 @@ public class Restaurant extends PersistentEntity {
 		}
 		return accessCount;
 	}
+	
+	public void setAccessCount(Long accessCount) {
+		this.accessCount = accessCount;
+	}
 
 	public void setNewAccess() {
 		

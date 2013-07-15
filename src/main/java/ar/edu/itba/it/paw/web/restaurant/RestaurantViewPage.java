@@ -119,6 +119,7 @@ public class RestaurantViewPage extends SideBarPage {
 				if (!getRestaurantWicketSession().isSignedIn())
 					return false;
 				User currentUser = getRestaurantWicketSession().getUser();
+				Restaurant rest = restaurantModel.getObject();
 				return currentUser.isAdmin()
 						&& restaurantModel.getObject().getState()
 								.equals(RestaurantState.Pending);
