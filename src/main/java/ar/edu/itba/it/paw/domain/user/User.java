@@ -246,7 +246,7 @@ public class User extends PersistentEntity {
     }
     
     public void clearToken() {
-    	this.token = "";
+    	this.token = null;
     }
 
     @Override
