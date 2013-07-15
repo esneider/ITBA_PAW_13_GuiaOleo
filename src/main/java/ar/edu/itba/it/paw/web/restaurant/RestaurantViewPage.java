@@ -9,6 +9,7 @@ import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.image.Image;
+import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
@@ -17,6 +18,7 @@ import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
+import ar.edu.itba.it.paw.domain.EntityModel;
 import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
 import ar.edu.itba.it.paw.domain.restaurant.RestaurantRepo;
 import ar.edu.itba.it.paw.domain.restaurant.RestaurantState;
@@ -25,6 +27,7 @@ import ar.edu.itba.it.paw.utils.Utils;
 import ar.edu.itba.it.paw.web.application.RestaurantApplication;
 import ar.edu.itba.it.paw.web.base.SideBarPage;
 import ar.edu.itba.it.paw.web.user.CommentPanel;
+import ar.edu.itba.it.paw.web.user.UserProfilePage;
 
 public class RestaurantViewPage extends SideBarPage {
 
@@ -34,10 +37,10 @@ public class RestaurantViewPage extends SideBarPage {
 
 	private transient IModel<Restaurant> restaurantModel;
 
-	@SuppressWarnings("serial")
+	@SuppressWarnings({"serial"})
 	public RestaurantViewPage(final IModel<Restaurant> restaurantModel,
 			boolean isPending) {
-		
+
 		super(null, false);
 		setDefaultModel(new CompoundPropertyModel<Restaurant>(restaurantModel));
 		this.restaurantModel = restaurantModel;
@@ -70,11 +73,19 @@ public class RestaurantViewPage extends SideBarPage {
 		 * Adding Register user
 		 */
 		if (restaurantModel.getObject().getRegisterUser() != null) {
-			add(new Label("registerUser", new Model<String>(restaurantModel
-					.getObject().getRegisterUser().getName()
-					+ " - "
-					+ restaurantModel.getObject().getRegisterUser()
-							.getUsername())));
+			add(new Link<User>("registerUser", new EntityModel<User>(User.class,
+					restaurantModel.getObject().getRegisterUser())) {
+
+				@Override
+				public void onClick() {
+					setResponsePage(new UserProfilePage(getModel()));
+				}
+				
+				@Override
+				public IModel<?> getBody() {
+					return getModel();
+				}
+			});
 		} else {
 			add(new Label("registerUser", " - "));
 		}

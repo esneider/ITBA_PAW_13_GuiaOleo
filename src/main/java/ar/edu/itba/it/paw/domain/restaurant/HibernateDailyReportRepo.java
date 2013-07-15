@@ -47,9 +47,8 @@ public class HibernateDailyReportRepo extends AbstractHibernateRepo
 			if (!monthlyMap.containsKey(dr.getRestaurant())) {
 				monthlyMap.put(
 						dr.getRestaurant(),
-						new MonthlyReport(dr.getRestaurant(), dr
-								.getHighlightClicks(), dr.getHighlightShows()));
-			}
+						new MonthlyReport(dr.getRestaurant(), 0, 0));
+			}	
 			MonthlyReport mr = monthlyMap.get(dr.getRestaurant());
 			mr.addShows(dr.getHighlightShows());
 			mr.addClicks(dr.getHighlightClicks());
@@ -57,7 +56,5 @@ public class HibernateDailyReportRepo extends AbstractHibernateRepo
 		
 		return new ArrayList<MonthlyReport>(monthlyMap.values());
 
-//		return find("SELECT new MonthlyReport(restaurant, SUM(highlightClicks), SUM(highlightShows)) from DailyReport WHERE date > ? GROUP BY restaurant", d);
-	
 	}
 }

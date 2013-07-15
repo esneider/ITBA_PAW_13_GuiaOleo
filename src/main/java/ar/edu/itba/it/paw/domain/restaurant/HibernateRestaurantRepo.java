@@ -16,8 +16,9 @@ import ar.edu.itba.it.paw.domain.foodtype.FoodType;
 import ar.edu.itba.it.paw.domain.user.User;
 
 @Repository
-public class HibernateRestaurantRepo extends AbstractHibernateRepo implements
-		RestaurantRepo {
+public class HibernateRestaurantRepo extends AbstractHibernateRepo
+		implements
+			RestaurantRepo {
 
 	@Autowired
 	public HibernateRestaurantRepo(SessionFactory sessionFactory) {
@@ -206,7 +207,7 @@ public class HibernateRestaurantRepo extends AbstractHibernateRepo implements
 		if (user == null)
 			throw new IllegalArgumentException("Empty user");
 		List<Restaurant> highlightedRest = find(
-				"from Restaurant where highlighted = true AND registeruser_id != ?",
+				"from Restaurant where highlighted = true AND (registeruser_id IS NULL OR registeruser_id != ?)",
 				user.getId());
 		Collections.shuffle(highlightedRest);
 		return highlightedRest.subList(0, Math.min(highlightedRest.size(), 3));

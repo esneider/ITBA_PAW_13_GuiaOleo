@@ -268,3 +268,6 @@ SELECT setval('rating2_id_seq', (SELECT MAX(id) FROM rating));
 ALTER SEQUENCE systemuser3_id_seq RENAME TO systemuser_id_seq;
 ALTER SEQUENCE rating2_id_seq RENAME TO rating_id_seq;
 ALTER SEQUENCE restaurant2_id_seq RENAME TO restaurant_id_seq;
+
+
+ALTER TABLE ONLY rating ALTER COLUMN id SET DEFAULT nextval('rating_id_seq'::regclass);
