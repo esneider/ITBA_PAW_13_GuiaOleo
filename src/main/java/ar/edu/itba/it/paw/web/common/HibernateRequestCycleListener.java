@@ -3,6 +3,7 @@ package ar.edu.itba.it.paw.web.common;
 import org.apache.wicket.request.IRequestHandler;
 import org.apache.wicket.request.cycle.AbstractRequestCycleListener;
 import org.apache.wicket.request.cycle.RequestCycle;
+import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.classic.Session;
@@ -21,12 +22,13 @@ public class HibernateRequestCycleListener extends AbstractRequestCycleListener 
 	@Override
 	public void onBeginRequest(RequestCycle cycle) {
 		error.set(false);
-		Assert.state(!ManagedSessionContext.hasBind(sessionFactory), "Session already bound to this thread");
+		Assert.state(!ManagedSessionContext.hasBind(sessionFactory),
+				"Session already bound to this thread");
 		Session session = sessionFactory.openSession();
 		ManagedSessionContext.bind(session);
 		session.beginTransaction();
 	}
-	
+
 	@Override
 	public void onEndRequest(RequestCycle cycle) {
 		if (!error.get()) {
@@ -38,11 +40,19 @@ public class HibernateRequestCycleListener extends AbstractRequestCycleListener 
 
 	@Override
 	public IRequestHandler onException(RequestCycle cycle, Exception ex) {
-		rollback();
+
+		System.out.println("ANDEE"
+				+ ManagedSessionContext.hasBind(sessionFactory));
+
+		try {
+			rollback();
+		} catch (HibernateException e) {
+		}
 		error.set(true);
 		return null;
+
 	}
-	
+
 	private void commit() {
 		Session session = sessionFactory.getCurrentSession();
 		Assert.state(session.isOpen(), "Can't commit a closed session!");

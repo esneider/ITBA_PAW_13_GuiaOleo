@@ -9,6 +9,7 @@ import org.apache.wicket.request.Request;
 import org.apache.wicket.request.Response;
 import org.apache.wicket.request.resource.PackageResourceReference;
 import org.apache.wicket.request.resource.ResourceReference;
+import org.apache.wicket.request.resource.caching.NoOpResourceCachingStrategy;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,8 @@ import ar.edu.itba.it.paw.domain.user.User;
 import ar.edu.itba.it.paw.domain.user.UserRepo;
 import ar.edu.itba.it.paw.web.RestaurantWicketSession;
 import ar.edu.itba.it.paw.web.auth.ResetPasswordPage;
+import ar.edu.itba.it.paw.web.base.ErrorPage;
+import ar.edu.itba.it.paw.web.base.ExpiredPage;
 import ar.edu.itba.it.paw.web.common.ErrorRequestCycleListener;
 import ar.edu.itba.it.paw.web.common.HibernateRequestCycleListener;
 import ar.edu.itba.it.paw.web.converter.FoodTypeConverter;
@@ -52,10 +55,14 @@ public class RestaurantApplication extends WebApplication {
 		super.init();
 		getComponentInstantiationListeners().add(
 				new SpringComponentInjector(this));
-		getRequestCycleListeners().add(
-				new HibernateRequestCycleListener(sessionFactory));
 		getRequestCycleListeners().add(new ErrorRequestCycleListener());
-		mountPage("/resetPassword", ResetPasswordPage.class); 
+		getRequestCycleListeners().add(new HibernateRequestCycleListener(sessionFactory));
+		mountPage("/resetPassword", ResetPasswordPage.class);
+		getResourceSettings().setCachingStrategy(
+				NoOpResourceCachingStrategy.INSTANCE);
+		getApplicationSettings().setInternalErrorPage(ErrorPage.class);
+		getApplicationSettings().setPageExpiredErrorPage(ExpiredPage.class);
+
 	}
 
 	@Override

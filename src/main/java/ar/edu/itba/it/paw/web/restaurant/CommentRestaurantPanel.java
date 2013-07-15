@@ -30,31 +30,35 @@ public class CommentRestaurantPanel extends Panel {
 
 	private transient Integer group;
 
-	public CommentRestaurantPanel(String id, final IModel<Restaurant> restaurantModel) {
+	public CommentRestaurantPanel(String id,
+			final IModel<Restaurant> restaurantModel) {
 
 		super(id);
 
-		Form<CommentRestaurantPanel> form = new Form<CommentRestaurantPanel>("commentForm", new CompoundPropertyModel<CommentRestaurantPanel>(this)){
+		Form<CommentRestaurantPanel> form = new Form<CommentRestaurantPanel>(
+				"commentForm",
+				new CompoundPropertyModel<CommentRestaurantPanel>(this)) {
 
 			private static final long serialVersionUID = -9039667871817899106L;
-			
+
 			@Override
 			protected void onSubmit() {
 
 				RestaurantWicketSession session = RestaurantWicketSession.get();
 				User user = session.getUser();
 				Restaurant rest = restaurantModel.getObject();
-				Rating r = new Rating(group, Utils.normalizeString(text), user, rest, new Date());
+				Rating r = new Rating(group, Utils.normalizeString(text), user,
+						rest, new Date());
 				rest.addRating(r);
 			}
 		};
 
 		form.add(new TextArea<String>("text"));
 		form.add(new Button("send", new ResourceModel("Send")));
-		
+
 		RadioGroup<Integer> group = new RadioGroup<Integer>("group");
 		form.add(group);
-		
+
 		group.add(new Radio<Integer>("0", new Model<Integer>(0)));
 		group.add(new Radio<Integer>("1", new Model<Integer>(1)));
 		group.add(new Radio<Integer>("2", new Model<Integer>(2)));
@@ -66,7 +70,7 @@ public class CommentRestaurantPanel extends Panel {
 
 		boolean signed = session.isSignedIn();
 		boolean rated = false;
-		
+
 		if (signed) {
 			User user = session.getUser();
 			Rating rate = restaurantModel.getObject().getUserRating(user);
@@ -78,12 +82,13 @@ public class CommentRestaurantPanel extends Panel {
 		comment.setVisible(signed && !rated);
 		add(comment);
 
-		WebMarkupContainer alreadyCommented = new WebMarkupContainer("alreadyCommentedField");
+		WebMarkupContainer alreadyCommented = new WebMarkupContainer(
+				"alreadyCommentedField");
 		alreadyCommented.setVisible(rated);
 		add(alreadyCommented);
 
 		WebMarkupContainer login = new WebMarkupContainer("loginField");
-		login.add(new Link<Void>("login"){
+		login.add(new Link<Void>("login") {
 
 			private static final long serialVersionUID = -7894998777410479084L;
 

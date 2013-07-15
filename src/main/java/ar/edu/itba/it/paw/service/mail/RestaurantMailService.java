@@ -82,7 +82,7 @@ public class RestaurantMailService implements MailService {
 		final Properties props = new Properties();
 		try {
 			InputStream propsIs = getClass().getClassLoader()
-					.getResourceAsStream("mail.properties");
+					.getResourceAsStream("mailer.properties");
 			props.load(propsIs);
 		} catch (IOException ex) {
 			throw new MailConfigurationException();
