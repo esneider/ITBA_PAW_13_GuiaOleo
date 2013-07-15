@@ -37,7 +37,7 @@ public class RestaurantViewPage extends SideBarPage {
 	@SuppressWarnings("serial")
 	public RestaurantViewPage(final IModel<Restaurant> restaurantModel,
 			boolean isPending) {
-
+		
 		super(null, false);
 		setDefaultModel(new CompoundPropertyModel<Restaurant>(restaurantModel));
 		this.restaurantModel = restaurantModel;
