@@ -1,9 +1,9 @@
-INSERT INTO dailyreport (id, date, highlightclicks, highlightshows, restaurant_id) VALUES (6, '2013-07-14 20:44:31.94', 0, 1, 1);
-INSERT INTO dailyreport (id, date, highlightclicks, highlightshows, restaurant_id) VALUES (8, '2013-07-14 20:45:18.04', 1, 4, 3);
-INSERT INTO dailyreport (id, date, highlightclicks, highlightshows, restaurant_id) VALUES (5, '2013-07-14 20:44:31.924', 0, 5, 2);
-INSERT INTO dailyreport (id, date, highlightclicks, highlightshows, restaurant_id) VALUES (4, '2013-07-14 20:44:12.73', 0, 5, 5);
-INSERT INTO dailyreport (id, date, highlightclicks, highlightshows, restaurant_id) VALUES (7, '2013-07-14 20:44:31.949', 0, 3, 4);
-INSERT INTO dailyreport (id, date, highlightclicks, highlightshows, restaurant_id) VALUES (3, '2013-07-14 20:44:12.721', 0, 4, 6);
-INSERT INTO dailyreport (id, date, highlightclicks, highlightshows, restaurant_id) VALUES (10, '2013-07-14 20:45:18.066', 0, 4, 7);
-INSERT INTO dailyreport (id, date, highlightclicks, highlightshows, restaurant_id) VALUES (2, '2013-07-14 20:44:12.712', 0, 4, 9);
-INSERT INTO dailyreport (id, date, highlightclicks, highlightshows, restaurant_id) VALUES (1, '2013-07-14 20:43:12.264', 1, 3, 8);
+INSERT INTO dailyreport (date, highlightclicks, highlightshows, restaurant_id) VALUES ('2013-07-14 20:44:31.94', 0, 1, 1);
+INSERT INTO dailyreport (date, highlightclicks, highlightshows, restaurant_id) VALUES ('2013-07-14 20:45:18.04', 1, 4, 3);
+INSERT INTO dailyreport (date, highlightclicks, highlightshows, restaurant_id) VALUES ('2013-07-14 20:44:31.924', 0, 5, 2);
+INSERT INTO dailyreport (date, highlightclicks, highlightshows, restaurant_id) VALUES ('2013-07-14 20:44:12.73', 0, 5, 5);
+INSERT INTO dailyreport (date, highlightclicks, highlightshows, restaurant_id) VALUES ('2013-07-14 20:44:31.949', 0, 3, 4);
+INSERT INTO dailyreport (date, highlightclicks, highlightshows, restaurant_id) VALUES ('2013-07-14 20:44:12.721', 0, 4, 6);
+INSERT INTO dailyreport (date, highlightclicks, highlightshows, restaurant_id) VALUES ('2013-07-14 20:45:18.066', 0, 4, 7);
+INSERT INTO dailyreport (date, highlightclicks, highlightshows, restaurant_id) VALUES ('2013-07-14 20:44:12.712', 0, 4, 9);
+INSERT INTO dailyreport (date, highlightclicks, highlightshows, restaurant_id) VALUES ('2013-07-14 20:43:12.264', 1, 3, 8);
