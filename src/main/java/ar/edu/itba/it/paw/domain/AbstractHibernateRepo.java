@@ -35,14 +35,18 @@ public abstract class AbstractHibernateRepo {
     }
 
     protected org.hibernate.Session getSession() {
-
-        return sessionFactory.getCurrentSession();
+    	org.hibernate.Session s = sessionFactory.getCurrentSession();
+    	return s;
     }
 
     public Serializable save(Object o) {
 
         return getSession().save(o);
     }
+    
+    public void delete(Object o){
+		getSession().delete(o);
+	}
 
     @SuppressWarnings("unchecked")
     private <T> List<T> generateList(Query query, Integer limit, Object... params) {

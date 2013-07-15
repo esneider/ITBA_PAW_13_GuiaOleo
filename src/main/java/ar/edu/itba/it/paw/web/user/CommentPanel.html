@@ -1,0 +1,20 @@
+<wicket:panel>
+	<div wicket:id="comments">
+        <p>
+	        <div class="span1">
+				<img class="avatarPic" wicket:id="img" src="#"/>
+			</div>
+		    <div class="offset1 comment">
+		        <blockquote>
+		            <p>
+		                <strong><wicket:message key="score"/> <span wicket:id="score" class="badge"></span></strong>:
+		                <span wicket:id="comment"></span>
+		            </p>
+		            <small><wicket:message key="by"/> <a wicket:id="link2" href="#"><span wicket:id="user.username"/></a> <wicket:message key="on"/> <span wicket:id="date"></span> <wicket:message key="to"/> <a wicket:id="rlink"><span wicket:id="restaurant.name"/></a></small>
+		        	<p><wicket:message key="totalScore"/> <span wicket:id="totalScore"/></p>
+		        </blockquote>
+		        <div wicket:id="overhead"/>
+	        </div>
+	    </p>
+    </div>
+</wicket:panel>

@@ -17,16 +17,20 @@ import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.Cascade;
 
-import ar.edu.itba.it.paw.domain.AbstractModel;
+import ar.edu.itba.it.paw.domain.PersistentEntity;
 import ar.edu.itba.it.paw.domain.foodtype.FoodType;
 import ar.edu.itba.it.paw.domain.user.User;
 import ar.edu.itba.it.paw.utils.Utils;
 
 @Entity
-public class Restaurant extends AbstractModel {
+public class Restaurant extends PersistentEntity {
 
 	@ManyToMany
 	Set<FoodType> foodtypes;
+
+	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
+	@Cascade(value = org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
+	Set<DailyReport> reports;
 
 	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
 	@Cascade(value = org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
@@ -43,6 +47,8 @@ public class Restaurant extends AbstractModel {
 	private float avgprice;
 
 	private Date applicationDate;
+	private Long accessCount;
+	private Boolean highlighted = false;
 
 	Restaurant() {
 	}
@@ -107,6 +113,10 @@ public class Restaurant extends AbstractModel {
 		return foodtypes;
 	}
 
+	public void addFoodType(FoodType ft) {
+		foodtypes.add(ft);
+	}
+
 	public String getAddress() {
 		return address;
 	}
@@ -158,7 +168,7 @@ public class Restaurant extends AbstractModel {
 		if (state == null) {
 			throw new IllegalArgumentException("Empty state");
 		}
-
+		resetAccessCount();
 		this.state = state;
 	}
 
@@ -253,5 +263,67 @@ public class Restaurant extends AbstractModel {
 			return false;
 
 		return true;
+	}
+
+	public boolean isAccepted() {
+		return this.state.equals(RestaurantState.Accepted);
+	}
+
+	public boolean isHighlighted() {
+
+		if (highlighted == null) {
+			return false;
+		}
+
+		return highlighted;
+	}
+
+	public void highlight() {
+		this.highlighted = true;
+	}
+
+	public void unhighlight() {
+		this.highlighted = false;
+	}
+
+	public Long getAccessCount() {
+		if (accessCount == null) {
+			accessCount = (long) 0;
+		}
+		return accessCount;
+	}
+	
+	public void setAccessCount(Long accessCount) {
+		this.accessCount = accessCount;
+	}
+
+	private void resetAccessCount() {
+		accessCount = (long) 0;
+	}
+
+	public void setNewAccess() {
+
+		this.accessCount = getAccessCount() + 1;
+	}
+
+	public void click(DailyReportRepo reportRepo) {
+		DailyReport report = getReport(reportRepo);
+		report.click();
+	}
+
+	public void show(DailyReportRepo reportRepo) {
+		DailyReport report = getReport(reportRepo);
+		report.show();
+	}
+
+	private DailyReport getReport(DailyReportRepo reportRepo) {
+			DailyReport report = reportRepo.get(this, new Date());
+
+		if (report == null) {
+			report = new DailyReport(this);
+			reports.add(report);
+		}
+
+		return report;
 	}
 }

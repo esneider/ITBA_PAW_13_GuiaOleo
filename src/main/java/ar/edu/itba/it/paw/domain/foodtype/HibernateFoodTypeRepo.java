@@ -23,7 +23,7 @@ public class HibernateFoodTypeRepo extends AbstractHibernateRepo implements Food
 
         return find("from FoodType");
     }
-
+    
     @Override
     public FoodType get(int foodtypeid) {
 

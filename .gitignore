@@ -20,3 +20,7 @@ bin
 # Java files #
 target
 bin
+
+# Mac temp files #
+.DS_Store
+

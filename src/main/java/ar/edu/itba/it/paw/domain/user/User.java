@@ -13,7 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import ar.edu.itba.it.paw.domain.AbstractModel;
+import ar.edu.itba.it.paw.domain.PersistentEntity;
 import ar.edu.itba.it.paw.domain.picture.Picture;
 import ar.edu.itba.it.paw.domain.restaurant.Rating;
 import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
@@ -22,7 +22,7 @@ import ar.edu.itba.it.paw.utils.Utils;
 
 @Entity
 @Table(name = "SystemUser")
-public class User extends AbstractModel {
+public class User extends PersistentEntity {
 
     private String name, surname, email, username, password;
 
@@ -33,6 +33,8 @@ public class User extends AbstractModel {
 
     @OneToOne
     private Picture avatar;
+    
+    private String token;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Rating> comments;
@@ -72,6 +74,10 @@ public class User extends AbstractModel {
     public String getEmail() {
         return email;
     }
+    
+    public String getToken() {
+    	return token;
+    }
 
     public String getUsername() {
         return username;
@@ -83,6 +89,10 @@ public class User extends AbstractModel {
 
     public Picture getAvatar() {
         return avatar;
+    }
+    
+    public boolean checkPassword(String password) {
+    	return this.password != null && this.password.equals(password);
     }
 
     public Set<Restaurant> getRegisteredRestaurants() {
@@ -113,9 +123,9 @@ public class User extends AbstractModel {
             throw new IllegalArgumentException("Empty username");
         }
 
-        if (Utils.usernameExists(username)) {
-        	throw new IllegalArgumentException("Duplicated username");
-        }
+//        if (userRepo.usernameExists(username)) {
+//        	throw new IllegalArgumentException("Duplicated username");
+//        }
 
         this.username = username;
     }
@@ -138,6 +148,10 @@ public class User extends AbstractModel {
         }
 
         this.name = name;
+    }
+    
+    public void setToken(String token) {
+    	this.token = token;
     }
 
     public void setSurname(String surname) {
@@ -167,9 +181,9 @@ public class User extends AbstractModel {
             throw new IllegalArgumentException("Invalid email");
         }
 
-        if (Utils.emailExists(email)) {
-            throw new IllegalArgumentException("Duplicated email");
-        }
+//        if (Utils.emailExists(email)) {
+//            throw new IllegalArgumentException("Duplicated email");
+//        }
 
         this.email = email;
     }
@@ -229,6 +243,10 @@ public class User extends AbstractModel {
         if (userUnlikes.add(r)) {
             r.unlike(this);
         }
+    }
+    
+    public void clearToken() {
+    	this.token = null;
     }
 
     @Override

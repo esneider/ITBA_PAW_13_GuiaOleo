@@ -1,28 +1,24 @@
 package ar.edu.itba.it.paw.web.converter;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.convert.converter.Converter;
-import org.springframework.stereotype.Component;
+import java.util.Locale;
+
+import org.apache.wicket.util.convert.IConverter;
 
 import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
-import ar.edu.itba.it.paw.domain.restaurant.RestaurantRepo;
 
 
-@Component
-public class RestaurantConverter implements Converter<String, Restaurant> {
+public class RestaurantConverter implements IConverter<Restaurant> {
 
-    private RestaurantRepo restRepo;
-
-    @Autowired
-    public RestaurantConverter (RestaurantRepo restRepo) {
-
-        this.restRepo = restRepo;
-    }
-
+	private static final long serialVersionUID = 1540811699534810763L;
+    
     @Override
-    public Restaurant convert(String arg) {
+	public Restaurant convertToObject(String value, Locale arg1) {
+    	throw new UnsupportedOperationException();
+	}
 
-        return restRepo.get(Integer.valueOf(arg));
-    }
+	@Override
+	public String convertToString(Restaurant value, Locale arg1) {
+		return value.getName();
+	}
 }
 
