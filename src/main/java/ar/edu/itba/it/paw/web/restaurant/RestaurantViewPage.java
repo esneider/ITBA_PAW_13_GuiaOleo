@@ -66,6 +66,7 @@ public class RestaurantViewPage extends SideBarPage {
 
 		add(new CommentPanel("commentPanel", restaurantModel));
 
+		add(new CommentRestaurantPanel("addCommentPanel", restaurantModel));
 		/*
 		 * Adding Register user
 		 */

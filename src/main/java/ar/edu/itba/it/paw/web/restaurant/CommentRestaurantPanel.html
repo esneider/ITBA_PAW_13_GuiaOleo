@@ -1,0 +1,37 @@
+<wicket:panel>
+    
+    <div wicket:id="commentField">
+    <!-- <div wicket:id="comment"> -->
+	
+		<p class="lead"><wicket:message key="header"/></p>
+
+	    <form wicket:id="commentForm" action='view' method='post' class="form-inline">
+
+            <wicket:container wicket:id="group">
+	 	        <label class="radio inline"><b>0</b><input wicket:id="0" type="radio" name="restaurant_rating" value="0"/></label>
+		        <label class="radio inline"><b>1</b><input wicket:id="1" type="radio" name="restaurant_rating" value="1"/></label>
+		        <label class="radio inline"><b>2</b><input wicket:id="2" type="radio" name="restaurant_rating" value="2"/></label>
+		        <label class="radio inline"><b>3</b><input wicket:id="3" type="radio" name="restaurant_rating" value="3" checked="checked"/></label>
+		        <label class="radio inline"><b>4</b><input wicket:id="4" type="radio" name="restaurant_rating" value="4"/></label>
+		        <label class="radio inline"><b>5</b><input wicket:id="5" type="radio" name="restaurant_rating" value="5"/></label>
+		    </wicket:container>
+	
+	        <br />
+	        <br />
+	
+	        <label class="">
+                <textarea wicket:id="text" id="commentText" name="comment" class="span5" wicket:message="placeholder:comment"></textarea>
+	            <br />
+	            <br />
+	            <input wicket:id="send" class="btn btn-primary" type='submit' wicket:message="value:button"/>
+	        </label>
+	        
+	    </form>
+    </div>
+    <div wicket:id="alreadyCommentedField">
+        <p class="lead"><wicket:message key="alreadyCommented"/></p>
+    </div>
+    <div wicket:id="loginField">
+        <p class="lead"><a wicket:id="login" href="#"><wicket:message key="login"/></a></p>
+    </div>
+</wicket:panel>
