@@ -40,6 +40,10 @@ body > .navbar form.navbar-form > div {
     top: 3px;
 }
 
+#user-menu li.recover {
+    padding-top: 25px;
+}
+
 .avatarPic{
 
     width: 50px;
