@@ -1,28 +1,22 @@
 package ar.edu.itba.it.paw.web.converter;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.convert.converter.Converter;
-import org.springframework.stereotype.Component;
+import java.util.Locale;
+
+import org.apache.wicket.util.convert.IConverter;
 
 import ar.edu.itba.it.paw.domain.foodtype.FoodType;
-import ar.edu.itba.it.paw.domain.foodtype.FoodTypeRepo;
 
+public class FoodTypeConverter implements IConverter<FoodType> {
+	
+	private static final long serialVersionUID = -4106262983304101899L;
 
-@Component
-public class FoodTypeConverter implements Converter<String, FoodType> {
+	@Override
+	public FoodType convertToObject(String value, Locale locale) {
+		throw new UnsupportedOperationException();
+	}
 
-    private FoodTypeRepo ftRepo;
-
-    @Autowired
-    public FoodTypeConverter (FoodTypeRepo ftRepo) {
-
-        this.ftRepo = ftRepo;
-    }
-
-    @Override
-    public FoodType convert(String arg) {
-
-        return ftRepo.get(Integer.valueOf(arg));
-    }
+	@Override
+	public String convertToString(FoodType value, Locale locale) {
+		return value.getName();
+	}
 }
-

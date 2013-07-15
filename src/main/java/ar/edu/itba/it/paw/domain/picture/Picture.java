@@ -3,13 +3,13 @@ package ar.edu.itba.it.paw.domain.picture;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 
-import ar.edu.itba.it.paw.domain.AbstractModel;
+import ar.edu.itba.it.paw.domain.PersistentEntity;
 
 
 @Entity
-public class Picture extends AbstractModel {
+public class Picture extends PersistentEntity {
 
-    private String mime;
+	private String mime;
 
     @Basic
     private byte[] img;

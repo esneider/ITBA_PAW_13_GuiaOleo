@@ -15,6 +15,11 @@ body > .navbar form.navbar-form > div {
     margin-right: 20px;
 }
 
+.mainListPanel {
+    margin-left: 100px;
+    margin-right: 20px;
+}
+
 .absolute {
     position: absolute;
 }
@@ -25,14 +30,18 @@ body > .navbar form.navbar-form > div {
 
 #user-menu {
     position: absolute;
-    top: -3px;
-    right: 0;
+    top: 6px;
+    right: 10px;
     left: auto;
 }
 
 #user-menu li.login-text {
     position: relative;
     top: 3px;
+}
+
+#user-menu li.recover {
+    padding-top: 25px;
 }
 
 .avatarPic{
@@ -61,14 +70,37 @@ body > .navbar form.navbar-form > div {
     min-width: 0;
     padding: 5px 0;
     text-align: left;
+    position: absolute;
+    top: 27px;
 }
 
 #user-menu .dropdown-menu li a {
     margin: 5px 0;
     padding: 6px 20px;
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: normal;
+    line-height: 20px;
+    color: #333333;
+    white-space: nowrap;
+}
+
+#user-menu .dropdown-menu li a:hover {
+    color: #ffffff;
+    text-decoration: none;
+    background-color: #0081c2;
+    background-image: -moz-linear-gradient(top, #0088cc, #0077b3);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0077b3));
+    background-image: -webkit-linear-gradient(top, #0088cc, #0077b3);
+    background-image: -o-linear-gradient(top, #0088cc, #0077b3);
+    background-image: linear-gradient(to bottom, #0088cc, #0077b3);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0088cc', endColorstr='#ff0077b3', GradientType=0);
 }
 
 #main-logo {
+    padding-top: 70px;
     text-align: left;
 }
 
@@ -170,5 +202,19 @@ h2.title {
     .blabla {
         border-width: 2px;
     }
+}
+
+.text-error ul {
+    margin: 0;
+    padding: 0;
+}
+
+.text-error li {
+    list-style: none;
+}
+
+.typeahead {
+    text-align: left;
+    width: 380px;
 }
 

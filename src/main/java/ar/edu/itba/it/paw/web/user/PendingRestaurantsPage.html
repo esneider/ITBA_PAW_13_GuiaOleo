@@ -1,0 +1,25 @@
+<html>
+	<body>
+		<wicket:extend>	
+			<div class="restlist">
+	            <h3> <wicket:message key="pending"/> <span wicket:id="cant"> </span> <wicket:message key="restaurants"/> </h3>
+				
+				<div wicket:id="restaurants">
+	                <dl class="dl-horizontal mainList">
+	                    <dt><wicket:message key="publisher"/></dt>
+	                        <dd wicket:id="registerUser"></dd>
+	                        <dd><a wicket:id="ulink"> <wicket:message key="here"/> </a> </dd>
+	                    <dt><wicket:message key="data"/></dt>
+	                        <dd wicket:id="applicationDate"></dd>
+	                    <dt><wicket:message key="request"/></dt>
+	                        <dd><a wicket:id="link"> <wicket:message key="here"/> </a> </dd>
+	
+	                    <dt><wicket:message key="restaurant"/></dt>
+	                        <dd wicket:id="name"><strong></strong></dd>
+	                </dl>
+	                <hr />
+	            </div>
+	        </div>
+    	</wicket:extend>
+	</body>
+</html>

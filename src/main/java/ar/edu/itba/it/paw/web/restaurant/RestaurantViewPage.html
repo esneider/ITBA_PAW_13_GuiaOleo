@@ -1,0 +1,68 @@
+<html>
+	<body>
+		<wicket:extend>
+
+			<div class="restdetail">
+
+	            <h2 class="restaurantTitle" wicket:id="name"></h2>
+	            <h2><img wicket:id="imghigh"> </img></h2>
+	
+	            <dl class="dl-horizontal">
+	
+	                <dt><wicket:message key="addressTag"/></dt>
+	                    <dd wicket:id="address"></dd>
+	                <dt><wicket:message key="areaTag"/></dt>
+	                    <dd wicket:id="area"></dd>
+	                <dt><wicket:message key="telephoneTag"/></dt>
+	                    <dd wicket:id="telephone"></dd>
+	                <div wicket:id="foodtypesPanel"/>
+
+	                <br>
+	
+	                <dt><wicket:message key="avgPriceTag"/></dt>
+	                    <dd wicket:id="avgprice"></dd>
+	                <dt><wicket:message key="timeRangeTag"/></dt>
+	                    <dd wicket:id="timerange"></dd>
+	                <dt><wicket:message key="websiteTag"/></dt>
+	                    <dd><a wicket:id="website"></a></dd>
+	                <dt><wicket:message key="accessCountTag"/></dt>
+                        <dd><span wicket:id="accessCount" ></span></dd>
+	
+	                <br>
+					<div wicket:id="adminPendingResquests"/>
+	
+	                <dt><wicket:message key="avgScoreTag"/></dt>
+	                    <dd>
+                            <span class="badge" wicket:id="avgScore" ></span>
+                            <span wicket:id="scoredBy" ></span>
+	                    </dd>
+	
+                    <dt><wicket:message key="publishedTag"/></dt>
+                        <dd>
+                            <a wicket:id="registerUser"></a>
+                        </dd>
+	
+	            </dl>
+	
+	            <br />
+	
+	            <div id="map-canvas" class="map-canvas" wicket:id="googlemap"></div>
+	
+	            <br />
+	            <p class="lead"><wicket:message key="header"/></p>
+				<div wicket:id="commentPanel"/>
+			 			
+			    <hr />
+			    
+			    <div wicket:id="addCommentPanel" />
+			    
+			    <hr />
+			
+			    <h3 wicket:id="caretaFix"><wicket:message key="recommendations"/></h3>
+			    <div wicket:id="recommended" />
+			
+			</div>
+		
+		</wicket:extend>
+	</body>
+</html>

@@ -18,7 +18,6 @@ import ar.edu.itba.it.paw.domain.restaurant.RestaurantState;
 import ar.edu.itba.it.paw.domain.user.User;
 import ar.edu.itba.it.paw.domain.user.UserRepo;
 import ar.edu.itba.it.paw.domain.user.UserType;
-import ar.edu.itba.it.paw.utils.Utils;
 
 public class RestaurantTest {
 
@@ -35,6 +34,12 @@ public class RestaurantTest {
 		public void save(User user) {}
 		@Override
 		public List<User> getAll() {return null;}
+		@Override
+		public User get(String username) {return null;}
+		@Override
+		public User getByToken(String token) {
+			return null;
+		}
 	}
 
 	class MockFoodTypeRepo implements FoodTypeRepo {
@@ -54,10 +59,7 @@ public class RestaurantTest {
 	@Before
 	public void init() {
 
-		Utils utils = new Utils();
 
-		utils.setUserRepo(new MockUserRepo());
-		utils.setFoodTypeRepo(new MockFoodTypeRepo());
 
 		Picture picture = new Picture(new byte[1], "");
 
