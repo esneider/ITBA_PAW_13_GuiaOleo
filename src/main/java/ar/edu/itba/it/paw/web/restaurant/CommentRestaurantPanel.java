@@ -66,25 +66,34 @@ public class CommentRestaurantPanel extends Panel {
 		group.add(new Radio<Integer>("4", new Model<Integer>(4)));
 		group.add(new Radio<Integer>("5", new Model<Integer>(5)));
 
-		RestaurantWicketSession session = RestaurantWicketSession.get();
+		WebMarkupContainer comment = new WebMarkupContainer("commentField") {
+			
+			private static final long serialVersionUID = -3416935840540177247L;
 
-		boolean signed = session.isSignedIn();
-		boolean rated = false;
-
-		if (signed) {
-			User user = session.getUser();
-			Rating rate = restaurantModel.getObject().getUserRating(user);
-			rated = rate != null;
-		}
-
-		WebMarkupContainer comment = new WebMarkupContainer("commentField");
+			@Override
+			public boolean isVisible() {
+				RestaurantWicketSession session = RestaurantWicketSession.get();
+				User user = session.getUser();
+				Rating rate = restaurantModel.getObject().getUserRating(user);
+				return session.isSignedIn() && (rate == null);
+			}
+		};
 		comment.add(form);
-		comment.setVisible(signed && !rated);
 		add(comment);
 
 		WebMarkupContainer alreadyCommented = new WebMarkupContainer(
-				"alreadyCommentedField");
-		alreadyCommented.setVisible(rated);
+				"alreadyCommentedField") {
+
+			private static final long serialVersionUID = 2133729906490332751L;
+
+			@Override
+			public boolean isVisible() {
+				RestaurantWicketSession session = RestaurantWicketSession.get();
+				User user = session.getUser();
+				Rating rate = restaurantModel.getObject().getUserRating(user);
+				return session.isSignedIn() && (rate != null);
+			}
+		};
 		add(alreadyCommented);
 
 		WebMarkupContainer login = new WebMarkupContainer("loginField");
@@ -96,8 +105,12 @@ public class CommentRestaurantPanel extends Panel {
 			public void onClick() {
 				setResponsePage(LoginRegisterPage.class);
 			}
+			
+			@Override
+			public boolean isVisible() {
+				return !RestaurantWicketSession.get().isSignedIn();
+			}
 		});
-		login.setVisible(!signed);
 		add(login);
 	}
 }

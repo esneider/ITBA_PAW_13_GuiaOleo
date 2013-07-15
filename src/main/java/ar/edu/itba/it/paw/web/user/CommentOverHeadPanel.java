@@ -34,10 +34,9 @@ public class CommentOverHeadPanel extends Panel {
 						.like(ratingModel.getObject());
 			}
 		};
-		likeLink.add(new Label("useful", new StringResourceModel("useful", new Model<Serializable>(ratingModel.getObject().getLikeAmmount()))));
-
-//		likeLink.add(new Label("ammount", String.valueOf(ratingModel
-//				.getObject().getLikeAmmount())));
+		likeLink.add(new Label("useful", new StringResourceModel("useful",
+				new Model<Serializable>(ratingModel.getObject()
+						.getLikeAmmount()))));
 
 		Link<Void> unLikeLink = new Link<Void>("unlike") {
 
@@ -49,10 +48,9 @@ public class CommentOverHeadPanel extends Panel {
 						.unlike(ratingModel.getObject());
 			}
 		};
-		unLikeLink.add(new Label("notUseful", new StringResourceModel("notUseful", new Model<Serializable>(ratingModel.getObject().getUnlikeAmmount()))));
-
-//		unLikeLink.add(new Label("ammount", String.valueOf(ratingModel
-//				.getObject().getUnlikeAmmount())));
+		unLikeLink.add(new Label("notUseful", new StringResourceModel(
+				"notUseful", new Model<Serializable>(ratingModel.getObject()
+						.getUnlikeAmmount()))));
 
 		add(likeLink);
 		add(unLikeLink);

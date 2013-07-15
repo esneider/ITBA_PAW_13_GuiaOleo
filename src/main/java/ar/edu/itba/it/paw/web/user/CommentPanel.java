@@ -13,6 +13,7 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
+import org.apache.wicket.model.Model;
 
 import ar.edu.itba.it.paw.domain.EntityModel;
 import ar.edu.itba.it.paw.domain.restaurant.Rating;
@@ -108,8 +109,9 @@ public class CommentPanel extends Panel {
 				}.add(new Label("restaurant.name", item.getModelObject()
 						.getRestaurant().getName())));
 
-				// item.add(new Label("restaurantName", item.getModelObject()
-				// .getRestaurant().getName()));
+				item.add(new Label("totalScore", new Model<String>(String
+						.valueOf(item.getModelObject().getLikedScore()))));
+
 				item.add(ImageProvider.getImage("img", item.getModelObject()
 						.getUser()));
 				item.add(new CommentOverHeadPanel("overhead",
