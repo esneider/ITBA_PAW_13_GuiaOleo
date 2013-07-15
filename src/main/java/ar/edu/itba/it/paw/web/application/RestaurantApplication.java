@@ -19,6 +19,7 @@ import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
 import ar.edu.itba.it.paw.domain.user.User;
 import ar.edu.itba.it.paw.domain.user.UserRepo;
 import ar.edu.itba.it.paw.web.RestaurantWicketSession;
+import ar.edu.itba.it.paw.web.auth.ResetPasswordPage;
 import ar.edu.itba.it.paw.web.common.ErrorRequestCycleListener;
 import ar.edu.itba.it.paw.web.common.HibernateRequestCycleListener;
 import ar.edu.itba.it.paw.web.converter.FoodTypeConverter;
@@ -54,7 +55,7 @@ public class RestaurantApplication extends WebApplication {
 		getRequestCycleListeners().add(
 				new HibernateRequestCycleListener(sessionFactory));
 		getRequestCycleListeners().add(new ErrorRequestCycleListener());
-
+		mountPage("/resetPassword", ResetPasswordPage.class); 
 	}
 
 	@Override
